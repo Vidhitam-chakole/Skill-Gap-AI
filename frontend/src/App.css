@@ -1,0 +1,68 @@
+.app {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.app--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app__main {
+  margin-left: var(--nav-width);
+  min-height: 100vh;
+}
+
+.home__section {
+  position: relative;
+}
+
+.home__section--bento {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(0, 0, 0, 0.02) 20px,
+    rgba(0, 0, 0, 0.02) 40px
+  );
+}
+
+.home__footer {
+  border-top: var(--border);
+  background: var(--black);
+  color: var(--white);
+  padding: 3rem;
+  text-align: center;
+}
+
+.home__footer-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home__footer-logo {
+  width: 80px;
+  filter: brightness(1.2);
+}
+
+.home__footer p {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.home__footer-copy {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--orange);
+}
+
+@media (max-width: 768px) {
+  .app__main {
+    margin-left: 0;
+    padding-top: 64px;
+  }
+}
