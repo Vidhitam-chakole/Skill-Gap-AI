@@ -1,0 +1,197 @@
+:root {
+  --orange: #ff6b1a;
+  --orange-light: #ff8c42;
+  --yellow: #ffe600;
+  --pink: #ff3d9a;
+  --cyan: #00e5ff;
+  --lime: #b8ff00;
+  --purple: #9b5de5;
+  --black: #0a0a0a;
+  --white: #fafafa;
+  --cream: #f5f0e8;
+  --border: 4px solid var(--black);
+  --shadow: 8px 8px 0 var(--black);
+  --shadow-lg: 12px 12px 0 var(--black);
+  --shadow-hover: 4px 4px 0 var(--black);
+  --font-display: 'Archivo Black', 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-kinetic: 'Syne', sans-serif;
+  --nav-width: 80px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--black);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea {
+  font-family: var(--font-body);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Neo-brutalist utilities */
+.brutal-border {
+  border: var(--border);
+}
+
+.brutal-shadow {
+  box-shadow: var(--shadow);
+}
+
+.brutal-card {
+  border: var(--border);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brutal-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.brutal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.brutal-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.brutal-btn--primary {
+  background: var(--orange);
+  color: var(--black);
+}
+
+.brutal-btn--secondary {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.brutal-btn--dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.brutal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px) rotate(-2deg);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px) rotate(2deg);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* Severity badges */
+.severity-high { background: var(--pink); }
+.severity-medium { background: var(--yellow); }
+.severity-low { background: var(--cyan); }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border: 2px solid var(--black);
+}
+
+/* Selection */
+::selection {
+  background: var(--orange);
+  color: var(--black);
+}

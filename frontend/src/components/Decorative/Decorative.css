@@ -1,0 +1,103 @@
+.deco-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.deco-shapes__item {
+  position: absolute;
+  border: 3px solid var(--black);
+  animation: floatDeco 5s ease-in-out infinite;
+}
+
+.deco-shapes__item--star {
+  top: 10%;
+  right: 5%;
+  font-size: 2rem;
+  color: var(--yellow);
+  border: none;
+  animation-delay: 0s;
+}
+
+.deco-shapes__item--circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--cyan);
+  bottom: 20%;
+  left: 3%;
+  animation-delay: 1s;
+}
+
+.deco-shapes__item--triangle {
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 52px solid var(--pink);
+  top: 50%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.deco-shapes__item--cross {
+  top: 30%;
+  left: 20%;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--orange);
+  border: none;
+  animation-delay: 0.5s;
+}
+
+@keyframes floatDeco {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+.section-header {
+  margin-bottom: 3rem;
+  transform: rotate(var(--rotate, -1deg));
+}
+
+.section-header__tag {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: var(--black);
+  color: var(--lime);
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border: 3px solid var(--black);
+}
+
+.section-header__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  margin-bottom: 0.75rem;
+}
+
+.section-header__subtitle {
+  font-size: 1.1rem;
+  max-width: 560px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.sticker {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  border: var(--border);
+  box-shadow: var(--shadow);
+}
+
+.sticker--yellow { background: var(--yellow); }
+.sticker--pink { background: var(--pink); color: var(--white); }
+.sticker--cyan { background: var(--cyan); }
+.sticker--lime { background: var(--lime); }

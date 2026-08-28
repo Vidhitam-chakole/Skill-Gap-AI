@@ -1,0 +1,10 @@
+.app {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  min-height: 100vh;
+}
+
+.app--hidden {
+  opacity: 0;
+  pointer-events: none;
+}

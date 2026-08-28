@@ -1,0 +1,262 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 4rem 3rem 4rem 2rem;
+  overflow: hidden;
+}
+
+.hero__bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero__shape {
+  position: absolute;
+  border: var(--border);
+}
+
+.hero__shape--1 {
+  width: 200px;
+  height: 200px;
+  background: var(--yellow);
+  top: 15%;
+  right: 10%;
+  transform: rotate(15deg);
+  opacity: 0.7;
+}
+
+.hero__shape--2 {
+  width: 140px;
+  height: 140px;
+  background: var(--pink);
+  border-radius: 50%;
+  bottom: 20%;
+  left: 5%;
+  opacity: 0.6;
+}
+
+.hero__shape--3 {
+  width: 80px;
+  height: 80px;
+  background: var(--cyan);
+  top: 40%;
+  left: 40%;
+  transform: rotate(45deg);
+  opacity: 0.5;
+}
+
+.hero__sticker {
+  position: absolute;
+  padding: 0.5rem 1.25rem;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  z-index: 5;
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+.hero__sticker--new {
+  background: var(--lime);
+  top: 8%;
+  left: 45%;
+  transform: rotate(-8deg);
+}
+
+.hero__sticker--ai {
+  background: var(--purple);
+  color: var(--white);
+  bottom: 12%;
+  right: 8%;
+  transform: rotate(5deg);
+  animation-delay: 1s;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(-4deg) scale(1.05); }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+
+.hero__eyebrow {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.hero__title {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero__title-line {
+  display: block;
+}
+
+.hero__title-line--accent {
+  color: var(--orange);
+  -webkit-text-stroke: 2px var(--black);
+  text-shadow: 6px 6px 0 var(--black);
+}
+
+.hero__title-line--small {
+  font-size: 0.55em;
+  color: var(--black);
+  margin-top: 0.25rem;
+}
+
+.hero__desc {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero__visual {
+  position: relative;
+  height: 420px;
+  z-index: 2;
+}
+
+.hero__card {
+  position: absolute;
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.hero__card:hover {
+  transform: translate(-4px, -4px) rotate(0deg) !important;
+}
+
+.hero__card--1 {
+  background: var(--orange);
+  top: 10%;
+  right: 20%;
+  transform: rotate(6deg);
+  width: 160px;
+}
+
+.hero__card--2 {
+  background: var(--yellow);
+  bottom: 25%;
+  right: 5%;
+  transform: rotate(-4deg);
+  width: 180px;
+}
+
+.hero__card--3 {
+  background: var(--white);
+  top: 35%;
+  left: 10%;
+  transform: rotate(-8deg);
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.hero__card-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero__card-value {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.hero__card-logo {
+  width: 80%;
+  filter: drop-shadow(4px 4px 0 var(--black));
+}
+
+.hero__arrow-deco {
+  position: absolute;
+  bottom: 10%;
+  left: 30%;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--black);
+  animation: arrowBounce 2s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -10px); }
+}
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+}
+
+.hero__scroll-line {
+  width: 2px;
+  height: 40px;
+  background: var(--black);
+  animation: scrollPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.5); opacity: 0.4; }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 6rem 1.5rem 3rem;
+    min-height: auto;
+  }
+
+  .hero__visual {
+    height: 300px;
+    margin-top: 2rem;
+  }
+
+  .hero__sticker--new {
+    left: auto;
+    right: 5%;
+  }
+}
