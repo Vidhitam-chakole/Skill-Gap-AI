@@ -1,0 +1,134 @@
+.roadmap {
+  position: relative;
+  padding: 6rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.roadmap__sticker {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.roadmap__panel {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.roadmap__hint {
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+.roadmap__error {
+  padding: 0.75rem 1rem;
+  background: var(--pink);
+  border: 3px solid var(--black);
+  font-weight: 600;
+}
+
+.roadmap__results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.roadmap__score {
+  padding: 2rem;
+  background: var(--lime);
+  max-width: 640px;
+}
+
+.roadmap__score-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.roadmap__score-value {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  line-height: 1;
+  display: block;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.roadmap__priorities {
+  padding: 1.75rem;
+}
+
+.roadmap__priorities ul,
+.roadmap__week ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.roadmap__priorities li,
+.roadmap__week li {
+  padding: 0.85rem 1rem;
+  background: var(--cream);
+  border: 3px solid var(--black);
+}
+
+.roadmap__priority-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.roadmap__source {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.roadmap__weeks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.roadmap__week {
+  padding: 1.5rem;
+  background: var(--white);
+}
+
+.roadmap__week:nth-child(1) { background: var(--orange); }
+.roadmap__week:nth-child(2) { background: var(--yellow); }
+.roadmap__week:nth-child(3) { background: var(--cyan); }
+.roadmap__week:nth-child(4) { background: var(--pink); color: var(--white); }
+
+.roadmap__week-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.roadmap__week h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .roadmap {
+    padding: 4rem 1.5rem;
+  }
+
+  .roadmap__sticker {
+    position: static;
+    margin-bottom: 1rem;
+  }
+}
