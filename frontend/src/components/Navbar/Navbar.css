@@ -1,0 +1,141 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--nav-width);
+  height: 100vh;
+  background: var(--black);
+  border-right: var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 0;
+  z-index: 1000;
+  gap: 2rem;
+}
+
+.navbar__logo {
+  width: 52px;
+  height: 52px;
+  border: 3px solid var(--orange);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--cream);
+  flex-shrink: 0;
+}
+
+.navbar__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.navbar__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 0.5rem;
+  color: var(--white);
+  transition: all 0.2s ease;
+  border: 3px solid transparent;
+  width: 64px;
+}
+
+.navbar__link:hover {
+  color: var(--orange);
+  transform: scale(1.1);
+}
+
+.navbar__link--active {
+  background: var(--orange);
+  color: var(--black);
+  border-color: var(--black);
+  box-shadow: 3px 3px 0 var(--yellow);
+}
+
+.navbar__icon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.navbar__label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.navbar__decor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.navbar__star {
+  color: var(--yellow);
+  font-size: 1.2rem;
+  animation: spin 4s linear infinite;
+}
+
+.navbar__arrow {
+  color: var(--cyan);
+  font-size: 1.5rem;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%;
+    height: 64px;
+    flex-direction: row;
+    padding: 0 1rem;
+    border-right: none;
+    border-bottom: var(--border);
+  }
+
+  .navbar__links {
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .navbar__link {
+    width: auto;
+    flex-direction: row;
+    padding: 0.4rem 0.45rem;
+  }
+
+  .navbar__label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 0.58rem;
+  }
+
+  .navbar__decor {
+    display: none;
+  }
+}
