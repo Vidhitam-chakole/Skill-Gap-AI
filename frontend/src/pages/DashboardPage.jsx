@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Roadmap from '../components/Roadmap/Roadmap';
 import ChatBot from '../components/ChatBot/ChatBot';
+import SkillPlusChatbot from '../components/ChatBot/SkillPlusChatbot';
 import { useAnalysis } from '../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../components/Decorative/Decorative';
 import './DashboardPage.css';
@@ -315,58 +316,6 @@ function SkillsSection() {
   );
 }
 
-function ArchitectureSection() {
-  const { githubResult, analysisLoading } = useAnalysis();
-
-  if (analysisLoading) {
-    return (
-      <section className="dash-section">
-        <SectionHeader
-          tag="// architecture"
-          title="Architecture Analysis"
-          subtitle="Code architecture patterns, project structure, and design insights."
-          rotate={-2}
-        />
-        <AnalysisLoading username="your username" />
-      </section>
-    );
-  }
-
-  return (
-    <section className="dash-section">
-      <SectionHeader
-        tag="// architecture"
-        title="Architecture Analysis"
-        subtitle="Code architecture patterns, project structure, and design insights."
-        rotate={-2}
-      />
-      {githubResult ? (
-        <div className="dash-content">
-          <div className="arch__cards">
-            {githubResult.pinnedRepos?.map((repo, i) => (
-              <div key={i} className="arch__card brutal-card reveal">
-                <h3 className="arch__card-title">{repo.name}</h3>
-                <div className="arch__card-meta">
-                  <span className="arch__card-lang">{repo.language}</span>
-                  <span className="arch__card-stars">★ {repo.stars}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="arch__note">
-            <Sticker color="yellow" rotation={-2}>coming soon</Sticker>
-            <p>Deep architecture analysis will be available in a future update.</p>
-          </div>
-        </div>
-      ) : (
-        <div className="dash-empty brutal-card">
-          <p>Run a GitHub analysis to see architecture insights.</p>
-        </div>
-      )}
-    </section>
-  );
-}
-
 function QualitySection() {
   const { githubResult, analysisLoading } = useAnalysis();
 
@@ -475,93 +424,6 @@ function ReportSection() {
   );
 }
 
-function RecommendationsSection() {
-  const { linkedinResult, githubResult, analysisLoading } = useAnalysis();
-  const hasData = linkedinResult || githubResult;
-
-  const allGaps = [
-    ...(linkedinResult?.skillGaps || []).map((g) => ({ ...g, source: 'LinkedIn' })),
-    ...(githubResult?.skillGaps || []).map((g) => ({ ...g, source: 'GitHub' })),
-  ];
-
-  if (analysisLoading) {
-    return (
-      <section className="dash-section">
-        <SectionHeader
-          tag="// recommendations"
-          title="Recommendations"
-          subtitle="Personalized recommendations based on your analyzed profiles."
-          rotate={-1}
-        />
-        <AnalysisLoading username="your username" />
-      </section>
-    );
-  }
-
-  return (
-    <section className="dash-section">
-      <SectionHeader
-        tag="// recommendations"
-        title="Recommendations"
-        subtitle="Personalized recommendations based on your analyzed profiles."
-        rotate={-1}
-      />
-      {hasData ? (
-        <div className="dash-content">
-          <div className="recs__list">
-            {allGaps.length > 0 ? (
-              allGaps
-                .sort((a, b) => {
-                  const order = { high: 0, medium: 1, low: 2 };
-                  return (order[a.severity] ?? 3) - (order[b.severity] ?? 3);
-                })
-                .map((gap, i) => (
-                  <div key={i} className="recs__item brutal-card reveal">
-                    <div className="recs__item-head">
-                      <span className={`analyzer__severity severity-${gap.severity}`}>
-                        {gap.severity}
-                      </span>
-                      <strong>{gap.skill}</strong>
-                      <span className="recs__item-source">{gap.source}</span>
-                    </div>
-                    <p>{gap.recommendation}</p>
-                  </div>
-                ))
-            ) : (
-              <div className="dash-empty brutal-card">
-                <p>No recommendations yet — analysis data is clean!</p>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="dash-empty brutal-card">
-          <p>Run an analysis to get personalized recommendations.</p>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function WorkspaceSection() {
-  return (
-    <section className="dash-section">
-      <SectionHeader
-        tag="// workspace"
-        title="Learning Workspace"
-        subtitle="Your personal space for tracking learning progress and goals."
-        rotate={1}
-      />
-      <div className="dash-content">
-        <div className="workspace__placeholder brutal-card">
-          <Sticker color="purple" rotation={-3}>coming soon</Sticker>
-          <p>The AI-powered learning workspace will be connected to the AI/Botpress layer in a future update.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ExportSection() {
   return (
     <section className="dash-section">
@@ -621,13 +483,10 @@ const SECTIONS = {
   overview: OverviewSection,
   repositories: RepositoriesSection,
   skills: SkillsSection,
-  architecture: ArchitectureSection,
   quality: QualitySection,
   report: ReportSection,
-  recommendations: RecommendationsSection,
   roadmap: Roadmap,
   'ai-mentor': ChatBot,
-  workspace: WorkspaceSection,
   export: ExportSection,
   settings: SettingsSection,
 };
@@ -666,6 +525,8 @@ export default function DashboardPage({ onResetOnboarding }) {
           <ActiveComponent />
         )}
       </div>
+
+      <SkillPlusChatbot />
     </div>
   );
 }

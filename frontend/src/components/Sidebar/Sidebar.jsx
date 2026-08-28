@@ -7,7 +7,6 @@ const NAV_GROUPS = [
       { id: 'overview', label: 'Overview', icon: '◎' },
       { id: 'repositories', label: 'Repositories', icon: '▦' },
       { id: 'skills', label: 'Skills', icon: '◆' },
-      { id: 'architecture', label: 'Architecture', icon: '◇' },
       { id: 'quality', label: 'Quality', icon: '■' },
       { id: 'report', label: 'Report', icon: '▤' },
     ],
@@ -15,7 +14,6 @@ const NAV_GROUPS = [
   {
     label: 'Career Intelligence',
     items: [
-      { id: 'recommendations', label: 'Recommendations', icon: '★' },
       { id: 'roadmap', label: 'Roadmap', icon: '→' },
     ],
   },
@@ -23,7 +21,6 @@ const NAV_GROUPS = [
     label: 'AI',
     items: [
       { id: 'ai-mentor', label: 'AI Mentor', icon: 'AI' },
-      { id: 'workspace', label: 'Workspace', icon: '⊞' },
     ],
   },
   {
