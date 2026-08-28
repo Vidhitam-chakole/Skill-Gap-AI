@@ -2,10 +2,13 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import settings
 from app.routers import chat, github, linkedin, roadmap
+from app.services.github_service import analyze_github_user
+from app.services.store import save_github_result
 
 app = FastAPI(title="SkillGap AI API", version="1.0.0")
 
@@ -48,3 +51,21 @@ async def validation_exception_handler(_request: Request, exc: RequestValidation
 @app.get("/api/health")
 async def health_check() -> dict[str, str]:
     return {"status": "ok", "service": "SkillGap AI API"}
+
+
+class AnalysisRequest(BaseModel):
+    username: str = Field(min_length=1)
+
+
+@app.post("/api/analysis")
+async def analyze(body: AnalysisRequest):
+    """Unified analysis endpoint — delegates to the existing GitHub analyzer."""
+    try:
+        result = await analyze_github_user(body.username)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Analysis failed: {exc}") from exc
+
+    save_github_result(result)
+    return result
