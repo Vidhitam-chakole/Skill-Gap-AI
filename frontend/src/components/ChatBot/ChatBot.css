@@ -50,6 +50,18 @@
   font-weight: 600;
 }
 
+.chatbot__webchat {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.chatbot__webchat > div,
+.chatbot__webchat > div > div {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 .chatbot__messages {
   flex: 1;
   overflow-y: auto;

@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Roadmap from '../components/Roadmap/Roadmap';
 import ChatBot from '../components/ChatBot/ChatBot';
-import SkillPlusChatbot from '../components/ChatBot/SkillPlusChatbot';
 import { useAnalysis } from '../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../components/Decorative/Decorative';
 import './DashboardPage.css';
@@ -526,7 +525,6 @@ export default function DashboardPage({ onResetOnboarding }) {
         )}
       </div>
 
-      <SkillPlusChatbot />
     </div>
   );
 }
