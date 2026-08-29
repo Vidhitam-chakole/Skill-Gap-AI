@@ -46,7 +46,7 @@ export default function Hero({ onNavigate }) {
           <span className="hero__card-value">4</span>
         </div>
         <div className="hero__card hero__card--3">
-          <img src="/logo.svg" alt="" className="hero__card-logo" />
+          <img src="/logo.png" alt="" className="hero__card-logo" />
         </div>
         <div className="hero__arrow-deco" aria-hidden="true">→</div>
       </div>

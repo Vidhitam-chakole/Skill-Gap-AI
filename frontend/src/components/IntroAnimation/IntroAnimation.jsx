@@ -1,60 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './IntroAnimation.css';
 
 export default function IntroAnimation({ onComplete }) {
-  const [phase, setPhase] = useState('enter');
+  const videoRef = useRef(null);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase('logo'), 400),
-      setTimeout(() => setPhase('visual'), 1400),
-      setTimeout(() => setPhase('zoom'), 2800),
-      setTimeout(() => setPhase('exit'), 4200),
-      setTimeout(() => onComplete(), 5200),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const video = videoRef.current;
+    if (!video) return;
+
+    // When video ends, close the intro
+    const handleVideoEnd = () => {
+      setTimeout(() => onComplete(), 500);
+    };
+
+    // Mark video as ready when it can play
+    const handleCanPlay = () => {
+      setIsVideoReady(true);
+    };
+
+    video.addEventListener('ended', handleVideoEnd);
+    video.addEventListener('canplay', handleCanPlay);
+
+    // Auto-close after 10 seconds max (in case video doesn't end)
+    const maxTimer = setTimeout(() => onComplete(), 10000);
+
+    return () => {
+      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener('canplay', handleCanPlay);
+      clearTimeout(maxTimer);
+    };
   }, [onComplete]);
 
   return (
-    <div className={`intro ${phase}`}>
-      <div className="intro__bg">
-        <div className="intro__grid" />
-        <div className="intro__orb intro__orb--1" />
-        <div className="intro__orb intro__orb--2" />
-        <div className="intro__orb intro__orb--3" />
-      </div>
-
-      <div className="intro__content">
-        <div className="intro__logo-wrap">
-          <img src="/logo.svg" alt="SkillGap AI" className="intro__logo" />
-          <p className="intro__tagline">SkillGap AI</p>
-        </div>
-
-        <div className="intro__visual">
-          <div className="intro__terminal">
-            <div className="intro__terminal-bar">
-              <span /><span /><span />
-            </div>
-            <div className="intro__terminal-body">
-              <p className="intro__line"><span className="intro__prompt">&gt;</span> analyzing skill gaps...</p>
-              <p className="intro__line intro__line--delay"><span className="intro__prompt">&gt;</span> scanning profiles...</p>
-              <p className="intro__line intro__line--delay2"><span className="intro__prompt">&gt;</span> building your roadmap<span className="intro__cursor">_</span></p>
-            </div>
-          </div>
-
-          <div className="intro__badges">
-            <span className="intro__badge">LinkedIn</span>
-            <span className="intro__badge intro__badge--gh">GitHub</span>
-            <span className="intro__badge intro__badge--ai">AI</span>
-          </div>
-        </div>
-      </div>
+    <div className="intro intro--video">
+      <video
+        ref={videoRef}
+        className="intro__video"
+        autoPlay
+        muted
+        playsInline
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <source src="/intro.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
       <button type="button" className="intro__skip" onClick={onComplete}>
         Skip
       </button>
-
-      <div className="intro__zoom-layer" />
     </div>
   );
 }
+
