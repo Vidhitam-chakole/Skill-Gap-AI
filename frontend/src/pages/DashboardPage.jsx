@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Roadmap from '../components/Roadmap/Roadmap';
 import ChatBot from '../components/ChatBot/ChatBot';
 import { useAnalysis } from '../context/AnalysisContext';
+import { useOnboarding } from '../context/OnboardingContext';
 import { SectionHeader, Sticker } from '../components/Decorative/Decorative';
 import './DashboardPage.css';
 
@@ -496,11 +497,13 @@ export default function DashboardPage({ onResetOnboarding }) {
   const [activeSection, setActiveSection] = useState('overview');
   const scrollRef = useScrollReveal();
   const { githubUsername, githubResult, analyzeGithub } = useAnalysis();
+  const { githubUrl } = useOnboarding();
 
-  // Auto-trigger analysis if username exists but no results yet
+  // Auto-trigger analysis on mount: use context username first, then fall back to persisted onboarding URL
   useEffect(() => {
-    if (githubUsername && !githubResult) {
-      analyzeGithub(githubUsername).catch(() => {
+    const username = githubUsername || githubUrl;
+    if (username && !githubResult) {
+      analyzeGithub(username).catch(() => {
         // Error is stored in AnalysisContext
       });
     }
