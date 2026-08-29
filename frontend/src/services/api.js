@@ -52,6 +52,17 @@ export const linkedInApi = {
       method: 'POST',
       body: JSON.stringify({ profileUrl }),
     }),
+  analyzeResume: async (file) => {
+    const url = `${API_BASE_URL}/linkedin/analyze-resume`;
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch(url, { method: 'POST', body: formData });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(formatError(error, response.status));
+    }
+    return response.json();
+  },
   getResults: (analysisId) => request(`/linkedin/results/${analysisId}`),
 };
 

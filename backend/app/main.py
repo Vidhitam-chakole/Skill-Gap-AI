@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -8,7 +8,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.config import settings
 from app.routers import chat, github, linkedin, roadmap
 from app.services.github_service import analyze_github_user
-from app.services.store import save_github_result
+from app.services.linkedin_resume_service import analyze_resume
+from app.services.store import save_github_result, save_linkedin_result
 
 app = FastAPI(title="SkillGap AI API", version="1.0.0")
 
@@ -68,4 +69,22 @@ async def analyze(body: AnalysisRequest):
         raise HTTPException(status_code=502, detail=f"Analysis failed: {exc}") from exc
 
     save_github_result(result)
+    return result
+
+
+@app.post("/api/linkedin/analyze-resume")
+async def analyze_linkedin_resume(file: UploadFile = File(...)):
+    """Accept a PDF resume, extract skills and experience, return LinkedInResult."""
+    if not file.filename or not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Upload a PDF resume")
+    try:
+        contents = await file.read()
+        import io
+        result = analyze_resume(io.BytesIO(contents), file.filename)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Unable to analyze resume: {exc}") from exc
+
+    save_linkedin_result(result)
     return result

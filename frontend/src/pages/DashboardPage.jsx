@@ -496,10 +496,22 @@ const SECTIONS = {
 export default function DashboardPage({ onResetOnboarding }) {
   const [activeSection, setActiveSection] = useState('overview');
   const scrollRef = useScrollReveal();
-  const { githubUsername, githubResult, analyzeGithub } = useAnalysis();
+  const { githubUsername, githubResult, linkedinResult, setLinkedinResult, analyzeGithub } = useAnalysis();
   const { githubUrl } = useOnboarding();
 
-  // Auto-trigger analysis on mount: use context username first, then fall back to persisted onboarding URL
+  // Restore persisted LinkedIn result on mount (for returning users)
+  useEffect(() => {
+    if (!linkedinResult) {
+      try {
+        const saved = localStorage.getItem('skillgap-linkedin-result');
+        if (saved) {
+          setLinkedinResult(JSON.parse(saved));
+        }
+      } catch { /* ignore */ }
+    }
+  }, []);
+
+  // Auto-trigger GitHub analysis on mount
   useEffect(() => {
     const username = githubUsername || githubUrl;
     if (username && !githubResult) {

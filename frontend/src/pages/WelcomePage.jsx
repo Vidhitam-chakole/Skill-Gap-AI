@@ -1,16 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useOnboarding } from '../context/OnboardingContext';
 import { useAnalysis } from '../context/AnalysisContext';
+import { linkedInApi, USE_MOCK } from '../services/api';
+import { mockLinkedInResults } from '../data/mockData';
 import { FloatingShapes } from '../components/Decorative/Decorative';
 import './WelcomePage.css';
 
+const LINKEDIN_RESULT_KEY = 'skillgap-linkedin-result';
+
 export default function WelcomePage() {
-  const { linkedinUrl, githubUrl, setLinkedinUrl, setGithubUrl, completeOnboarding } = useOnboarding();
-  const { analyzeGithub, analysisLoading, analysisError } = useAnalysis();
-  const [localLinkedin, setLocalLinkedin] = useState(linkedinUrl);
+  const { githubUrl, setGithubUrl, completeOnboarding } = useOnboarding();
+  const { setLinkedinResult, analyzeGithub, analysisLoading, analysisError } = useAnalysis();
   const [localGithub, setLocalGithub] = useState(githubUrl);
+  const [linkedinFile, setLinkedinFile] = useState(null);
+  const [linkedinFileName, setLinkedinFileName] = useState('');
   const [exiting, setExiting] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [linkedinError, setLinkedinError] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const el = document.querySelector('.welcome-page__content');
@@ -20,21 +27,58 @@ export default function WelcomePage() {
     });
   }, []);
 
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.name.toLowerCase().endsWith('.pdf')) {
+        setLinkedinError('Please upload a PDF resume file.');
+        return;
+      }
+      setLinkedinFile(file);
+      setLinkedinFileName(file.name);
+      setLinkedinError(null);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!localLinkedin.trim() && !localGithub.trim()) return;
+    if (!linkedinFile && !localGithub.trim()) return;
 
-    // Save profile URLs to onboarding context
-    setLinkedinUrl(localLinkedin.trim());
+    setLinkedinError(null);
+    setLinkedinResult(null);
+
+    // Analyze LinkedIn resume (PDF upload)
+    if (linkedinFile) {
+      setAnalyzing(true);
+      try {
+        let data;
+        if (USE_MOCK) {
+          await new Promise((r) => setTimeout(r, 800));
+          data = { ...mockLinkedInResults, profileUrl: `resume:${linkedinFile.name}` };
+        } else {
+          data = await linkedInApi.analyzeResume(linkedinFile);
+        }
+        setLinkedinResult(data);
+        // Persist for returning users
+        try {
+          localStorage.setItem(LINKEDIN_RESULT_KEY, JSON.stringify(data));
+        } catch { /* ignore quota errors */ }
+      } catch (err) {
+        setLinkedinError(err.message || 'LinkedIn analysis failed. You can skip this and continue.');
+      }
+      setAnalyzing(false);
+    }
+
+    // Save GitHub username
     setGithubUrl(localGithub.trim());
 
-    // If GitHub username is provided, trigger analysis before completing onboarding
+    // Analyze GitHub (if provided)
     if (localGithub.trim()) {
       setAnalyzing(true);
       try {
         await analyzeGithub(localGithub.trim());
       } catch {
-        // Error is stored in AnalysisContext — dashboard will show it
+        // Error is stored in AnalysisContext
       }
       setAnalyzing(false);
     }
@@ -42,7 +86,7 @@ export default function WelcomePage() {
     // Transition to dashboard
     setExiting(true);
     setTimeout(() => {
-      completeOnboarding(localLinkedin.trim(), localGithub.trim());
+      completeOnboarding(linkedinFile ? `resume:${linkedinFile.name}` : '', localGithub.trim());
     }, 400);
   };
 
@@ -59,33 +103,54 @@ export default function WelcomePage() {
           <img src="/logo.svg" alt="Skill+" className="welcome-page__logo" />
           <h1 className="welcome-page__title">Welcome to Skill+</h1>
           <p className="welcome-page__subtitle">
-            Build your career profile by connecting your LinkedIn and GitHub.
+            Build your career profile by uploading your resume and connecting GitHub.
           </p>
         </div>
 
         <form className="welcome-page__form" onSubmit={handleSubmit}>
-          {/* LinkedIn Section */}
+          {/* LinkedIn / Resume Section */}
           <div className="welcome-page__field welcome-page__reveal">
             <div className="welcome-page__field-header">
               <span className="welcome-page__field-icon welcome-page__field-icon--linkedin">in</span>
               <div>
-                <label className="welcome-page__label" htmlFor="onboard-linkedin">
-                  LinkedIn
+                <label className="welcome-page__label" htmlFor="onboard-resume">
+                  LinkedIn / Resume
                 </label>
                 <p className="welcome-page__field-hint">
-                  Your professional profile for career analysis
+                  Upload your PDF resume for skill and experience analysis
                 </p>
               </div>
             </div>
-            <input
-              id="onboard-linkedin"
-              type="url"
-              className="welcome-page__input"
-              placeholder="https://linkedin.com/in/your-profile"
-              value={localLinkedin}
-              onChange={(e) => setLocalLinkedin(e.target.value)}
-              disabled={isWorking}
-            />
+            <div className="welcome-page__file-upload">
+              <input
+                ref={fileInputRef}
+                id="onboard-resume"
+                type="file"
+                accept=".pdf"
+                className="welcome-page__file-input"
+                onChange={handleFileChange}
+                disabled={isWorking}
+              />
+              <label
+                htmlFor="onboard-resume"
+                className={`welcome-page__file-label ${linkedinFile ? 'welcome-page__file-label--selected' : ''}`}
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInputRef.current?.click(); } }}
+              >
+                {linkedinFileName ? (
+                  <>
+                    <span className="welcome-page__file-icon">📄</span>
+                    <span className="welcome-page__file-name">{linkedinFileName}</span>
+                    <span className="welcome-page__file-change">Change</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="welcome-page__file-icon">📎</span>
+                    <span>Click to upload PDF resume</span>
+                  </>
+                )}
+              </label>
+            </div>
           </div>
 
           {/* GitHub Section */}
@@ -113,21 +178,21 @@ export default function WelcomePage() {
           </div>
 
           <p className="welcome-page__note welcome-page__reveal">
-            You can provide one or both profiles. Connect both for the most comprehensive analysis.
+            You can provide one or both. Connect both for the most comprehensive analysis.
           </p>
 
-          {analysisError && (
+          {(linkedinError || analysisError) && (
             <div className="welcome-page__error welcome-page__reveal">
-              {analysisError}
+              {linkedinError || analysisError}
             </div>
           )}
 
           <button
             type="submit"
             className="welcome-page__submit brutal-btn brutal-btn--primary welcome-page__reveal"
-            disabled={(!localLinkedin.trim() && !localGithub.trim()) || isWorking}
+            disabled={(!linkedinFile && !localGithub.trim()) || isWorking}
           >
-            {isWorking ? 'Analyzing GitHub…' : 'Continue → Analyze'}
+            {isWorking ? 'Analyzing…' : 'Continue → Analyze'}
           </button>
         </form>
       </div>
