@@ -1,0 +1,474 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   SKILL+ BRUTALISM × NEO-MAXIMALISM DESIGN SYSTEM
+   ============================================================
+   Aesthetic: Raw structural honesty (brutalism) meets
+   maximal density and bold saturated energy (neo-maximalism).
+   Thick borders. Heavy type. Exposed grids. No apologies.
+   ============================================================ */
+
+@theme {
+  /* === CORE: RAW NEUTRALS === */
+  --color-bg-base: #08080A;
+  --color-bg-surface: #111114;
+  --color-bg-surface-alt: #1A1A1F;
+  --color-bg-raised: #222228;
+  --color-bg-inverse: #F0F0F0;
+
+  /* === BORDERS: THICK, RAW, HONEST === */
+  --color-border-subtle: #2A2A32;
+  --color-border-strong: #444450;
+  --color-border-brutal: #FFFFFF;
+  --color-border-accent: var(--color-brand-primary);
+
+  /* === TEXT: HIGH CONTRAST === */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A0A0AA;
+  --color-text-tertiary: #606068;
+  --color-text-inverse: #08080A;
+  --color-text-accent: var(--color-brand-primary);
+
+  /* === BRAND: ACID ELECTRIC === */
+  --color-brand-primary: #B8FF00;
+  --color-brand-primary-hover: #CCFF33;
+  --color-brand-primary-active: #99DD00;
+  --color-brand-secondary: #00D4FF;
+  --color-brand-tertiary: #FF3366;
+  --color-brand-quaternary: #FF8800;
+
+  /* === SEMANTIC: MAXIMALIST SATURATION === */
+  --color-success: #00FF88;
+  --color-warning: #FFB800;
+  --color-danger: #FF2244;
+  --color-info: #00D4FF;
+
+  /* === CONFIDENCE SCALE === */
+  --color-confidence-low: #FF2244;
+  --color-confidence-medium: #FFB800;
+  --color-confidence-high: #00FF88;
+
+  /* === QUALITY SCORE SCALE === */
+  --color-quality-poor: #FF2244;
+  --color-quality-fair: #FFB800;
+  --color-quality-strong: #00FF88;
+
+  /* === CHART PALETTE: MAXIMALIST BURST === */
+  --color-chart-1: #B8FF00;
+  --color-chart-2: #00D4FF;
+  --color-chart-3: #FF3366;
+  --color-chart-4: #FF8800;
+  --color-chart-5: #B98BFF;
+  --color-chart-6: #4DD4D0;
+  --color-chart-7: #FF8AAE;
+  --color-chart-8: #FFE066;
+
+  /* === SPACING: BRUTAL GRID === */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+
+  /* === RADIUS: BRUTALIST — SHARP, RAW === */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-pill: 999px;
+
+  /* === FONT SIZES: HEAVY, COMMANDING === */
+  --font-size-display: 48px;
+  --font-size-heading-xl: 36px;
+  --font-size-heading-lg: 28px;
+  --font-size-heading-md: 20px;
+  --font-size-body-lg: 16px;
+  --font-size-body-md: 15px;
+  --font-size-body-sm: 14px;
+  --font-size-caption: 11px;
+  --font-size-button: 14px;
+  --font-size-code: 13px;
+  --font-size-overline: 10px;
+
+  /* === LINE HEIGHTS === */
+  --line-height-display: 52px;
+  --line-height-heading-xl: 42px;
+  --line-height-heading-lg: 34px;
+  --line-height-heading-md: 28px;
+  --line-height-body-lg: 26px;
+  --line-height-body-md: 24px;
+  --line-height-body-sm: 22px;
+  --line-height-caption: 16px;
+  --line-height-button: 20px;
+  --line-height-code: 20px;
+
+  /* === FONT WEIGHTS === */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* === SHADOWS: HARSH, STRUCTURAL === */
+  --shadow-card: 4px 4px 0px 0px #FFFFFF;
+  --shadow-card-hover: 6px 6px 0px 0px var(--color-brand-primary);
+  --shadow-dropdown: 8px 8px 0px 0px #000000;
+  --shadow-drawer: 12px 0px 0px 0px #000000;
+  --shadow-dialog: 8px 8px 0px 0px var(--color-brand-primary);
+  --shadow-floating: 4px 4px 0px 0px var(--color-brand-tertiary);
+  --shadow-brutal: 3px 3px 0px 0px #FFFFFF;
+  --shadow-brutal-accent: 3px 3px 0px 0px var(--color-brand-primary);
+  --shadow-brutal-danger: 3px 3px 0px 0px var(--color-danger);
+
+  /* === MOTION === */
+  --duration-instant: 80ms;
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-page: 250ms;
+  --duration-drawer: 300ms;
+
+  /* === FONT FAMILIES === */
+  --font-sans: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-heading: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* === DARK MODE (default) === */
+:root {
+  color-scheme: dark;
+  --background: #08080A;
+  --foreground: #FFFFFF;
+  --card: #111114;
+  --card-foreground: #FFFFFF;
+  --popover: #111114;
+  --popover-foreground: #FFFFFF;
+  --primary: #B8FF00;
+  --primary-foreground: #08080A;
+  --secondary: #1A1A1F;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1A1A1F;
+  --muted-foreground: #A0A0AA;
+  --accent: #00D4FF;
+  --accent-foreground: #08080A;
+  --destructive: #FF2244;
+  --border: #2A2A32;
+  --input: #1A1A1F;
+  --ring: #B8FF00;
+  --chart-1: #B8FF00;
+  --chart-2: #00D4FF;
+  --chart-3: #FF3366;
+  --chart-4: #FF8800;
+  --chart-5: #B98BFF;
+  --radius: 4px;
+  --sidebar: #111114;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #B8FF00;
+  --sidebar-primary-foreground: #08080A;
+  --sidebar-accent: #1A1A1F;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A32;
+  --sidebar-ring: #B8FF00;
+}
+
+/* === LIGHT MODE === */
+:root.light {
+  color-scheme: light;
+  --color-bg-base: #F0F0F0;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-surface-alt: #E8E8E8;
+  --color-bg-raised: #FFFFFF;
+  --color-bg-inverse: #08080A;
+  --color-border-subtle: #CCCCCC;
+  --color-border-strong: #999999;
+  --color-border-brutal: #08080A;
+  --color-text-primary: #08080A;
+  --color-text-secondary: #444444;
+  --color-text-tertiary: #888888;
+  --color-text-inverse: #FFFFFF;
+  --color-brand-primary: #006600;
+  --color-brand-primary-hover: #008800;
+  --color-brand-secondary: #006699;
+  --color-success: #008844;
+  --color-warning: #CC8800;
+  --color-danger: #CC0022;
+  --color-info: #006699;
+  --color-confidence-low: #CC0022;
+  --color-confidence-medium: #CC8800;
+  --color-confidence-high: #008844;
+}
+
+/* ============================================================
+   GLOBAL STYLES: BRUTAL × MAXIMALIST
+   ============================================================ */
+
+* {
+  border-color: var(--color-border-subtle);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body-md);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Subtle noise texture overlay for raw feel */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Brutalist selection */
+::selection {
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
+}
+
+/* Raw scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+  border-left: 1px solid var(--color-border-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border: 1px solid var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-primary);
+}
+
+/* ============================================================
+   BRUTALIST COMPONENT UTILITIES
+   ============================================================ */
+
+/* Thick-bordered card */
+.brutal-card {
+  border: 2px solid var(--color-border-strong);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+.brutal-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translate(-2px, -2px);
+}
+
+/* Accent-bordered card */
+.brutal-card-accent {
+  border: 2px solid var(--color-brand-primary);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-brutal-accent);
+}
+
+/* Raw input field */
+.brutal-input {
+  border: 2px solid var(--color-border-strong);
+  background: var(--color-bg-surface-alt);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-body-sm);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+.brutal-input:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: var(--shadow-brutal-accent);
+}
+.brutal-input::placeholder {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+/* Overline label */
+.brutal-overline {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-overline);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* Tag / pill */
+.brutal-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-caption);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  border-radius: var(--radius-sm);
+}
+
+/* Diagonal stripe texture */
+.brutal-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    var(--color-border-subtle) 3px,
+    var(--color-border-subtle) 4px
+  );
+}
+
+/* Dot grid texture */
+.brutal-dots {
+  background-image: radial-gradient(circle, var(--color-border-subtle) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Glitch text effect (for headings) */
+.brutal-glitch {
+  text-shadow:
+    2px 0 var(--color-brand-tertiary),
+    -2px 0 var(--color-brand-secondary);
+}
+
+/* Neon glow */
+.brutal-glow {
+  text-shadow: 0 0 10px var(--color-brand-primary), 0 0 40px var(--color-brand-primary);
+}
+
+/* Accent underline */
+.brutal-underline {
+  text-decoration: none;
+  border-bottom: 3px solid var(--color-brand-primary);
+  padding-bottom: 2px;
+}
+
+/* Maximalist badge */
+.brutal-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-overline);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   SHADCN OVERRIDES: BRUTALIST THEME
+   ============================================================ */
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Space Grotesk', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 10px;
+  --radius-3xl: 12px;
+  --radius-4xl: 14px;
+}
+
+.dark {
+  --background: #08080A;
+  --foreground: #FFFFFF;
+  --card: #111114;
+  --card-foreground: #FFFFFF;
+  --popover: #111114;
+  --popover-foreground: #FFFFFF;
+  --primary: #B8FF00;
+  --primary-foreground: #08080A;
+  --secondary: #1A1A1F;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1A1A1F;
+  --muted-foreground: #A0A0AA;
+  --accent: #00D4FF;
+  --accent-foreground: #08080A;
+  --destructive: #FF2244;
+  --border: #2A2A32;
+  --input: #1A1A1F;
+  --ring: #B8FF00;
+  --chart-1: #B8FF00;
+  --chart-2: #00D4FF;
+  --chart-3: #FF3366;
+  --chart-4: #FF8800;
+  --chart-5: #B98BFF;
+  --sidebar: #111114;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #B8FF00;
+  --sidebar-primary-foreground: #08080A;
+  --sidebar-accent: #1A1A1F;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2A2A32;
+  --sidebar-ring: #B8FF00;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
