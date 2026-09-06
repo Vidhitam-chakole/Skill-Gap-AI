@@ -1,0 +1,6 @@
+$env:JWT_SECRET = "dev-secret-key-change-in-production-1234567890abcdef"
+$env:PORT = "3001"
+$env:NODE_ENV = "development"
+$env:CORS_ORIGIN = "http://localhost:5173"
+Set-Location "C:\Users\Asus\OneDrive\Documents\Desktop\skill+3\apps\api"
+& npx tsx src/index.ts 2>&1 | Tee-Object -FilePath "C:\Users\Asus\OneDrive\Documents\Desktop\skill+3\.freebuff\api-live.log"

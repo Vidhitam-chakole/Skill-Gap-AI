@@ -1,0 +1,19 @@
+{
+  "name": "@skillplus/git-analyzer",
+  "version": "1.0.0",
+  "description": "Filesystem-based git repository analyzer — detects technologies, skills, architecture, and quality",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "analyze": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "glob": "^11.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

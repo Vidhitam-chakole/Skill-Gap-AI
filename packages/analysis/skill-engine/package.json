@@ -1,0 +1,12 @@
+{
+  "name": "@skillplus/skill-engine",
+  "version": "1.0.0",
+  "description": "Standalone skill detection and depth scoring engine — consumes normalized evidence from any source",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
