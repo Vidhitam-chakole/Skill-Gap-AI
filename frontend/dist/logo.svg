@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SkillGap AI">
+  <rect width="512" height="512" fill="#FFE066"/>
+  <rect x="24" y="24" width="464" height="464" fill="#FF6B6B" stroke="#111" stroke-width="16"/>
+  <rect x="72" y="96" width="368" height="96" fill="#4ECDC4" stroke="#111" stroke-width="12"/>
+  <text x="256" y="162" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="54" fill="#111">SG</text>
+  <rect x="96" y="232" width="144" height="144" fill="#FFFFFF" stroke="#111" stroke-width="12" transform="rotate(-8 168 304)"/>
+  <rect x="272" y="248" width="144" height="128" fill="#C77DFF" stroke="#111" stroke-width="12" transform="rotate(6 344 312)"/>
+  <path d="M120 392 H392" stroke="#111" stroke-width="14" stroke-linecap="square"/>
+  <text x="256" y="448" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="34" fill="#111">SKILLGAP</text>
+</svg>

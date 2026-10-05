@@ -73,14 +73,45 @@ async def validation_exception_handler(_request: Request, exc: RequestValidation
     return JSONResponse(status_code=422, content={"message": _error_message(exc.errors())})
 
 
-@app.get("/")
-@app.get("/health")
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+
+DIST_DIR = ROOT_DIR / "frontend" / "dist"
+
 @app.get("/api")
+@app.get("/api/")
 @app.get("/api/health")
+@app.get("/health")
 async def health_check() -> dict[str, str]:
     return {
         "status": "ok",
         "service": "SkillGap AI Modular API",
         "modules": "linkedin_analyzer, github_analyzer, roadmap, ai_agent, skill_verifier",
     }
+
+
+if DIST_DIR.exists():
+    assets_dir = DIST_DIR / "assets"
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        if full_path.startswith("api"):
+            raise StarletteHTTPException(status_code=404, detail="Not Found")
+        target_file = DIST_DIR / full_path
+        if target_file.is_file():
+            return FileResponse(str(target_file))
+        index_file = DIST_DIR / "index.html"
+        if index_file.is_file():
+            return FileResponse(str(index_file))
+        raise StarletteHTTPException(status_code=404, detail="Not Found")
+else:
+    @app.get("/")
+    async def root_fallback():
+        return {
+            "status": "ok",
+            "service": "SkillGap AI Modular API",
+            "message": "Frontend build not detected. Visit /api/health for API status.",
+        }
 
