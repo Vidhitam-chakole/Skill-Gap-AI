@@ -3,7 +3,7 @@ import { gitHubApi, USE_MOCK } from '../../services/api';
 import { mockGitHubResults } from '../../data/mockData';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../Decorative/Decorative';
-import '../LinkedInAnalyzer/Analyzer.css';
+import './Analyzer.css';
 
 export default function GitHubAnalyzer() {
   const { githubResult, setGithubResult, setRoadmap } = useAnalysis();
@@ -31,7 +31,7 @@ export default function GitHubAnalyzer() {
         data = await gitHubApi.analyze(username.trim());
       }
       setGithubResult(data);
-      setRoadmap(null);
+      setRoadmap(null); // Reset roadmap so user can regenerate fresh combined roadmap
     } catch (err) {
       setError(err.message || 'GitHub analysis failed. Please verify the username or link.');
     } finally {

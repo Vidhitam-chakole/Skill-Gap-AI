@@ -72,6 +72,7 @@ export default function ChatBot() {
       }
       setMessages((prev) => [...prev, { role: 'bot', text: botText }]);
     } catch {
+      // Graceful fallback to local mock engine if backend encounters network issues
       const localReply = localMockReply(userMsg, linkedinResult, githubResult);
       setMessages((prev) => [...prev, { role: 'bot', text: localReply }]);
     } finally {

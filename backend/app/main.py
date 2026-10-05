@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Add project root to sys.path so modular folders (linkedin_analyzer, github_analyzer, ai_agent, roadmap) are accessible
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,7 +15,11 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.config import settings
 from app.routers import chat, github, linkedin, roadmap
 
-app = FastAPI(title="SkillGap AI API", version="1.0.0")
+app = FastAPI(
+    title="SkillGap AI - Modular Career Intelligence API",
+    version="2.0.0",
+    description="Backend API powering LinkedIn Review, GitHub Review, Personalized Roadmap, and Local AI Career Agent.",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,10 +29,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount modular routers under /api
 app.include_router(linkedin.router, prefix="/api")
 app.include_router(github.router, prefix="/api")
-app.include_router(chat.router, prefix="/api")
 app.include_router(roadmap.router, prefix="/api")
+app.include_router(chat.router, prefix="/api")
 
 
 def _error_message(detail: object) -> str:
@@ -47,4 +60,8 @@ async def validation_exception_handler(_request: Request, exc: RequestValidation
 
 @app.get("/api/health")
 async def health_check() -> dict[str, str]:
-    return {"status": "ok", "service": "SkillGap AI API"}
+    return {
+        "status": "ok",
+        "service": "SkillGap AI Modular API",
+        "modules": "linkedin_analyzer, github_analyzer, roadmap, ai_agent",
+    }

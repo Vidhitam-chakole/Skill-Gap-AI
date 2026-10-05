@@ -32,7 +32,7 @@ export default function LinkedInAnalyzer() {
         data = await linkedInApi.analyze(profileUrl.trim());
       }
       setLinkedinResult(data);
-      setRoadmap(null);
+      setRoadmap(null); // Reset roadmap so user can regenerate fresh combined roadmap
     } catch (err) {
       setError(err.message || 'LinkedIn analysis failed. Please try again.');
     } finally {

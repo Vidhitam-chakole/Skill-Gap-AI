@@ -1,7 +1,13 @@
+import sys
+from pathlib import Path
 from fastapi import APIRouter, HTTPException
 
-from app.schemas import LinkedInAnalyzeRequest, LinkedInResult
-from app.services.linkedin_service import analyze_linkedin_profile
+ROOT_DIR = Path(__file__).resolve().parents[3]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from linkedin_analyzer.backend.schemas import LinkedInAnalyzeRequest, LinkedInResult
+from linkedin_analyzer.backend.service import analyze_linkedin_profile
 from app.services.store import get_linkedin_result, save_linkedin_result
 
 router = APIRouter(prefix="/linkedin", tags=["linkedin"])

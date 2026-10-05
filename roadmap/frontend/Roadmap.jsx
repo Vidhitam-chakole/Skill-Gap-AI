@@ -12,6 +12,7 @@ export default function Roadmap() {
   const [error, setError] = useState(null);
   const ready = Boolean(linkedinResult || githubResult);
 
+  // Automatically trigger roadmap generation when both analyses are ready and roadmap is not yet built
   useEffect(() => {
     if (linkedinResult && githubResult && !roadmap && !loading) {
       handleBuild();
