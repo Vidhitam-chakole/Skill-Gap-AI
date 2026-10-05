@@ -1,10 +1,19 @@
 import json
+import os
 from pathlib import Path
 
 from app.schemas import GitHubResult, LinkedInResult, RoadmapResult
 
-DATA_DIR = Path(__file__).resolve().parents[2] / "data"
-DATA_DIR.mkdir(parents=True, exist_ok=True)
+if os.environ.get("VERCEL"):
+    DATA_DIR = Path("/tmp") / "skillgap_data"
+else:
+    DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+
+try:
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    DATA_DIR = Path("/tmp") / "skillgap_data"
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 _LI_PATH = DATA_DIR / "linkedin.json"
 _GH_PATH = DATA_DIR / "github.json"
@@ -22,7 +31,10 @@ def _load_map(path: Path) -> dict:
 
 
 def _dump_map(path: Path, payload: dict) -> None:
-    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    try:
+        path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    except OSError:
+        pass
 
 
 def _load_models(path: Path, model):

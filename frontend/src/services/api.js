@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api');
 
 function formatError(payload, status) {
   if (typeof payload?.message === 'string' && payload.message) return payload.message;
@@ -88,3 +88,19 @@ export const roadmapApi = {
     }),
   getRoadmap: (roadmapId) => request(`/roadmap/${roadmapId}`),
 };
+
+export const skillVerifierApi = {
+  getLanguages: () => request('/skill-verifier/languages'),
+  generate: (language, githubAnalysisId = null) =>
+    request('/skill-verifier/generate', {
+      method: 'POST',
+      body: JSON.stringify({ language, githubAnalysisId }),
+    }),
+  submit: ({ quizId, language, answers, timeSpentSeconds = 0 }) =>
+    request('/skill-verifier/submit', {
+      method: 'POST',
+      body: JSON.stringify({ quizId, language, answers, timeSpentSeconds }),
+    }),
+  getResult: (quizId) => request(`/skill-verifier/result/${quizId}`),
+};
+

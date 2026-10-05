@@ -4,6 +4,7 @@ const NAV_ITEMS = [
   { id: 'home', label: 'Home', icon: 'H' },
   { id: 'linkedin', label: 'LinkedIn', icon: 'in' },
   { id: 'github', label: 'GitHub', icon: 'gh' },
+  { id: 'verifier', label: 'Verifier', icon: 'V' },
   { id: 'roadmap', label: 'Roadmap', icon: 'R' },
   { id: 'chat', label: 'Chat', icon: 'C' },
 ];

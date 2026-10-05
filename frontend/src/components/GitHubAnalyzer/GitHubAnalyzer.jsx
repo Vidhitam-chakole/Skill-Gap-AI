@@ -118,14 +118,33 @@ export default function GitHubAnalyzer() {
             </div>
 
             <div className="analyzer__panel brutal-card reveal-right">
-              <h3>Primary Languages</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <h3>Primary Languages</h3>
+                <span style={{ fontSize: '0.75rem', background: '#ff0055', color: '#fff', padding: '0.2rem 0.5rem', borderRadius: '3px', fontWeight: 800 }}>
+                  ANTI-AI CHECK
+                </span>
+              </div>
               <p className="analyzer__panel-subtitle">Code distribution across public repositories:</p>
               <div className="analyzer__bars">
                 {results.topLanguages.map((lang, i) => (
                   <div key={i} className="analyzer__bar-item">
                     <div className="analyzer__bar-header">
                       <span>{lang.name}</span>
-                      <span>{lang.percentage}%</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <span>{lang.percentage}%</span>
+                        <a
+                          href="#verifier"
+                          style={{
+                            fontSize: '0.75rem',
+                            color: '#00f0ff',
+                            textDecoration: 'underline',
+                            fontWeight: 700,
+                          }}
+                          title={`Take 10Q test to verify real ${lang.name} knowledge`}
+                        >
+                          Verify (10Q) &rarr;
+                        </a>
+                      </div>
                     </div>
                     <div className="analyzer__bar-track">
                       <div
@@ -136,6 +155,20 @@ export default function GitHubAnalyzer() {
                   </div>
                 ))}
               </div>
+
+              <div style={{ marginTop: '1.25rem', padding: '1rem', background: 'rgba(255, 0, 85, 0.1)', border: '1px solid rgba(255, 0, 85, 0.4)', borderRadius: '4px' }}>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: '#fca5a5', lineHeight: '1.4' }}>
+                  <strong>Did you write this code, or was it AI?</strong> If your GitHub shows strong languages but code was AI-generated, interviewers will catch it.
+                </p>
+                <a
+                  href="#verifier"
+                  className="brutal-btn brutal-btn--accent"
+                  style={{ display: 'block', textAlign: 'center', marginTop: '0.75rem', padding: '0.6rem 1rem', fontSize: '0.85rem' }}
+                >
+                  🧪 Take 10-Question Authenticity Test &rarr;
+                </a>
+              </div>
+
 
               <h3 style={{ marginTop: '2rem' }}>Featured Repositories</h3>
               <p className="analyzer__panel-subtitle">Top repositories by stars and activity:</p>

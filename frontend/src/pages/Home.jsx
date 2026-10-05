@@ -4,6 +4,7 @@ import Marquee from '../components/Marquee/Marquee';
 import BentoGrid from '../components/BentoGrid/BentoGrid';
 import LinkedInAnalyzer from '../components/LinkedInAnalyzer/LinkedInAnalyzer';
 import GitHubAnalyzer from '../components/GitHubAnalyzer/GitHubAnalyzer';
+import SkillVerifier from '../components/SkillVerifier/SkillVerifier';
 import Roadmap from '../components/Roadmap/Roadmap';
 import ChatBot from '../components/ChatBot/ChatBot';
 import { FloatingShapes } from '../components/Decorative/Decorative';
@@ -12,6 +13,7 @@ const MARQUEE_ITEMS = [
   'Skill Gap Analysis',
   'LinkedIn PDF & Profile Review',
   'GitHub Code Intelligence',
+  'Anti-AI Code Verifier (10Q)',
   '4-Week Personalized Roadmap',
   'Market Demand Intel',
   'Local AI Career Agent',
@@ -37,8 +39,10 @@ export default function Home({ onNavigate }) {
 
       <LinkedInAnalyzer />
       <GitHubAnalyzer />
+      <SkillVerifier />
       <Roadmap />
       <ChatBot />
+
 
       <footer className="home__footer">
         <div className="home__footer-inner">

@@ -23,10 +23,10 @@ const FEATURES = [
     rotate: -1,
   },
   {
-    title: 'Market Intel',
-    desc: 'Real-time skill demand data to prioritize what to learn next.',
+    title: 'Code Authenticity Check',
+    desc: '10-question forensic tests to verify you truly understand code claimed in your GitHub repositories.',
     color: 'yellow',
-    icon: 'M',
+    icon: 'V',
     rotate: 4,
   },
   {
@@ -47,7 +47,8 @@ const FEATURES = [
 ];
 
 export default function BentoGrid({ onNavigate }) {
-  const destinations = ['linkedin', 'github', 'roadmap', 'linkedin', 'roadmap', 'chat'];
+  const destinations = ['linkedin', 'github', 'roadmap', 'verifier', 'roadmap', 'chat'];
+
 
   return (
     <section className="bento">

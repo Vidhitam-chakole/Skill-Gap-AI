@@ -18,6 +18,13 @@
    - 100% local context-driven reasoning engine primed with the verified LinkedIn PDF content and GitHub repository findings.
    - Answers review questions, roadmap actions, and career development queries.
 
-5. **No Mock Data**:
+5. **Anti-AI Code & Skill Authenticity Verifier (`skill_verifier/`)**:
+   - Forensic 10-question assessment engine designed to test whether claimed "strong languages" from GitHub repos represent genuine human understanding or AI-generated / copy-pasted code.
+   - Tailored diagnostic questions testing pointers, memory management, sequence points, closures, and lifecycles across C, Python, JavaScript, C++, TypeScript, and Java.
+   - Produces an Authenticity Index (Verified Authentic vs AI-Augmented vs Suspect AI Code) with concept breakdowns and technical explanations.
+   - Integrated directly into GitHub Review's Primary Languages with 1-click test triggers and full interactive UI.
+
+6. **No Mock Data**:
    - All mock data (`mockData.js`) and mock toggles have been removed. The entire flow runs on real live API calls.
-   - One-Click profile scanner removed to maintain clean separate sections for LinkedIn and GitHub reviews.
+   - One-Click profile scanner removed to maintain clean separate sections for LinkedIn, GitHub, Skill Verification, and Roadmap reviews.
+
