@@ -1,6 +1,9 @@
+import io
 import re
 import uuid
 from urllib.parse import urlparse
+
+import pypdf
 
 from .schemas import LinkedInResult, MarketDemandItem, SkillGap
 
@@ -10,73 +13,184 @@ MARKET_DEMAND = [
     ("AWS / Cloud", 85),
     ("Python", 82),
     ("System Design", 91),
-    ("Kubernetes / Docker", 84),
-    ("GraphQL", 72),
-    ("CI/CD & DevOps", 86),
+    ("Docker / Kubernetes", 84),
+    ("GraphQL / REST APIs", 72),
+    ("DevOps & CI/CD", 86),
     ("SQL & Databases", 78),
-    ("Product Strategy", 74),
+    ("Automated Testing", 75),
 ]
 
-ROLE_PROFILES = {
-    "developer": {
-        "headline": "Software Developer & Engineer",
-        "strengths": ["Clean Code", "JavaScript / TypeScript", "Git Version Control", "Problem Solving", "REST APIs"],
-        "gaps": [
-            ("System Design", "high", "Study distributed systems, caching strategies, and scalable architectural patterns"),
-            ("Cloud Architecture (AWS/GCP)", "medium", "Attain an AWS Solutions Architect or GCP Associate certification"),
-            ("DevOps & CI/CD", "medium", "Implement automated GitHub Actions workflows, Docker containers, and test pipelines"),
-            ("Advanced Testing", "low", "Write end-to-end integration and unit tests across services"),
-        ],
-    },
-    "designer": {
-        "headline": "Product & UI/UX Designer",
-        "strengths": ["UI/UX Design", "Figma Prototyping", "User Research", "Visual Systems", "Design Systems"],
-        "gaps": [
-            ("Design Systems & Tokens", "medium", "Build and publish a comprehensive component library with documented tokens"),
-            ("Interactive Prototyping", "low", "Master micro-interactions and high-fidelity transitions in Figma/Framer"),
-            ("Front-end Fundamentals", "medium", "Learn core HTML/CSS/DOM principles to collaborate smoothly with engineers"),
-        ],
-    },
-    "manager": {
-        "headline": "Engineering Manager & Technical Lead",
-        "strengths": ["Engineering Leadership", "Agile & Scrum", "Cross-Functional Collaboration", "Team Mentorship"],
-        "gaps": [
-            ("Technical Depth Maintenance", "medium", "Keep hands-on understanding of your team's modern cloud & AI stack"),
-            ("Data-Driven Metrics", "medium", "Institute automated cycle-time metrics and OKR tracking dashboards"),
-            ("Strategic Roadmapping", "low", "Align architectural milestones directly with quarterly business outcomes"),
-        ],
-    },
-    "data": {
-        "headline": "Data Scientist & AI Specialist",
-        "strengths": ["Python", "SQL & Query Optimization", "Data Modeling", "Statistical Analysis", "Machine Learning"],
-        "gaps": [
-            ("MLOps & Production Serving", "high", "Learn model deployment, drift monitoring, and FastAPI model inference pipelines"),
-            ("Cloud Data Warehouses", "medium", "Master Snowflake, BigQuery, or Redshift query and schema design"),
-            ("Data Storytelling", "low", "Create interactive executive dashboards using Streamlit, Grafana, or Metabase"),
-        ],
-    },
+TECH_SKILLS_MAP = {
+    "React": r"\breact(?:\.js)?\b",
+    "TypeScript": r"\btypescript\b|\bts\b",
+    "JavaScript": r"\bjavascript\b|\bjs\b",
+    "Python": r"\bpython\b",
+    "Node.js": r"\bnode(?:\.js)?\b",
+    "Next.js": r"\bnext(?:\.js)?\b",
+    "Go": r"\bgolang\b|\bgo\b",
+    "Rust": r"\brust\b",
+    "Java": r"\bjava\b",
+    "C++": r"\bc\+\+\b",
+    "C#": r"\bc#\b|\b\.net\b",
+    "SQL / PostgreSQL": r"\bsql\b|\bpostgres(?:ql)?\b|\bmysql\b",
+    "MongoDB": r"\bmongodb\b|\bmongo\b",
+    "Redis": r"\bredis\b",
+    "AWS": r"\baws\b|amazon web services",
+    "GCP / Azure": r"\bgcp\b|google cloud|\bazure\b",
+    "Docker": r"\bdocker\b|containeri[sz]ation",
+    "Kubernetes": r"\bkubernetes\b|\bk8s\b",
+    "CI/CD": r"\bci/cd\b|github actions|gitlab ci|jenkins",
+    "System Design": r"system design|distributed systems|microservices",
+    "Automated Testing": r"unit test|jest|pytest|vitest|cypress|playwright|tdd",
+    "REST APIs": r"rest(?:ful)?\b|api design|graphql",
+    "Git": r"\bgit\b|github|version control",
+    "Linux": r"\blinux\b|bash|unix",
+    "Machine Learning": r"machine learning|\bml\b|deep learning|pytorch|tensorflow",
+    "Figma / UI-UX": r"\bfigma\b|ui/ux|wireframing|user research",
+    "Agile / Scrum": r"\bagile\b|\bscrum\b|jira|sprint",
 }
 
-DEFAULT_PROFILE = {
-    "headline": "Technology & Product Professional",
-    "strengths": ["Technical Communication", "Project Execution", "Cross-Team Collaboration", "Agile Delivery"],
-    "gaps": [
-        ("High-Demand Tech Stack", "high", "Identify high-demand frameworks in your target role and build a public case study"),
-        ("Industry Certifications", "medium", "Earn an industry-recognized cloud or domain credential this quarter"),
-        ("Public Portfolio Visibility", "low", "Showcase impactful case studies and repositories on LinkedIn and GitHub"),
-    ],
-}
+GAP_RULES = [
+    (
+        "System Design",
+        r"system design|distributed systems|microservices",
+        "high",
+        "Study scalable architecture patterns, distributed caching (Redis), load balancing, and database sharding.",
+    ),
+    (
+        "Docker & Containerization",
+        r"\bdocker\b|containeri[sz]ation|\bkubernetes\b|\bk8s\b",
+        "high",
+        "Build production multi-stage Dockerfiles and deploy multi-service apps using Docker Compose.",
+    ),
+    (
+        "Automated Testing & QA",
+        r"unit test|jest|pytest|vitest|cypress|playwright|tdd",
+        "high",
+        "Add unit and end-to-end test suites (e.g. Pytest or Vitest) with automated GitHub Actions verification.",
+    ),
+    (
+        "Cloud Infrastructure (AWS/GCP)",
+        r"\baws\b|google cloud|\bgcp\b|\bazure\b",
+        "medium",
+        "Deploy scalable serverless or containerized backends on AWS/GCP and earn an Associate Cloud certification.",
+    ),
+    (
+        "DevOps & CI/CD Pipelines",
+        r"\bci/cd\b|github actions|gitlab ci|jenkins",
+        "medium",
+        "Configure automated build, lint, test, and container deployment pipelines on every pull request.",
+    ),
+    (
+        "Strict TypeScript Patterns",
+        r"\btypescript\b|\bts\b",
+        "medium",
+        "Enforce strict TypeScript configs, shared domain interfaces, and runtime schema validation with Zod.",
+    ),
+]
+
+
+def extract_text_from_pdf(file_bytes: bytes) -> str:
+    try:
+        reader = pypdf.PdfReader(io.BytesIO(file_bytes))
+        extracted_pages = []
+        for page in reader.pages:
+            t = page.extract_text()
+            if t:
+                extracted_pages.append(t)
+        return "\n".join(extracted_pages)
+    except Exception as exc:
+        raise ValueError(f"Could not read PDF resume file: {exc}") from exc
+
+
+def analyze_linkedin_pdf(
+    file_bytes: bytes,
+    context_name: str | None = None,
+    context_url: str | None = None,
+) -> LinkedInResult:
+    text = extract_text_from_pdf(file_bytes)
+    if not text.strip():
+        raise ValueError("The uploaded PDF appears to be empty or unreadable text. Please ensure it is a valid LinkedIn profile PDF export.")
+
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+
+    # 1. Determine Name
+    name = (context_name or "").strip()
+    if not name and lines:
+        first_few = [l for l in lines[:5] if not any(w in l.lower() for w in ("top skills", "contact", "page", "linkedin", "www."))]
+        if first_few:
+            name = first_few[0]
+    if not name:
+        name = "LinkedIn User"
+
+    # 2. Determine Headline
+    headline = "Software & Technology Professional"
+    for line in lines[:8]:
+        if line != name and len(line) > 8 and not any(w in line.lower() for w in ("page", "linkedin", "email", "phone", "contact")):
+            headline = line
+            break
+
+    # 3. Detect Skills & Strengths
+    strengths: list[str] = []
+    text_lower = text.lower()
+    for skill_name, pattern in TECH_SKILLS_MAP.items():
+        if re.search(pattern, text_lower):
+            strengths.append(skill_name)
+
+    if not strengths:
+        strengths = ["Technical Communication", "Project Execution", "Agile Collaboration"]
+
+    # 4. Detect Skill Gaps
+    skill_gaps: list[SkillGap] = []
+    for gap_name, pattern, severity, recommendation in GAP_RULES:
+        if not re.search(pattern, text_lower):
+            skill_gaps.append(
+                SkillGap(skill=gap_name, severity=severity, recommendation=recommendation)
+            )
+
+    # Ensure at least 2 actionable gaps
+    if len(skill_gaps) < 2:
+        skill_gaps.append(
+            SkillGap(
+                skill="Advanced Performance Profiling",
+                severity="medium",
+                recommendation="Profile memory allocation, optimize database query indexing, and reduce bundle sizes.",
+            )
+        )
+
+    # 5. Score Calculation
+    base_score = 66
+    skill_bonus = min(len(strengths) * 3, 20)
+    has_experience = 5 if "experience" in text_lower else 0
+    has_education = 5 if ("education" in text_lower or "university" in text_lower or "college" in text_lower) else 0
+    overall_score = min(base_score + skill_bonus + has_experience + has_education, 96)
+
+    # 6. Profile URL
+    if context_url and context_url.strip():
+        profile_url = context_url.strip()
+    else:
+        slug = re.sub(r"[^a-zA-Z0-9-]", "-", name.lower()).strip("-")
+        profile_url = f"https://linkedin.com/in/{slug or 'profile'}"
+
+    # 7. Market Demand
+    demand = [
+        MarketDemandItem(skill=skill, demand=d)
+        for skill, d in MARKET_DEMAND[:5]
+    ]
+
+    return LinkedInResult(
+        analysisId=f"li-pdf-{uuid.uuid4().hex[:8]}",
+        profileUrl=profile_url,
+        name=name,
+        headline=headline,
+        overallScore=overall_score,
+        skillGaps=skill_gaps[:4],
+        strengths=strengths[:6],
+        marketDemand=demand,
+    )
 
 
 def _extract_name_and_slug(input_str: str) -> tuple[str, str, str]:
-    """
-    Parses LinkedIn input which can be:
-    - Full URL: https://linkedin.com/in/alex-rivera
-    - Domain URL: linkedin.com/in/alex-rivera
-    - Slug: alex-rivera
-    - Full Name: Alex Rivera
-    Returns: (slug, normalized_url, extracted_name)
-    """
     raw = input_str.strip()
     is_url = bool(re.search(r"(linkedin\.com|https?://)", raw, re.IGNORECASE))
 
@@ -94,13 +208,11 @@ def _extract_name_and_slug(input_str: str) -> tuple[str, str, str]:
         else:
             slug = path.split("/")[-1] if path else "professional"
 
-        # Sanitize slug
         slug = re.sub(r"[^a-zA-Z0-9-]", "", slug) or "professional"
         parts = [p.capitalize() for p in re.split(r"[-_]+", slug) if p and not p.isdigit()]
         name = " ".join(parts[:3]) or "Professional User"
         normalized_url = url
     else:
-        # Plain name or username provided (e.g. "Alex Rivera", "vidhitam chakole")
         parts = raw.split()
         if len(parts) >= 1:
             name = " ".join(p.capitalize() for p in parts)
@@ -113,36 +225,29 @@ def _extract_name_and_slug(input_str: str) -> tuple[str, str, str]:
     return slug, normalized_url, name
 
 
-def _detect_profile(slug: str, raw_input: str) -> dict:
-    haystack = f"{slug} {raw_input}".lower()
-    if any(k in haystack for k in ("design", "ux", "ui", "creative", "product design", "figma")):
-        return ROLE_PROFILES["designer"]
-    if any(k in haystack for k in ("data", "analyst", "analytics", "ml", "ai", "machine learning", "deep learning")):
-        return ROLE_PROFILES["data"]
-    if any(k in haystack for k in ("manager", "lead", "director", "head", "vp", "scrum master")):
-        return ROLE_PROFILES["manager"]
-    if any(k in haystack for k in ("dev", "engineer", "software", "fullstack", "frontend", "backend", "web", "coder", "programmer")):
-        return ROLE_PROFILES["developer"]
-    return DEFAULT_PROFILE
-
-
-def _calculate_score(profile: dict, slug: str, name: str) -> int:
-    base = 72 + ((len(slug) + len(name)) % 13)
-    bonus = min(len(profile["strengths"]) * 2, 10)
-    return min(base + bonus, 94)
-
-
 def analyze_linkedin_profile(profile_input: str) -> LinkedInResult:
     if not profile_input or not profile_input.strip():
         raise ValueError("LinkedIn profile input cannot be empty.")
 
     slug, normalized_url, name = _extract_name_and_slug(profile_input)
-    profile = _detect_profile(slug, profile_input)
-    score = _calculate_score(profile, slug, name)
+    score = 78 + (len(slug) % 11)
 
     skill_gaps = [
-        SkillGap(skill=skill, severity=severity, recommendation=recommendation)
-        for skill, severity, recommendation in profile["gaps"]
+        SkillGap(
+            skill="System Design & Architecture",
+            severity="high",
+            recommendation="Study distributed microservices, caching layers with Redis, and horizontal scaling strategies.",
+        ),
+        SkillGap(
+            skill="Container Orchestration (Docker/K8s)",
+            severity="medium",
+            recommendation="Containerize core services with Docker and manage deployments with Docker Compose or Kubernetes.",
+        ),
+        SkillGap(
+            skill="Automated Testing & CI/CD",
+            severity="medium",
+            recommendation="Implement automated unit tests with GitHub Actions continuous integration pipelines.",
+        ),
     ]
 
     demand = [
@@ -154,9 +259,9 @@ def analyze_linkedin_profile(profile_input: str) -> LinkedInResult:
         analysisId=f"li-{uuid.uuid4().hex[:8]}",
         profileUrl=normalized_url,
         name=name,
-        headline=profile["headline"],
+        headline="Software Developer & Engineer",
         overallScore=score,
         skillGaps=skill_gaps,
-        strengths=profile["strengths"],
+        strengths=["JavaScript / TypeScript", "Git Version Control", "REST APIs", "Clean Code"],
         marketDemand=demand,
     )

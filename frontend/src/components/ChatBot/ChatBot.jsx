@@ -1,43 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
-import { chatApi, USE_MOCK } from '../../services/api';
-import { mockChatResponses } from '../../data/mockData';
+import { chatApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../Decorative/Decorative';
 import './ChatBot.css';
-
-function localMockReply(userMsg, linkedinResult, githubResult) {
-  const lowered = userMsg.toLowerCase();
-  const name = linkedinResult?.name || githubResult?.name || 'Developer';
-
-  if (lowered.includes('github') && githubResult) {
-    const langs = githubResult.topLanguages?.map((l) => `${l.name} (${l.percentage}%)`).join(', ');
-    return `GitHub Review for @${githubResult.username}: Score ${githubResult.overallScore}/100. Top languages: ${langs}. Primary recommendation: ${githubResult.skillGaps[0]?.recommendation}`;
-  }
-
-  if (lowered.includes('linkedin') && linkedinResult) {
-    return `LinkedIn Review for ${linkedinResult.name}: Aligned to ${linkedinResult.headline} (Score: ${linkedinResult.overallScore}/100). Focus on closing: ${linkedinResult.skillGaps[0]?.skill} - ${linkedinResult.skillGaps[0]?.recommendation}`;
-  }
-
-  if (lowered.includes('roadmap') || lowered.includes('week') || lowered.includes('next')) {
-    const topGap = linkedinResult?.skillGaps[0]?.skill || githubResult?.skillGaps[0]?.skill || 'System Design';
-    return `${name}, in Week 1 focus on "${topGap}". Build a public working repository, write automated tests, and document the architecture.`;
-  }
-
-  if (lowered.includes('review') || lowered.includes('summary')) {
-    if (linkedinResult && githubResult) {
-      return `Overall Review for ${name}: LinkedIn score is ${linkedinResult.overallScore}/100, GitHub score is ${githubResult.overallScore}/100. Your main strengths are ${linkedinResult.strengths?.slice(0, 2).join(', ')}. Top gap to tackle is ${githubResult.skillGaps[0]?.skill || linkedinResult.skillGaps[0]?.skill}.`;
-    }
-  }
-
-  return mockChatResponses[Math.floor(Math.random() * mockChatResponses.length)];
-}
 
 export default function ChatBot() {
   const { linkedinResult, githubResult } = useAnalysis();
   const [messages, setMessages] = useState([
     {
       role: 'bot',
-      text: "Hey! I'm your Local AI Career Agent. Run your LinkedIn or GitHub review above, then ask me about your gaps, roadmap, or technical growth!",
+      text: "Hey! I'm your Local AI Career Agent. Run your LinkedIn PDF or GitHub review above, then ask me about your gaps, roadmap, or technical growth!",
     },
   ]);
   const [input, setInput] = useState('');
@@ -58,22 +30,20 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      let botText;
-      if (USE_MOCK) {
-        await new Promise((r) => setTimeout(r, 500));
-        botText = localMockReply(userMsg, linkedinResult, githubResult);
-      } else {
-        const data = await chatApi.sendMessage(userMsg, conversationId, {
-          linkedinAnalysisId: linkedinResult?.analysisId,
-          githubAnalysisId: githubResult?.analysisId,
-        });
-        botText = data.reply;
-        if (data.conversationId) setConversationId(data.conversationId);
-      }
-      setMessages((prev) => [...prev, { role: 'bot', text: botText }]);
-    } catch {
-      const localReply = localMockReply(userMsg, linkedinResult, githubResult);
-      setMessages((prev) => [...prev, { role: 'bot', text: localReply }]);
+      const data = await chatApi.sendMessage(userMsg, conversationId, {
+        linkedinAnalysisId: linkedinResult?.analysisId,
+        githubAnalysisId: githubResult?.analysisId,
+      });
+      setMessages((prev) => [...prev, { role: 'bot', text: data.reply }]);
+      if (data.conversationId) setConversationId(data.conversationId);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'bot',
+          text: `Error connecting to Local AI: ${err.message || 'Please ensure backend is running.'}`,
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -114,7 +84,7 @@ export default function ChatBot() {
             <div>
               <strong>SkillGap Local AI Agent</strong>
               <span className="chatbot__status">
-                {hasAnalysis ? '● Primed with your analysis' : '● Ready to analyze'}
+                {hasAnalysis ? '● Primed with your live analysis' : '● Ready to analyze'}
               </span>
             </div>
           </div>

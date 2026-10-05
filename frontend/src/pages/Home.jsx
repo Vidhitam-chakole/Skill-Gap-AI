@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import Hero from '../components/Hero/Hero';
-import UnifiedScanner from '../components/UnifiedScanner/UnifiedScanner';
 import Marquee from '../components/Marquee/Marquee';
 import BentoGrid from '../components/BentoGrid/BentoGrid';
 import LinkedInAnalyzer from '../components/LinkedInAnalyzer/LinkedInAnalyzer';
@@ -11,7 +10,7 @@ import { FloatingShapes } from '../components/Decorative/Decorative';
 
 const MARQUEE_ITEMS = [
   'Skill Gap Analysis',
-  'LinkedIn Review',
+  'LinkedIn PDF & Profile Review',
   'GitHub Code Intelligence',
   '4-Week Personalized Roadmap',
   'Market Demand Intel',
@@ -26,8 +25,6 @@ export default function Home({ onNavigate }) {
   return (
     <main className="home">
       <Hero onNavigate={scrollTo} />
-
-      <UnifiedScanner />
 
       <Marquee items={MARQUEE_ITEMS} speed={25} />
 

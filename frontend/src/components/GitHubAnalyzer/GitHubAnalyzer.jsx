@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { gitHubApi, USE_MOCK } from '../../services/api';
-import { mockGitHubResults } from '../../data/mockData';
+import { gitHubApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../Decorative/Decorative';
 import '../LinkedInAnalyzer/Analyzer.css';
@@ -20,27 +19,14 @@ export default function GitHubAnalyzer() {
     setError(null);
 
     try {
-      let data;
-      if (USE_MOCK) {
-        data = {
-          ...mockGitHubResults,
-          username: username.replace(/https?:\/\/github\.com\//, '').replace(/\/$/, ''),
-          analysisId: 'gh-mock-001',
-        };
-      } else {
-        data = await gitHubApi.analyze(username.trim());
-      }
+      const data = await gitHubApi.analyze(username.trim());
       setGithubResult(data);
-      setRoadmap(null);
+      setRoadmap(null); // Reset roadmap so user can regenerate fresh combined roadmap
     } catch (err) {
-      setError(err.message || 'GitHub analysis failed. Please verify the username or link.');
+      setError(err.message || 'GitHub analysis failed. Please verify the username or profile link.');
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleUseSample = (sample) => {
-    setUsername(sample);
   };
 
   return (
@@ -50,7 +36,7 @@ export default function GitHubAnalyzer() {
       <SectionHeader
         tag="// github_profile_analyzer"
         title="GitHub Profile Review"
-        subtitle="Analyze your repositories, code languages, commit activity, and open-source skill gaps directly from the GitHub API."
+        subtitle="Analyze public repositories, languages, commit velocity, and developer skill gaps directly from GitHub API."
         rotate={-2}
       />
 
@@ -72,33 +58,6 @@ export default function GitHubAnalyzer() {
             {loading ? 'Analyzing GitHub...' : 'Analyze GitHub'}
           </button>
         </div>
-
-        <div className="analyzer__quick-samples">
-          <span className="analyzer__sample-label">Try sample:</span>
-          <button
-            type="button"
-            className="analyzer__sample-chip"
-            onClick={() => handleUseSample('torvalds')}
-          >
-            @torvalds (Linux)
-          </button>
-          <button
-            type="button"
-            className="analyzer__sample-chip"
-            onClick={() => handleUseSample('https://github.com/gaearon')}
-          >
-            Dan Abramov (React)
-          </button>
-          <button
-            type="button"
-            className="analyzer__sample-chip"
-            onClick={() => handleUseSample('yyx990803')}
-          >
-            Evan You (Vue/Vite)
-          </button>
-        </div>
-
-        {USE_MOCK && <p className="analyzer__mock-note">Using offline mock mode (switch in .env)</p>}
       </form>
 
       {error && <div className="analyzer__error reveal">{error}</div>}

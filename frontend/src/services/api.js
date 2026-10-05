@@ -1,7 +1,5 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
 
-export const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
-
 function formatError(payload, status) {
   if (typeof payload?.message === 'string' && payload.message) return payload.message;
   if (typeof payload?.detail === 'string' && payload.detail) return payload.detail;
@@ -33,6 +31,24 @@ export const healthApi = {
 };
 
 export const linkedInApi = {
+  analyzePdf: async (file, name = '', profileUrl = '') => {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (name) formData.append('name', name);
+    if (profileUrl) formData.append('profileUrl', profileUrl);
+
+    const response = await fetch(`${API_BASE_URL}/linkedin/analyze-pdf`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(formatError(error, response.status));
+    }
+
+    return response.json();
+  },
   analyze: (profileUrl) =>
     request('/linkedin/analyze', {
       method: 'POST',
@@ -70,4 +86,5 @@ export const roadmapApi = {
       method: 'POST',
       body: JSON.stringify({ linkedinAnalysisId, githubAnalysisId }),
     }),
+  getRoadmap: (roadmapId) => request(`/roadmap/${roadmapId}`),
 };

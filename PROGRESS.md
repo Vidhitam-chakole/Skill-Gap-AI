@@ -1,47 +1,23 @@
 # PROGRESS — SkillGap AI
 
-## Architecture Overview
+## Current Status & Architecture
 
-SkillGap AI has been refactored into a clean, modular structure. Each core functional element has its own independent folder with a dedicated `backend/` and `frontend/` directory, while the universal `backend/` and `frontend/` orchestrate and render the integrated application.
+1. **LinkedIn Profile & Resume PDF Review (`linkedin_analyzer/`)**:
+   - Built-in step-by-step guidance card on how to download the LinkedIn profile PDF via **More → Save to PDF**.
+   - Input: **LinkedIn Profile PDF export (`.pdf`)** + **LinkedIn Name** for context (also supports name/URL analysis mode).
+   - Powered by `pypdf` on the backend, extracting verified headline, skills, experience, and detecting technical skill gaps against modern industry standards.
 
-### Modular Folder Organization
+2. **GitHub Review (`github_analyzer/`)**:
+   - Real-time GitHub REST API query via profile link or username.
+   - Live repository inspection, language distribution, star metrics, and code gap discovery.
 
-1. `linkedin_analyzer/`
-   - `backend/`: `router.py`, `service.py`, `schemas.py`
-   - `frontend/`: `LinkedInAnalyzer.jsx`, `Analyzer.css`
-   - Accepts both LinkedIn Name and Profile URL. Detects roles, calculates overall score, lists skill gaps, strengths, and market demand.
+3. **Roadmap Module (`roadmap/`)**:
+   - Real synthesis combining the parsed LinkedIn PDF and GitHub reviews into a deduplicated, prioritized 4-week sprint plan.
 
-2. `github_analyzer/`
-   - `backend/`: `router.py`, `service.py`, `schemas.py`
-   - `frontend/`: `GitHubAnalyzer.jsx`, `Analyzer.css`
-   - Accepts GitHub Username or full profile URL. Live queries GitHub REST API, calculates languages, star counts, public repos, and missing developer practices (testing, CI/CD, documentation).
+4. **Local AI Agent (`ai_agent/`)**:
+   - 100% local context-driven reasoning engine primed with the verified LinkedIn PDF content and GitHub repository findings.
+   - Answers review questions, roadmap actions, and career development queries.
 
-3. `roadmap/`
-   - `backend/`: `router.py`, `service.py`, `schemas.py`
-   - `frontend/`: `Roadmap.jsx`, `Roadmap.css`
-   - Merges gaps from LinkedIn and GitHub, assigns combined score, and plans a 4-week structured sprint with concrete deliverables.
-
-4. `ai_agent/`
-   - `backend/`: `router.py`, `service.py`, `schemas.py`
-   - `frontend/`: `ChatBot.jsx`, `ChatBot.css`
-   - Runs 100% locally offline with an intelligent, context-driven AI career reasoning engine. Supports optional OpenAI fallback if `OPENAI_API_KEY` is provided.
-
-5. `backend/`
-   - Central FastAPI application on port 8000.
-   - Mounts the modular routers from each element.
-   - Handles CORS, configuration, error responses, and local JSON persistence in `backend/data/`.
-
-6. `frontend/`
-   - Universal React 18 + Vite application on port 5173.
-   - Features the Unified Profile Scanner (`UnifiedScanner`), Hero, Marquee, BentoGrid, Navbar, and Footer in neo-brutalist aesthetic.
-
-## Cleanup Performed
-- Removed `.freebuff/` temporary log junk.
-- Removed misspelled `Lindin Analyzer/` directory.
-- Removed nested duplicate `backend/backend/` directory.
-- Removed broken `SkillPlusChatbot.jsx` (which depended on uninstalled `@botpress/webchat`).
-- Removed orphaned `DashboardPage.*`, `IntroPage.*`, and `WelcomePage.*` files that had conflicting, missing context functions.
-- Fixed `ai_agent` language extraction evaluation bug.
-- Added input handling for both plain name (e.g. `Alex Rivera`) and URL on LinkedIn.
-- Added input handling for profile URLs (e.g. `https://github.com/torvalds`) and username on GitHub.
-- Added unified 1-click profile scanner for instant simultaneous analysis.
+5. **No Mock Data**:
+   - All mock data (`mockData.js`) and mock toggles have been removed. The entire flow runs on real live API calls.
+   - One-Click profile scanner removed to maintain clean separate sections for LinkedIn and GitHub reviews.

@@ -1,28 +1,30 @@
 # SkillGap AI — Career Gap Intelligence Platform
 
-SkillGap AI analyzes your LinkedIn and GitHub profiles, surfaces critical technical skill gaps, generates a structured 4-week personalized learning roadmap, and provides a Local AI Career Agent that offers customized mentorship based on your analysis.
+SkillGap AI analyzes your LinkedIn PDF export and GitHub profile, surfaces critical technical skill gaps, generates a structured 4-week personalized learning roadmap, and provides a Local AI Career Agent that offers customized mentorship based on your analysis.
 
 ## Key Features
 
-1. **LinkedIn Profile Review**
-   - Accepts either a **LinkedIn Name** (e.g. `Alex Rivera`) or a **Profile URL** (`https://linkedin.com/in/alex-rivera`)
-   - Identifies profile headline, strengths, prioritized skill gaps, and real-time market demand index
+1. **LinkedIn Profile & Resume PDF Review**
+   - **Step-by-step guidance** directly in the UI showing how to download your official LinkedIn profile PDF via **More → Save to PDF** in 3 seconds.
+   - Accepts your **LinkedIn Profile PDF export (`.pdf`)** and **LinkedIn Name** for accurate context and attribution.
+   - Parses verified headline, experience, detected technical skills, and identifies missing industry-standard competencies.
+   - Also supports direct Name / Profile URL analysis mode.
 
 2. **GitHub Profile Review**
-   - Accepts either a **GitHub Username** (e.g. `torvalds`) or a **Profile Link** (`https://github.com/torvalds`)
-   - Live query of GitHub REST API: repositories, star count, followers, and language distribution
-   - Flags missing code practices: testing suites, CI/CD automation, open-source contributions, and documentation
+   - Real-time GitHub REST API query via **GitHub Profile Link** or **Username** (e.g. `torvalds` or `https://github.com/torvalds`).
+   - Analyzes real repositories, star metrics, followers, activity velocity, and byte-weighted language percentages.
+   - Detects missing developer practices: test coverage, CI/CD automation, open-source contributions, and documentation.
 
 3. **Personalized 4-Week Roadmap**
-   - Synthesizes findings from both LinkedIn and GitHub reviews
-   - Deduplicates and ranks gaps by severity (High, Medium, Low)
-   - Generates a concrete 4-week structured sprint plan with shippable deliverables
+   - Real synthesis merging findings from your LinkedIn PDF review and GitHub repositories.
+   - Deduplicates and ranks gaps by severity (High, Medium, Low).
+   - Generates a concrete 4-week structured sprint plan with shippable deliverables.
 
 4. **Local AI Career Agent**
-   - Runs 100% locally offline with an intelligent, context-driven career mentor engine
-   - Understands your specific LinkedIn headline, GitHub languages, and roadmap priorities
-   - Answers queries on reviews, skill gaps, week-by-week actions, and technical growth
-   - Optional OpenAI integration if `OPENAI_API_KEY` is provided in `.env`
+   - Runs 100% locally offline with an intelligent, context-driven career mentor engine.
+   - Primed with your verified LinkedIn PDF headline & skills, GitHub languages & stats, and roadmap priorities.
+   - Answers queries on reviews, skill gaps, week-by-week actions, and technical growth.
+   - Optional OpenAI integration if `OPENAI_API_KEY` is provided in `.env`.
 
 ---
 
@@ -33,7 +35,7 @@ The repository is modularized into dedicated domain folders: each element has it
 ```
 Skill-Gap-AI/
 ├── linkedin_analyzer/           # LinkedIn Analysis Module
-│   ├── backend/                 # LinkedIn router, service, schemas
+│   ├── backend/                 # PDF parser (pypdf), router, service, schemas
 │   └── frontend/                # LinkedIn review UI component & styles
 │
 ├── github_analyzer/             # GitHub Analysis Module
@@ -60,7 +62,6 @@ Skill-Gap-AI/
 └── frontend/                    # Universal Frontend (React 18 + Vite on Port 5173)
     ├── src/
     │   ├── components/
-    │   │   ├── UnifiedScanner/  # 1-Click Dual Profile Scanner
     │   │   ├── LinkedInAnalyzer/
     │   │   ├── GitHubAnalyzer/
     │   │   ├── Roadmap/
@@ -102,35 +103,9 @@ Open [http://localhost:5173](http://localhost:5173) in your browser. Vite proxie
 
 ---
 
-## Environment Variables
+## How to Download Your LinkedIn Profile PDF
 
-### Backend (`backend/.env` - optional)
-
-| Variable | Description | Default |
-|---|---|---|
-| `CORS_ORIGINS` | Comma-separated list of allowed origins | `http://localhost:5173,http://127.0.0.1:5173` |
-| `GITHUB_TOKEN` | Optional GitHub Personal Access Token (for higher rate limits) | Unset |
-| `OPENAI_API_KEY` | Optional OpenAI key (runs locally offline if unset) | Unset |
-
-### Frontend (`frontend/.env` - optional)
-
-| Variable | Description | Default |
-|---|---|---|
-| `VITE_API_BASE_URL` | Base URL for API requests | `http://localhost:8000/api` |
-| `VITE_USE_MOCK` | Set to `true` for offline demo mode | `false` (uses live API) |
-
----
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Health & active modules check |
-| `POST` | `/api/linkedin/analyze` | Review LinkedIn profile name or URL |
-| `GET` | `/api/linkedin/results/{id}` | Get saved LinkedIn analysis |
-| `POST` | `/api/github/analyze` | Review GitHub username or profile link |
-| `GET` | `/api/github/results/{id}` | Get saved GitHub analysis |
-| `POST` | `/api/roadmap/build` | Synthesize 4-week roadmap from analyses |
-| `GET` | `/api/roadmap/{id}` | Get saved roadmap |
-| `POST` | `/api/chat/message` | Chat with Local AI Agent (context-aware) |
-| `GET` | `/api/chat/history/{id}` | Get conversation history |
+1. Open your profile on [LinkedIn](https://www.linkedin.com).
+2. In the top card of your profile, click the **'More'** button (next to 'Open to' / 'Add profile section').
+3. Click **'Save to PDF'** to immediately download your official LinkedIn resume PDF.
+4. Upload that PDF directly in the LinkedIn Review section.

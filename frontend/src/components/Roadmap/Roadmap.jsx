@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { roadmapApi, USE_MOCK } from '../../services/api';
-import { mockRoadmap } from '../../data/mockData';
+import { roadmapApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../Decorative/Decorative';
 import '../LinkedInAnalyzer/Analyzer.css';
@@ -12,6 +11,7 @@ export default function Roadmap() {
   const [error, setError] = useState(null);
   const ready = Boolean(linkedinResult || githubResult);
 
+  // Automatically trigger roadmap generation when both analyses are ready and roadmap is not yet built
   useEffect(() => {
     if (linkedinResult && githubResult && !roadmap && !loading) {
       handleBuild();
@@ -24,17 +24,7 @@ export default function Roadmap() {
     setError(null);
 
     try {
-      let data;
-      if (USE_MOCK) {
-        const scores = [linkedinResult?.overallScore, githubResult?.overallScore].filter(Boolean);
-        const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 80;
-        data = {
-          ...mockRoadmap,
-          combinedScore: avg,
-        };
-      } else {
-        data = await roadmapApi.build(linkedinResult?.analysisId, githubResult?.analysisId);
-      }
+      const data = await roadmapApi.build(linkedinResult?.analysisId, githubResult?.analysisId);
       setRoadmap(data);
     } catch (err) {
       setError(err.message || 'Could not build a personalized roadmap. Please check backend connection.');
@@ -55,14 +45,14 @@ export default function Roadmap() {
       <SectionHeader
         tag="// career_growth_roadmap"
         title="Personalized Roadmap"
-        subtitle="Merge findings from your LinkedIn profile review and GitHub repositories into a prioritized 4-week execution roadmap."
+        subtitle="Synthesize your real LinkedIn profile review and GitHub repositories into a prioritized 4-week execution roadmap."
         rotate={-1}
       />
 
       <div className="roadmap__panel brutal-card reveal">
         <p className="roadmap__hint">
           {ready
-            ? 'Profile analyses detected! Click below to synthesize your personalized career progression plan.'
+            ? 'Profile review data detected! Click below to synthesize your personalized career progression plan.'
             : 'Review your LinkedIn and/or GitHub profile above first, then generate your custom 4-week roadmap here.'}
         </p>
 
