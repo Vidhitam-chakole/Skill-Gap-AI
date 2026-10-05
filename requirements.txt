@@ -5,3 +5,4 @@ pydantic>=2.11.0
 python-dotenv>=1.0.0
 pypdf>=5.0.0
 python-multipart>=0.0.9
+vidhitam chakole 
