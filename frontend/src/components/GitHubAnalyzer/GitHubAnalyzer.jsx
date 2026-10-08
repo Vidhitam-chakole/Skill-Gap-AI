@@ -34,7 +34,7 @@ export default function GitHubAnalyzer() {
       <Sticker color="cyan" rotation={-4} className="analyzer__sticker">GitHub Review</Sticker>
 
       <SectionHeader
-        tag="// github_profile_analyzer"
+      
         title="GitHub Profile Review"
         subtitle="Analyze public repositories, languages, commit velocity, and developer skill gaps directly from GitHub API."
         rotate={-2}
@@ -158,14 +158,14 @@ export default function GitHubAnalyzer() {
 
               <div style={{ marginTop: '1.25rem', padding: '1rem', background: 'rgba(255, 0, 85, 0.1)', border: '1px solid rgba(255, 0, 85, 0.4)', borderRadius: '4px' }}>
                 <p style={{ margin: 0, fontSize: '0.85rem', color: '#fca5a5', lineHeight: '1.4' }}>
-                  <strong>Did you write this code, or was it AI?</strong> If your GitHub shows strong languages but code was AI-generated, interviewers will catch it.
+                  <strong>Did you write this code, or was it AI?</strong> Your strongest language is <strong style={{ color: '#00f0ff' }}>{results.topLanguages[0]?.name}</strong> ({results.topLanguages[0]?.percentage}%). Verify genuine code mastery with a custom-generated paper.
                 </p>
                 <a
                   href="#verifier"
                   className="brutal-btn brutal-btn--accent"
                   style={{ display: 'block', textAlign: 'center', marginTop: '0.75rem', padding: '0.6rem 1rem', fontSize: '0.85rem' }}
                 >
-                  🧪 Take 10-Question Authenticity Test &rarr;
+                  ⚡ Start Custom 10Q Test for {results.topLanguages[0]?.name || 'Strongest Language'} &rarr;
                 </a>
               </div>
 

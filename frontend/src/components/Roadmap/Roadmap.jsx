@@ -43,7 +43,7 @@ export default function Roadmap() {
       <Sticker color="yellow" rotation={-3} className="roadmap__sticker">Personalized Roadmap</Sticker>
 
       <SectionHeader
-        tag="// career_growth_roadmap"
+        
         title="Personalized Roadmap"
         subtitle="Synthesize your real LinkedIn profile review and GitHub repositories into a prioritized 4-week execution roadmap."
         rotate={-1}

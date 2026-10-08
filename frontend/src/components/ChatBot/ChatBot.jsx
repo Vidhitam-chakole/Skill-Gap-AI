@@ -71,7 +71,7 @@ export default function ChatBot() {
       <Sticker color="lime" rotation={5} className="chatbot__sticker">Local AI Agent</Sticker>
 
       <SectionHeader
-        tag="// local_ai_agent"
+        
         title="Local AI Career Assistant"
         subtitle="Ask questions about your profile review, skill gaps, code quality, and learning roadmap. Primed with your personal profile analyses."
         rotate={1}

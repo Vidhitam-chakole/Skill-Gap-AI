@@ -88,7 +88,7 @@ export default function LinkedInAnalyzer() {
       <Sticker color="pink" rotation={3} className="analyzer__sticker">LinkedIn Review</Sticker>
 
       <SectionHeader
-        tag="// linkedin_profile_analyzer"
+       
         title="LinkedIn Profile &amp; Resume Review"
         subtitle="Upload your LinkedIn profile PDF export to extract skills, experience, and critical market gaps."
         rotate={1}
@@ -185,35 +185,11 @@ export default function LinkedInAnalyzer() {
               </div>
             )}
 
-            <div className="analyzer__fields-grid">
-              <div className="analyzer__field">
-                <label className="analyzer__label" htmlFor="li-name">
-                  LinkedIn Name (For Context)
-                </label>
-                <input
-                  id="li-name"
-                  type="text"
-                  className="analyzer__input"
-                  placeholder="e.g. Alex Rivera"
-                  value={linkedinName}
-                  onChange={(e) => setLinkedinName(e.target.value)}
-                />
-              </div>
+            
+               
+               
 
-              <div className="analyzer__field">
-                <label className="analyzer__label" htmlFor="li-url">
-                  Profile Link (Optional)
-                </label>
-                <input
-                  id="li-url"
-                  type="text"
-                  className="analyzer__input"
-                  placeholder="e.g. https://linkedin.com/in/alex-rivera"
-                  value={profileUrl}
-                  onChange={(e) => setProfileUrl(e.target.value)}
-                />
-              </div>
-            </div>
+
 
             <button type="submit" className="brutal-btn brutal-btn--primary" disabled={loading || !pdfFile}>
               {loading ? 'Parsing LinkedIn PDF...' : '⚡ Analyze LinkedIn Profile PDF'}
@@ -237,19 +213,7 @@ export default function LinkedInAnalyzer() {
                 />
               </div>
 
-              <div className="analyzer__field">
-                <label className="analyzer__label" htmlFor="li-name-only">
-                  Your Full Name
-                </label>
-                <input
-                  id="li-name-only"
-                  type="text"
-                  className="analyzer__input"
-                  placeholder="e.g. Alex Rivera"
-                  value={linkedinName}
-                  onChange={(e) => setLinkedinName(e.target.value)}
-                />
-              </div>
+
             </div>
 
             <button type="submit" className="brutal-btn brutal-btn--primary" disabled={loading}>
