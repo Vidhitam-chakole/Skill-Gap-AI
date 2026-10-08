@@ -31,7 +31,7 @@ async def list_languages() -> list[dict[str, str]]:
 async def create_quiz(body: GenerateQuizRequest) -> GenerateQuizResponse:
     """Generate 10 technical questions targeted at the specified language."""
     try:
-        return generate_quiz(body.language, body.githubAnalysisId)
+        return await generate_quiz(body.language, body.githubAnalysisId)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Failed to generate assessment: {exc}") from exc
 

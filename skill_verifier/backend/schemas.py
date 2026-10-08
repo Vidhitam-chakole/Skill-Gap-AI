@@ -23,16 +23,19 @@ class QuizQuestionInternal(QuizQuestionPublic):
 
 
 class GenerateQuizRequest(BaseModel):
-    language: str
+    language: Optional[str] = "auto"
     githubAnalysisId: Optional[str] = None
 
 
 class GenerateQuizResponse(BaseModel):
     quizId: str
     language: str
+    strongestLanguage: Optional[str] = None
     totalQuestions: int = 10
     questions: list[QuizQuestionPublic]
     detectedLanguages: list[str] = Field(default_factory=list)
+    generationSource: str = "dynamic_procedural"
+    developerContext: Optional[str] = None
 
 
 class SubmitQuizRequest(BaseModel):

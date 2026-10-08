@@ -10,6 +10,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Callable, Optional
 
+from skill_verifier.backend.dynamic_generator import generate_procedural_questions
+from skill_verifier.backend.llm_generator import generate_dynamic_ai_questions
 from skill_verifier.backend.question_bank import QUESTION_BANK, get_questions_for_language
 from skill_verifier.backend.schemas import (
     ConceptScore,
@@ -67,60 +69,116 @@ def _save_json(file_path: Path, data: dict) -> None:
 
 def get_supported_languages() -> list[dict[str, str]]:
     return [
-        {"id": "c", "name": "C Programming", "category": "Systems & Embedded"},
         {"id": "python", "name": "Python", "category": "Backend & AI/ML"},
         {"id": "javascript", "name": "JavaScript", "category": "Frontend & Full Stack"},
-        {"id": "cpp", "name": "C++", "category": "Systems & Performance"},
         {"id": "typescript", "name": "TypeScript", "category": "Full Stack Architecture"},
+        {"id": "c", "name": "C Programming", "category": "Systems & Embedded"},
+        {"id": "cpp", "name": "C++", "category": "High Performance & Engines"},
         {"id": "java", "name": "Java", "category": "Enterprise Backend"},
+        {"id": "go", "name": "Go (Golang)", "category": "Cloud & Distributed Systems"},
+        {"id": "rust", "name": "Rust", "category": "Systems & Memory Safety"},
     ]
 
 
-def generate_quiz(language: str, github_analysis_id: Optional[str] = None) -> GenerateQuizResponse:
+async def generate_quiz(
+    language: Optional[str] = None,
+    github_analysis_id: Optional[str] = None,
+) -> GenerateQuizResponse:
     """
-    Generates 10 targeted questions for the specified language.
-    Checks GitHub analysis context if available to identify claimed languages.
+    Generates a custom-made, non-predefined 10-question diagnostic assessment
+    based on the developer's strongest language extracted from their GitHub profile.
+    Uses AI LLM generation if configured, with intelligent procedural synthesis fallback.
     """
     detected_languages: list[str] = []
+    strongest_language: Optional[str] = None
+    gh_username: str = "developer"
+    repo_names: list[str] = []
 
     if github_analysis_id and _github_resolver:
         try:
             gh_data = _github_resolver(github_analysis_id)
             if gh_data:
-                # Extract top languages
+                gh_username = getattr(gh_data, "username", "developer") or "developer"
+
+                # Extract top languages from profile
                 top_langs = getattr(gh_data, "topLanguages", []) or gh_data.get("topLanguages", [])
                 for item in top_langs:
                     name = getattr(item, "name", None) or (item.get("name") if isinstance(item, dict) else None)
                     if name:
                         detected_languages.append(name)
+
+                # The first detected language is the user's primary/strongest language
+                if detected_languages:
+                    strongest_language = detected_languages[0]
+
+                # Extract featured repository names to contextualize diagnostic code snippets
+                pinned = getattr(gh_data, "pinnedRepos", []) or gh_data.get("pinnedRepos", [])
+                for r in pinned:
+                    r_name = getattr(r, "name", None) or (r.get("name") if isinstance(r, dict) else None)
+                    if r_name:
+                        repo_names.append(r_name)
         except Exception:
             pass
 
-    # Fetch 10 questions for the language
-    raw_questions = get_questions_for_language(language, count=10)
+    # Resolve target language:
+    # If language is None, empty, or 'auto', automatically use the strongest language from their GitHub profile!
+    clean_lang = (language or "").strip()
+    if not clean_lang or clean_lang.lower() in ("auto", "default", "strongest"):
+        target_language = strongest_language or "Python"
+    else:
+        target_language = clean_lang
+
+    # Prepare rich developer profile context
+    dev_context = {
+        "username": gh_username,
+        "repo_names": repo_names,
+        "strongest_language": strongest_language or target_language,
+        "detected_languages": detected_languages,
+        "language": target_language,
+    }
+
+    # Generate custom-made questions (AI LLM if available, else procedural dynamic generator)
+    raw_questions: Optional[list[dict[str, Any]]] = None
+    generation_source = "dynamic_procedural"
+
+    ai_res = await generate_dynamic_ai_questions(target_language, context=dev_context, count=10)
+    if ai_res:
+        raw_questions, generation_source = ai_res
+
+    if not raw_questions or len(raw_questions) < 10:
+        raw_questions = generate_procedural_questions(target_language, context=dev_context, count=10)
+        generation_source = "dynamic_procedural"
 
     quiz_id = str(uuid.uuid4())
     internal_questions: list[QuizQuestionInternal] = []
     public_questions: list[QuizQuestionPublic] = []
 
-    for i, raw in enumerate(raw_questions, start=1):
-        options = [QuizOption(id=opt_idx, text=opt_text) for opt_idx, opt_text in enumerate(raw["options"])]
+    for i, raw in enumerate(raw_questions[:10], start=1):
+        raw_opts = raw.get("options", [])
+        options = []
+        for opt_idx, opt_text in enumerate(raw_opts):
+            options.append(QuizOption(id=opt_idx, text=str(opt_text)))
 
         pub = QuizQuestionPublic(
             id=i,
-            language=language,
-            difficulty=raw["difficulty"],
-            concept=raw["concept"],
-            question=raw["question"],
+            language=target_language,
+            difficulty=raw.get("difficulty", "Intermediate"),
+            concept=raw.get("concept", "Core Language Mechanics"),
+            question=raw.get("question", "What is the expected outcome of this code?"),
             codeSnippet=raw.get("codeSnippet"),
             options=options,
         )
         public_questions.append(pub)
 
+        correct_idx = raw.get("correctIndex", 0)
+        # Ensure correctIndex is within bounds
+        if not (0 <= correct_idx < len(options)):
+            correct_idx = 0
+
         internal = QuizQuestionInternal(
             **pub.model_dump(),
-            correctIndex=raw["correctIndex"],
-            explanation=raw["explanation"],
+            correctIndex=correct_idx,
+            explanation=raw.get("explanation", "Tests internal language execution mechanics."),
         )
         internal_questions.append(internal)
 
@@ -131,12 +189,17 @@ def generate_quiz(language: str, github_analysis_id: Optional[str] = None) -> Ge
     cached[quiz_id] = [q.model_dump() for q in internal_questions]
     _save_json(_QUIZ_CACHE_FILE, cached)
 
+    dev_context_str = f"@{gh_username}" if gh_username != "developer" else None
+
     return GenerateQuizResponse(
         quizId=quiz_id,
-        language=language,
+        language=target_language,
+        strongestLanguage=strongest_language,
         totalQuestions=len(public_questions),
         questions=public_questions,
         detectedLanguages=detected_languages,
+        generationSource=generation_source,
+        developerContext=dev_context_str,
     )
 
 

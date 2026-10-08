@@ -169,7 +169,7 @@ export default function LinkedInAnalyzer() {
                 />
                 <span className="analyzer__dropzone-icon">📥</span>
                 <p className="analyzer__dropzone-title">Click to browse or drop your LinkedIn profile PDF here</p>
-                <p className="analyzer__dropzone-hint">Accepts official LinkedIn resume .pdf export (Max 15MB)</p>
+                <p className="analyzer__dropzone-hint">Accepts official LinkedIn resume .pdf export (Max 15)</p>
               </div>
             ) : (
               <div className="analyzer__file-selected">
@@ -188,7 +188,7 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__fields-grid">
               <div className="analyzer__field">
                 <label className="analyzer__label" htmlFor="li-name">
-                  LinkedIn Name (For Context)
+                  LinkedIn Name (For Context)hi
                 </label>
                 <input
                   id="li-name"
