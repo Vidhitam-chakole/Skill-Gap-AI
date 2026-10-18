@@ -23,8 +23,16 @@ export default function SkillVerifier({ initialLanguage = null, githubResult = n
   const [results, setResults] = useState(null);
   const [startTime, setStartTime] = useState(null);
 
-  const strongestLang = githubResult?.topLanguages?.[0]?.name;
-  const strongestPct = githubResult?.topLanguages?.[0]?.percentage;
+  const strongestLang =
+    githubResult?.primaryLanguage ||
+    githubResult?.strongLanguages?.[0] ||
+    githubResult?.topLanguages?.find(
+      (l) => !['html', 'css', 'scss', 'less', 'markdown', 'json'].includes((l.name || '').toLowerCase())
+    )?.name ||
+    githubResult?.topLanguages?.[0]?.name;
+  const strongestPct =
+    githubResult?.topLanguages?.find((l) => (l.name || '').toLowerCase() === (strongestLang || '').toLowerCase())?.percentage ||
+    githubResult?.topLanguages?.[0]?.percentage;
 
   useEffect(() => {
     if (initialLanguage) {

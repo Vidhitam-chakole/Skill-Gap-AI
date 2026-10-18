@@ -17,7 +17,7 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import settings
-from app.routers import chat, github, linkedin, roadmap, skill_verifier
+from app.routers import chat, github, linkedin, roadmap, skill_verifier, users
 
 app = FastAPI(
     title="SkillGap AI - Modular Career Intelligence API",
@@ -49,6 +49,7 @@ app.include_router(github.router, prefix="/api")
 app.include_router(roadmap.router, prefix="/api")
 app.include_router(chat.router, prefix="/api")
 app.include_router(skill_verifier.router, prefix="/api")
+app.include_router(users.router, prefix="/api")
 
 
 def _error_message(detail: object) -> str:

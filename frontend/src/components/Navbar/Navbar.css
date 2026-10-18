@@ -62,6 +62,17 @@
   box-shadow: 3px 3px 0 var(--yellow);
 }
 
+.navbar__link--unlocked:not(.navbar__link--active) {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  animation: navbar-glow 2s infinite ease-in-out;
+}
+
+@keyframes navbar-glow {
+  0%, 100% { box-shadow: 0 0 0px var(--yellow); }
+  50% { box-shadow: 0 0 10px var(--yellow); }
+}
+
 .navbar__icon {
   font-size: 1.25rem;
   font-weight: 700;

@@ -25,7 +25,12 @@ function AppShell() {
   const handleNavigate = useCallback((sectionId) => {
     setActiveSection(sectionId);
     if (sectionId !== 'home') {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else if (sectionId === 'verifier') {
+        document.getElementById('linkedin')?.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }

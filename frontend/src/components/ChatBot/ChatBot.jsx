@@ -56,7 +56,7 @@ export default function ChatBot() {
         'Review my overall profile',
         'How is my GitHub profile?',
         'What are my LinkedIn strengths?',
-        'Explain my 4-week roadmap',
+        'Explain my dynamic roadmap',
         'What should I build first?',
       ]
     : [

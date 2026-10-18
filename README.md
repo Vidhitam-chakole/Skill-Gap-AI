@@ -15,10 +15,11 @@ SkillGap AI analyzes your LinkedIn PDF export and GitHub profile, surfaces criti
    - Analyzes real repositories, star metrics, followers, activity velocity, and byte-weighted language percentages.
    - Detects missing developer practices: test coverage, CI/CD automation, open-source contributions, and documentation.
 
-3. **Personalized 4-Week Roadmap**
+3. **Dynamic Adaptive Career Roadmap**
    - Real synthesis merging findings from your LinkedIn PDF review and GitHub repositories.
-   - Deduplicates and ranks gaps by severity (High, Medium, Low).
-   - Generates a concrete 4-week structured sprint plan with shippable deliverables.
+   - Dynamically adapts to your **GitHub strong programming languages** (Python, TypeScript, Go, Java, Rust, etc.).
+   - Eliminates rigid 4-week bounds: generates adaptive sprint milestones (3 to 7+) based on actual gap complexity and career score.
+   - Provides concrete, language-specific tasks, test frameworks, CI/CD setups, and shippable deliverables.
 
 4. **Local AI Career Agent**
    - Runs 100% locally offline with an intelligent, context-driven career mentor engine.
@@ -43,7 +44,7 @@ Skill-Gap-AI/
 │   └── frontend/                # GitHub review UI component & styles
 │
 ├── roadmap/                     # Roadmap Module
-│   ├── backend/                 # Gap synthesis & 4-week sprint task planner
+│   ├── backend/                 # Gap synthesis, GitHub language adaptation & dynamic sprint task planner
 │   └── frontend/                # Roadmap UI component & styles
 │
 ├── ai_agent/                    # Local AI Agent Module

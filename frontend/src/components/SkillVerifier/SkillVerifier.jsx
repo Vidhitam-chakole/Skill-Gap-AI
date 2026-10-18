@@ -1,22 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../Decorative/Decorative';
 import { skillVerifierApi } from '../../services/api';
 import './SkillVerifier.css';
 
-const DEFAULT_LANGUAGES = [
-  { id: 'python', name: 'Python', category: 'Backend & AI/ML' },
-  { id: 'javascript', name: 'JavaScript', category: 'Full Stack & Web' },
-  { id: 'typescript', name: 'TypeScript', category: 'Architecture & Frontend' },
-  { id: 'c', name: 'C Programming', category: 'Systems & Embedded' },
-  { id: 'cpp', name: 'C++', category: 'High Performance' },
-  { id: 'java', name: 'Java', category: 'Enterprise Backend' },
-  { id: 'go', name: 'Go (Golang)', category: 'Cloud & Distributed' },
-  { id: 'rust', name: 'Rust', category: 'Systems & Memory Safety' },
-];
-
 export default function SkillVerifier({ initialLanguage = null }) {
-  const { githubResult } = useAnalysis();
+  const { linkedinResult, githubResult } = useAnalysis();
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage || 'Python');
   const [quiz, setQuiz] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,10 +16,20 @@ export default function SkillVerifier({ initialLanguage = null }) {
   const [results, setResults] = useState(null);
   const [startTime, setStartTime] = useState(null);
 
-  const strongestLang = githubResult?.topLanguages?.[0]?.name;
-  const strongestPct = githubResult?.topLanguages?.[0]?.percentage;
+  const strongestLang =
+    githubResult?.primaryLanguage ||
+    githubResult?.strongLanguages?.[0] ||
+    githubResult?.topLanguages?.find(
+      (l) => !['html', 'css', 'scss', 'less', 'markdown', 'json'].includes((l.name || '').toLowerCase())
+    )?.name ||
+    githubResult?.topLanguages?.[0]?.name ||
+    'Python';
 
-  // If initialLanguage or githubResult updates, sync pre-selection to user's strongest language
+  const strongestPct =
+    githubResult?.topLanguages?.find((l) => (l.name || '').toLowerCase() === (strongestLang || '').toLowerCase())?.percentage ||
+    githubResult?.topLanguages?.[0]?.percentage;
+
+  // Sync selected language to user's analyzed strongest language
   useEffect(() => {
     if (initialLanguage) {
       setSelectedLanguage(initialLanguage);
@@ -108,12 +107,17 @@ export default function SkillVerifier({ initialLanguage = null }) {
     return 'verifier__score-banner--suspect';
   };
 
+  // Other detected languages from GitHub excluding the primary one
+  const otherLanguages = (githubResult?.topLanguages || []).filter(
+    (l) => l.name && l.name.toLowerCase() !== (strongestLang || '').toLowerCase()
+  );
+
   return (
     <section id="verifier" className="verifier">
-
+      <Sticker color="yellow" rotation={3} className="verifier__sticker">Anti-AI Verifier</Sticker>
 
       <SectionHeader
-        
+        tag="03 // AUTHENTICITY"
         title="AI Code & Skill Verifier"
         subtitle="Did you write your code, or did AI? Take the 10-Question Truth Test to verify genuine mastery over your claimed GitHub strong languages."
         rotate={1}
@@ -121,107 +125,81 @@ export default function SkillVerifier({ initialLanguage = null }) {
 
       {error && <div className="analyzer__error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
 
-      {/* 1. SETUP / LANGUAGE SELECTOR (when no active quiz and no results) */}
+      {/* 1. SETUP / EXTRACTED LANGUAGE VIEW */}
       {!quiz && !results && (
         <div className="verifier__setup-card brutal-card reveal">
           <div className="verifier__setup-title">
             <span>Verify Language Authenticity</span>
-            <span className="badge badge--dynamic">✨ Custom-Made Papers</span>
+            <span className="badge">✨ Custom-Made Papers</span>
           </div>
 
           <p className="verifier__setup-desc">
             Technical interviewers can immediately distinguish between engineers who intuitively understand core language mechanics vs candidates who copy-paste AI-generated code.
-            Assessment papers are <strong>never predefined</strong>—every test is <strong>dynamically custom-generated</strong> on the fly, with randomized code traps, execution paths, and real repository context from your GitHub profile.
+            Assessment papers are <strong>never predefined</strong>—every test is <strong>dynamically custom-generated</strong> on the fly with randomized anti-AI traps, calibrated directly to your analyzed profile.
           </p>
 
-          {/* GitHub Detected Strongest Language Banner */}
-          {githubResult ? (
-            <div className="verifier__gh-extracted-card">
-              <div className="verifier__gh-extracted-badge">
+          {/* Connected Profiles Badges */}
+          <div className="verifier__connected-strip">
+            {githubResult && (
+              <div className="verifier__connected-pill verifier__connected-pill--github">
                 <span className="verifier__pulse-dot"></span>
-                <span>GITHUB PROFILE CONNECTED: @{githubResult.username}</span>
+                <span>GITHUB CODEBASE: @{githubResult.username}</span>
               </div>
-              <div className="verifier__gh-extracted-content">
-                <div className="verifier__gh-extracted-text">
-                  <h4>
-                    Strongest Language Detected: <span className="verifier__lang-highlight">{strongestLang || 'Primary Language'}</span>
-                    {strongestPct ? <span className="verifier__lang-pct"> ({strongestPct}% of public repos)</span> : null}
-                  </h4>
-                  <p>
-                    Paper will be dynamically tailored to your GitHub stack. Anti-AI traps will test pointer lifetimes, memory boundaries, concurrency, and scoping traps.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="brutal-btn brutal-btn--accent verifier__start-strongest-btn"
-                  disabled={loading}
-                  onClick={() => handleStartQuiz(strongestLang || selectedLanguage)}
-                >
-                  {loading ? 'Crafting Custom Paper...' : `⚡ Start Custom ${strongestLang || selectedLanguage} Test`}
-                </button>
+            )}
+            {linkedinResult && (
+              <div className="verifier__connected-pill verifier__connected-pill--linkedin">
+                <span>✓ LINKEDIN: {linkedinResult.name}</span>
+                {linkedinResult.headline ? <span style={{ opacity: 0.75 }}>({linkedinResult.headline})</span> : null}
               </div>
+            )}
+          </div>
 
-              {githubResult.topLanguages?.length > 1 && (
-                <div className="verifier__other-langs">
-                  <span className="verifier__other-langs-label">Or test other detected languages from your repositories:</span>
-                  <div className="verifier__gh-chips">
-                    {githubResult.topLanguages.slice(1).map((lang, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        className={`verifier__chip ${selectedLanguage.toLowerCase() === lang.name.toLowerCase() ? 'verifier__chip--active' : ''}`}
-                        onClick={() => {
-                          setSelectedLanguage(lang.name);
-                          handleStartQuiz(lang.name);
-                        }}
-                      >
-                        {lang.name} ({lang.percentage}%) &rarr; Custom Test
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+          {/* Strongest Language Detected Hero Card */}
+          <div className="verifier__gh-extracted-card">
+            <div className="verifier__gh-extracted-badge">
+              ⚡ Primary Codebase Language
             </div>
-          ) : (
-            <div className="verifier__no-gh-tip">
-              <div className="verifier__no-gh-text">
-                <span className="verifier__no-gh-icon">💡</span>
-                <div>
-                  <strong>Personalize with your GitHub Profile:</strong>
-                  <p>Analyze your GitHub profile above to automatically extract your personal strongest language and generate diagnostic questions calibrated to your repositories.</p>
-                </div>
+            <div className="verifier__gh-extracted-content">
+              <div className="verifier__gh-extracted-text">
+                <h4>
+                  Strongest Language Detected: <span className="verifier__lang-highlight">{strongestLang}</span>
+                  {strongestPct ? <span className="verifier__lang-pct"> ({strongestPct}% of public repos)</span> : null}
+                </h4>
+                <p>
+                  This test is dynamically calibrated to your verified code repositories. Anti-AI traps will test pointer lifetimes, memory boundaries, concurrency, and scoping traps to confirm genuine engineering fluency.
+                </p>
               </div>
-              <a href="#github" className="brutal-btn brutal-btn--outline verifier__no-gh-btn">
-                Analyze GitHub &rarr;
-              </a>
-            </div>
-          )}
-
-          {/* Manual Picker */}
-          <div className="verifier__picker-row">
-            <label className="verifier__picker-label">Choose any language to generate a custom paper:</label>
-            <div className="verifier__picker-controls">
-              <select
-                className="verifier__select"
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-              >
-                {DEFAULT_LANGUAGES.map((l) => (
-                  <option key={l.id} value={l.name}>
-                    {l.name} ({l.category})
-                  </option>
-                ))}
-              </select>
-
               <button
                 type="button"
-                className="brutal-btn brutal-btn--primary"
+                className="brutal-btn brutal-btn--accent verifier__start-strongest-btn"
                 disabled={loading}
-                onClick={() => handleStartQuiz(selectedLanguage)}
+                onClick={() => handleStartQuiz(strongestLang)}
               >
-                {loading ? 'Generating Custom Paper...' : `Generate Custom 10-Question ${selectedLanguage} Test`}
+                {loading ? 'Crafting Custom Paper...' : `⚡ Start Custom ${strongestLang} Test (10 Questions)`}
               </button>
             </div>
+
+            {/* Other detected languages from real repositories */}
+            {otherLanguages.length > 0 && (
+              <div className="verifier__other-langs">
+                <span className="verifier__other-langs-label">Or verify other detected languages from your GitHub profile:</span>
+                <div className="verifier__gh-chips">
+                  {otherLanguages.map((lang, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`verifier__chip ${selectedLanguage.toLowerCase() === lang.name.toLowerCase() ? 'verifier__chip--active' : ''}`}
+                      onClick={() => {
+                        setSelectedLanguage(lang.name);
+                        handleStartQuiz(lang.name);
+                      }}
+                    >
+                      {lang.name} ({lang.percentage}%) &rarr; Start Test
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -254,7 +232,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
           </div>
 
           {/* Developer Context & Re-roll header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', fontSize: '0.85rem', color: '#94a3b8' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', fontSize: '0.9rem', color: '#334155', fontWeight: 600 }}>
             <span>
               {quiz.developerContext ? (
                 <>Assessment calibrated for <strong>{quiz.developerContext}</strong></>
@@ -265,7 +243,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
             <button
               type="button"
               onClick={() => handleStartQuiz(quiz.language)}
-              style={{ background: 'transparent', border: 'none', color: '#00f0ff', cursor: 'pointer', fontSize: '0.82rem', textDecoration: 'underline' }}
+              style={{ background: 'transparent', border: 'none', color: '#ff6b1a', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, textDecoration: 'underline' }}
               title="Generate 10 completely new questions for this language"
             >
               🎲 Re-roll Fresh Paper &rarr;
@@ -361,7 +339,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
             <div className="verifier__score-details">
               <span className="verifier__badge-pill">{results.badge}</span>
               <h2 className="verifier__verdict-title">{results.authenticityLabel}</h2>
-              <p style={{ color: '#cbd5e1', lineHeight: '1.6' }}>{results.summary}</p>
+              <p style={{ lineHeight: '1.6', fontWeight: 600 }}>{results.summary}</p>
             </div>
             <div className="verifier__score-dial">
               <span className="verifier__score-digits">
@@ -407,7 +385,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
                         style={{
                           width: `${c.percentage}%`,
                           backgroundColor:
-                            c.percentage >= 80 ? '#00e676' : c.percentage >= 50 ? '#ffaa00' : '#ff0055',
+                            c.percentage >= 80 ? '#16a34a' : c.percentage >= 50 ? '#ffaa00' : '#e11d48',
                         }}
                       />
                     </div>
@@ -435,27 +413,29 @@ export default function SkillVerifier({ initialLanguage = null }) {
                     </span>
                   </div>
 
-                  <p style={{ fontWeight: 600, color: '#f1f5f9', marginBottom: '0.75rem' }}>{rev.question}</p>
+                  <p style={{ fontWeight: 800, color: 'var(--black, #0a0a0a)', marginBottom: '0.75rem', fontSize: '1.05rem' }}>
+                    {rev.question}
+                  </p>
 
                   {rev.codeSnippet && (
-                    <div className="verifier__code-box" style={{ marginBottom: '1rem', padding: '0.8rem' }}>
-                      <pre style={{ fontSize: '0.85rem' }}>{rev.codeSnippet}</pre>
+                    <div className="verifier__code-box" style={{ marginBottom: '1rem', padding: '1rem' }}>
+                      <pre style={{ fontSize: '0.9rem' }}>{rev.codeSnippet}</pre>
                     </div>
                   )}
 
-                  <div style={{ fontSize: '0.9rem', color: '#cbd5e1', marginBottom: '0.5rem' }}>
+                  <div style={{ fontSize: '0.95rem', color: '#1e293b', marginBottom: '0.5rem', fontWeight: 600 }}>
                     <div>
                       <strong>Your Answer: </strong>
-                      <span style={{ color: rev.isCorrect ? '#00e676' : '#ff0055' }}>
+                      <span style={{ color: rev.isCorrect ? '#16a34a' : '#e11d48', fontWeight: 800 }}>
                         {rev.selectedIndex !== null && rev.selectedIndex !== undefined
                           ? `${String.fromCharCode(65 + rev.selectedIndex)}: ${rev.options[rev.selectedIndex]}`
                           : 'No answer selected'}
                       </span>
                     </div>
                     {!rev.isCorrect && (
-                      <div style={{ marginTop: '0.25rem' }}>
+                      <div style={{ marginTop: '0.35rem' }}>
                         <strong>Correct Answer: </strong>
-                        <span style={{ color: '#00e676' }}>
+                        <span style={{ color: '#16a34a', fontWeight: 800 }}>
                           {String.fromCharCode(65 + rev.correctIndex)}: {rev.options[rev.correctIndex]}
                         </span>
                       </div>
@@ -496,13 +476,13 @@ export default function SkillVerifier({ initialLanguage = null }) {
           </div>
 
           {/* Quick links to test remaining GitHub languages */}
-          {githubResult && githubResult.topLanguages?.length > 1 && (
-            <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px dashed rgba(255, 255, 255, 0.15)' }}>
-              <span style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700, display: 'block', marginBottom: '0.6rem' }}>
-                Test other languages extracted from @{githubResult.username}&apos;s GitHub:
+          {otherLanguages.length > 0 && (
+            <div style={{ marginTop: '1.75rem', paddingTop: '1.5rem', borderTop: '2px dashed var(--black, #0a0a0a)' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--black, #0a0a0a)', textTransform: 'uppercase', fontWeight: 800, display: 'block', marginBottom: '0.75rem' }}>
+                Test other languages extracted from @{githubResult?.username}&apos;s GitHub:
               </span>
               <div className="verifier__gh-chips">
-                {githubResult.topLanguages
+                {otherLanguages
                   .filter((l) => l.name.toLowerCase() !== results.language.toLowerCase())
                   .map((lang, idx) => (
                     <button

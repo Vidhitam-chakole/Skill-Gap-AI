@@ -29,5 +29,7 @@ class GitHubResult(BaseModel):
     overallScore: int
     stats: dict[str, int]
     topLanguages: list[LanguageStat]
+    strongLanguages: list[str] = []
+    primaryLanguage: str | None = None
     skillGaps: list[SkillGap]
     pinnedRepos: list[PinnedRepo]

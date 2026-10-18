@@ -36,7 +36,7 @@ export default function GitHubAnalyzer() {
       <SectionHeader
       
         title="GitHub Profile Review"
-        subtitle="Analyze public repositories, languages, commit velocity, and developer skill gaps directly from GitHub API."
+        subtitle="Analyze public repositories, languages, commit velocity, and code intelligence directly from GitHub API."
         rotate={-2}
       />
 
@@ -102,22 +102,6 @@ export default function GitHubAnalyzer() {
 
           <div className="analyzer__grid">
             <div className="analyzer__panel brutal-card reveal">
-              <h3>Developer Skill Gaps</h3>
-              <p className="analyzer__panel-subtitle">Actionable code &amp; workflow improvements:</p>
-              <ul className="analyzer__gap-list">
-                {results.skillGaps.map((gap, i) => (
-                  <li key={i} className="analyzer__gap-item">
-                    <div className="analyzer__gap-header">
-                      <span className="analyzer__gap-skill">{gap.skill}</span>
-                      <span className={`analyzer__severity severity-${gap.severity}`}>{gap.severity}</span>
-                    </div>
-                    <p className="analyzer__gap-rec">{gap.recommendation}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="analyzer__panel brutal-card reveal-right">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <h3>Primary Languages</h3>
                 <span style={{ fontSize: '0.75rem', background: '#ff0055', color: '#fff', padding: '0.2rem 0.5rem', borderRadius: '3px', fontWeight: 800 }}>
@@ -168,9 +152,10 @@ export default function GitHubAnalyzer() {
                   ⚡ Start Custom 10Q Test for {results.topLanguages[0]?.name || 'Strongest Language'} &rarr;
                 </a>
               </div>
+            </div>
 
-
-              <h3 style={{ marginTop: '2rem' }}>Featured Repositories</h3>
+            <div className="analyzer__panel brutal-card reveal-right">
+              <h3>Featured Repositories</h3>
               <p className="analyzer__panel-subtitle">Top repositories by stars and activity:</p>
               <ul className="analyzer__repo-list">
                 {results.pinnedRepos.map((repo, i) => (

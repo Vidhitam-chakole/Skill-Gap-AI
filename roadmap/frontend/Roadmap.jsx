@@ -9,6 +9,7 @@ export default function Roadmap() {
   const { linkedinResult, githubResult, roadmap, setRoadmap } = useAnalysis();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [completedTasks, setCompletedTasks] = useState({});
   const ready = Boolean(linkedinResult || githubResult);
 
   // Automatically trigger roadmap generation when both analyses are ready and roadmap is not yet built
@@ -33,6 +34,13 @@ export default function Roadmap() {
     }
   };
 
+  const handleToggleTask = (taskKey) => {
+    setCompletedTasks((prev) => ({
+      ...prev,
+      [taskKey]: !prev[taskKey],
+    }));
+  };
+
   const handleAskAIAboutRoadmap = () => {
     const chatSection = document.getElementById('chat');
     chatSection?.scrollIntoView({ behavior: 'smooth' });
@@ -43,17 +51,16 @@ export default function Roadmap() {
       <Sticker color="yellow" rotation={-3} className="roadmap__sticker">Personalized Roadmap</Sticker>
 
       <SectionHeader
-        tag="// career_growth_roadmap"
         title="Personalized Roadmap"
-        subtitle="Synthesize your real LinkedIn profile review and GitHub repositories into a prioritized 4-week execution roadmap."
+        subtitle="Adaptive, language-tailored career progression sprints synthesized from your real GitHub codebase and LinkedIn profile."
         rotate={-1}
       />
 
       <div className="roadmap__panel brutal-card reveal">
         <p className="roadmap__hint">
           {ready
-            ? 'Profile review data detected! Click below to synthesize your personalized career progression plan.'
-            : 'Review your LinkedIn and/or GitHub profile above first, then generate your custom 4-week roadmap here.'}
+            ? 'Profile review data detected! Click below to synthesize your personalized dynamic career progression roadmap.'
+            : 'Review your LinkedIn and/or GitHub profile above first, then generate your custom dynamic roadmap here.'}
         </p>
 
         <div className="roadmap__status-pills">
@@ -63,6 +70,11 @@ export default function Roadmap() {
           <span className={`roadmap__pill ${githubResult ? 'roadmap__pill--active' : 'roadmap__pill--pending'}`}>
             {githubResult ? `✓ GitHub: @${githubResult.username}` : '○ GitHub: Pending'}
           </span>
+          {githubResult?.topLanguages && githubResult.topLanguages.length > 0 && (
+            <span className="roadmap__pill roadmap__pill--active">
+              ⚡ Stack: {githubResult.topLanguages.slice(0, 2).map((l) => `${l.name} (${l.percentage}%)`).join(', ')}
+            </span>
+          )}
         </div>
 
         <button
@@ -71,7 +83,7 @@ export default function Roadmap() {
           onClick={handleBuild}
           disabled={!ready || loading}
         >
-          {loading ? 'Synthesizing Roadmap...' : roadmap ? '⚡ Regenerate Roadmap' : '⚡ Build My Roadmap'}
+          {loading ? 'Synthesizing Dynamic Roadmap...' : roadmap ? '⚡ Regenerate Roadmap' : '⚡ Build My Roadmap'}
         </button>
 
         {error && <div className="roadmap__error">{error}</div>}
@@ -80,9 +92,24 @@ export default function Roadmap() {
       {roadmap && (
         <div className="roadmap__results">
           <div className="roadmap__score brutal-card reveal-left">
-            <span className="roadmap__score-label">Combined Career Score</span>
+            <span className="roadmap__score-label">Combined Career Readiness Score</span>
             <span className="roadmap__score-value">{roadmap.combinedScore} / 100</span>
             <p className="roadmap__summary-text">{roadmap.summary}</p>
+
+            <div className="roadmap__metrics-strip">
+              <div className="roadmap__metric-badge">
+                <span className="roadmap__metric-label">Primary Stack</span>
+                <span className="roadmap__metric-val">{roadmap.primaryLanguage || roadmap.strongLanguages?.[0] || 'Modern Stack'}</span>
+              </div>
+              <div className="roadmap__metric-badge">
+                <span className="roadmap__metric-label">Sprint Milestones</span>
+                <span className="roadmap__metric-val">{roadmap.totalMilestones || roadmap.weeks?.length} Sprints</span>
+              </div>
+              <div className="roadmap__metric-badge">
+                <span className="roadmap__metric-label">Estimated Timeline</span>
+                <span className="roadmap__metric-val">{roadmap.estimatedTotalDuration || 'Flexible Track'}</span>
+              </div>
+            </div>
           </div>
 
           <div className="roadmap__priorities brutal-card reveal">
@@ -104,16 +131,61 @@ export default function Roadmap() {
             </ul>
           </div>
 
-          <h3 className="roadmap__weeks-header reveal">4-Week Structured Sprints</h3>
+          <div className="roadmap__milestones-header-wrap reveal">
+            <h3 className="roadmap__weeks-header">Dynamic Execution Milestones & Sprints</h3>
+            <p className="roadmap__milestones-sub">
+              Engineered around your active {roadmap.primaryLanguage || 'GitHub'} codebase with tangible deliverables:
+            </p>
+          </div>
+
           <div className="roadmap__weeks">
             {roadmap.weeks.map((week) => (
               <article key={week.week} className="roadmap__week brutal-card reveal">
-                <span className="roadmap__week-label">Sprint Week 0{week.week}</span>
-                <h3>{week.focus}</h3>
-                <ul>
-                  {week.tasks.map((task, i) => (
-                    <li key={i}>{task}</li>
-                  ))}
+                <div className="roadmap__week-header-row">
+                  <span className="roadmap__week-label">{week.phase || `Sprint 0${week.week}`}</span>
+                  {week.duration && (
+                    <span className="roadmap__duration-pill">⏱️ {week.duration}</span>
+                  )}
+                </div>
+
+                <h3>{week.title || week.focus}</h3>
+
+                {week.languageContext && (
+                  <span className="roadmap__lang-pill">
+                    ⚡ {week.languageContext}
+                  </span>
+                )}
+
+                {week.deliverable && (
+                  <div className="roadmap__deliverable">
+                    <span className="roadmap__deliverable-label">📦 Key Deliverable:</span>
+                    <p className="roadmap__deliverable-text">{week.deliverable}</p>
+                  </div>
+                )}
+
+                <ul className="roadmap__task-list">
+                  {week.tasks.map((task, i) => {
+                    const taskKey = `${week.week}-${i}`;
+                    const isDone = Boolean(completedTasks[taskKey]);
+                    return (
+                      <li
+                        key={i}
+                        className={`roadmap__task-item ${isDone ? 'roadmap__task-item--done' : ''}`}
+                        onClick={() => handleToggleTask(taskKey)}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isDone}
+                          onChange={() => handleToggleTask(taskKey)}
+                          className="roadmap__task-checkbox"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <span className={`roadmap__task-text ${isDone ? 'roadmap__task-text--done' : ''}`}>
+                          {task}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </article>
             ))}

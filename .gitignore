@@ -1,16 +1,27 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.env
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
 # Python
 backend/venv/
 backend/__pycache__/
 backend/**/__pycache__/
-backend/.env
 backend/data/
 *.pyc
 
 # Node
 frontend/node_modules/
-frontend/.env
 frontend/*.local
 
 # OS
 .DS_Store
 Thumbs.db
+

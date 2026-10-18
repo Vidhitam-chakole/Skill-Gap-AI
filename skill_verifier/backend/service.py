@@ -12,7 +12,6 @@ from typing import Any, Callable, Optional
 
 from skill_verifier.backend.dynamic_generator import generate_procedural_questions
 from skill_verifier.backend.llm_generator import generate_dynamic_ai_questions
-from skill_verifier.backend.question_bank import QUESTION_BANK, get_questions_for_language
 from skill_verifier.backend.schemas import (
     ConceptScore,
     GenerateQuizResponse,
@@ -23,6 +22,12 @@ from skill_verifier.backend.schemas import (
     QuizQuestionPublic,
 )
 import os
+
+try:
+    from app.services.store import _supabase_fetch_record, _supabase_save_record
+except Exception:
+    _supabase_fetch_record = lambda tbl, rid: None
+    _supabase_save_record = lambda tbl, rid, payload: False
 
 if os.environ.get("VERCEL"):
     DATA_DIR = Path("/tmp") / "skillgap_verifier"
@@ -100,16 +105,20 @@ async def generate_quiz(
             if gh_data:
                 gh_username = getattr(gh_data, "username", "developer") or "developer"
 
-                # Extract top languages from profile
-                top_langs = getattr(gh_data, "topLanguages", []) or gh_data.get("topLanguages", [])
+                # 1. Check explicit primary or strong programming language from GitHub analysis
+                gh_primary = getattr(gh_data, "primaryLanguage", None) or (gh_data.get("primaryLanguage") if isinstance(gh_data, dict) else None)
+                if gh_primary:
+                    strongest_language = gh_primary
+
+                # 2. Extract top languages, filtering out non-programming markup
+                NON_PROGRAMMING = {"html", "css", "scss", "less", "markdown", "json", "yaml", "xml", "shell", "bash", "text", "dockerfile"}
+                top_langs = getattr(gh_data, "topLanguages", []) or (gh_data.get("topLanguages", []) if isinstance(gh_data, dict) else [])
                 for item in top_langs:
                     name = getattr(item, "name", None) or (item.get("name") if isinstance(item, dict) else None)
                     if name:
                         detected_languages.append(name)
-
-                # The first detected language is the user's primary/strongest language
-                if detected_languages:
-                    strongest_language = detected_languages[0]
+                        if not strongest_language and name.lower() not in NON_PROGRAMMING:
+                            strongest_language = name
 
                 # Extract featured repository names to contextualize diagnostic code snippets
                 pinned = getattr(gh_data, "pinnedRepos", []) or gh_data.get("pinnedRepos", [])
@@ -120,11 +129,17 @@ async def generate_quiz(
         except Exception:
             pass
 
+    # Fallback: if strongest_language still not found, check detected_languages
+    if not strongest_language and detected_languages:
+        for lang_name in detected_languages:
+            if lang_name.lower() not in {"html", "css", "scss", "less", "markdown", "json", "yaml", "xml", "shell", "bash"}:
+                strongest_language = lang_name
+                break
+
     # Resolve target language:
-    # If language is None, empty, or 'auto', automatically use the strongest language from their GitHub profile!
     clean_lang = (language or "").strip()
     if not clean_lang or clean_lang.lower() in ("auto", "default", "strongest"):
-        target_language = strongest_language or "Python"
+        target_language = strongest_language or "JavaScript"
     else:
         target_language = clean_lang
 
@@ -189,6 +204,12 @@ async def generate_quiz(
     cached[quiz_id] = [q.model_dump() for q in internal_questions]
     _save_json(_QUIZ_CACHE_FILE, cached)
 
+    # Persist session to Supabase
+    try:
+        _supabase_save_record("quiz_sessions", quiz_id, [q.model_dump() for q in internal_questions])
+    except Exception:
+        pass
+
     dev_context_str = f"@{gh_username}" if gh_username != "developer" else None
 
     return GenerateQuizResponse(
@@ -220,6 +241,14 @@ def evaluate_quiz(
         if raw_list:
             questions = [QuizQuestionInternal.model_validate(q) for q in raw_list]
             _active_quizzes[quiz_id] = questions
+        else:
+            try:
+                sb_list = _supabase_fetch_record("quiz_sessions", quiz_id)
+                if sb_list and isinstance(sb_list, list):
+                    questions = [QuizQuestionInternal.model_validate(q) for q in sb_list]
+                    _active_quizzes[quiz_id] = questions
+            except Exception:
+                pass
 
     if not questions:
         raise ValueError(f"Quiz session '{quiz_id}' not found or expired. Please generate a new assessment.")
@@ -342,10 +371,16 @@ def evaluate_quiz(
 
     _saved_results[quiz_id] = result
 
-    # Persist results
+    # Persist results locally
     cached_res = _load_json(_RESULT_CACHE_FILE)
     cached_res[quiz_id] = result.model_dump()
     _save_json(_RESULT_CACHE_FILE, cached_res)
+
+    # Persist to Supabase
+    try:
+        _supabase_save_record("quiz_evaluations", quiz_id, result.model_dump())
+    except Exception:
+        pass
 
     return result
 
@@ -354,6 +389,17 @@ def get_quiz_result(quiz_id: str) -> Optional[QuizEvaluationResult]:
     """Retrieve previously saved quiz evaluation result."""
     if quiz_id in _saved_results:
         return _saved_results[quiz_id]
+
+    # Try fetching from Supabase
+    try:
+        sb_rec = _supabase_fetch_record("quiz_evaluations", quiz_id)
+        if sb_rec:
+            res = QuizEvaluationResult.model_validate(sb_rec)
+            _saved_results[quiz_id] = res
+            return res
+    except Exception:
+        pass
+
     cached = _load_json(_RESULT_CACHE_FILE)
     raw = cached.get(quiz_id)
     if raw:

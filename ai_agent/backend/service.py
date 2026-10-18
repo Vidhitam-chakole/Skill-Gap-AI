@@ -8,11 +8,26 @@ from .schemas import ChatMessageResponse
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 
-# In-memory chat storage for conversation histories
+# In-memory chat storage for conversation histories with Supabase integration
 _conversations: dict[str, list[dict[str, str]]] = {}
+
+try:
+    from app.services.store import _supabase_chat_history, _supabase_append_chat
+except Exception:
+    _supabase_chat_history = lambda cid: []
+    _supabase_append_chat = lambda cid, r, t: False
 
 
 def get_history(conversation_id: str) -> list[dict[str, str]]:
+    if conversation_id in _conversations and _conversations[conversation_id]:
+        return _conversations[conversation_id]
+    try:
+        sb_history = _supabase_chat_history(conversation_id)
+        if sb_history:
+            _conversations[conversation_id] = sb_history
+            return sb_history
+    except Exception:
+        pass
     return _conversations.get(conversation_id, [])
 
 
@@ -20,6 +35,10 @@ def append_message(conversation_id: str, role: str, text: str) -> None:
     if conversation_id not in _conversations:
         _conversations[conversation_id] = []
     _conversations[conversation_id].append({"role": role, "text": text})
+    try:
+        _supabase_append_chat(conversation_id, role, text)
+    except Exception:
+        pass
 
 
 def _get_lang_name(l) -> str:
@@ -97,7 +116,7 @@ def _build_contextual_reply(message: str, linkedin_result, github_result) -> str
                 f"Combined Profile Review for {user_name}:\n"
                 f"• Overall Career Score: {avg_score}/100 (LinkedIn: {li_score}, GitHub: {gh_score}).\n"
                 f"• Strengths: Solid grounding in {', '.join(li_strengths[:2])} with active coding in {gh_lang_names}.\n"
-                f"• Critical Skill Gap: {top_blocker}. Check your 4-week roadmap below to systematically close this gap."
+                f"• Critical Skill Gap: {top_blocker}. Check your dynamic roadmap below to systematically close this gap."
             )
         elif linkedin_result:
             return (
@@ -111,13 +130,13 @@ def _build_contextual_reply(message: str, linkedin_result, github_result) -> str
             )
 
     # Intent 4: Roadmap & Next Steps
-    if any(w in lowered for w in ("roadmap", "next", "what next", "week", "plan", "start", "guide", "learn", "schedule")):
+    if any(w in lowered for w in ("roadmap", "next", "what next", "week", "plan", "start", "guide", "learn", "schedule", "sprint")):
         high_gaps = [get_gap_skill(g) for g in (li_gaps + gh_gaps) if get_gap_sev(g) == "high"]
         lead_priority = high_gaps[0] if high_gaps else "Hands-on project development"
         return (
-            f"For your next steps, {user_name}, start in Week 1 by tackling '{lead_priority}'. "
+            f"For your next steps, {user_name}, begin Sprint 01 by tackling '{lead_priority}'. "
             f"Ship a working proof-of-concept repository, write unit tests, and document the architecture. "
-            f"Refer to the 4-week structured sprint section right above for your weekly task breakdown."
+            f"Refer to the dynamic roadmap section right above for your adaptive sprint milestones."
         )
 
     # Intent 5: Strengths inquiry
@@ -146,9 +165,9 @@ def _build_contextual_reply(message: str, linkedin_result, github_result) -> str
 def _fallback_ai_reply(message: str) -> str:
     lowered = message.lower()
     if any(w in lowered for w in ("hello", "hi", "hey", "start")):
-        return "Hello! I am your SkillGap Local AI Career Agent. I analyze your LinkedIn review, GitHub code activity, and 4-week roadmap to give you personalized career advice. What would you like to explore?"
+        return "Hello! I am your SkillGap Local AI Career Agent. I analyze your LinkedIn review, GitHub code activity, and dynamic roadmap to give you personalized career advice. What would you like to explore?"
     if any(w in lowered for w in ("help", "what can you do")):
-        return "You can ask me to review your LinkedIn profile, evaluate your GitHub repositories, explain your 4-week roadmap, or guide you on mastering any specific skill gap!"
+        return "You can ask me to review your LinkedIn profile, evaluate your GitHub repositories, explain your dynamic roadmap, or guide you on mastering any specific skill gap!"
     return (
         "Focus on high-severity skill gaps first: ship one public, well-tested project this month that proves your "
         "competence in cloud, testing, or system design, then feature it prominently on LinkedIn and GitHub."

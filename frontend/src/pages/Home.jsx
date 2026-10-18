@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { useAnalysis } from '../context/AnalysisContext';
 import Hero from '../components/Hero/Hero';
 import Marquee from '../components/Marquee/Marquee';
 import BentoGrid from '../components/BentoGrid/BentoGrid';
@@ -14,15 +15,22 @@ const MARQUEE_ITEMS = [
   'LinkedIn PDF & Profile Review',
   'GitHub Code Intelligence',
   'Anti-AI Code Verifier (10Q)',
-  '4-Week Personalized Roadmap',
+  'Dynamic Adaptive Roadmap',
   'Market Demand Intel',
   'Local AI Career Agent',
 ];
 
 export default function Home({ onNavigate }) {
+  const { linkedinResult, githubResult } = useAnalysis();
+  const [unlockedWithGithubOnly, setUnlockedWithGithubOnly] = useState(false);
+
   const scrollTo = useCallback((id) => {
     onNavigate(id);
   }, [onNavigate]);
+
+  // SkillVerifier unlocks automatically when both LinkedIn and GitHub analyses are done,
+  // or if user explicitly unlocks it after GitHub analysis
+  const isVerifierReady = Boolean((linkedinResult && githubResult) || (githubResult && unlockedWithGithubOnly));
 
   return (
     <main className="home">
@@ -39,10 +47,35 @@ export default function Home({ onNavigate }) {
 
       <LinkedInAnalyzer />
       <GitHubAnalyzer />
-      <SkillVerifier />
+
+      {/* If GitHub is analyzed but LinkedIn is still pending, offer instant unlock */}
+      {githubResult && !linkedinResult && !isVerifierReady && (
+        <div style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 2rem' }}>
+          <div className="brutal-card" style={{ padding: '1.75rem', background: '#fffdf5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.25rem', border: '3px solid var(--black, #0a0a0a)' }}>
+            <div>
+              <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.15rem', textTransform: 'uppercase' }}>
+                ⚡ GitHub Codebase Analyzed (@{githubResult.username})
+              </h3>
+              <p style={{ margin: 0, color: '#334155', fontSize: '0.95rem' }}>
+                Complete LinkedIn review above to combine your career data, or start the AI Code Verifier test now with your GitHub stack.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="brutal-btn brutal-btn--accent"
+              onClick={() => setUnlockedWithGithubOnly(true)}
+            >
+              Unlock Code Verifier Now &rarr;
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* AI Code & Skill Verifier: Appears after LinkedIn and GitHub analyzers are done */}
+      {isVerifierReady && <SkillVerifier />}
+
       <Roadmap />
       <ChatBot />
-
 
       <footer className="home__footer">
         <div className="home__footer-inner">

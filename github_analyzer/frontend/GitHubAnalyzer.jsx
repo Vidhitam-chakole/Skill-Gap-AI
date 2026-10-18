@@ -36,7 +36,7 @@ export default function GitHubAnalyzer() {
       <SectionHeader
         tag="// github_profile_analyzer"
         title="GitHub Profile Review"
-        subtitle="Analyze public repositories, languages, commit velocity, and developer skill gaps directly from GitHub API."
+        subtitle="Analyze public repositories, languages, commit velocity, and code intelligence directly from GitHub API."
         rotate={-2}
       />
 
@@ -102,22 +102,6 @@ export default function GitHubAnalyzer() {
 
           <div className="analyzer__grid">
             <div className="analyzer__panel brutal-card reveal">
-              <h3>Developer Skill Gaps</h3>
-              <p className="analyzer__panel-subtitle">Actionable code &amp; workflow improvements:</p>
-              <ul className="analyzer__gap-list">
-                {results.skillGaps.map((gap, i) => (
-                  <li key={i} className="analyzer__gap-item">
-                    <div className="analyzer__gap-header">
-                      <span className="analyzer__gap-skill">{gap.skill}</span>
-                      <span className={`analyzer__severity severity-${gap.severity}`}>{gap.severity}</span>
-                    </div>
-                    <p className="analyzer__gap-rec">{gap.recommendation}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="analyzer__panel brutal-card reveal-right">
               <h3>Primary Languages</h3>
               <p className="analyzer__panel-subtitle">Code distribution across public repositories:</p>
               <div className="analyzer__bars">
@@ -136,8 +120,10 @@ export default function GitHubAnalyzer() {
                   </div>
                 ))}
               </div>
+            </div>
 
-              <h3 style={{ marginTop: '2rem' }}>Featured Repositories</h3>
+            <div className="analyzer__panel brutal-card reveal-right">
+              <h3>Featured Repositories</h3>
               <p className="analyzer__panel-subtitle">Top repositories by stars and activity:</p>
               <ul className="analyzer__repo-list">
                 {results.pinnedRepos.map((repo, i) => (

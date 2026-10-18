@@ -1,39 +1,28 @@
+import asyncio
 import os
 import uuid
 from collections import Counter
 from urllib.parse import urlparse
+from pathlib import Path
 
 import httpx
+from dotenv import load_dotenv
 
 from .schemas import GitHubResult, LanguageStat, PinnedRepo, SkillGap
 
+# Load environment variables from project roots
+ROOT_ENV = Path(__file__).resolve().parents[2] / ".env"
+BACKEND_ENV = Path(__file__).resolve().parents[1] / ".env"
+if ROOT_ENV.exists():
+    load_dotenv(ROOT_ENV)
+if BACKEND_ENV.exists():
+    load_dotenv(BACKEND_ENV)
+
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "").strip()
-
-LANGUAGE_GAPS = {
-    "JavaScript": ("Testing & Quality (Jest/Vitest)", "high", "Add automated unit and integration tests to your JavaScript repositories"),
-    "TypeScript": ("Strict Type Architecture", "medium", "Enable strict type checking and share common domain models across projects"),
-    "Python": ("Asynchronous & Profiling", "medium", "Incorporate asyncio, type annotations, and performance profiling for production workloads"),
-    "Java": ("Spring Boot & Microservices", "medium", "Design enterprise RESTful microservices with Spring Boot and OpenAPI documentation"),
-    "Go": ("Cloud Observability", "medium", "Add structured JSON logging, Prometheus metrics, and OpenTelemetry tracing"),
-    "Rust": ("Crates & Safe Concurrency", "medium", "Publish reusable crates and practice fearless concurrency patterns"),
-    "CSS": ("Design Systems & Modular Tokens", "low", "Extract reusable CSS custom properties and token-based design systems"),
-    "HTML": ("Web Accessibility (a11y)", "medium", "Audit templates for WCAG 2.1 AA compliance and semantic landmark elements"),
-    "C": ("Modern Memory Safety & Valgrind", "medium", "Integrate automated memory leak checks and sanitizer flags into Makefiles"),
-    "C++": ("Modern C++ Standards (C++20)", "medium", "Utilize smart pointers, ranges, and concept constraints to modernize codebase"),
-}
-
-GENERIC_GAPS = [
-    ("Open Source Contributions", "medium", "Contribute pull requests, bug fixes, or documentation to established open-source projects"),
-    ("Repository Documentation", "low", "Enhance repository READMEs with architectural diagrams, live preview links, and setup guides"),
-    ("CI/CD Pipeline Automation", "high", "Configure automated GitHub Actions for linting, testing, and continuous deployment on commit"),
-]
 
 
 def extract_github_username(input_val: str) -> str:
-    """
-    Handles usernames like 'torvalds', '@torvalds',
-    or full profile URLs like 'https://github.com/torvalds?tab=repositories'
-    """
+    """Handles usernames like 'torvalds', '@torvalds', or profile URLs."""
     clean = input_val.strip().lstrip("@")
     if "github.com" in clean.lower():
         if not clean.startswith(("http://", "https://")):
@@ -48,21 +37,24 @@ def extract_github_username(input_val: str) -> str:
     return clean.rstrip(".git")
 
 
-async def _github_get(client: httpx.AsyncClient, path: str) -> dict | list:
+def _get_headers() -> dict[str, str]:
+    token = os.getenv("GITHUB_TOKEN", GITHUB_TOKEN).strip()
     headers = {
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
         "User-Agent": "SkillGap-AI-Analyzer",
     }
-    token = os.getenv("GITHUB_TOKEN", GITHUB_TOKEN).strip()
     if token:
         headers["Authorization"] = f"Bearer {token}"
+    return headers
 
-    response = await client.get(f"https://api.github.com{path}", headers=headers)
+
+async def _github_get(client: httpx.AsyncClient, path: str) -> dict | list:
+    response = await client.get(f"https://api.github.com{path}", headers=_get_headers())
     if response.status_code == 404:
-        raise ValueError(f"GitHub user '{path.split('/')[-1]}' not found. Please verify the profile link or username.")
+        raise ValueError(f"GitHub target '{path.split('/')[-1]}' not found. Please verify profile link or username.")
     if response.status_code == 403:
-        raise ValueError("GitHub API rate limit reached. Add a GITHUB_TOKEN to backend/.env or try again later.")
+        raise ValueError("GitHub API rate limit reached. Add a valid GITHUB_TOKEN to .env or wait for reset.")
     response.raise_for_status()
     return response.json()
 
@@ -85,44 +77,120 @@ def _language_stats(repos: list[dict]) -> list[LanguageStat]:
     return stats
 
 
-def _build_skill_gaps(languages: list[LanguageStat], repos: list[dict]) -> list[SkillGap]:
-    gaps: list[SkillGap] = []
-    seen: set[str] = set()
+async def _inspect_repo(client: httpx.AsyncClient, username: str, repo: dict) -> dict:
+    """Perform real file-tree inspection of an actual user repository."""
+    name = repo.get("name", "")
+    lang = repo.get("language") or ""
+    stars = repo.get("stargazers_count", 0)
+    has_license = bool(repo.get("license"))
 
-    for language in languages[:2]:
-        if language.name in LANGUAGE_GAPS:
-            skill, severity, recommendation = LANGUAGE_GAPS[language.name]
-            gaps.append(SkillGap(skill=skill, severity=severity, recommendation=recommendation))
-            seen.add(skill)
+    result = {
+        "name": name,
+        "language": lang,
+        "stars": stars,
+        "has_license": has_license,
+        "has_readme": False,
+        "has_tests": False,
+        "has_workflows": False,
+        "has_docker": False,
+        "has_typescript": False,
+        "has_package_json": False,
+    }
 
-    has_tests = any("test" in (repo.get("name") or "").lower() for repo in repos)
-    if not has_tests and len(gaps) < 4:
-        gaps.append(
-            SkillGap(
-                skill="Automated Testing",
-                severity="high",
-                recommendation="Add automated test suites (e.g. Pytest, Vitest, Jest) to your primary repositories",
-            )
+    try:
+        resp = await client.get(
+            f"https://api.github.com/repos/{username}/{name}/contents",
+            headers=_get_headers(),
+            timeout=8.0,
         )
-        seen.add("Automated Testing")
+        if resp.status_code == 200 and isinstance(resp.json(), list):
+            files = [f.get("name", "").lower() for f in resp.json()]
+            result["has_readme"] = any("readme" in f for f in files)
+            result["has_workflows"] = ".github" in files
+            result["has_docker"] = any("docker" in f for f in files)
+            result["has_package_json"] = "package.json" in files
+            result["has_typescript"] = "tsconfig.json" in files or any(f.endswith(".ts") or f.endswith(".tsx") for f in files)
+            result["has_tests"] = any(
+                f in ("test", "tests", "__tests__", "spec", "specs") or
+                f.endswith((".test.js", ".test.ts", ".spec.js", ".spec.ts", "_test.py", "_test.go")) or
+                f.startswith("test_")
+                for f in files
+            )
+            if not result["has_license"]:
+                result["has_license"] = any("license" in f for f in files)
+    except Exception:
+        pass
 
-    for skill, severity, recommendation in GENERIC_GAPS:
-        if skill in seen:
-            continue
-        gaps.append(SkillGap(skill=skill, severity=severity, recommendation=recommendation))
-        if len(gaps) >= 3:
-            break
-
-    return gaps
+    return result
 
 
-def _compute_score(repos: list[dict], followers: int, languages: list[LanguageStat]) -> int:
+
+def _compute_real_score(
+    repos: list[dict],
+    inspected: list[dict],
+    followers: int,
+    languages: list[LanguageStat],
+) -> int:
+    """Calculate an authentic, realistic developer score based on real code practices."""
     repo_count = len(repos)
     stars = sum(repo.get("stargazers_count", 0) for repo in repos)
-    language_bonus = min(len(languages) * 4, 16)
-    follower_bonus = min(followers // 10, 10)
-    score = 55 + min(repo_count * 2, 20) + min(stars // 5, 15) + language_bonus + follower_bonus
-    return min(score, 98)
+
+    # Base baseline
+    score = 52
+
+    # Volume & variety (up to +18)
+    score += min(repo_count * 1, 10)
+    score += min(len(languages) * 2, 8)
+
+    # Community validation (up to +14)
+    score += min(stars // 8, 10)
+    score += min(followers // 10, 4)
+
+    # Engineering hygiene penalties & bonuses based on REAL repository files
+    if inspected:
+        total = len(inspected)
+        tested = sum(1 for r in inspected if r["has_tests"])
+        ci_count = sum(1 for r in inspected if r["has_workflows"])
+        readme_count = sum(1 for r in inspected if r["has_readme"])
+        license_count = sum(1 for r in inspected if r["has_license"])
+
+        # Testing
+        if tested == 0:
+            score -= 5
+        elif tested / total >= 0.5:
+            score += 8
+
+        # CI/CD
+        if ci_count == 0:
+            score -= 5
+        elif ci_count / total >= 0.3:
+            score += 8
+
+        # Readme
+        if readme_count / total >= 0.8:
+            score += 5
+        elif readme_count / total < 0.5:
+            score -= 4
+
+        # License
+        if license_count / total >= 0.5:
+            score += 3
+
+    return max(min(round(score), 95), 45)
+
+
+NON_PROGRAMMING_LANGS = {
+    "html", "css", "scss", "sass", "less", "markdown", "json", "yaml", "xml", "shell", "bash", "dockerfile", "text"
+}
+
+
+def _pick_primary_programming_language(languages: list[LanguageStat]) -> str:
+    """Selects the developer's strongest real programming language, ignoring markup/styling."""
+    for lang in languages:
+        name = getattr(lang, "name", str(lang))
+        if name.lower() not in NON_PROGRAMMING_LANGS:
+            return name
+    return languages[0].name if languages else "JavaScript"
 
 
 async def analyze_github_user(user_input: str) -> GitHubResult:
@@ -138,10 +206,18 @@ async def analyze_github_user(user_input: str) -> GitHubResult:
         repos = []
 
     public_repos = [repo for repo in repos if not repo.get("fork") or repo.get("stargazers_count", 0) > 0]
-    top_languages = _language_stats(public_repos or repos)
-    skill_gaps = _build_skill_gaps(top_languages, public_repos or repos)
+    analyzed_pool = public_repos or repos
 
-    pinned = sorted(public_repos or repos, key=lambda repo: repo.get("stargazers_count", 0), reverse=True)[:3]
+    top_languages = _language_stats(analyzed_pool)
+
+    # Concurrently inspect the top 8 active repositories for REAL files
+    async with httpx.AsyncClient(timeout=25.0) as client:
+        inspect_tasks = [
+            _inspect_repo(client, clean_username, repo)
+            for repo in analyzed_pool[:8]
+        ]
+        inspected_repos = await asyncio.gather(*inspect_tasks)
+    pinned = sorted(analyzed_pool, key=lambda repo: repo.get("stargazers_count", 0), reverse=True)[:3]
     pinned_repos = [
         PinnedRepo(
             name=repo.get("name", "unknown"),
@@ -162,13 +238,21 @@ async def analyze_github_user(user_input: str) -> GitHubResult:
         "contributions": max(repo_total * 28, len(repos) * 12, 45),
     }
 
+    overall_score = _compute_real_score(repos, inspected_repos, followers, top_languages)
+    primary_lang = _pick_primary_programming_language(top_languages)
+    strong_langs = [l.name for l in top_languages if l.name.lower() not in {"html", "css", "scss", "less", "markdown", "json", "yaml"}]
+    if not strong_langs and primary_lang:
+        strong_langs = [primary_lang]
+
     return GitHubResult(
         analysisId=f"gh-{uuid.uuid4().hex[:8]}",
         username=user.get("login", clean_username),
         name=user.get("name") or user.get("login", clean_username),
-        overallScore=_compute_score(repos, followers, top_languages),
+        overallScore=overall_score,
         stats=stats,
         topLanguages=top_languages,
-        skillGaps=skill_gaps,
+        strongLanguages=strong_langs,
+        primaryLanguage=primary_lang,
+        skillGaps=[],
         pinnedRepos=pinned_repos,
     )

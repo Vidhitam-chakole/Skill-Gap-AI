@@ -15,6 +15,7 @@ from app.services.store import (
     save_roadmap_result,
 )
 
+# Dynamic roadmap router connecting live repository-targeted sprint generator
 router = APIRouter(prefix="/roadmap", tags=["roadmap"])
 
 

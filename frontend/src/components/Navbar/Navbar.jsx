@@ -1,3 +1,4 @@
+import { useAnalysis } from '../../context/AnalysisContext';
 import './Navbar.css';
 
 const NAV_ITEMS = [
@@ -10,16 +11,26 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar({ activeSection, onNavigate }) {
+  const { linkedinResult, githubResult } = useAnalysis();
+  const isVerifierReady = Boolean(linkedinResult && githubResult);
+
+  const visibleItems = NAV_ITEMS.filter((item) => {
+    if (item.id === 'verifier') {
+      return isVerifierReady;
+    }
+    return true;
+  });
+
   return (
     <nav className="navbar">
       <div className="navbar__logo">
         <img src="/logo.png" alt="SkillGap AI" />
       </div>
       <ul className="navbar__links">
-        {NAV_ITEMS.map((item) => (
+        {visibleItems.map((item) => (
           <li key={item.id}>
             <button
-              className={`navbar__link ${activeSection === item.id ? 'navbar__link--active' : ''}`}
+              className={`navbar__link ${activeSection === item.id ? 'navbar__link--active' : ''} ${item.id === 'verifier' ? 'navbar__link--unlocked' : ''}`}
               onClick={() => onNavigate(item.id)}
               title={item.label}
             >
