@@ -18,24 +18,58 @@ class ChatMessageRequest(BaseModel):
 
 class SkillGap(BaseModel):
     skill: str
-    severity: str
-    recommendation: str
+    severity: str = "medium"
+    recommendation: str = ""
 
 
 class MarketDemandItem(BaseModel):
     skill: str
-    demand: int
+    demand: int = 80
+
+
+class ContactInfo(BaseModel):
+    email: str | None = None
+    phone: str | None = None
+    linkedinUrl: str | None = None
+    location: str | None = None
+
+
+class ExperienceItem(BaseModel):
+    title: str
+    company: str
+    duration: str = ""
+    description: str = ""
+
+
+class EducationItem(BaseModel):
+    degree: str
+    institution: str
+    year: str = ""
+    fieldOfStudy: str = ""
+
+
+class CertificationItem(BaseModel):
+    name: str
+    issuer: str = ""
+    issueDate: str = ""
 
 
 class LinkedInResult(BaseModel):
     analysisId: str
-    profileUrl: str
+    profileUrl: str = ""
     name: str
     headline: str
-    overallScore: int
-    skillGaps: list[SkillGap]
-    strengths: list[str]
-    marketDemand: list[MarketDemandItem]
+    summary: str = ""
+    contact: ContactInfo = Field(default_factory=ContactInfo)
+    skills: list[str] = Field(default_factory=list)
+    certifications: list[CertificationItem] = Field(default_factory=list)
+    experience: list[ExperienceItem] = Field(default_factory=list)
+    education: list[EducationItem] = Field(default_factory=list)
+    overallScore: int = 85
+    skillGaps: list[SkillGap] = Field(default_factory=list)
+    strengths: list[str] = Field(default_factory=list)
+    marketDemand: list[MarketDemandItem] = Field(default_factory=list)
+
 
 
 class LanguageStat(BaseModel):

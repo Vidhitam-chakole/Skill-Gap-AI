@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import IntroAnimation from './components/IntroAnimation/IntroAnimation';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
@@ -16,6 +16,16 @@ function AppShell() {
 
   useParallax(0.04);
   useScrollSpy(SECTIONS, setActiveSection);
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleIntroComplete = useCallback(() => {
     markSeen();

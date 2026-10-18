@@ -119,9 +119,10 @@ def _build_contextual_reply(message: str, linkedin_result, github_result) -> str
                 f"• Critical Skill Gap: {top_blocker}. Check your dynamic roadmap below to systematically close this gap."
             )
         elif linkedin_result:
+            gap_msg = f"Top gap to address: {get_gap_skill(li_gaps[0])}." if li_gaps else "Profile verified with solid competencies."
             return (
                 f"LinkedIn Review for {li_name} ({li_headline}): Score {li_score}/100. "
-                f"Strengths: {', '.join(li_strengths[:3])}. Top gap to address: {get_gap_skill(li_gaps[0])}."
+                f"Strengths: {', '.join(li_strengths[:3])}. {gap_msg}"
             )
         elif github_result:
             return (

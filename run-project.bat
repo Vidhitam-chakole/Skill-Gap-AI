@@ -10,3 +10,5 @@ start "SkillGap AI - Backend" cmd /k "cd backend && python -m uvicorn app.main:a
 start "SkillGap AI - Frontend" cmd /k "cd frontend && npm run dev -- --host 0.0.0.0"
 
 echo Both servers launched in background windows.
+timeout /t 2 /nobreak >nul
+start http://localhost:5173

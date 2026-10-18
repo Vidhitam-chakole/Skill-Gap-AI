@@ -6,10 +6,7 @@ import './Analyzer.css';
 
 export default function LinkedInAnalyzer() {
   const { linkedinResult, setLinkedinResult, setRoadmap } = useAnalysis();
-  const [mode, setMode] = useState('pdf'); // 'pdf' | 'url'
   const [pdfFile, setPdfFile] = useState(null);
-  const [linkedinName, setLinkedinName] = useState('');
-  const [profileUrl, setProfileUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -56,28 +53,20 @@ export default function LinkedInAnalyzer() {
 
   const handleAnalyze = async (e) => {
     e.preventDefault();
+    if (!pdfFile) {
+      setError('Please select or upload your LinkedIn profile PDF.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
-      let data;
-      if (mode === 'pdf') {
-        if (!pdfFile) {
-          throw new Error('Please select or upload your LinkedIn profile PDF.');
-        }
-        data = await linkedInApi.analyzePdf(pdfFile, linkedinName, profileUrl);
-      } else {
-        const inputVal = (profileUrl || linkedinName).trim();
-        if (!inputVal) {
-          throw new Error('Please provide your LinkedIn profile URL or name.');
-        }
-        data = await linkedInApi.analyze(inputVal);
-      }
-
+      const data = await linkedInApi.analyzePdf(pdfFile);
       setLinkedinResult(data);
-      setRoadmap(null); // Reset roadmap so user can synthesize a fresh roadmap
+      setRoadmap(null); // Reset roadmap so user can synthesize a fresh combined roadmap
     } catch (err) {
-      setError(err.message || 'LinkedIn analysis failed. Please try again.');
+      setError(err.message || 'LinkedIn PDF analysis failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -88,205 +77,263 @@ export default function LinkedInAnalyzer() {
       <Sticker color="pink" rotation={3} className="analyzer__sticker">LinkedIn Review</Sticker>
 
       <SectionHeader
-       
+        tag="01 // SCAN"
         title="LinkedIn Profile &amp; Resume Review"
-        subtitle="Upload your LinkedIn profile PDF export to extract skills, experience, and critical market gaps."
+        subtitle="Upload your LinkedIn profile PDF export to parse your complete career dossier: summary, contact details, verified skills, experience, education, and certifications."
         rotate={1}
       />
 
-      {/* ─── How to Download LinkedIn Profile PDF Guide ─── */}
-      <div className="analyzer__steps-card brutal-card reveal">
-        <h3 className="analyzer__steps-title">
-          <span>📋</span> How to Download Your LinkedIn Profile PDF:
-        </h3>
-        <p className="analyzer__steps-sub">
-          LinkedIn has a built-in feature to download your full official profile as a PDF in 3 seconds:
-        </p>
-        <ol className="analyzer__steps-list">
-          <li className="analyzer__step-item">
-            <span className="analyzer__step-num">Step 01</span>
-            <span className="analyzer__step-text">
-              Open your <strong>LinkedIn Profile</strong> in your browser.
-            </span>
-          </li>
-          <li className="analyzer__step-item">
-            <span className="analyzer__step-num">Step 02</span>
-            <span className="analyzer__step-text">
-              Click the <strong>'More'</strong> button in the intro header card (next to 'Open to' / 'Add profile section').
-            </span>
-          </li>
-          <li className="analyzer__step-item">
-            <span className="analyzer__step-num">Step 03</span>
-            <span className="analyzer__step-text">
-              Select <strong>'Save to PDF'</strong> from the dropdown menu to download your profile.
-            </span>
-          </li>
-          <li className="analyzer__step-item">
-            <span className="analyzer__step-num">Step 04</span>
-            <span className="analyzer__step-text">
-              Upload the downloaded <strong>.pdf</strong> file below and enter your name for context!
-            </span>
-          </li>
-        </ol>
-      </div>
-
-      {/* ─── Analysis Input Form ─── */}
-      <form className="analyzer__form brutal-card reveal" onSubmit={handleAnalyze}>
-        <div className="analyzer__mode-tabs">
-          <button
-            type="button"
-            className={`analyzer__tab-btn ${mode === 'pdf' ? 'analyzer__tab-btn--active' : ''}`}
-            onClick={() => setMode('pdf')}
-          >
-            📄 Upload LinkedIn PDF (Recommended)
-          </button>
-          <button
-            type="button"
-            className={`analyzer__tab-btn ${mode === 'url' ? 'analyzer__tab-btn--active' : ''}`}
-            onClick={() => setMode('url')}
-          >
-            🔗 Analyze via Name / URL
-          </button>
+      {/* ─── How to Download LinkedIn Profile PDF Guide (Hidden when results shown) ─── */}
+      {!results && (
+        <div className="analyzer__steps-card brutal-card reveal">
+          <h3 className="analyzer__steps-title">
+            <span>📋</span> How to Download Your LinkedIn Profile PDF:
+          </h3>
+          <p className="analyzer__steps-sub">
+            LinkedIn has a built-in feature to download your official profile as a PDF in 3 seconds:
+          </p>
+          <ol className="analyzer__steps-list">
+            <li className="analyzer__step-item">
+              <span className="analyzer__step-num">Step 01</span>
+              <span className="analyzer__step-text">
+                Open your <strong>LinkedIn Profile</strong> in your browser.
+              </span>
+            </li>
+            <li className="analyzer__step-item">
+              <span className="analyzer__step-num">Step 02</span>
+              <span className="analyzer__step-text">
+                Click the <strong>'More'</strong> button in the intro header card (next to 'Open to' / 'Add profile section').
+              </span>
+            </li>
+            <li className="analyzer__step-item">
+              <span className="analyzer__step-num">Step 03</span>
+              <span className="analyzer__step-text">
+                Select <strong>'Save to PDF'</strong> from the dropdown menu to download your profile.
+              </span>
+            </li>
+            <li className="analyzer__step-item">
+              <span className="analyzer__step-num">Step 04</span>
+              <span className="analyzer__step-text">
+                Upload the downloaded <strong>.pdf</strong> file below for personalized analysis!
+              </span>
+            </li>
+          </ol>
         </div>
+      )}
 
-        {mode === 'pdf' ? (
-          <>
-            {!pdfFile ? (
-              <div
-                className={`analyzer__dropzone ${dragActive ? 'analyzer__dropzone--active' : ''}`}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".pdf"
-                  style={{ display: 'none' }}
-                  onChange={handleFileSelect}
-                />
-                <span className="analyzer__dropzone-icon">📥</span>
-                <p className="analyzer__dropzone-title">Click to browse or drop your LinkedIn profile PDF here</p>
-                <p className="analyzer__dropzone-hint">Accepts official LinkedIn resume .pdf export (Max 15MB)</p>
-              </div>
-            ) : (
-              <div className="analyzer__file-selected">
-                <span>✓ Selected PDF: {pdfFile.name} ({(pdfFile.size / 1024).toFixed(1)} KB)</span>
-                <button
-                  type="button"
-                  className="analyzer__file-remove"
-                  onClick={() => setPdfFile(null)}
-                  title="Remove file"
-                >
-                  ✕
-                </button>
-              </div>
-            )}
-
-            
-               
-               
-
-
-
-            <button type="submit" className="brutal-btn brutal-btn--primary" disabled={loading || !pdfFile}>
-              {loading ? 'Parsing LinkedIn PDF...' : '⚡ Analyze LinkedIn Profile PDF'}
-            </button>
-          </>
-        ) : (
-          <>
-            <div className="analyzer__fields-grid">
-              <div className="analyzer__field">
-                <label className="analyzer__label" htmlFor="li-url-only">
-                  LinkedIn Profile URL or Handle
-                </label>
-                <input
-                  id="li-url-only"
-                  type="text"
-                  className="analyzer__input"
-                  placeholder="https://linkedin.com/in/your-profile"
-                  value={profileUrl}
-                  onChange={(e) => setProfileUrl(e.target.value)}
-                  required
-                />
-              </div>
-
-
+      {/* ─── Analysis Input Form (PDF Only - Hidden when results shown) ─── */}
+      {!results && (
+        <form className="analyzer__form brutal-card reveal" onSubmit={handleAnalyze}>
+          {!pdfFile ? (
+            <div
+              className={`analyzer__dropzone ${dragActive ? 'analyzer__dropzone--active' : ''}`}
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".pdf"
+                style={{ display: 'none' }}
+                onChange={handleFileSelect}
+              />
+              <span className="analyzer__dropzone-icon">📥</span>
+              <p className="analyzer__dropzone-title">Click to browse or drop your LinkedIn profile PDF here</p>
+              <p className="analyzer__dropzone-hint">Accepts official LinkedIn resume .pdf export or CV (Max 15MB)</p>
             </div>
+          ) : (
+            <div className="analyzer__file-selected">
+              <span>✓ Selected PDF: {pdfFile.name} ({(pdfFile.size / 1024).toFixed(1)} KB)</span>
+              <button
+                type="button"
+                className="analyzer__file-remove"
+                onClick={() => setPdfFile(null)}
+                title="Remove file"
+              >
+                ✕
+              </button>
+            </div>
+          )}
 
-            <button type="submit" className="brutal-btn brutal-btn--primary" disabled={loading}>
-              {loading ? 'Analyzing Profile...' : 'Analyze LinkedIn Profile'}
-            </button>
-          </>
-        )}
-      </form>
+          <button
+            type="submit"
+            className="brutal-btn brutal-btn--primary"
+            style={{ width: '100%', marginTop: '1.25rem' }}
+            disabled={loading || !pdfFile}
+          >
+            {loading ? 'Parsing LinkedIn PDF Dossier...' : '⚡ Analyze LinkedIn Profile PDF'}
+          </button>
+        </form>
+      )}
 
       {error && <div className="analyzer__error reveal">{error}</div>}
 
-      {/* ─── Review Results ─── */}
+      {/* ─── Review Results: Personalized Candidate Dossier ─── */}
       {results && (
-        <div className="analyzer__results">
-          <div className="analyzer__score-card brutal-card reveal-left">
-            <span className="analyzer__score-label">LinkedIn Review Score</span>
-            <span className="analyzer__score-value">{results.overallScore}</span>
-            <div className="analyzer__profile-info">
-              <strong>{results.name}</strong>
-              <span>{results.headline}</span>
+        <div className="analyzer__results reveal">
+          {/* Header Profile Dossier Card */}
+          <div className="analyzer__dossier-card brutal-card">
+            <div className="analyzer__dossier-header-row">
+              <span className="analyzer__dossier-badge">✓ Verified Candidate Profile</span>
+              <button
+                type="button"
+                className="analyzer__reupload-btn"
+                onClick={() => {
+                  setLinkedinResult(null);
+                  setPdfFile(null);
+                }}
+                title="Upload another LinkedIn profile PDF"
+              >
+                🔄 Upload Another PDF
+              </button>
+            </div>
+            <div className="analyzer__dossier-top">
+              <h2 className="analyzer__dossier-name">{results.name}</h2>
+              <h3 className="analyzer__dossier-headline">{results.headline}</h3>
+            </div>
+
+            {/* Concise 2 to 3 line summary */}
+            {results.summary && (
+              <div className="analyzer__summary-box">
+                <span className="analyzer__summary-label">Executive Professional Summary</span>
+                <p className="analyzer__summary-text">{results.summary}</p>
+              </div>
+            )}
+
+            {/* Contact details strip */}
+            <div className="analyzer__contact-strip">
+              {results.contact?.email && (
+                <a href={`mailto:${results.contact.email}`} className="analyzer__contact-pill">
+                  <span className="analyzer__contact-icon">✉️</span>
+                  <span>{results.contact.email}</span>
+                </a>
+              )}
+              {results.contact?.phone && (
+                <div className="analyzer__contact-pill">
+                  <span className="analyzer__contact-icon">📞</span>
+                  <span>{results.contact.phone}</span>
+                </div>
+              )}
+              {results.contact?.location && (
+                <div className="analyzer__contact-pill">
+                  <span className="analyzer__contact-icon">📍</span>
+                  <span>{results.contact.location}</span>
+                </div>
+              )}
               {results.profileUrl && (
                 <a
                   href={results.profileUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="analyzer__profile-link"
+                  className="analyzer__contact-pill analyzer__contact-pill--link"
                 >
-                  {results.profileUrl}
+                  <span className="analyzer__contact-icon">🔗</span>
+                  <span>View LinkedIn Profile &rarr;</span>
                 </a>
               )}
             </div>
           </div>
 
+          {/* Dossier Grid: Experience, Education, Skills, Certifications */}
           <div className="analyzer__grid">
-            <div className="analyzer__panel brutal-card reveal">
-              <h3>Identified Technical Skill Gaps</h3>
-              <p className="analyzer__panel-subtitle">Areas to address for modern industry competitiveness:</p>
-              <ul className="analyzer__gap-list">
-                {results.skillGaps.map((gap, i) => (
-                  <li key={i} className="analyzer__gap-item">
-                    <div className="analyzer__gap-header">
-                      <span className="analyzer__gap-skill">{gap.skill}</span>
-                      <span className={`analyzer__severity severity-${gap.severity}`}>{gap.severity}</span>
-                    </div>
-                    <p className="analyzer__gap-rec">{gap.recommendation}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Column 1: Experience & Education */}
+            <div className="analyzer__col">
+              {/* Experience Section */}
+              <div className="analyzer__panel brutal-card reveal">
+                <h3>💼 Professional Experience</h3>
+                <p className="analyzer__panel-subtitle">Career history extracted from your profile:</p>
 
-            <div className="analyzer__panel brutal-card reveal-right">
-              <h3>Extracted Skills &amp; Strengths</h3>
-              <p className="analyzer__panel-subtitle">Verified proficiencies detected from your profile:</p>
-              <div className="analyzer__tags">
-                {results.strengths.map((s, i) => (
-                  <span key={i} className="analyzer__tag">{s}</span>
-                ))}
+                {results.experience && results.experience.length > 0 ? (
+                  <div className="analyzer__timeline">
+                    {results.experience.map((exp, i) => (
+                      <div key={i} className="analyzer__timeline-item">
+                        <div className="analyzer__timeline-header">
+                          <h4 className="analyzer__timeline-title">{exp.title}</h4>
+                          <span className="analyzer__timeline-company">{exp.company}</span>
+                        </div>
+                        {exp.duration && (
+                          <span className="analyzer__duration-badge">{exp.duration}</span>
+                        )}
+                        {exp.description && (
+                          <p className="analyzer__timeline-desc">{exp.description}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="analyzer__empty-note">
+                    Experience entries extracted directly from your profile will be featured here.
+                  </p>
+                )}
               </div>
 
-              <h3 style={{ marginTop: '2rem' }}>Market Demand Intelligence</h3>
-              <p className="analyzer__panel-subtitle">Current industry hiring demand index:</p>
-              <div className="analyzer__bars">
-                {results.marketDemand.map((item, i) => (
-                  <div key={i} className="analyzer__bar-item">
-                    <div className="analyzer__bar-header">
-                      <span>{item.skill}</span>
-                      <span>{item.demand}%</span>
-                    </div>
-                    <div className="analyzer__bar-track">
-                      <div className="analyzer__bar-fill" style={{ width: `${item.demand}%` }} />
-                    </div>
+              {/* Education Section */}
+              <div className="analyzer__panel brutal-card reveal" style={{ marginTop: '2rem' }}>
+                <h3>🎓 Education History</h3>
+                <p className="analyzer__panel-subtitle">Academic degrees and institutions:</p>
+
+                {results.education && results.education.length > 0 ? (
+                  <div className="analyzer__edu-list">
+                    {results.education.map((edu, i) => (
+                      <div key={i} className="analyzer__edu-item">
+                        <h4 className="analyzer__edu-degree">{edu.degree}</h4>
+                        <span className="analyzer__edu-inst">{edu.institution}</span>
+                        {(edu.fieldOfStudy || edu.year) && (
+                          <div className="analyzer__edu-meta">
+                            {edu.fieldOfStudy && <span>{edu.fieldOfStudy}</span>}
+                            {edu.year && <span className="analyzer__edu-year">{edu.year}</span>}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <p className="analyzer__empty-note">Academic background extracted from your PDF.</p>
+                )}
+              </div>
+            </div>
+
+            {/* Column 2: Skills & Certifications */}
+            <div className="analyzer__col">
+              {/* Skills Section */}
+              <div className="analyzer__panel brutal-card reveal-right">
+                <h3>🛠️ Verified Skills &amp; Proficiencies</h3>
+                <p className="analyzer__panel-subtitle">Technical skills and domain competencies identified:</p>
+
+                {results.skills && results.skills.length > 0 ? (
+                  <div className="analyzer__tags">
+                    {results.skills.map((skill, i) => (
+                      <span key={i} className="analyzer__tag">{skill}</span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="analyzer__empty-note">Core competencies extracted from your profile.</p>
+                )}
+              </div>
+
+              {/* Certifications Section */}
+              <div className="analyzer__panel brutal-card reveal-right" style={{ marginTop: '2rem' }}>
+                <h3>📜 Licenses &amp; Certifications</h3>
+                <p className="analyzer__panel-subtitle">Professional accreditations and verified credentials:</p>
+
+                {results.certifications && results.certifications.length > 0 ? (
+                  <div className="analyzer__cert-list">
+                    {results.certifications.map((cert, i) => (
+                      <div key={i} className="analyzer__cert-item">
+                        <h4 className="analyzer__cert-name">{cert.name}</h4>
+                        {cert.issuer && <span className="analyzer__cert-issuer">{cert.issuer}</span>}
+                        {cert.issueDate && <span className="analyzer__cert-date">{cert.issueDate}</span>}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="analyzer__empty-note">
+                    Certifications, course credentials, and professional licenses will appear here.
+                  </p>
+                )}
               </div>
             </div>
           </div>
