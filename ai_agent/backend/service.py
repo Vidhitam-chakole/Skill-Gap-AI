@@ -3,10 +3,36 @@ import re
 import uuid
 
 import httpx
+from dotenv import load_dotenv
 
 from .schemas import ChatMessageResponse
 
+# Ensure environment variables are loaded
+ROOT_ENV = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env")
+BACKEND_ENV = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "backend", ".env")
+
+
+def _refresh_env() -> None:
+    if os.path.exists(ROOT_ENV):
+        load_dotenv(ROOT_ENV, override=True)
+    if os.path.exists(BACKEND_ENV):
+        load_dotenv(BACKEND_ENV, override=True)
+
+
+_refresh_env()
+
+GROQ_API_URL = os.getenv("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions").strip()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
+
+
+def is_groq_configured() -> bool:
+    _refresh_env()
+    return bool(os.getenv("GROQ_API_KEY", "").strip())
+
+
+def get_groq_model() -> str:
+    _refresh_env()
+    return os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile").strip()
 
 # In-memory chat storage for conversation histories with Supabase integration
 _conversations: dict[str, list[dict[str, str]]] = {}
@@ -175,6 +201,135 @@ def _fallback_ai_reply(message: str) -> str:
     )
 
 
+async def _call_groq_if_configured(
+    message: str,
+    history: list[dict[str, str]],
+    linkedin_result,
+    github_result,
+    api_key_override: str | None = None,
+    model_override: str | None = None,
+) -> tuple[str | None, str | None]:
+    """Calls Groq API (GroqCloud OpenAI-compatible endpoint) if key is provided.
+    Returns (reply_text, model_used) or (None, None).
+    """
+    _refresh_env()
+    api_key = (
+        api_key_override
+        or os.getenv("GROQ_API_KEY", "")
+    ).strip()
+
+    if not api_key:
+        return None, None
+
+    model = (
+        model_override
+        or os.getenv("GROQ_MODEL", "")
+        or GROQ_MODEL
+        or "llama-3.3-70b-versatile"
+    ).strip()
+
+    # Build rich context from LinkedIn and GitHub analyses
+    context_parts = []
+    if linkedin_result:
+        li_name = getattr(linkedin_result, "name", None) or (linkedin_result.get("name") if isinstance(linkedin_result, dict) else "User")
+        li_headline = getattr(linkedin_result, "headline", None) or (linkedin_result.get("headline") if isinstance(linkedin_result, dict) else "")
+        li_score = getattr(linkedin_result, "overallScore", 0) or (linkedin_result.get("overallScore") if isinstance(linkedin_result, dict) else 0)
+        li_strengths = getattr(linkedin_result, "strengths", []) or (linkedin_result.get("strengths") if isinstance(linkedin_result, dict) else [])
+        li_gaps = getattr(linkedin_result, "skillGaps", []) or (linkedin_result.get("skillGaps") if isinstance(linkedin_result, dict) else [])
+
+        gaps_summary = []
+        for g in li_gaps[:4]:
+            skill = getattr(g, "skill", g.get("skill") if isinstance(g, dict) else str(g))
+            rec = getattr(g, "recommendation", g.get("recommendation") if isinstance(g, dict) else "")
+            gaps_summary.append(f"{skill} ({rec})" if rec else skill)
+
+        context_parts.append(
+            f"LinkedIn Analysis -> Candidate: {li_name}, Headline: '{li_headline}', Score: {li_score}/100. "
+            f"Strengths: {', '.join(str(s) for s in li_strengths[:4])}. "
+            f"Skill Gaps: {', '.join(gaps_summary)}."
+        )
+
+    if github_result:
+        gh_user = getattr(github_result, "username", None) or (github_result.get("username") if isinstance(github_result, dict) else "Developer")
+        gh_score = getattr(github_result, "overallScore", 0) or (github_result.get("overallScore") if isinstance(github_result, dict) else 0)
+        gh_langs = getattr(github_result, "topLanguages", []) or (github_result.get("topLanguages") if isinstance(github_result, dict) else [])
+        gh_stats = getattr(github_result, "stats", {}) or (github_result.get("stats") if isinstance(github_result, dict) else {})
+        gh_gaps = getattr(github_result, "skillGaps", []) or (github_result.get("skillGaps") if isinstance(github_result, dict) else [])
+
+        lang_str = ", ".join(f"{_get_lang_name(l)} ({_get_lang_pct(l)}%)" for l in gh_langs[:4])
+        repos_count = gh_stats.get("repos", 0) if isinstance(gh_stats, dict) else 0
+        stars_count = gh_stats.get("stars", 0) if isinstance(gh_stats, dict) else 0
+
+        gh_gap_names = [getattr(g, "skill", g.get("skill") if isinstance(g, dict) else str(g)) for g in gh_gaps[:3]]
+        context_parts.append(
+            f"GitHub Analysis -> User: @{gh_user}, Score: {gh_score}/100, Repos: {repos_count}, Stars: {stars_count}. "
+            f"Languages: {lang_str}. Identified Technical Gaps: {', '.join(gh_gap_names)}."
+        )
+
+    context_str = "\n".join(context_parts) if context_parts else "No specific profile analysis loaded yet."
+
+    system_prompt = (
+        "You are SkillGap AI Career Assistant, powered by Groq high-speed LPU inference. "
+        "You are an expert technical career mentor, senior software architect, and technical interview coach.\n\n"
+        f"Verified Candidate Context:\n{context_str}\n\n"
+        "Guidelines:\n"
+        "- Answer the candidate's questions clearly, accurately, and actionably.\n"
+        "- When asked about profile reviews, skill gaps, or learning roadmaps, synthesize their verified analysis metrics.\n"
+        "- When asked coding, technical, or interview questions, provide senior-level engineering explanations with code snippets where helpful.\n"
+        "- Keep responses direct and engaging (under 180 words unless the user explicitly requests a detailed guide or complete code).\n"
+        "- If the user asks common or predefined questions (e.g., 'Explain my dynamic roadmap', 'What are my LinkedIn strengths?'), provide an insightful, customized answer based on their profile."
+    )
+
+    messages = [{"role": "system", "content": system_prompt}]
+    for item in history[-8:]:
+        r = "assistant" if item.get("role") in ("bot", "assistant") else "user"
+        messages.append({"role": r, "content": item.get("text", "")})
+    messages.append({"role": "user", "content": message})
+
+    models_to_try = [model]
+    for fallback_model in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"]:
+        if fallback_model not in models_to_try:
+            models_to_try.append(fallback_model)
+
+    async with httpx.AsyncClient(timeout=25.0) as client:
+        last_error = None
+        for m in models_to_try:
+            try:
+                res = await client.post(
+                    GROQ_API_URL,
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": m,
+                        "messages": messages,
+                        "temperature": 0.6,
+                        "max_tokens": 1024,
+                    },
+                )
+                if res.status_code == 200:
+                    data = res.json()
+                    content = data["choices"][0]["message"]["content"]
+                    if content:
+                        return content.strip(), m
+                elif res.status_code in (400, 404):
+                    last_error = res.text
+                    continue
+                else:
+                    res.raise_for_status()
+            except Exception as e:
+                last_error = e
+                if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 401:
+                    print(f"[Groq AI] Authentication error (401). Invalid GROQ_API_KEY: {e}")
+                    return None, None
+                continue
+
+    if last_error:
+        print(f"[Groq AI] Groq API notice: {last_error}")
+    return None, None
+
+
 async def _call_openai_if_configured(
     message: str,
     history: list[dict[str, str]],
@@ -233,7 +388,9 @@ async def generate_agent_reply(
     conversation_id: str | None = None,
     linkedin_analysis_id: str | None = None,
     github_analysis_id: str | None = None,
-) -> tuple[str, str]:
+    api_key: str | None = None,
+    mode: str | None = None,
+) -> tuple[str, str, dict]:
     conv_id = conversation_id or f"chat-{uuid.uuid4().hex[:8]}"
     history = get_history(conv_id)
 
@@ -245,19 +402,49 @@ async def generate_agent_reply(
     append_message(conv_id, "user", message)
 
     reply = None
-    # 1. Try OpenAI if configured
-    try:
-        reply = await _call_openai_if_configured(message, history, linkedin_result, github_result)
-    except Exception:
-        reply = None
+    source = "predefined"
+    model_used = None
 
-    # 2. Local intelligent contextual AI engine
+    # If mode is not forced to 'predefined', try Groq API first
+    if mode != "predefined":
+        # 1. Try Groq AI (LPU inference)
+        try:
+            groq_reply, model_name = await _call_groq_if_configured(
+                message=message,
+                history=history,
+                linkedin_result=linkedin_result,
+                github_result=github_result,
+                api_key_override=api_key,
+            )
+            if groq_reply:
+                reply = groq_reply
+                source = "groq"
+                model_used = model_name
+        except Exception as e:
+            print(f"[ChatBot] Groq error, falling back to local engine: {e}")
+            reply = None
+
+        # 2. Try OpenAI as fallback if configured
+        if not reply:
+            try:
+                reply = await _call_openai_if_configured(message, history, linkedin_result, github_result)
+                if reply:
+                    source = "openai"
+                    model_used = "gpt-4o-mini"
+            except Exception:
+                reply = None
+
+    # 3. Local intelligent contextual AI engine (Predefined Questions)
     if not reply:
         reply = _build_contextual_reply(message, linkedin_result, github_result)
+        source = "predefined"
+        model_used = "local-rules"
 
-    # 3. Fallback
+    # 4. Fallback predefined replies
     if not reply:
         reply = _fallback_ai_reply(message)
+        source = "predefined"
+        model_used = "local-rules"
 
     append_message(conv_id, "bot", reply)
-    return reply, conv_id
+    return reply, conv_id, {"source": source, "model": model_used}

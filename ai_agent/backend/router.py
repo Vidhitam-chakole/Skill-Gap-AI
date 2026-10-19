@@ -8,13 +8,20 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 
 @router.post("/message", response_model=ChatMessageResponse)
 async def send_message(body: ChatMessageRequest) -> ChatMessageResponse:
-    reply, conversation_id = await generate_agent_reply(
+    reply, conversation_id, meta = await generate_agent_reply(
         message=body.message,
         conversation_id=body.conversationId,
         linkedin_analysis_id=body.linkedinAnalysisId,
         github_analysis_id=body.githubAnalysisId,
+        api_key=body.apiKey,
+        mode=body.mode,
     )
-    return ChatMessageResponse(reply=reply, conversationId=conversation_id)
+    return ChatMessageResponse(
+        reply=reply,
+        conversationId=conversation_id,
+        source=meta.get("source", "predefined"),
+        model=meta.get("model"),
+    )
 
 
 @router.get("/history/{conversation_id}", response_model=ChatHistoryResponse)

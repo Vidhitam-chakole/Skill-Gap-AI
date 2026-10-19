@@ -27,6 +27,8 @@ class Settings:
         "http://localhost:5173,http://127.0.0.1:5173,http://192.168.26.211:5173,*",
     )
     github_token: str | None = os.getenv("GITHUB_TOKEN") or None
+    groq_api_key: str | None = os.getenv("GROQ_API_KEY") or None
+    groq_model: str = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
     openai_api_key: str | None = os.getenv("OPENAI_API_KEY") or None
     supabase_url: str | None = _clean_supabase_url(os.getenv("SUPABASE_URL"))
     supabase_anon_key: str | None = os.getenv("SUPABASE_ANON_KEY") or None

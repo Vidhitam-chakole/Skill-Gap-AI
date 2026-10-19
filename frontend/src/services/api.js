@@ -67,6 +67,7 @@ export const gitHubApi = {
 };
 
 export const chatApi = {
+  getConfig: () => request('/chat/config'),
   sendMessage: (message, conversationId = null, extra = {}) =>
     request('/chat/message', {
       method: 'POST',
@@ -75,6 +76,8 @@ export const chatApi = {
         conversationId,
         linkedinAnalysisId: extra.linkedinAnalysisId || null,
         githubAnalysisId: extra.githubAnalysisId || null,
+        apiKey: extra.apiKey || null,
+        mode: extra.mode || null,
       }),
     }),
   getHistory: (conversationId) => request(`/chat/history/${conversationId}`),

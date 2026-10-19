@@ -48,29 +48,128 @@ def extract_text_from_pdf(file_bytes: bytes) -> str:
         raise ValueError(f"Could not read PDF resume file: {exc}") from exc
 
 
-def _extract_contact(text: str) -> ContactInfo:
+def _extract_contact(text: str, context_url: str | None = None) -> ContactInfo:
     """Extract email, phone, location, and LinkedIn profile URL from PDF text."""
     # Email
     email_match = re.search(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b", text)
     email = email_match.group(0) if email_match else None
 
-    # Phone
-    phone = None
-    phone_match = re.search(r"(?:(?:\+|00)\d{1,3}[\s.-]?)?(?:\(?\d{3,5}\)?[\s.-]?)?\d{3,5}[\s.-]?\d{3,5}\b", text)
-    if phone_match:
-        cand = phone_match.group(0).strip()
-        digits = re.sub(r"\D", "", cand)
-        # Verify it has at least 8 digits and is not a year (1990-2030)
-        if len(digits) >= 8 and not (len(digits) == 4 and 1990 <= int(digits) <= 2030):
-            phone = cand
-
     # LinkedIn URL
     li_match = re.search(r"(?:https?://)?(?:www\.)?linkedin\.com/in/([a-zA-Z0-9_\-]+)", text, re.IGNORECASE)
-    if li_match:
-        slug = li_match.group(1).rstrip("/")
+    slug = li_match.group(1).rstrip("/") if li_match else None
+    if slug:
         linkedin_url = f"https://www.linkedin.com/in/{slug}"
     else:
-        linkedin_url = None
+        linkedin_url = context_url.strip() if context_url and context_url.strip() else None
+
+    # Blocked patterns (LinkedIn slugs/URLs) to ensure URL digits are never mistaken for a contact number
+    blocked_patterns: list[str] = []
+    if slug:
+        blocked_patterns.append(slug.lower())
+    if context_url:
+        ctx_m = re.search(r"linkedin\.com/in/([a-zA-Z0-9_\-]+)", context_url, re.IGNORECASE)
+        if ctx_m:
+            blocked_patterns.append(ctx_m.group(1).rstrip("/").lower())
+
+    def is_valid_phone(cand: str, is_labeled: bool = False) -> bool:
+        cand_clean = cand.strip(" ,;:-|()")
+        digits = re.sub(r"\D", "", cand_clean)
+
+        # Phone numbers must have at least 10 digits unless explicitly labeled
+        if is_labeled:
+            if not (7 <= len(digits) <= 15):
+                return False
+        else:
+            if not (10 <= len(digits) <= 15):
+                return False
+
+        # Reject date ranges (e.g. 2018-2022, 1999 - 2003)
+        if len(digits) == 8:
+            d1, d2 = int(digits[:4]), int(digits[4:])
+            if 1950 <= d1 <= 2050 and 1950 <= d2 <= 2050:
+                return False
+
+        # Reject single year or zip codes if not labeled
+        if len(digits) <= 5 and 1950 <= int(digits) <= 2050:
+            return False
+
+        # Reject all repeated digits (e.g. 0000000000)
+        if len(set(digits)) <= 1:
+            return False
+
+        # Ensure candidate does not originate from LinkedIn URL slug or its numeric ID
+        cand_lower = cand_clean.lower()
+        for b in blocked_patterns:
+            if cand_lower in b or b in cand_lower:
+                return False
+            b_digits = re.sub(r"\D", "", b)
+            if b_digits and (digits == b_digits or digits in b_digits or (len(b_digits) >= 6 and b_digits in digits)):
+                return False
+
+        return True
+
+    # Phone extraction
+    phone = None
+
+    # 1. Check for explicit LinkedIn PDF mobile/home/work phone tag:
+    # e.g. "+1 555-123-4567 (Mobile)" or "9876543210 (Mobile)"
+    li_phone_match = re.search(r"(?i)([+\d][\d\s().-]{6,20})\s*\((?:Mobile|Home|Work|Cell)\)", text)
+    if li_phone_match:
+        cand = li_phone_match.group(1).strip()
+        if is_valid_phone(cand, is_labeled=True):
+            phone = cand
+
+    # 2. Check for explicit resume phone labels:
+    # e.g. "Phone: +1 555-123-4567", "Tel: (555) 123-4567", "Mobile: 9876543210"
+    if not phone:
+        label_match = re.search(r"(?i)(?:phone|tel|telephone|mobile|cell)\s*[:#.-]?\s*([+\d][\d\s().-]{6,22})", text)
+        if label_match:
+            cand = label_match.group(1).strip()
+            if is_valid_phone(cand, is_labeled=True):
+                phone = cand
+
+    # 3. If not found, sanitize text by removing URLs and email addresses so their digits/IDs are never matched
+    if not phone:
+        cleaned = text
+        # Remove LinkedIn URLs, (LinkedIn) tag, and slugs
+        cleaned = re.sub(r"(?i)[^\s()|]*linkedin\.com/[^\s()|]+", " ", cleaned)
+        cleaned = re.sub(r"(?i)\S+\s*\(LinkedIn\)", " ", cleaned)
+        cleaned = re.sub(r"(?i)\(LinkedIn\)", " ", cleaned)
+        if slug:
+            cleaned = re.sub(re.escape(slug), " ", cleaned, flags=re.IGNORECASE)
+
+        # Remove other URLs and emails
+        cleaned = re.sub(r"https?://\S+", " ", cleaned)
+        cleaned = re.sub(r"(?i)\b(?:www\.)[a-z0-9.-]+\.[a-z]{2,}(?:/[^\s()|]*)?", " ", cleaned)
+        cleaned = re.sub(r"(?i)\b[a-z0-9.-]+(?:github|gitlab|behance|medium)\.com/[^\s()|]*", " ", cleaned)
+        cleaned = re.sub(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b", " ", cleaned)
+
+        # Contact info on resumes resides in top header section (top 35 lines)
+        header_lines = [l.strip() for l in cleaned.splitlines() if l.strip()][:35]
+        header_text = "\n".join(header_lines)
+
+        # Pattern a: International formatted number (+1 555-123-4567, +91 98765 43210, +44 7123 456789)
+        intl_match = re.search(r"\+(?:[0-9]{1,3})[\s.-]?(?:\(?\d{2,4}\)?[\s.-]?)?\d{3,5}[\s.-]?\d{3,5}\b", header_text)
+        if intl_match:
+            cand = intl_match.group(0).strip()
+            if is_valid_phone(cand):
+                phone = cand
+
+        # Pattern b: Standard US / formatted phone ((555) 123-4567, 555-123-4567, 555.123.4567)
+        if not phone:
+            std_match = re.search(r"(?:\(?\d{3}\)?[\s.-])\d{3}[\s.-]\d{4}\b", header_text)
+            if std_match:
+                cand = std_match.group(0).strip()
+                if is_valid_phone(cand):
+                    phone = cand
+
+        # Pattern c: 10-digit mobile number (standard in India, UK, etc. starting with 6,7,8,9)
+        if not phone:
+            mob_match = re.search(r"\b[6-9]\d{9}\b", header_text)
+            if mob_match:
+                cand = mob_match.group(0).strip()
+                if is_valid_phone(cand):
+                    phone = cand
 
     # Location heuristic (looks in top 20 lines)
     location = None
@@ -375,7 +474,7 @@ def analyze_linkedin_pdf(
         raise ValueError("The uploaded PDF appears to be empty or unreadable. Please upload a valid LinkedIn PDF export or resume.")
 
     # 1. Contact Information
-    contact = _extract_contact(text)
+    contact = _extract_contact(text, context_url=context_url)
     if context_url and context_url.strip():
         contact.linkedinUrl = context_url.strip()
 
