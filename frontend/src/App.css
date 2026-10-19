@@ -31,8 +31,9 @@
   border-top: var(--border);
   background: var(--black);
   color: var(--white);
-  padding: 3rem;
+  padding: 3rem 1.5rem;
   text-align: center;
+  width: 100%;
 }
 
 .home__footer-inner {
@@ -45,12 +46,12 @@
 }
 
 .home__footer-logo {
-  width: 80px;
+  width: 72px;
   filter: brightness(1.2);
 }
 
 .home__footer p {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
 }
 
@@ -58,11 +59,28 @@
   font-family: monospace;
   font-size: 0.8rem;
   color: var(--orange);
+  word-break: break-word;
+  line-height: 1.4;
 }
 
 @media (max-width: 768px) {
   .app__main {
     margin-left: 0;
-    padding-top: 64px;
+    padding-top: 58px;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .home__footer {
+    padding: 2.25rem 1rem;
+  }
+
+  .home__footer p {
+    font-size: 0.95rem;
+  }
+
+  .home__footer-copy {
+    font-size: 0.72rem;
   }
 }

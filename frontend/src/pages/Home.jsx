@@ -50,19 +50,20 @@ export default function Home({ onNavigate }) {
 
       {/* If GitHub is analyzed but LinkedIn is still pending, offer instant unlock */}
       {githubResult && !linkedinResult && !isVerifierReady && (
-        <div style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 2rem' }}>
-          <div className="brutal-card" style={{ padding: '1.75rem', background: '#fffdf5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.25rem', border: '3px solid var(--black, #0a0a0a)' }}>
-            <div>
+        <div style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
+          <div className="brutal-card" style={{ padding: 'clamp(1rem, 3vw, 1.75rem)', background: '#fffdf5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.25rem', border: '3px solid var(--black, #0a0a0a)' }}>
+            <div style={{ flex: '1 1 260px' }}>
               <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.15rem', textTransform: 'uppercase' }}>
                 ⚡ GitHub Codebase Analyzed (@{githubResult.username})
               </h3>
-              <p style={{ margin: 0, color: '#334155', fontSize: '0.95rem' }}>
+              <p style={{ margin: 0, color: '#334155', fontSize: '0.95rem', lineHeight: 1.5 }}>
                 Complete LinkedIn review above to combine your career data, or start the AI Code Verifier test now with your GitHub stack.
               </p>
             </div>
             <button
               type="button"
               className="brutal-btn brutal-btn--accent"
+              style={{ width: 'clamp(200px, 100%, 320px)' }}
               onClick={() => setUnlockedWithGithubOnly(true)}
             >
               Unlock Code Verifier Now &rarr;

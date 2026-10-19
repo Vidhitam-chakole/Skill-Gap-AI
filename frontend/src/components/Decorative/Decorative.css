@@ -75,9 +75,10 @@
 }
 
 .section-header__title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 0.95;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 0.98;
   margin-bottom: 0.75rem;
+  word-break: break-word;
 }
 
 .section-header__subtitle {
@@ -101,3 +102,50 @@
 .sticker--pink { background: var(--pink); color: var(--white); }
 .sticker--cyan { background: var(--cyan); }
 .sticker--lime { background: var(--lime); }
+
+@media (max-width: 768px) {
+  .section-header {
+    margin-bottom: 2rem;
+    transform: none !important;
+  }
+
+  .section-header__tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header__title {
+    font-size: clamp(1.85rem, 8vw, 2.75rem);
+    line-height: 1.05;
+  }
+
+  .section-header__subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .deco-shapes {
+    opacity: 0.3;
+  }
+
+  .sticker {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header__title {
+    font-size: clamp(1.7rem, 9vw, 2.3rem);
+  }
+
+  .section-header__subtitle {
+    font-size: 0.88rem;
+  }
+
+  .deco-shapes__item--triangle,
+  .deco-shapes__item--cross {
+    display: none;
+  }
+}

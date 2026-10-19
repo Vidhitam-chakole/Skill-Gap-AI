@@ -368,11 +368,143 @@
 
 @media (max-width: 768px) {
   .roadmap {
-    padding: 4rem 1.5rem;
+    padding: 3rem 1.25rem;
   }
 
   .roadmap__sticker {
     position: static;
     margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .roadmap__panel {
+    padding: 1.25rem;
+    align-items: stretch;
+  }
+
+  .roadmap__panel button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .roadmap__hint {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .roadmap__status-pills {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .roadmap__pill {
+    width: 100%;
+    font-size: 0.78rem;
+    word-break: break-all;
+  }
+
+  .roadmap__score {
+    padding: 1.35rem;
+    max-width: 100%;
+  }
+
+  .roadmap__score-value {
+    font-size: 3.25rem;
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .roadmap__summary-text {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .roadmap__metrics-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  .roadmap__metric-badge {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .roadmap__metric-val {
+    font-size: 0.85rem;
+  }
+
+  .roadmap__priorities {
+    padding: 1.25rem;
+  }
+
+  .roadmap__priority-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .roadmap__weeks-header {
+    font-size: 1.25rem;
+  }
+
+  .roadmap__milestones-sub {
+    font-size: 0.85rem;
+  }
+
+  .roadmap__weeks {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .roadmap__week {
+    padding: 1.15rem;
+  }
+
+  .roadmap__week h3 {
+    font-size: 1.05rem;
+  }
+
+  .roadmap__deliverable {
+    padding: 0.5rem 0.65rem;
+  }
+
+  .roadmap__task-item {
+    padding: 0.55rem 0.65rem;
+    gap: 0.5rem;
+  }
+
+  .roadmap__task-text {
+    font-size: 0.82rem;
+  }
+
+  .roadmap__actions-panel {
+    padding: 1.25rem;
+  }
+
+  .roadmap__actions-panel button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .roadmap__actions-item {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .roadmap {
+    padding: 2.25rem 0.85rem;
+  }
+
+  .roadmap__score-value {
+    font-size: 2.75rem;
+  }
+
+  .roadmap__metrics-strip {
+    grid-template-columns: 1fr;
   }
 }

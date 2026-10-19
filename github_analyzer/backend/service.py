@@ -22,19 +22,52 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "").strip()
 
 
 def extract_github_username(input_val: str) -> str:
-    """Handles usernames like 'torvalds', '@torvalds', or profile URLs."""
-    clean = input_val.strip().lstrip("@")
+    """Handles plain usernames ('chsrvyt', '@chsrvyt'), full profile URLs, repo URLs, SSH URLs, and long usernames."""
+    if not input_val:
+        return ""
+
+    # Strip surrounding whitespace, quotes, and backticks
+    clean = input_val.strip().strip("'\"`")
+
+    # Handle SSH git clone URLs (e.g. git@github.com:username/repo.git)
+    if clean.startswith("git@github.com:"):
+        after_colon = clean.split("git@github.com:", 1)[1]
+        clean = after_colon.split("/")[0]
+        return clean.strip().lstrip("@")
+
+    # If it contains github.com or looks like a URL
     if "github.com" in clean.lower():
         if not clean.startswith(("http://", "https://")):
             clean = f"https://{clean}"
-        parsed = urlparse(clean)
-        path_parts = [p for p in parsed.path.strip("/").split("/") if p]
-        if path_parts:
-            clean = path_parts[0]
+        try:
+            parsed = urlparse(clean)
+            # Filter non-empty path parts
+            path_parts = [p.strip() for p in parsed.path.strip("/").split("/") if p.strip()]
+
+            # Skip reserved prefixes like 'users', 'orgs' if present
+            if path_parts and path_parts[0].lower() in ("users", "orgs") and len(path_parts) > 1:
+                clean = path_parts[1]
+            elif path_parts:
+                clean = path_parts[0]
+            else:
+                clean = ""
+        except Exception:
+            clean = clean.split("github.com/")[-1].split("/")[0]
     else:
+        # Plain username or non-URL string: strip path, query, hash
         clean = clean.split("/")[0].split("?")[0].split("#")[0].strip()
 
-    return clean.rstrip(".git")
+    # Strip leading '@'
+    clean = clean.lstrip("@").strip()
+
+    # Remove trailing '.git' safely without stripping individual characters like 't', 'i', 'g'
+    if clean.lower().endswith(".git"):
+        clean = clean[:-4]
+
+    # Remove any trailing slashes or residuals
+    clean = clean.rstrip("/").strip()
+
+    return clean
 
 
 def _get_headers() -> dict[str, str]:
@@ -52,7 +85,8 @@ def _get_headers() -> dict[str, str]:
 async def _github_get(client: httpx.AsyncClient, path: str) -> dict | list:
     response = await client.get(f"https://api.github.com{path}", headers=_get_headers())
     if response.status_code == 404:
-        raise ValueError(f"GitHub target '{path.split('/')[-1]}' not found. Please verify profile link or username.")
+        target = path.split("?")[0].strip("/").split("/")[-1]
+        raise ValueError(f"GitHub profile or target '{target}' not found. Please verify the username or link.")
     if response.status_code == 403:
         raise ValueError("GitHub API rate limit reached. Add a valid GITHUB_TOKEN to .env or wait for reset.")
     response.raise_for_status()
@@ -80,6 +114,7 @@ def _language_stats(repos: list[dict]) -> list[LanguageStat]:
 async def _inspect_repo(client: httpx.AsyncClient, username: str, repo: dict) -> dict:
     """Perform real file-tree inspection of an actual user repository."""
     name = repo.get("name", "")
+    owner = repo.get("owner", {}).get("login", username)
     lang = repo.get("language") or ""
     stars = repo.get("stargazers_count", 0)
     has_license = bool(repo.get("license"))
@@ -99,7 +134,7 @@ async def _inspect_repo(client: httpx.AsyncClient, username: str, repo: dict) ->
 
     try:
         resp = await client.get(
-            f"https://api.github.com/repos/{username}/{name}/contents",
+            f"https://api.github.com/repos/{owner}/{name}/contents",
             headers=_get_headers(),
             timeout=8.0,
         )
@@ -200,7 +235,8 @@ async def analyze_github_user(user_input: str) -> GitHubResult:
 
     async with httpx.AsyncClient(timeout=25.0) as client:
         user = await _github_get(client, f"/users/{clean_username}")
-        repos = await _github_get(client, f"/users/{clean_username}/repos?per_page=100&sort=updated")
+        canonical_username = user.get("login") or clean_username
+        repos = await _github_get(client, f"/users/{canonical_username}/repos?per_page=100&sort=updated")
 
     if not isinstance(repos, list):
         repos = []
@@ -213,7 +249,7 @@ async def analyze_github_user(user_input: str) -> GitHubResult:
     # Concurrently inspect the top 8 active repositories for REAL files
     async with httpx.AsyncClient(timeout=25.0) as client:
         inspect_tasks = [
-            _inspect_repo(client, clean_username, repo)
+            _inspect_repo(client, canonical_username, repo)
             for repo in analyzed_pool[:8]
         ]
         inspected_repos = await asyncio.gather(*inspect_tasks)

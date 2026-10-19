@@ -456,19 +456,139 @@
 
 @media (max-width: 768px) {
   .chatbot {
-    padding: 4rem 1.5rem;
-  }
-
-  .chatbot__container {
-    height: 520px;
-  }
-
-  .chatbot__bubble {
-    max-width: 90%;
+    padding: 3rem 1.25rem;
   }
 
   .chatbot__sticker {
     position: static;
     margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .chatbot__container {
+    height: 540px;
+    transform: none !important;
+  }
+
+  .chatbot__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .chatbot__header-left {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .chatbot__avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.75rem;
+  }
+
+  .chatbot__title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .chatbot__title-row strong {
+    font-size: 0.95rem;
+  }
+
+  .chatbot__header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .chatbot__context-tag {
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .chatbot__settings-panel {
+    padding: 1rem;
+  }
+
+  .chatbot__key-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .chatbot__key-input {
+    min-width: 0;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .chatbot__key-row .brutal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .chatbot__mode-options {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .chatbot__mode-btn {
+    width: 100%;
+    text-align: left;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .chatbot__messages {
+    padding: 1rem 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .chatbot__bubble {
+    max-width: 92%;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    transform: none !important;
+  }
+
+  .chatbot__suggestions {
+    padding: 0.5rem 0.75rem;
+    gap: 0.4rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chatbot__chip {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.55rem;
+  }
+
+  .chatbot__input {
+    padding: 0.75rem 0.85rem;
+    font-size: 16px;
+  }
+
+  .chatbot__input-area button {
+    padding: 0.75rem 1.1rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatbot {
+    padding: 2.25rem 0.85rem;
+  }
+
+  .chatbot__container {
+    height: 490px;
+  }
+
+  .chatbot__bubble {
+    max-width: 96%;
+    font-size: 0.85rem;
   }
 }

@@ -741,3 +741,235 @@
   flex-wrap: wrap;
   margin-top: 2.5rem;
 }
+
+@media (max-width: 768px) {
+  .verifier {
+    padding: 3rem 1.25rem;
+  }
+
+  .verifier__sticker {
+    position: static;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .verifier__setup-card {
+    padding: 1.35rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .verifier__setup-title {
+    font-size: 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .verifier__setup-desc {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .verifier__connected-strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .verifier__connected-pill {
+    width: 100%;
+    font-size: 0.8rem;
+    word-break: break-all;
+  }
+
+  .verifier__gh-extracted-card {
+    padding: 1.25rem;
+  }
+
+  .verifier__gh-extracted-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+
+  .verifier__gh-extracted-text h4 {
+    font-size: 1.15rem;
+  }
+
+  .verifier__start-strongest-btn {
+    white-space: normal;
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    text-align: center;
+  }
+
+  .verifier__other-langs {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+  }
+
+  .verifier__gh-chips {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .verifier__chip {
+    width: 100%;
+    text-align: center;
+    font-size: 0.82rem;
+  }
+
+  /* Active Quiz Card Mobile */
+  .verifier__quiz-card {
+    padding: 1.25rem;
+  }
+
+  .verifier__quiz-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .verifier__q-num {
+    font-size: 1.15rem;
+  }
+
+  .verifier__q-meta {
+    gap: 0.4rem;
+  }
+
+  .verifier__question-text {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .verifier__code-box {
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .verifier__code-box pre {
+    font-size: 0.82rem;
+  }
+
+  .verifier__options-grid {
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .verifier__option-btn {
+    padding: 0.85rem 1rem;
+    gap: 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  .verifier__nav-controls {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 1rem;
+    padding-top: 1.25rem;
+  }
+
+  .verifier__nav-controls > button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .verifier__dots {
+    justify-content: center;
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .verifier__dot {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  /* Results Mobile */
+  .verifier__results-card {
+    padding: 1.25rem;
+  }
+
+  .verifier__score-banner {
+    padding: 1.25rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .verifier__score-details {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .verifier__verdict-title {
+    font-size: 1.45rem;
+  }
+
+  .verifier__score-dial {
+    width: 100%;
+    padding: 1.25rem 1rem;
+  }
+
+  .verifier__score-digits {
+    font-size: 2.75rem;
+  }
+
+  .verifier__card-block {
+    padding: 1.25rem;
+  }
+
+  .verifier__review-section {
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+  }
+
+  .verifier__review-title {
+    font-size: 1.2rem;
+  }
+
+  .verifier__review-item {
+    padding: 1rem;
+  }
+
+  .verifier__actions-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .verifier__actions-footer .brutal-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .verifier {
+    padding: 2.25rem 0.85rem;
+  }
+
+  .verifier__setup-title {
+    font-size: 1.1rem;
+  }
+
+  .verifier__question-text {
+    font-size: 1rem;
+  }
+
+  .verifier__dot {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+  }
+
+  .verifier__score-digits {
+    font-size: 2.3rem;
+  }
+}
