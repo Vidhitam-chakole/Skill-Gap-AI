@@ -82,19 +82,31 @@ PUBLIC_DIR = ROOT_DIR / "frontend" / "public"
 
 
 @app.get("/robots.txt", response_class=Response)
-async def get_robots_txt():
-    for p in [PUBLIC_DIR / "robots.txt", ROOT_DIR / "robots.txt", DIST_DIR / "robots.txt"]:
-        if p.is_file():
-            return FileResponse(str(p), media_type="text/plain")
-    return Response("User-agent: *\nAllow: /\n", media_type="text/plain")
+async def get_robots_txt(request: Request):
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillgapanalyzerai.vercel.app"
+    proto = request.headers.get("x-forwarded-proto", "https")
+    base_url = f"{proto}://{host}"
+    content = f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {base_url}/sitemap.xml\n"
+    return Response(content, media_type="text/plain")
 
 
 @app.get("/sitemap.xml", response_class=Response)
-async def get_sitemap_xml():
-    for p in [PUBLIC_DIR / "sitemap.xml", ROOT_DIR / "sitemap.xml", DIST_DIR / "sitemap.xml"]:
-        if p.is_file():
-            return FileResponse(str(p), media_type="application/xml")
-    raise StarletteHTTPException(status_code=404, detail="Sitemap not found")
+async def get_sitemap_xml(request: Request):
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillgapanalyzerai.vercel.app"
+    proto = request.headers.get("x-forwarded-proto", "https")
+    base_url = f"{proto}://{host}"
+    content = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        '  <url>\n'
+        f'    <loc>{base_url}/</loc>\n'
+        '    <lastmod>2026-10-20</lastmod>\n'
+        '    <changefreq>daily</changefreq>\n'
+        '    <priority>1.0</priority>\n'
+        '  </url>\n'
+        '</urlset>\n'
+    )
+    return Response(content, media_type="application/xml")
 
 
 @app.get("/google{code}.html", response_class=Response)

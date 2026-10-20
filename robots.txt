@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://skillgapai.com/sitemap.xml
+Sitemap: https://skillgapanalyzerai.vercel.app/sitemap.xml
