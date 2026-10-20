@@ -2,15 +2,15 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import dotenv_values, load_dotenv
 
 ROOT_ENV = Path(__file__).resolve().parents[2] / ".env"
-BACKEND_ENV = Path(__file__).resolve().parents[1] / ".env"
 
+# Load non-empty variables strictly from root .env
 if ROOT_ENV.exists():
-    load_dotenv(ROOT_ENV)
-if BACKEND_ENV.exists():
-    load_dotenv(BACKEND_ENV)
+    for k, v in dotenv_values(ROOT_ENV).items():
+        if v and v.strip():
+            os.environ[k] = v.strip()
 
 
 def _clean_supabase_url(url: str | None) -> str | None:

@@ -13,6 +13,7 @@
 }
 
 .chatbot__container {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 580px;
@@ -60,32 +61,13 @@
 .chatbot__engine-badge {
   font-size: 0.68rem;
   font-weight: 800;
-  padding: 0.15rem 0.5rem;
-  border: 2px solid var(--black);
+  padding: 0.2rem 0.55rem;
+  border: 2px solid var(--white);
+  background: var(--lime);
+  color: var(--black);
+  box-shadow: 2px 2px 0 var(--white);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-.chatbot__engine-badge--groq {
-  background: #00e5ff;
-  color: #000;
-  box-shadow: 2px 2px 0 var(--white);
-  animation: pulse-border 2s infinite ease-in-out;
-}
-
-.chatbot__engine-badge--local {
-  background: var(--yellow);
-  color: #000;
-  box-shadow: 2px 2px 0 var(--white);
-}
-
-@keyframes pulse-border {
-  0%, 100% {
-    box-shadow: 2px 2px 0 var(--white);
-  }
-  50% {
-    box-shadow: 2px 2px 6px #00e5ff;
-  }
 }
 
 .chatbot__status {
@@ -121,10 +103,16 @@
 }
 
 .chatbot__settings-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: var(--white);
-  border-bottom: 3px solid var(--black);
-  padding: 1.25rem 1.5rem;
+  z-index: 25;
+  padding: 1.5rem 1.75rem;
   color: var(--black);
+  overflow-y: auto;
   animation: slideDown 0.2s ease-out;
 }
 
@@ -179,6 +167,15 @@
 .status--active {
   color: #05882c;
   font-weight: 800;
+}
+
+.status--ready {
+  color: #000;
+  background: var(--yellow);
+  padding: 0.15rem 0.5rem;
+  border: 1.5px solid var(--black);
+  font-weight: 800;
+  font-size: 0.72rem;
 }
 
 .status--inactive {
@@ -243,42 +240,7 @@
   text-decoration: underline;
 }
 
-.chatbot__mode-selector {
-  margin-top: 0.5rem;
-}
 
-.chatbot__mode-selector label {
-  font-size: 0.85rem;
-  display: block;
-  margin-bottom: 0.35rem;
-}
-
-.chatbot__mode-options {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.chatbot__mode-btn {
-  padding: 0.4rem 0.8rem;
-  border: 2px solid var(--black);
-  background: var(--white);
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 var(--black);
-  transition: transform 0.1s ease, background 0.1s ease;
-}
-
-.chatbot__mode-btn:hover {
-  background: var(--yellow);
-}
-
-.chatbot__mode-btn.active {
-  background: var(--lime);
-  box-shadow: 1px 1px 0 var(--black);
-  transform: translate(1px, 1px);
-}
 
 .chatbot__context-tag {
   background: var(--lime);

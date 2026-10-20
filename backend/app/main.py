@@ -74,10 +74,28 @@ async def validation_exception_handler(_request: Request, exc: RequestValidation
     return JSONResponse(status_code=422, content={"message": _error_message(exc.errors())})
 
 
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 DIST_DIR = ROOT_DIR / "frontend" / "dist"
+PUBLIC_DIR = ROOT_DIR / "frontend" / "public"
+
+
+@app.get("/robots.txt", response_class=Response)
+async def get_robots_txt():
+    p = ROOT_DIR / "robots.txt"
+    if p.is_file():
+        return FileResponse(str(p), media_type="text/plain")
+    return Response("User-agent: *\nAllow: /\n", media_type="text/plain")
+
+
+@app.get("/sitemap.xml", response_class=Response)
+async def get_sitemap_xml():
+    p = ROOT_DIR / "sitemap.xml"
+    if p.is_file():
+        return FileResponse(str(p), media_type="application/xml")
+    raise StarletteHTTPException(status_code=404, detail="Sitemap not found")
+
 
 @app.get("/api")
 @app.get("/api/")

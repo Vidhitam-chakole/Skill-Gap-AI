@@ -9,8 +9,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
       role: 'bot',
-      text: "Hey! I'm your AI Career Agent powered by Groq & Local Intelligence. Ask me anything about your skill gaps, code quality, roadmap, or engineering topics!",
-      source: 'predefined',
+      text: "Hey! I'm your AI Career Assistant. Click any predefined question below for instant profile reviews and roadmap guidance, or ask me any custom question about system design, code quality, or engineering careers!",
     },
   ]);
   const [input, setInput] = useState('');
@@ -19,7 +18,6 @@ export default function ChatBot() {
   const [backendConfig, setBackendConfig] = useState({ groqConfigured: false, model: 'llama-3.3-70b-versatile' });
   const [customApiKey, setCustomApiKey] = useState(() => localStorage.getItem('groq_api_key') || '');
   const [keyInput, setKeyInput] = useState(customApiKey);
-  const [mode, setMode] = useState(() => localStorage.getItem('chat_mode') || 'auto'); // 'auto' | 'groq' | 'predefined'
   const [showSettings, setShowSettings] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const messagesEndRef = useRef(null);
@@ -55,11 +53,6 @@ export default function ChatBot() {
     setTimeout(() => setSaveSuccess(false), 2500);
   };
 
-  const handleModeChange = (newMode) => {
-    setMode(newMode);
-    localStorage.setItem('chat_mode', newMode);
-  };
-
   const handleSend = async (messageToSend) => {
     const userMsg = (messageToSend || input).trim();
     if (!userMsg || loading) return;
@@ -73,7 +66,6 @@ export default function ChatBot() {
         linkedinAnalysisId: linkedinResult?.analysisId,
         githubAnalysisId: githubResult?.analysisId,
         apiKey: customApiKey.trim() || null,
-        mode: mode,
       });
 
       setMessages((prev) => [
@@ -81,8 +73,6 @@ export default function ChatBot() {
         {
           role: 'bot',
           text: data.reply,
-          source: data.source || 'predefined',
-          model: data.model,
         },
       ]);
       if (data.conversationId) setConversationId(data.conversationId);
@@ -91,8 +81,7 @@ export default function ChatBot() {
         ...prev,
         {
           role: 'bot',
-          text: `Error connecting to AI Agent: ${err.message || 'Please ensure backend is running.'}`,
-          source: 'error',
+          text: `Error connecting to AI Assistant: ${err.message || 'Please ensure backend is running.'}`,
         },
       ]);
     } finally {
@@ -115,18 +104,19 @@ export default function ChatBot() {
         'Why is System Design important?',
         'What skills have highest market demand?',
         'How can I improve my GitHub score?',
+        'What is the Code Verifier?',
       ];
 
   return (
     <section id="chat" className="chatbot">
       <Sticker color="lime" rotation={5} className="chatbot__sticker">
-        {hasGroqActive && mode !== 'predefined' ? '⚡ Groq LPU' : 'AI Career Agent'}
+        ⚡ AI Assistant
       </Sticker>
 
       <SectionHeader
-        tag="// groq_ai_agent"
+        tag="// ai_career_assistant"
         title="AI Career & Skill Assistant"
-        subtitle="Ask anything about your profile review, skill gaps, system design, or engineering career. Powered by Groq ultra-fast LPU inference & predefined offline intelligence."
+        subtitle="Instant answers for your profile review, skill gaps, and dynamic roadmap — plus Groq AI intelligence for any custom questions."
         rotate={1}
       />
 
@@ -136,25 +126,13 @@ export default function ChatBot() {
             <div className="chatbot__avatar">AI</div>
             <div>
               <div className="chatbot__title-row">
-                <strong>SkillGap AI Agent</strong>
-                <span
-                  className={`chatbot__engine-badge ${
-                    mode === 'predefined'
-                      ? 'chatbot__engine-badge--local'
-                      : hasGroqActive
-                      ? 'chatbot__engine-badge--groq'
-                      : 'chatbot__engine-badge--local'
-                  }`}
-                >
-                  {mode === 'predefined'
-                    ? '📖 Predefined Questions (Local)'
-                    : hasGroqActive
-                    ? '⚡ Groq AI Active'
-                    : '📖 Predefined (Local Mode)'}
+                <strong>SkillGap AI Assistant</strong>
+                <span className="chatbot__engine-badge">
+                  {hasGroqActive ? '⚡ Groq Connected' : '⚡ AI Active'}
                 </span>
               </div>
               <span className="chatbot__status">
-                {hasAnalysis ? '● Primed with your live profile' : '● Ready to analyze'}
+                {hasAnalysis ? '● Primed with your live profile' : '● Ready to assist'}
               </span>
             </div>
           </div>
@@ -173,9 +151,9 @@ export default function ChatBot() {
               type="button"
               className="chatbot__settings-btn"
               onClick={() => setShowSettings(!showSettings)}
-              title="Configure Groq API Key and Mode"
+              title="Configure Groq API Key"
             >
-              ⚙️ Groq API
+              ⚙️ Settings
             </button>
           </div>
         </div>
@@ -184,7 +162,7 @@ export default function ChatBot() {
         {showSettings && (
           <div className="chatbot__settings-panel">
             <div className="chatbot__settings-header">
-              <h4>⚡ Groq API Integration Settings</h4>
+              <h4>⚙️ AI Assistant Settings</h4>
               <button
                 type="button"
                 className="chatbot__close-btn"
@@ -195,15 +173,14 @@ export default function ChatBot() {
             </div>
 
             <p className="chatbot__settings-desc">
-              SkillGap AI uses Groq&apos;s lightning-fast LPU inference (
-              <code>{backendConfig.model || 'llama-3.3-70b-versatile'}</code>) for dynamic questions, while keeping
-              offline predefined questions fully functional.
+              SkillGap AI Assistant answers predefined career and profile questions instantly, and uses Groq LPU inference (
+              <code>{backendConfig.model || 'llama-3.3-70b-versatile'}</code>) to answer any custom engineering or career question you ask.
             </p>
 
             <div className="chatbot__settings-status">
-              <span>Backend <code>.env</code> Key:</span>
-              <strong className={backendConfig.groqConfigured ? 'status--active' : 'status--inactive'}>
-                {backendConfig.groqConfigured ? '● Configured in backend .env' : '○ Not set in .env'}
+              <span>AI Engine Status:</span>
+              <strong className={hasGroqActive ? 'status--active' : 'status--ready'}>
+                {hasGroqActive ? '● Groq AI Connected & Active' : '● Predefined Intelligence Active'}
               </strong>
             </div>
 
@@ -243,31 +220,9 @@ export default function ChatBot() {
                 <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer">
                   console.groq.com/keys
                 </a>
-                . You can also paste it into <code>backend/.env</code> as <code>GROQ_API_KEY=...</code>.
+                . Groq powers unlimited custom technical questions beyond the predefined topics.
               </small>
             </form>
-
-            <div className="chatbot__mode-selector">
-              <label>
-                <strong>Execution Mode:</strong>
-              </label>
-              <div className="chatbot__mode-options">
-                <button
-                  type="button"
-                  className={`chatbot__mode-btn ${mode === 'auto' ? 'active' : ''}`}
-                  onClick={() => handleModeChange('auto')}
-                >
-                  ⚡ Auto (Groq if available, fallback to Predefined)
-                </button>
-                <button
-                  type="button"
-                  className={`chatbot__mode-btn ${mode === 'predefined' ? 'active' : ''}`}
-                  onClick={() => handleModeChange('predefined')}
-                >
-                  📖 Predefined Questions Only (Fast & Free)
-                </button>
-              </div>
-            </div>
           </div>
         )}
 
@@ -276,15 +231,6 @@ export default function ChatBot() {
             <div key={i} className={`chatbot__message chatbot__message--${msg.role}`}>
               <div className="chatbot__bubble">
                 {msg.text}
-                {msg.role === 'bot' && msg.source && (
-                  <span className={`chatbot__msg-tag chatbot__msg-tag--${msg.source}`}>
-                    {msg.source === 'groq'
-                      ? `⚡ Groq (${msg.model || 'LPU'})`
-                      : msg.source === 'openai'
-                      ? '🤖 OpenAI'
-                      : '📖 Predefined'}
-                  </span>
-                )}
               </div>
             </div>
           ))}
@@ -292,9 +238,7 @@ export default function ChatBot() {
             <div className="chatbot__message chatbot__message--bot">
               <div className="chatbot__bubble chatbot__typing">
                 <span /><span /><span />
-                <span className="chatbot__typing-text">
-                  {hasGroqActive && mode !== 'predefined' ? 'Groq is synthesizing...' : 'Thinking...'}
-                </span>
+                <span className="chatbot__typing-text">AI is thinking...</span>
               </div>
             </div>
           )}
@@ -325,11 +269,7 @@ export default function ChatBot() {
           <input
             type="text"
             className="chatbot__input"
-            placeholder={
-              hasGroqActive && mode !== 'predefined'
-                ? "Ask Groq anything: profile review, system design, coding gotchas, interview tips..."
-                : "Ask predefined questions or your profile review..."
-            }
+            placeholder="Ask any question or pick a predefined topic above..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
