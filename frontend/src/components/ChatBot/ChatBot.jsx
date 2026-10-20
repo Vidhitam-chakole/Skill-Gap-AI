@@ -16,10 +16,7 @@ export default function ChatBot() {
   const [loading, setLoading] = useState(false);
   const [conversationId, setConversationId] = useState(null);
   const [backendConfig, setBackendConfig] = useState({ groqConfigured: false, model: 'llama-3.3-70b-versatile' });
-  const [customApiKey, setCustomApiKey] = useState(() => localStorage.getItem('groq_api_key') || '');
-  const [keyInput, setKeyInput] = useState(customApiKey);
-  const [showSettings, setShowSettings] = useState(false);
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [customApiKey] = useState(() => localStorage.getItem('groq_api_key') || '');
   const messagesEndRef = useRef(null);
 
   // Fetch backend Groq configuration on mount
@@ -39,19 +36,6 @@ export default function ChatBot() {
   }, [messages, loading]);
 
   const hasGroqActive = Boolean(customApiKey.trim() || backendConfig.groqConfigured);
-
-  const handleSaveKey = (e) => {
-    e.preventDefault();
-    const trimmed = keyInput.trim();
-    setCustomApiKey(trimmed);
-    if (trimmed) {
-      localStorage.setItem('groq_api_key', trimmed);
-    } else {
-      localStorage.removeItem('groq_api_key');
-    }
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 2500);
-  };
 
   const handleSend = async (messageToSend) => {
     const userMsg = (messageToSend || input).trim();
@@ -147,84 +131,8 @@ export default function ChatBot() {
                   : `@${githubResult?.username}`}
               </div>
             )}
-            <button
-              type="button"
-              className="chatbot__settings-btn"
-              onClick={() => setShowSettings(!showSettings)}
-              title="Configure Groq API Key"
-            >
-              ⚙️ Settings
-            </button>
           </div>
         </div>
-
-        {/* Expandable Groq Configuration Panel */}
-        {showSettings && (
-          <div className="chatbot__settings-panel">
-            <div className="chatbot__settings-header">
-              <h4>⚙️ AI Assistant Settings</h4>
-              <button
-                type="button"
-                className="chatbot__close-btn"
-                onClick={() => setShowSettings(false)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <p className="chatbot__settings-desc">
-              SkillGap AI Assistant answers predefined career and profile questions instantly, and uses Groq LPU inference (
-              <code>{backendConfig.model || 'llama-3.3-70b-versatile'}</code>) to answer any custom engineering or career question you ask.
-            </p>
-
-            <div className="chatbot__settings-status">
-              <span>AI Engine Status:</span>
-              <strong className={hasGroqActive ? 'status--active' : 'status--ready'}>
-                {hasGroqActive ? '● Groq AI Connected & Active' : '● Predefined Intelligence Active'}
-              </strong>
-            </div>
-
-            <form onSubmit={handleSaveKey} className="chatbot__key-form">
-              <label htmlFor="groq-key-input">
-                <strong>Enter your Groq API Key (starts with <code>gsk_...</code>):</strong>
-              </label>
-              <div className="chatbot__key-row">
-                <input
-                  id="groq-key-input"
-                  type="password"
-                  placeholder="gsk_..."
-                  value={keyInput}
-                  onChange={(e) => setKeyInput(e.target.value)}
-                  className="chatbot__key-input"
-                />
-                <button type="submit" className="brutal-btn brutal-btn--yellow">
-                  Save Key
-                </button>
-                {customApiKey && (
-                  <button
-                    type="button"
-                    className="brutal-btn"
-                    onClick={() => {
-                      setCustomApiKey('');
-                      setKeyInput('');
-                      localStorage.removeItem('groq_api_key');
-                    }}
-                  >
-                    Clear
-                  </button>
-                )}
-              </div>
-              {saveSuccess && <span className="chatbot__saved-msg">✓ Groq API Key saved successfully!</span>}
-              <small className="chatbot__help-text">
-                Don&apos;t have a key? Get one free at{' '}
-                <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer">
-                  console.groq.com/keys
-                </a>
-                . Groq powers unlimited custom technical questions beyond the predefined topics.
-              </small>
-            </form>
-          </div>
-        )}
 
         <div className="chatbot__messages">
           {messages.map((msg, i) => (

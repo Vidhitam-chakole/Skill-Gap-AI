@@ -7,15 +7,20 @@ from dotenv import dotenv_values, load_dotenv
 
 from .schemas import ChatMessageResponse
 
-# Ensure environment variables are loaded strictly from the root .env
-ROOT_ENV = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env")
+from pathlib import Path
+
+# Ensure environment variables are loaded from root .env or backend .env
+ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_ENV = ROOT_DIR / ".env"
+BACKEND_ENV = ROOT_DIR / "backend" / ".env"
 
 
 def _refresh_env() -> None:
-    if os.path.exists(ROOT_ENV):
-        for k, v in dotenv_values(ROOT_ENV).items():
-            if v and v.strip():
-                os.environ[k] = v.strip()
+    for env_path in [ROOT_ENV, BACKEND_ENV]:
+        if env_path.is_file():
+            for k, v in dotenv_values(str(env_path)).items():
+                if v and v.strip():
+                    os.environ[k] = v.strip()
 
 
 _refresh_env()
@@ -500,12 +505,11 @@ async def generate_agent_reply(
             except Exception:
                 reply = None
 
-        # 4. If no external API answered the custom question, guide the user to configure Groq
+        # 4. If no external API answered the custom question, guide the user cleanly
         if not reply:
             reply = (
                 "I can answer predefined questions and profile reviews right away! "
-                "For custom open-ended questions, please add your free Groq API key in Settings (⚙️) above "
-                "or set GROQ_API_KEY in backend/.env. You can get a free key in seconds at console.groq.com."
+                "For custom open-ended questions, please ensure your GROQ_API_KEY is configured in your server environment variables or .env file."
             )
             source = "ai-prompt"
             model_used = "info"
