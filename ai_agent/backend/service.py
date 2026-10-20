@@ -274,9 +274,9 @@ async def _call_groq_if_configured(
     github_result,
     api_key_override: str | None = None,
     model_override: str | None = None,
-) -> tuple[str | None, str | None]:
+) -> tuple[str | None, str | None, str | None]:
     """Calls Groq API (GroqCloud OpenAI-compatible endpoint) if key is provided.
-    Returns (reply_text, model_used) or (None, None).
+    Returns (reply_text, model_used, error_detail).
     """
     _refresh_env()
     api_key = (
@@ -285,16 +285,15 @@ async def _call_groq_if_configured(
     ).strip()
 
     if not api_key:
-        return None, None
+        return None, None, "GROQ_API_KEY is not configured in your environment variables or .env."
 
     model = (
         model_override
         or os.getenv("GROQ_MODEL", "")
-        or GROQ_MODEL
         or "llama-3.3-70b-versatile"
     ).strip()
 
-    # Build rich context from LinkedIn and GitHub analyses
+    # Build rich context from LinkedIn and GitHub analyses (if available)
     context_parts = []
     if linkedin_result:
         li_name = getattr(linkedin_result, "name", None) or (linkedin_result.get("name") if isinstance(linkedin_result, dict) else "User")
@@ -332,7 +331,7 @@ async def _call_groq_if_configured(
             f"Languages: {lang_str}. Identified Technical Gaps: {', '.join(gh_gap_names)}."
         )
 
-    context_str = "\n".join(context_parts) if context_parts else "No specific profile analysis loaded yet."
+    context_str = "\n".join(context_parts) if context_parts else "No specific profile analysis loaded yet. Act as general AI technical career mentor."
 
     system_prompt = (
         "You are SkillGap AI Career Assistant, powered by Groq high-speed LPU inference. "
@@ -341,24 +340,39 @@ async def _call_groq_if_configured(
         "Guidelines:\n"
         "- Answer the candidate's questions clearly, accurately, and actionably.\n"
         "- When asked about profile reviews, skill gaps, or learning roadmaps, synthesize their verified analysis metrics.\n"
-        "- When asked coding, technical, or interview questions, provide senior-level engineering explanations with code snippets where helpful.\n"
+        "- When asked coding, technical, interview, or general career questions, provide senior-level engineering explanations with code snippets where helpful.\n"
         "- Keep responses direct and engaging (under 180 words unless the user explicitly requests a detailed guide or complete code).\n"
-        "- If the user asks common or predefined questions (e.g., 'Explain my dynamic roadmap', 'What are my LinkedIn strengths?'), provide an insightful, customized answer based on their profile."
+        "- Even if candidate profile data is not loaded yet, answer any question thoroughly and helpfully."
     )
 
-    messages = [{"role": "system", "content": system_prompt}]
-    for item in history[-8:]:
+    clean_msgs = []
+    for item in history[-6:]:
+        txt = (item.get("text") or "").strip()
+        if not txt:
+            continue
         r = "assistant" if item.get("role") in ("bot", "assistant") else "user"
-        messages.append({"role": r, "content": item.get("text", "")})
-    messages.append({"role": "user", "content": message})
+        clean_msgs.append({"role": r, "content": txt})
+
+    if not clean_msgs or clean_msgs[-1]["content"] != message:
+        clean_msgs.append({"role": "user", "content": message})
+
+    # Collapse consecutive messages with same role
+    collapsed = []
+    for m in clean_msgs:
+        if collapsed and collapsed[-1]["role"] == m["role"]:
+            collapsed[-1]["content"] += "\n" + m["content"]
+        else:
+            collapsed.append({"role": m["role"], "content": m["content"]})
+
+    messages = [{"role": "system", "content": system_prompt}] + collapsed
 
     models_to_try = [model]
-    for fallback_model in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"]:
+    for fallback_model in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
         if fallback_model not in models_to_try:
             models_to_try.append(fallback_model)
 
+    last_error_detail = None
     async with httpx.AsyncClient(timeout=25.0) as client:
-        last_error = None
         for m in models_to_try:
             try:
                 res = await client.post(
@@ -378,22 +392,21 @@ async def _call_groq_if_configured(
                     data = res.json()
                     content = data["choices"][0]["message"]["content"]
                     if content:
-                        return content.strip(), m
-                elif res.status_code in (400, 404):
-                    last_error = res.text
-                    continue
+                        return content.strip(), m, None
+                elif res.status_code == 401:
+                    last_error_detail = "Groq Authentication failed (401 Unauthorized). The GROQ_API_KEY is invalid, expired, or mistyped."
+                    break
                 else:
-                    res.raise_for_status()
+                    try:
+                        err_json = res.json()
+                        last_error_detail = f"Groq HTTP {res.status_code}: {err_json.get('error', {}).get('message', res.text)}"
+                    except Exception:
+                        last_error_detail = f"Groq HTTP {res.status_code}: {res.text}"
             except Exception as e:
-                last_error = e
-                if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 401:
-                    print(f"[Groq AI] Authentication error (401). Invalid GROQ_API_KEY: {e}")
-                    return None, None
+                last_error_detail = f"Connection error calling Groq: {str(e)}"
                 continue
 
-    if last_error:
-        print(f"[Groq AI] Groq API notice: {last_error}")
-    return None, None
+    return None, None, last_error_detail
 
 
 async def _call_openai_if_configured(
@@ -479,8 +492,9 @@ async def generate_agent_reply(
         model_used = "predefined-intelligence"
     else:
         # 2. Other questions than predefined -> Use Groq API (LPU inference)
+        groq_error = None
         try:
-            groq_reply, model_name = await _call_groq_if_configured(
+            groq_reply, model_name, groq_error = await _call_groq_if_configured(
                 message=message,
                 history=history,
                 linkedin_result=linkedin_result,
@@ -493,6 +507,7 @@ async def generate_agent_reply(
                 model_used = model_name
         except Exception as e:
             print(f"[ChatBot] Groq error on custom query: {e}")
+            groq_error = f"Internal error calling Groq: {str(e)}"
             reply = None
 
         # 3. Fallback to OpenAI if configured
@@ -505,14 +520,19 @@ async def generate_agent_reply(
             except Exception:
                 reply = None
 
-        # 4. If no external API answered the custom question, guide the user cleanly
+        # 4. If no external API answered the custom question, display clear guidance or actual error
         if not reply:
-            reply = (
-                "I can answer predefined questions and profile reviews right away! "
-                "For custom open-ended questions, please ensure your GROQ_API_KEY is configured in your server environment variables or .env file."
-            )
-            source = "ai-prompt"
-            model_used = "info"
+            if groq_error:
+                reply = f"Groq AI Notice: {groq_error}"
+                source = "groq-notice"
+                model_used = "groq-info"
+            else:
+                reply = (
+                    "I can answer predefined questions and profile reviews right away! "
+                    "For custom open-ended questions, please ensure your GROQ_API_KEY is configured in your server environment variables or .env file."
+                )
+                source = "ai-prompt"
+                model_used = "info"
 
     append_message(conv_id, "bot", reply)
     return reply, conv_id, {"source": source, "model": model_used}
