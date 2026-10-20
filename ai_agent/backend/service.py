@@ -287,7 +287,7 @@ async def _call_groq_if_configured(
     if not api_key:
         return None, None, "GROQ_API_KEY is not configured in your environment variables or .env."
 
-    model = (
+    preferred_model = (
         model_override
         or os.getenv("GROQ_MODEL", "")
         or "llama-3.3-70b-versatile"
