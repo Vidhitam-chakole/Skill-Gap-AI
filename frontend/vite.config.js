@@ -25,6 +25,14 @@ export default defineConfig({
               return fs.createReadStream(sitemapPath).pipe(res);
             }
           }
+          if (req.url && req.url.startsWith('/google') && req.url.endsWith('.html')) {
+            const fileName = path.basename(req.url);
+            const rootGooglePath = path.resolve(__dirname, '..', fileName);
+            if (fs.existsSync(rootGooglePath)) {
+              res.setHeader('Content-Type', 'text/html; charset=utf-8');
+              return fs.createReadStream(rootGooglePath).pipe(res);
+            }
+          }
           next();
         });
       },

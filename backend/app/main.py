@@ -83,18 +83,27 @@ PUBLIC_DIR = ROOT_DIR / "frontend" / "public"
 
 @app.get("/robots.txt", response_class=Response)
 async def get_robots_txt():
-    p = ROOT_DIR / "robots.txt"
-    if p.is_file():
-        return FileResponse(str(p), media_type="text/plain")
+    for p in [PUBLIC_DIR / "robots.txt", ROOT_DIR / "robots.txt", DIST_DIR / "robots.txt"]:
+        if p.is_file():
+            return FileResponse(str(p), media_type="text/plain")
     return Response("User-agent: *\nAllow: /\n", media_type="text/plain")
 
 
 @app.get("/sitemap.xml", response_class=Response)
 async def get_sitemap_xml():
-    p = ROOT_DIR / "sitemap.xml"
-    if p.is_file():
-        return FileResponse(str(p), media_type="application/xml")
+    for p in [PUBLIC_DIR / "sitemap.xml", ROOT_DIR / "sitemap.xml", DIST_DIR / "sitemap.xml"]:
+        if p.is_file():
+            return FileResponse(str(p), media_type="application/xml")
     raise StarletteHTTPException(status_code=404, detail="Sitemap not found")
+
+
+@app.get("/google{code}.html", response_class=Response)
+async def get_google_verification(code: str):
+    filename = f"google{code}.html"
+    for p in [PUBLIC_DIR / filename, ROOT_DIR / filename, DIST_DIR / filename]:
+        if p.is_file():
+            return FileResponse(str(p), media_type="text/html")
+    raise StarletteHTTPException(status_code=404, detail="Verification file not found")
 
 
 @app.get("/api")
@@ -121,6 +130,14 @@ if DIST_DIR.exists():
         target_file = DIST_DIR / full_path
         if target_file.is_file():
             return FileResponse(str(target_file))
+        public_file = PUBLIC_DIR / full_path
+        if public_file.is_file():
+            return FileResponse(str(public_file))
+        root_file = ROOT_DIR / full_path
+        if root_file.is_file() and (full_path.startswith("google") or full_path in ["robots.txt", "sitemap.xml"]):
+            return FileResponse(str(root_file))
+        if full_path.startswith("google") and full_path.endswith(".html"):
+            raise StarletteHTTPException(status_code=404, detail="Verification file not found")
         index_file = DIST_DIR / "index.html"
         if index_file.is_file():
             return FileResponse(str(index_file))
