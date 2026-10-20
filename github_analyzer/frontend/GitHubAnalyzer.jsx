@@ -34,7 +34,6 @@ export default function GitHubAnalyzer() {
       <Sticker color="cyan" rotation={-4} className="analyzer__sticker">GitHub Review</Sticker>
 
       <SectionHeader
-        tag="// github_profile_analyzer"
         title="GitHub Profile Review"
         subtitle="Analyze public repositories, languages, commit velocity, and code intelligence directly from GitHub API."
         rotate={-2}

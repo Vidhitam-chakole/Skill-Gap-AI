@@ -35,8 +35,6 @@ export default function ChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
-  const hasGroqActive = Boolean(customApiKey.trim() || backendConfig.groqConfigured);
-
   const handleSend = async (messageToSend) => {
     const userMsg = (messageToSend || input).trim();
     if (!userMsg || loading) return;
@@ -94,11 +92,10 @@ export default function ChatBot() {
   return (
     <section id="chat" className="chatbot">
       <Sticker color="lime" rotation={5} className="chatbot__sticker">
-        ⚡ AI Assistant
+        AI Assistant
       </Sticker>
 
       <SectionHeader
-        tag="// ai_career_assistant"
         title="AI Career & Skill Assistant"
         subtitle="Instant answers for your profile review, skill gaps, and dynamic roadmap — plus Groq AI intelligence for any custom questions."
         rotate={1}
@@ -108,16 +105,8 @@ export default function ChatBot() {
         <div className="chatbot__header">
           <div className="chatbot__header-left">
             <div className="chatbot__avatar">AI</div>
-            <div>
-              <div className="chatbot__title-row">
-                <strong>SkillGap AI Assistant</strong>
-                <span className="chatbot__engine-badge">
-                  {hasGroqActive ? '⚡ Groq Connected' : '⚡ AI Active'}
-                </span>
-              </div>
-              <span className="chatbot__status">
-                {hasAnalysis ? '● Primed with your live profile' : '● Ready to assist'}
-              </span>
+            <div className="chatbot__title-row">
+              <strong>SkillGap AI Assistant</strong>
             </div>
           </div>
 

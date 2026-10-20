@@ -112,25 +112,6 @@ export default function Roadmap() {
             </div>
           </div>
 
-          <div className="roadmap__priorities brutal-card reveal">
-            <h3>Unified Skill Priorities</h3>
-            <p className="roadmap__priorities-sub">
-              Deduplicated and cross-referenced from your LinkedIn and GitHub reviews:
-            </p>
-            <ul>
-              {roadmap.priorities.map((item, idx) => (
-                <li key={idx}>
-                  <div className="roadmap__priority-head">
-                    <strong>{item.skill}</strong>
-                    <span className={`analyzer__severity severity-${item.severity}`}>{item.severity}</span>
-                    <span className="roadmap__source">Source: {item.source}</span>
-                  </div>
-                  <p>{item.recommendation}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="roadmap__milestones-header-wrap reveal">
             <h3 className="roadmap__weeks-header">Dynamic Execution Milestones & Sprints</h3>
             <p className="roadmap__milestones-sub">

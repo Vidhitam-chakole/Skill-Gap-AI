@@ -13,7 +13,7 @@ export default function Hero({ onNavigate }) {
       <div className="hero__sticker hero__sticker--ai">AI POWERED</div>
 
       <div className="hero__content">
-        <p className="hero__eyebrow reveal">// career intelligence platform</p>
+        <p className="hero__eyebrow reveal">Career Intelligence Platform</p>
 
         <h1 className="hero__title reveal">
           <span className="hero__title-line">Close Your</span>
@@ -49,11 +49,6 @@ export default function Hero({ onNavigate }) {
           <img src="/logo.png" alt="" className="hero__card-logo" />
         </div>
         <div className="hero__arrow-deco" aria-hidden="true">→</div>
-      </div>
-
-      <div className="hero__scroll-hint">
-        <span>SCROLL</span>
-        <div className="hero__scroll-line" />
       </div>
     </section>
   );

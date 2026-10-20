@@ -5,7 +5,7 @@ import { SectionHeader, Sticker } from '../Decorative/Decorative';
 import '../LinkedInAnalyzer/Analyzer.css';
 
 export default function GitHubAnalyzer() {
-  const { githubResult, setGithubResult, setRoadmap } = useAnalysis();
+  const { githubResult, setGithubResult, setRoadmap, startVerification } = useAnalysis();
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -34,7 +34,6 @@ export default function GitHubAnalyzer() {
       <Sticker color="cyan" rotation={-4} className="analyzer__sticker">GitHub Review</Sticker>
 
       <SectionHeader
-      
         title="GitHub Profile Review"
         subtitle="Analyze public repositories, languages, commit velocity, and code intelligence directly from GitHub API."
         rotate={-2}
@@ -104,9 +103,6 @@ export default function GitHubAnalyzer() {
             <div className="analyzer__panel brutal-card reveal">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <h3>Primary Languages</h3>
-                <span style={{ fontSize: '0.75rem', background: '#ff0055', color: '#fff', padding: '0.2rem 0.5rem', borderRadius: '3px', fontWeight: 800 }}>
-                  ANTI-AI CHECK
-                </span>
               </div>
               <p className="analyzer__panel-subtitle">Code distribution across public repositories:</p>
               <div className="analyzer__bars">
@@ -116,18 +112,23 @@ export default function GitHubAnalyzer() {
                       <span>{lang.name}</span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <span>{lang.percentage}%</span>
-                        <a
-                          href="#verifier"
+                        <button
+                          type="button"
+                          onClick={() => startVerification && startVerification(lang.name)}
                           style={{
+                            background: 'none',
+                            border: 'none',
+                            padding: 0,
+                            cursor: 'pointer',
                             fontSize: '0.75rem',
                             color: '#00f0ff',
                             textDecoration: 'underline',
                             fontWeight: 700,
                           }}
-                          title={`Take 10Q test to verify real ${lang.name} knowledge`}
+                          title={`Verify ${lang.name} knowledge`}
                         >
-                          Verify (10Q) &rarr;
-                        </a>
+                          Verify &rarr;
+                        </button>
                       </div>
                     </div>
                     <div className="analyzer__bar-track">
@@ -140,17 +141,26 @@ export default function GitHubAnalyzer() {
                 ))}
               </div>
 
-              <div style={{ marginTop: '1.25rem', padding: '1rem', background: 'rgba(255, 0, 85, 0.1)', border: '1px solid rgba(255, 0, 85, 0.4)', borderRadius: '4px' }}>
-                <p style={{ margin: 0, fontSize: '0.85rem', color: '#fca5a5', lineHeight: '1.4' }}>
-                  <strong>Did you write this code, or was it AI?</strong> Your strongest language is <strong style={{ color: '#00f0ff' }}>{results.topLanguages[0]?.name}</strong> ({results.topLanguages[0]?.percentage}%). Verify genuine code mastery with a custom-generated paper.
+              <div style={{ marginTop: '1.25rem', padding: '1rem', background: '#fffdf5', border: '2px solid var(--black, #0a0a0a)', borderRadius: '4px' }}>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: '#334155', lineHeight: '1.4' }}>
+                  Primary language: <strong style={{ color: 'var(--black, #0a0a0a)' }}>{results.topLanguages[0]?.name}</strong> ({results.topLanguages[0]?.percentage}%). Verify your language proficiency.
                 </p>
-                <a
-                  href="#verifier"
+                <button
+                  type="button"
+                  onClick={() => startVerification && startVerification(results.topLanguages[0]?.name || 'HTML')}
                   className="brutal-btn brutal-btn--accent"
-                  style={{ display: 'block', textAlign: 'center', marginTop: '0.75rem', padding: '0.6rem 1rem', fontSize: '0.85rem' }}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'center',
+                    marginTop: '0.75rem',
+                    padding: '0.6rem 1rem',
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                  }}
                 >
-                  ⚡ Start Custom 10Q Test for {results.topLanguages[0]?.name || 'Strongest Language'} &rarr;
-                </a>
+                  Start Test for {results.topLanguages[0]?.name || 'Primary Language'} &rarr;
+                </button>
               </div>
             </div>
 

@@ -132,14 +132,16 @@ async def generate_quiz(
     # Fallback: if strongest_language still not found, check detected_languages
     if not strongest_language and detected_languages:
         for lang_name in detected_languages:
-            if lang_name.lower() not in {"html", "css", "scss", "less", "markdown", "json", "yaml", "xml", "shell", "bash"}:
+            if lang_name.lower() not in {"markdown", "json", "yaml", "xml", "text"}:
                 strongest_language = lang_name
                 break
+        if not strongest_language and detected_languages:
+            strongest_language = detected_languages[0]
 
     # Resolve target language:
     clean_lang = (language or "").strip()
     if not clean_lang or clean_lang.lower() in ("auto", "default", "strongest"):
-        target_language = strongest_language or "JavaScript"
+        target_language = strongest_language or (detected_languages[0] if detected_languages else "HTML")
     else:
         target_language = clean_lang
 
@@ -287,60 +289,54 @@ def evaluate_quiz(
     percentage = round((score / total) * 100) if total > 0 else 0
     language = questions[0].language if questions else "C"
 
-    # Forensic Authenticity Status
+    # Performance Status & Feedback
     if percentage >= 80:
         authenticity_status = "VERIFIED_AUTHENTIC"
-        authenticity_label = "Verified Human Mastery"
-        badge = f"Verified {language} Engineer"
+        authenticity_label = "Strong Proficiency Verified"
+        badge = f"Verified {language} Developer"
         summary = (
-            f"Strong human intuition confirmed! Your score of {score}/{total} ({percentage}%) demonstrates "
-            f"genuine grasp of {language} core mechanics (memory layout, execution semantics, and edge cases). "
-            f"Your GitHub repositories reflect authentic technical competence."
+            f"Great job! Score: {score}/{total} ({percentage}%). You demonstrated a solid grasp of core "
+            f"{language} concepts and mechanics."
         )
         insight = (
-            "You passed the edge-case and sequence-point traps that AI code generators output blindly. "
-            "You demonstrated real debugging intuition that cannot be faked via copy-pasting."
+            f"You have strong fundamental knowledge and coding intuition in {language}."
         )
         recommendations = [
-            f"Your {language} knowledge is solid. Highlight this verified badge on your resume and LinkedIn profile.",
-            "Consider contributing to open-source systems libraries or writing technical deep-dives.",
-            "Focus on advanced concurrency and distributed systems to reach senior level.",
+            f"Your {language} knowledge is solid. Highlight this on your profile and resume.",
+            "Continue building real-world projects and exploring advanced topics.",
+            "Practice system design and optimization techniques.",
         ]
     elif percentage >= 50:
         authenticity_status = "LIKELY_AI_AUGMENTED"
-        authenticity_label = "AI-Augmented / Emerging Knowledge"
-        badge = f"Developing {language} Practitioner"
+        authenticity_label = "Developing Knowledge / Practice Recommended"
+        badge = f"Developing {language} Skills"
         summary = (
-            f"Partial competence detected. Score: {score}/{total} ({percentage}%). While you recognize standard syntax, "
-            f"critical gaps in underlying mechanics (pointers, lifetime, sequence points, or memory hazards) suggest you "
-            f"may rely heavily on AI to write your {language} code without fully understanding what the compiler does."
+            f"Good effort! Score: {score}/{total} ({percentage}%). You have a decent foundation, but "
+            f"practicing core concepts will help you build stronger confidence in {language}."
         )
         insight = (
-            "AI tools easily generate working boilerplate, but when bugs arise in memory management or scope, "
-            "developers with this score profile struggle in live technical interviews."
+            "Focus on understanding core language behavior and mechanics to feel confident in technical discussions."
         )
         recommendations = [
-            f"Review the failed questions below, specifically focusing on {', '.join(k for k, v in concept_stats.items() if v['correct'] < v['total'])}.",
-            f"Build a small, standalone project in {language} from scratch WITHOUT using ChatGPT or Copilot.",
-            "Use debugging tools like GDB, Valgrind, or AddressSanitizer to inspect memory directly.",
+            f"Review the questions you missed below to strengthen those concepts.",
+            f"Write small practice programs in {language} to experiment with these behaviors.",
+            "Trace code execution step by step to build intuition.",
         ]
     else:
         authenticity_status = "UNVERIFIED_SUSPECT_AI"
-        authenticity_label = "Suspect AI-Generated Code / Skill Gap Detected"
-        badge = f"Unverified {language} Profile"
+        authenticity_label = "Skill Gap Identified / Fundamentals Review"
+        badge = f"Learning {language}"
         summary = (
-            f"Significant gap identified! Score: {score}/{total} ({percentage}%). Although your GitHub profile reports "
-            f"{language} as a primary language, your answers reveal critical gaps in fundamental mechanics. "
-            f"This strongly indicates that the code on your GitHub was generated by AI or copied without conceptual understanding."
+            f"Score: {score}/{total} ({percentage}%). Key skill gaps identified in {language} fundamentals. "
+            f"Reviewing the core topics below will help close these gaps."
         )
         insight = (
-            "Modern recruiters and technical interviewers instantly spot this mismatch: repos look impressive on GitHub, "
-            "but the candidate cannot explain pointer arithmetic, stack frames, or object lifecycles."
+            "Focus on language fundamentals, variable lifecycles, and data structures to build strong mastery."
         )
         recommendations = [
-            f"Do not claim {language} as a 'Strong Language' in technical interviews until core fundamentals are mastered.",
-            "Dedicate 2 weeks to studying memory hierarchy, compiler phases, and foundational data structures.",
-            "Practice writing code manually on a whiteboard or plain text editor without AI auto-complete.",
+            f"Spend time reviewing core {language} syntax, data types, and scope rules.",
+            "Practice writing and debugging small programs from scratch.",
+            "Work through interactive coding exercises step by step.",
         ]
 
     concept_breakdown = [

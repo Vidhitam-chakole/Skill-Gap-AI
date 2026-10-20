@@ -61,7 +61,7 @@ def _gen_py_mutable_default(context: Optional[dict[str, Any]]) -> dict[str, Any]
     options, c_idx = _shuffle_options([correct, distractor1, distractor2, distractor3], 0)
     return {
         "difficulty": "Intermediate",
-        "concept": "Mutable Default Arguments & Object Lifecycle",
+        "concept": "Default Function Arguments",
         "question": f"What is the final output printed by the third call '{fn_name}({v3})'?",
         "codeSnippet": code,
         "options": options,
@@ -70,7 +70,7 @@ def _gen_py_mutable_default(context: Optional[dict[str, Any]]) -> dict[str, Any]
             f"Python evaluates default argument expressions ONCE when the function definition is executed, "
             f"not at call time. The default list '{param_name}' persists across calls. The second call passed an explicit "
             f"new list '[]', so the default was untouched. Thus the third call mutates the shared default, yielding {correct}. "
-            f"AI code generators and copy-pasters commonly assume default arguments re-instantiate on every call ({distractor1})."
+            f"A common misconception is assuming default arguments re-instantiate on every call ({distractor1})."
         ),
     }
 
@@ -102,7 +102,7 @@ def _gen_py_late_binding(context: Optional[dict[str, Any]]) -> dict[str, Any]:
 
     return {
         "difficulty": "Deep Mechanics",
-        "concept": "Closure Late-Binding & Scoping Traps",
+        "concept": "Variable Scope & Closures",
         "question": f"What integer will be printed when invoking handlers[{target_idx}](0)?",
         "codeSnippet": code,
         "options": options,
@@ -1062,6 +1062,289 @@ def _gen_rust_move_semantics(context: Optional[dict[str, Any]]) -> dict[str, Any
 
 
 # =====================================================================
+# HTML & WEB DYNAMIC GENERATORS
+# =====================================================================
+
+def _gen_html_script_defer_async(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<!-- In <head> tag: -->\n"
+        "<script src='analytics.js' async></script>\n"
+        "<script src='app.js' defer></script>\n"
+        "<script src='utils.js' defer></script>"
+    )
+    return {
+        "difficulty": "Intermediate",
+        "concept": "Script Loading (defer vs async)",
+        "question": "Which statement accurately describes the execution order of these scripts?",
+        "codeSnippet": code,
+        "options": [
+            "app.js and utils.js execute in document order before DOMContentLoaded; analytics.js executes as soon as downloaded",
+            "All three scripts execute strictly in document order after the entire HTML finishes downloading",
+            "defer scripts block the HTML parser, while async scripts execute after the window 'load' event",
+            "analytics.js and app.js execute in parallel on separate worker threads",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "Scripts marked with 'defer' download in the background without blocking the HTML parser, "
+            "and are guaranteed to execute in source order right before DOMContentLoaded. "
+            "Scripts with 'async' download in the background and execute immediately once downloaded, "
+            "so their order is non-deterministic."
+        ),
+    }
+
+
+def _gen_html_semantic_sectioning(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<main>\n"
+        "  <article>\n"
+        "    <h2>Release Notes</h2>\n"
+        "    <p>Version 2.0 has shipped.</p>\n"
+        "  </article>\n"
+        "  <aside>\n"
+        "    <h3>Related Links</h3>\n"
+        "  </aside>\n"
+        "</main>"
+    )
+    return {
+        "difficulty": "Foundation",
+        "concept": "Semantic HTML Structure",
+        "question": "What is the primary technical benefit of using <main>, <article>, and <aside> over generic <div> tags?",
+        "codeSnippet": code,
+        "options": [
+            "They create accessible landmark roles for screen readers and convey document structure to search engines",
+            "They automatically prevent CSS cascade styles from leaking into child elements",
+            "They force the browser to render using dedicated GPU hardware acceleration",
+            "They automatically make child containers responsive across mobile viewports",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "Semantic HTML elements provide explicit landmark roles for accessibility tools (like screen readers) "
+            "and search crawlers, giving meaningful structure to content without needing manual ARIA role annotations."
+        ),
+    }
+
+
+def _gen_html_img_srcset_sizes(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<img src='hero-default.jpg'\n"
+        "     srcset='hero-400.jpg 400w, hero-800.jpg 800w, hero-1200.jpg 1200w'\n"
+        "     sizes='(max-width: 600px) 100vw, 50vw'\n"
+        "     alt='Hero Banner'>"
+    )
+    return {
+        "difficulty": "Intermediate",
+        "concept": "Responsive Images (srcset & sizes)",
+        "question": "On a screen 500px wide with a 2x device pixel ratio (DPR), which candidate image will the browser pick?",
+        "codeSnippet": code,
+        "options": [
+            "hero-800.jpg or hero-1200.jpg (slot width is 500px, multiplied by 2x DPR requires ~1000px)",
+            "hero-400.jpg (because 500px is less than 600px)",
+            "hero-default.jpg (it ignores srcset whenever sizes is defined)",
+            "The browser downloads all three images and displays the sharpest",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "With viewport width 500px matching (max-width: 600px), sizes gives 100vw = 500px. "
+            "Because the screen is 2x DPR, the browser needs 500 * 2 = 1000 physical pixels, "
+            "so it selects the best matching candidate: hero-800.jpg or hero-1200.jpg."
+        ),
+    }
+
+
+def _gen_html_rel_noopener(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<a href='https://external.example.com' target='_blank' rel='noopener noreferrer'>\n"
+        "  Visit External Resource\n"
+        "</a>"
+    )
+    return {
+        "difficulty": "Foundation",
+        "concept": "Link Security (rel=noopener)",
+        "question": "Why is rel='noopener noreferrer' recommended when opening links with target='_blank'?",
+        "codeSnippet": code,
+        "options": [
+            "It prevents the newly opened tab from accessing window.opener to redirect or alter the parent tab",
+            "It prevents search engines from indexing the external destination URL",
+            "It forces the external page to load over HTTPS instead of HTTP",
+            "It disables browser cookies and local storage on the target page",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "When target='_blank' is used without noopener, the target page can access window.opener, "
+            "potentially navigating the referrer page to a phishing URL (reverse tabnabbing). "
+            "'noopener' sets window.opener to null."
+        ),
+    }
+
+
+def _gen_html_doctype_quirks(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<!-- Notice missing <!DOCTYPE html> -->\n"
+        "<html>\n"
+        "<head><title>App</title></head>\n"
+        "<body>...</body>\n"
+        "</html>"
+    )
+    return {
+        "difficulty": "Intermediate",
+        "concept": "DOCTYPE & Quirks Mode",
+        "question": "What is the primary technical consequence of omitting <!DOCTYPE html> in an HTML document?",
+        "codeSnippet": code,
+        "options": [
+            "The browser switches to 'Quirks Mode', emulating legacy 1990s CSS box-model and layout rules",
+            "The browser halts rendering and prints a fatal XML parsing error",
+            "Modern HTML5 tags like <video> and <canvas> are completely disabled",
+            "JavaScript execution is disabled for all inline script blocks",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "The '<!DOCTYPE html>' declaration tells the browser engine to use Standard Standards Mode. "
+            "Omitting it triggers Quirks Mode, where CSS box sizing, inline element metrics, and inheritance "
+            "revert to legacy non-standard implementations."
+        ),
+    }
+
+
+def _gen_html_meta_viewport(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+    )
+    return {
+        "difficulty": "Foundation",
+        "concept": "Viewport & Mobile Layout",
+        "question": "What happens if this viewport meta tag is omitted on a mobile browser?",
+        "codeSnippet": code,
+        "options": [
+            "Mobile browsers render at a virtual desktop width (typically 980px) and scale the page down",
+            "Mobile browsers default to a fixed 320px width regardless of the screen size",
+            "All CSS @media screen queries are completely ignored by the rendering engine",
+            "Touch events and scrolling gestures are disabled on mobile devices",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "Without a viewport meta tag, mobile browsers assume legacy desktop sites and render on a ~980px "
+            "virtual canvas, zooming out so text is tiny. 'width=device-width, initial-scale=1.0' matches the layout "
+            "to actual device CSS pixels."
+        ),
+    }
+
+
+def _gen_html_form_novalidate(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<form action='/api/register' method='POST' novalidate>\n"
+        "  <input type='email' required name='email'>\n"
+        "  <button type='submit'>Sign Up</button>\n"
+        "</form>"
+    )
+    return {
+        "difficulty": "Intermediate",
+        "concept": "HTML Form Validation",
+        "question": "What does the 'novalidate' attribute do when submitting an empty or invalid email field?",
+        "codeSnippet": code,
+        "options": [
+            "It suppresses native browser constraint validation popups, allowing submission (often handled via JS)",
+            "It automatically disables the submit button until valid text is entered",
+            "It bypasses server-side validation checks",
+            "It strips the 'required' attribute dynamically upon submit",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "The 'novalidate' attribute instructs the browser not to show native validation bubbles when submitting "
+            "a form with invalid inputs, giving developers full control to handle validation via JavaScript."
+        ),
+    }
+
+
+def _gen_html_template_tag(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<template id='card-tpl'>\n"
+        "  <div class='card'>\n"
+        "    <img src='profile.jpg' alt='User'>\n"
+        "    <script>console.log('Template parsed');</script>\n"
+        "  </div>\n"
+        "</template>"
+    )
+    return {
+        "difficulty": "Deep Mechanics",
+        "concept": "HTML Template Element",
+        "question": "What happens when the browser parses this <template> element during initial page load?",
+        "codeSnippet": code,
+        "options": [
+            "Content is held inert in a DocumentFragment: images do not fetch and scripts do not run until cloned into the DOM",
+            "The div is rendered with display:none, but profile.jpg is immediately downloaded",
+            "The script executes immediately during parsing, but the markup is hidden",
+            "The browser converts the template into a Web Worker component",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "The '<template>' tag contains inert markup stored in a DocumentFragment. Images are not fetched, "
+            "scripts are not executed, and styles are not applied until the template is explicitly cloned and attached "
+            "to the live DOM via JavaScript."
+        ),
+    }
+
+
+def _gen_html_aria_labels(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<h2 id='summary-title'>Order Summary</h2>\n"
+        "<section aria-labelledby='summary-title'>\n"
+        "  <button aria-label='Close summary modal'>&times;</button>\n"
+        "</section>"
+    )
+    return {
+        "difficulty": "Intermediate",
+        "concept": "Accessibility: ARIA Labels",
+        "question": "What is the key technical difference between aria-label and aria-labelledby?",
+        "codeSnippet": code,
+        "options": [
+            "aria-labelledby references one or more existing element IDs, while aria-label directly supplies a string",
+            "aria-label is visible to sighted users, while aria-labelledby is hidden",
+            "aria-labelledby only works on buttons, while aria-label works on headings",
+            "aria-label is converted into an alt attribute by the browser",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "'aria-labelledby' points to the ID of an element containing visible text on the page to establish an accessible name. "
+            "'aria-label' directly specifies a string for elements that lack visible descriptive text (like an icon-only button)."
+        ),
+    }
+
+
+def _gen_html_inputmode_numeric(context: Optional[dict[str, Any]]) -> dict[str, Any]:
+    code = (
+        f"{_repo_context_tag(context)}"
+        "<input type='text' inputmode='numeric' pattern='[0-9]*' autocomplete='one-time-code'>"
+    )
+    return {
+        "difficulty": "Intermediate",
+        "concept": "HTML5 Input Types & Mobile Keyboards",
+        "question": "What is the primary UX advantage of using inputmode='numeric' over type='number' for OTP verification codes?",
+        "codeSnippet": code,
+        "options": [
+            "It opens a numeric keypad on mobile devices without desktop spinner buttons, scientific 'e' parsing, or string coercion issues",
+            "It automatically executes client-side SHA-256 hashing on entered digits",
+            "It restricts the user to exactly 6 characters at the HTML parser level",
+            "It encrypts the field value before transmitting via HTTP POST",
+        ],
+        "correctIndex": 0,
+        "explanation": (
+            "'inputmode=numeric' opens the mobile numeric keypad while retaining text-field semantics. "
+            "In contrast, 'type=number' adds unwanted increment/decrement steppers, coerces non-numeric characters, "
+            "and strips leading zeros, making it problematic for codes, credit cards, and zip codes."
+        ),
+    }
+
+
+# =====================================================================
 # DISPATCH TABLE
 # =====================================================================
 
@@ -1094,6 +1377,18 @@ LANGUAGE_GENERATORS = {
         _gen_js_var_closure_loop,
         _gen_js_this_arrow_vs_regular,
         _gen_js_object_freeze_shallow,
+    ],
+    "html": [
+        _gen_html_script_defer_async,
+        _gen_html_semantic_sectioning,
+        _gen_html_img_srcset_sizes,
+        _gen_html_rel_noopener,
+        _gen_html_doctype_quirks,
+        _gen_html_meta_viewport,
+        _gen_html_form_novalidate,
+        _gen_html_template_tag,
+        _gen_html_aria_labels,
+        _gen_html_inputmode_numeric,
     ],
     "c": [
         _gen_c_pointer_increment,
@@ -1132,6 +1427,8 @@ def normalize_language_key(language: str) -> str:
         return "javascript"
     if lang in ("typescript", "ts"):
         return "typescript"
+    if lang in ("html", "html5", "htm", "markup", "web"):
+        return "html"
     if lang in ("c", "c programming", "c-lang", "ansi-c"):
         return "c"
     if lang in ("c++", "cpp", "cplusplus", "c/c++"):

@@ -77,7 +77,6 @@ export default function LinkedInAnalyzer() {
       <Sticker color="pink" rotation={3} className="analyzer__sticker">LinkedIn Review</Sticker>
 
       <SectionHeader
-        tag="01 // SCAN"
         title="LinkedIn Profile &amp; Resume Review"
         subtitle="Upload your LinkedIn profile PDF export to parse your complete career dossier: summary, contact details, verified skills, experience, education, and certifications."
         rotate={1}

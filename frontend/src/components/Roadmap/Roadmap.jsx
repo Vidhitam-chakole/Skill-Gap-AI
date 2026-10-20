@@ -72,7 +72,7 @@ export default function Roadmap() {
           </span>
           {githubResult?.topLanguages && githubResult.topLanguages.length > 0 && (
             <span className="roadmap__pill roadmap__pill--active">
-              ⚡ Stack: {githubResult.topLanguages.slice(0, 2).map((l) => `${l.name} (${l.percentage}%)`).join(', ')}
+              Stack: {githubResult.topLanguages.slice(0, 2).map((l) => `${l.name} (${l.percentage}%)`).join(', ')}
             </span>
           )}
         </div>
@@ -83,7 +83,7 @@ export default function Roadmap() {
           onClick={handleBuild}
           disabled={!ready || loading}
         >
-          {loading ? 'Synthesizing Dynamic Roadmap...' : roadmap ? '⚡ Regenerate Roadmap' : '⚡ Build My Roadmap'}
+          {loading ? 'Synthesizing Dynamic Roadmap...' : roadmap ? 'Regenerate Roadmap' : 'Build My Roadmap'}
         </button>
 
         {error && <div className="roadmap__error">{error}</div>}
@@ -112,25 +112,6 @@ export default function Roadmap() {
             </div>
           </div>
 
-          <div className="roadmap__priorities brutal-card reveal">
-            <h3>Unified Skill Priorities</h3>
-            <p className="roadmap__priorities-sub">
-              Deduplicated and cross-referenced from your LinkedIn and GitHub reviews:
-            </p>
-            <ul>
-              {roadmap.priorities.map((item, idx) => (
-                <li key={idx}>
-                  <div className="roadmap__priority-head">
-                    <strong>{item.skill}</strong>
-                    <span className={`analyzer__severity severity-${item.severity}`}>{item.severity}</span>
-                    <span className="roadmap__source">Source: {item.source}</span>
-                  </div>
-                  <p>{item.recommendation}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="roadmap__milestones-header-wrap reveal">
             <h3 className="roadmap__weeks-header">Dynamic Execution Milestones & Sprints</h3>
             <p className="roadmap__milestones-sub">
@@ -152,7 +133,7 @@ export default function Roadmap() {
 
                 {week.languageContext && (
                   <span className="roadmap__lang-pill">
-                    ⚡ {week.languageContext}
+                    {week.languageContext}
                   </span>
                 )}
 

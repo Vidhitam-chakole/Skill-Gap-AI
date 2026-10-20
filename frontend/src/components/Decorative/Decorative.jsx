@@ -14,7 +14,7 @@ export function FloatingShapes() {
 export function SectionHeader({ tag, title, subtitle, rotate = -1 }) {
   return (
     <div className="section-header reveal" style={{ '--rotate': `${rotate}deg` }}>
-      <span className="section-header__tag">{tag}</span>
+      {tag && <span className="section-header__tag">{tag}</span>}
       <h2 className="section-header__title">{title}</h2>
       {subtitle && <p className="section-header__subtitle">{subtitle}</p>}
     </div>

@@ -114,6 +114,82 @@
   100% { transform: scale(0.9); opacity: 0.8; }
 }
 
+/* --- Clean Start Action & Language Selector --- */
+.verifier__start-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.verifier__start-btn {
+  font-size: 1.25rem;
+  font-weight: 900;
+  padding: 1rem 3rem;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--yellow, #ffe600);
+  color: var(--black, #0a0a0a);
+}
+
+.verifier__start-btn:hover {
+  background: var(--cyan, #00e5ff);
+}
+
+.verifier__lang-selector {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.verifier__lang-label {
+  font-family: var(--font-display, 'Archivo Black', sans-serif);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  color: var(--black, #0a0a0a);
+  letter-spacing: 0.03em;
+}
+
+.verifier__lang-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.verifier__lang-pill {
+  padding: 0.55rem 1.15rem;
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #0a0a0a);
+  box-shadow: 2px 2px 0 var(--black, #0a0a0a);
+  font-family: var(--font-body, 'Space Grotesk', sans-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--black, #0a0a0a);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.verifier__lang-pill:hover {
+  background: var(--cream, #f5f0e8);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--black, #0a0a0a);
+}
+
+.verifier__lang-pill--active {
+  background: var(--cyan, #00e5ff);
+  font-weight: 800;
+  box-shadow: 3px 3px 0 var(--black, #0a0a0a);
+  transform: translate(-1px, -1px);
+}
+
+.verifier__lang-pill-pct {
+  font-size: 0.82rem;
+  color: #475569;
+  font-weight: 600;
+}
+
 /* --- Extracted Strongest Language Hero Card --- */
 .verifier__gh-extracted-card {
   background: #fffdf5;

@@ -23,8 +23,8 @@ const FEATURES = [
     rotate: -1,
   },
   {
-    title: 'Code Authenticity Check',
-    desc: '10-question forensic tests to verify you truly understand code claimed in your GitHub repositories.',
+    title: 'Code & Skill Verifier',
+    desc: 'Interactive assessments to verify your deep technical mastery of repository languages.',
     color: 'yellow',
     icon: 'V',
     rotate: 4,

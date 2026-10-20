@@ -24,7 +24,7 @@ QUESTION_BANK: dict[str, list[dict[str, Any]]] = {
             "explanation": (
                 "The postfix '++' has higher precedence than unary '*', but the postfix increment "
                 "yields the original pointer value for dereferencing before advancing 'p'. "
-                "Thus '*p++' evaluates to arr[0] (10), and 'p' now points to arr[1]. AI copy-pasters often guess 20 or 11."
+                "Thus '*p++' evaluates to arr[0] (10), and 'p' now points to arr[1]."
             ),
         },
         {
@@ -47,7 +47,7 @@ QUESTION_BANK: dict[str, list[dict[str, Any]]] = {
             "explanation": (
                 "In C, array parameters in function signatures decay into pointers. Despite writing 'int arr[10]', "
                 "the compiler treats it as 'int *arr'. Therefore sizeof(arr) evaluates to the pointer size (8 bytes on 64-bit), "
-                "not the 40 bytes of the original array. A classic differentiator between genuine C developers and AI-prompted coders."
+                "not the 40 bytes of the original array."
             ),
         },
         {
@@ -149,7 +149,7 @@ QUESTION_BANK: dict[str, list[dict[str, Any]]] = {
             "explanation": (
                 "Because 'int' requires 4-byte alignment, 3 padding bytes follow 'char a' (offset 4 for b). "
                 "After 'char c' (offset 8), 3 more padding bytes are appended to make the entire struct size a multiple of 4. "
-                "Total: 1 + 3 + 4 + 1 + 3 = 12 bytes. Real C programmers understand data alignment; AI prompt-copiers assume 6."
+                "Total: 1 + 3 + 4 + 1 + 3 = 12 bytes due to data alignment padding requirements."
             ),
         },
         {
@@ -443,8 +443,7 @@ QUESTION_BANK: dict[str, list[dict[str, Any]]] = {
             "correctIndex": 1,
             "explanation": (
                 "Synchronous code runs first ('1', '4'). Next, the microtask queue (Promise.then) is completely emptied "
-                "before the event loop pulls from the macrotask/task queue (setTimeout). Therefore: 1, 4, 3, 2. "
-                "A foundational test separating real JavaScript engineers from prompt-copiers."
+                "before the event loop pulls from the macrotask/task queue (setTimeout). Therefore: 1, 4, 3, 2."
             ),
         },
         {
