@@ -366,14 +366,45 @@ async def _call_groq_if_configured(
 
     messages = [{"role": "system", "content": system_prompt}] + collapsed
 
-    models_to_try = [model]
-    for fallback_model in ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]:
-        if fallback_model not in models_to_try:
-            models_to_try.append(fallback_model)
-
     last_error_detail = None
     async with httpx.AsyncClient(timeout=25.0) as client:
-        for m in models_to_try:
+        # Step A: Discover live active chat models from Groq account
+        live_models = []
+        try:
+            m_res = await client.get(
+                "https://api.groq.com/openai/v1/models",
+                headers={"Authorization": f"Bearer {api_key}"},
+                timeout=8.0,
+            )
+            if m_res.status_code == 200:
+                data = m_res.json()
+                live_models = [
+                    m["id"] for m in data.get("data", [])
+                    if not m["id"].startswith("whisper")
+                ]
+            elif m_res.status_code == 401:
+                return None, None, "Groq Authentication failed (401 Unauthorized). The GROQ_API_KEY is invalid, expired, or mistyped."
+        except Exception:
+            pass
+
+        # Build prioritized candidates: preferred model first, then live models, then standard fallbacks
+        candidates = []
+        if preferred_model and preferred_model in live_models:
+            candidates.append(preferred_model)
+        for m in live_models:
+            if m not in candidates:
+                candidates.append(m)
+
+        if not candidates:
+            candidates = [
+                preferred_model or "llama-3.3-70b-versatile",
+                "llama-3.3-70b-versatile",
+                "llama-3.1-8b-instant",
+                "llama3-70b-8192",
+                "llama3-8b-8192",
+            ]
+
+        for m in candidates[:5]:
             try:
                 res = await client.post(
                     GROQ_API_URL,
@@ -399,11 +430,11 @@ async def _call_groq_if_configured(
                 else:
                     try:
                         err_json = res.json()
-                        last_error_detail = f"Groq HTTP {res.status_code}: {err_json.get('error', {}).get('message', res.text)}"
+                        last_error_detail = f"Groq HTTP {res.status_code} on {m}: {err_json.get('error', {}).get('message', res.text)}"
                     except Exception:
-                        last_error_detail = f"Groq HTTP {res.status_code}: {res.text}"
+                        last_error_detail = f"Groq HTTP {res.status_code} on {m}: {res.text}"
             except Exception as e:
-                last_error_detail = f"Connection error calling Groq: {str(e)}"
+                last_error_detail = f"Connection error on {m}: {str(e)}"
                 continue
 
     return None, None, last_error_detail
