@@ -92,12 +92,12 @@ export default function ChatBot() {
   return (
     <section id="chat" className="chatbot">
       <Sticker color="lime" rotation={5} className="chatbot__sticker">
-        AI Assistant
+        AI Career Coach
       </Sticker>
 
       <SectionHeader
-        title="AI Career & Skill Assistant"
-        subtitle="Instant answers for your profile review, skill gaps, and dynamic roadmap — plus Groq AI intelligence for any custom questions."
+        title="AI Career Coach &amp; Skill Gap Assistant"
+        subtitle="Get personalized career intelligence, LinkedIn profile tips, GitHub repository feedback, and interview preparation advice."
         rotate={1}
       />
 
@@ -106,7 +106,7 @@ export default function ChatBot() {
           <div className="chatbot__header-left">
             <div className="chatbot__avatar">AI</div>
             <div className="chatbot__title-row">
-              <strong>SkillGap AI Assistant</strong>
+              <strong>SkillPulse AI Career Coach</strong>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { id: 'verifier', label: 'Verifier', icon: 'V' },
   { id: 'roadmap', label: 'Roadmap', icon: 'R' },
   { id: 'chat', label: 'Chat', icon: 'C' },
+  { id: 'faq', label: 'FAQ', icon: '?' },
 ];
 
 export default function Navbar({ activeSection, onNavigate }) {
@@ -22,7 +23,7 @@ export default function Navbar({ activeSection, onNavigate }) {
   });
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" aria-label="Main Navigation">
       <div className="navbar__logo">
         <img src="/logo.png" alt="SkillPulse AI" />
       </div>
@@ -33,6 +34,7 @@ export default function Navbar({ activeSection, onNavigate }) {
               className={`navbar__link ${activeSection === item.id ? 'navbar__link--active' : ''} ${item.id === 'verifier' ? 'navbar__link--unlocked' : ''}`}
               onClick={() => onNavigate(item.id)}
               title={item.label}
+              aria-label={`Navigate to ${item.label} section`}
             >
               <span className="navbar__icon">{item.icon}</span>
               <span className="navbar__label">{item.label}</span>
@@ -40,6 +42,7 @@ export default function Navbar({ activeSection, onNavigate }) {
           </li>
         ))}
       </ul>
+
       <div className="navbar__decor">
         <span className="navbar__star">*</span>
         <span className="navbar__arrow">&rarr;</span>

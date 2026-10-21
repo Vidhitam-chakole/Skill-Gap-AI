@@ -74,11 +74,11 @@ export default function LinkedInAnalyzer() {
 
   return (
     <section id="linkedin" className="analyzer">
-      <Sticker color="pink" rotation={3} className="analyzer__sticker">LinkedIn Review</Sticker>
+      <Sticker color="pink" rotation={3} className="analyzer__sticker">Free LinkedIn Profile Analysis</Sticker>
 
       <SectionHeader
-        title="LinkedIn Profile &amp; Resume Review"
-        subtitle="Upload your LinkedIn profile PDF export to parse your complete career dossier: summary, contact details, verified skills, experience, education, and certifications."
+        title="LinkedIn Profile Analyzer &amp; Resume Review"
+        subtitle="Analyze LinkedIn profile online with free PDF export parsing. Extract verified skills, career trajectory, and identify critical skill gaps for software developer jobs."
         rotate={1}
       />
 
@@ -86,7 +86,7 @@ export default function LinkedInAnalyzer() {
       {!results && (
         <div className="analyzer__steps-card brutal-card reveal">
           <h3 className="analyzer__steps-title">
-            <span>📋</span> How to Download Your LinkedIn Profile PDF:
+            <span>📋</span> How to Analyze Your LinkedIn Profile Online (Free &amp; Instant):
           </h3>
           <p className="analyzer__steps-sub">
             LinkedIn has a built-in feature to download your official profile as a PDF in 3 seconds:
@@ -113,7 +113,7 @@ export default function LinkedInAnalyzer() {
             <li className="analyzer__step-item">
               <span className="analyzer__step-num">Step 04</span>
               <span className="analyzer__step-text">
-                Upload the downloaded <strong>.pdf</strong> file below for personalized analysis!
+                Upload the downloaded <strong>.pdf</strong> file below for free AI LinkedIn profile analysis &amp; skill-gap insights!
               </span>
             </li>
           </ol>
@@ -163,7 +163,7 @@ export default function LinkedInAnalyzer() {
             style={{ width: '100%', marginTop: '1.25rem' }}
             disabled={loading || !pdfFile}
           >
-            {loading ? 'Parsing LinkedIn PDF Dossier...' : 'Analyze LinkedIn Profile PDF'}
+            {loading ? 'Analyzing Profile Online...' : 'Analyze LinkedIn Profile Online (Free)'}
           </button>
         </form>
       )}

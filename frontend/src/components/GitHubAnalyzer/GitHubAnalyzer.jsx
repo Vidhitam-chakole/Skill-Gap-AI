@@ -31,17 +31,17 @@ export default function GitHubAnalyzer() {
 
   return (
     <section id="github" className="analyzer analyzer--github">
-      <Sticker color="cyan" rotation={-4} className="analyzer__sticker">GitHub Review</Sticker>
+      <Sticker color="cyan" rotation={-4} className="analyzer__sticker">GitHub Profile Review Tool</Sticker>
 
       <SectionHeader
-        title="GitHub Profile Review"
-        subtitle="Analyze public repositories, languages, commit velocity, and code intelligence directly from GitHub API."
+        title="GitHub Profile Analyzer &amp; Developer Review Tool"
+        subtitle="Analyze GitHub profile for developers directly via GitHub API. Inspect repository code quality, commit velocity, test automation, and engineering gaps for internships and software roles."
         rotate={-2}
       />
 
       <form className="analyzer__form brutal-card reveal" onSubmit={handleAnalyze}>
         <label className="analyzer__label" htmlFor="github-username">
-          GitHub Profile Link or Username
+          GitHub Profile Link or Username (Developer Profile Analysis)
         </label>
         <div className="analyzer__input-row">
           <input
@@ -53,11 +53,17 @@ export default function GitHubAnalyzer() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <button type="submit" className="brutal-btn brutal-btn--primary" disabled={loading}>
-            {loading ? 'Analyzing GitHub...' : 'Analyze GitHub'}
+          <button
+            type="submit"
+            className="brutal-btn brutal-btn--primary"
+            disabled={loading}
+            aria-label="Analyze GitHub profile for developers"
+          >
+            {loading ? 'Analyzing GitHub Repos...' : 'Analyze GitHub Profile for Developers'}
           </button>
         </div>
       </form>
+
 
       {error && <div className="analyzer__error reveal">{error}</div>}
 

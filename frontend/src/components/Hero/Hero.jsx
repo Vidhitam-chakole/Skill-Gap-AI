@@ -13,7 +13,7 @@ export default function Hero({ onNavigate }) {
       <div className="hero__sticker hero__sticker--ai">AI POWERED</div>
 
       <div className="hero__content">
-        <p className="hero__eyebrow reveal">Career Intelligence Platform</p>
+        <p className="hero__eyebrow reveal">AI Skill Gap Analyzer &amp; Career Intelligence</p>
 
         <h1 className="hero__title reveal">
           <span className="hero__title-line">Close Your</span>
@@ -22,15 +22,22 @@ export default function Hero({ onNavigate }) {
         </h1>
 
         <p className="hero__desc reveal">
-          Analyze your LinkedIn & GitHub profiles. Discover what skills you're missing.
-          Get a personalized roadmap to level up your career.
+          Free LinkedIn profile analyzer and GitHub profile review tool. Identify skill gaps for software developer jobs and internships with personalized AI career roadmaps.
         </p>
 
         <div className="hero__actions reveal">
-          <button className="brutal-btn brutal-btn--primary" onClick={() => onNavigate('linkedin')}>
+          <button
+            className="brutal-btn brutal-btn--primary"
+            onClick={() => onNavigate('linkedin')}
+            aria-label="Analyze LinkedIn profile online for free"
+          >
             Analyze LinkedIn →
           </button>
-          <button className="brutal-btn brutal-btn--secondary" onClick={() => onNavigate('github')}>
+          <button
+            className="brutal-btn brutal-btn--secondary"
+            onClick={() => onNavigate('github')}
+            aria-label="Analyze GitHub profile for developers"
+          >
             Analyze GitHub ★
           </button>
         </div>

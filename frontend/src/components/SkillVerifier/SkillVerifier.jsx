@@ -284,11 +284,11 @@ export default function SkillVerifier({ initialLanguage = null }) {
 
   return (
     <section id="verifier" className="verifier">
-      <Sticker color="yellow" rotation={3} className="verifier__sticker">Skill Verifier</Sticker>
+      <Sticker color="yellow" rotation={3} className="verifier__sticker">AI Skill Verifier &amp; Assessment</Sticker>
 
       <SectionHeader
-        title="Code & Skill Verifier"
-        subtitle="Verify your technical proficiency across your codebase languages."
+        title="AI Skill Verifier &amp; Technical Coding Assessment"
+        subtitle="Interactive coding challenges to verify technical skills, benchmark programming proficiency, and validate competencies for software developer jobs."
         rotate={1}
       />
 

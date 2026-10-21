@@ -5,8 +5,8 @@ const FEATURES = [
   {
     id: 'linkedin',
     destination: 'linkedin',
-    title: 'LinkedIn Scan',
-    desc: 'Deep analysis of your professional profile, endorsements, and career trajectory.',
+    title: 'LinkedIn Profile Analyzer',
+    desc: 'Free LinkedIn profile analysis online. Deep review of career history, claimed skills, and job readiness.',
     color: 'orange',
     eyeColor: '#0077b5', // LinkedIn Blue
     scleraBg: '#ffffff',
@@ -17,8 +17,8 @@ const FEATURES = [
   {
     id: 'github',
     destination: 'github',
-    title: 'GitHub Deep Dive',
-    desc: 'Repo quality, language distribution, contribution patterns, and OSS presence.',
+    title: 'GitHub Profile Analyzer',
+    desc: 'GitHub profile review tool for developers. Measure repo quality, test coverage, and language depth.',
     color: 'cyan',
     eyeColor: '#39d353', // GitHub Neon Green
     scleraBg: '#0d1117',
@@ -29,8 +29,8 @@ const FEATURES = [
   {
     id: 'roadmap',
     destination: 'roadmap',
-    title: 'AI Roadmap',
-    desc: 'Personalized learning paths based on market demand and your current skills.',
+    title: 'AI Career Analyzer & Roadmap',
+    desc: 'AI tool to improve LinkedIn profile standing with custom sprints tailored to high-demand skills.',
     color: 'pink',
     eyeColor: '#ffe600', // Roadmap Yellow
     scleraBg: '#ffffff',
@@ -41,8 +41,8 @@ const FEATURES = [
   {
     id: 'verifier',
     destination: 'verifier',
-    title: 'Code & Skill Verifier',
-    desc: 'Interactive assessments to verify your deep technical mastery of repository languages.',
+    title: 'AI Code & Skill Verifier',
+    desc: 'Interactive coding challenges to verify technical skills and validate developer proficiency.',
     color: 'yellow',
     eyeColor: '#a6ff00', // Verifier Lime
     scleraBg: '#ffffff',
@@ -53,8 +53,8 @@ const FEATURES = [
   {
     id: 'reports',
     destination: 'roadmap',
-    title: 'Gap Reports',
-    desc: 'Detailed reports highlighting exactly where you stand vs. industry standards.',
+    title: 'Developer Profile Analysis',
+    desc: 'Identify skill gaps for software developer jobs and internships compared to industry hiring standards.',
     color: 'lime',
     eyeColor: '#ff0055', // Vibrant Magenta
     scleraBg: '#ffffff',
@@ -66,8 +66,8 @@ const FEATURES = [
   {
     id: 'chat',
     destination: 'chat',
-    title: 'Chat Assistant',
-    desc: 'Ask anything about your career, skills, or how to use the platform.',
+    title: 'AI Career Coach',
+    desc: 'Ask your AI assistant anything about tech interview prep, system design, and career roadmap steps.',
     color: 'purple',
     eyeColor: '#ff5c00', // Chad Orange
     scleraBg: '#ffffff',
@@ -76,6 +76,7 @@ const FEATURES = [
     rotate: 1,
   },
 ];
+
 
 export default function BentoGrid({ onNavigate }) {
   const eyeRefs = useRef({});
@@ -239,7 +240,7 @@ export default function BentoGrid({ onNavigate }) {
 
   return (
     <section className="bento">
-      <h2 className="bento__title reveal">What We Do</h2>
+      <h2 className="bento__title reveal">AI Career Analyzer &amp; Profile Review Tools</h2>
       <div className="bento__grid">
         {FEATURES.map((f, i) => {
           const isBlinking = Boolean(blinkingEyes[f.id]);

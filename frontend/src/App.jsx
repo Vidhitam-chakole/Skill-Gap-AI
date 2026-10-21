@@ -6,7 +6,7 @@ import { AnalysisProvider } from './context/AnalysisContext';
 import { useScrollReveal, useParallax, useIntroSeen, useScrollSpy } from './hooks/useAnimations';
 import './App.css';
 
-const SECTIONS = ['home', 'linkedin', 'github', 'verifier', 'roadmap', 'chat'];
+const SECTIONS = ['home', 'linkedin', 'github', 'verifier', 'roadmap', 'chat', 'faq'];
 
 function AppShell() {
   const { hasSeen, markSeen } = useIntroSeen();

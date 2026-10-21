@@ -48,11 +48,11 @@ export default function Roadmap() {
 
   return (
     <section id="roadmap" className="roadmap">
-      <Sticker color="yellow" rotation={-3} className="roadmap__sticker">Personalized Roadmap</Sticker>
+      <Sticker color="yellow" rotation={-3} className="roadmap__sticker">AI Career Roadmap</Sticker>
 
       <SectionHeader
-        title="Personalized Roadmap"
-        subtitle="Adaptive, language-tailored career progression sprints synthesized from your real GitHub codebase and LinkedIn profile."
+        title="AI Career Analyzer &amp; Adaptive Roadmap"
+        subtitle="AI tool to improve LinkedIn profile standing and close engineering gaps. Adaptive milestone sprints synthesized from your real GitHub repositories and LinkedIn profile to identify skill gaps for software developer jobs."
         rotate={-1}
       />
 

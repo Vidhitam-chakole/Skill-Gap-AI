@@ -55,6 +55,29 @@
   font-weight: 600;
 }
 
+.home__footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--orange);
+  margin: 0.25rem 0;
+}
+
+.home__footer-nav a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--white);
+  transition: color 0.15s ease;
+}
+
+.home__footer-nav a:hover {
+  color: var(--yellow);
+}
+
 .home__footer-copy {
   font-family: monospace;
   font-size: 0.8rem;
