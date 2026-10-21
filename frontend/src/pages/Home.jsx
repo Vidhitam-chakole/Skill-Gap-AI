@@ -55,8 +55,8 @@ export default function Home({ onNavigate }) {
 
       <footer className="home__footer">
         <div className="home__footer-inner">
-          <img src="/logo.svg" alt="SkillGap AI" className="home__footer-logo" />
-          <p>SkillGap AI — Close your skill gap. Level up your career.</p>
+          <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" />
+          <p>SkillPulse AI — Close your skill gap. Level up your career.</p>
           <span className="home__footer-copy">Full-Stack Modular Architecture · LinkedIn, GitHub, Roadmap &amp; Local AI Agent</span>
         </div>
       </footer>

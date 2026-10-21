@@ -83,16 +83,20 @@ PUBLIC_DIR = ROOT_DIR / "frontend" / "public"
 
 @app.get("/robots.txt", response_class=Response)
 async def get_robots_txt(request: Request):
-    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillgapanalyzerai.vercel.app"
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillpulsai.vercel.app"
+    if host in ["testserver", "localhost", "127.0.0.1"] or host.startswith("localhost:"):
+        host = "skillpulsai.vercel.app"
     proto = request.headers.get("x-forwarded-proto", "https")
     base_url = f"{proto}://{host}"
-    content = f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {base_url}/sitemap.xml\n"
+    content = f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {base_url}/sitemap.xml\nHost: {base_url}\n"
     return Response(content, media_type="text/plain")
 
 
 @app.get("/sitemap.xml", response_class=Response)
 async def get_sitemap_xml(request: Request):
-    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillgapanalyzerai.vercel.app"
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillpulsai.vercel.app"
+    if host in ["testserver", "localhost", "127.0.0.1"] or host.startswith("localhost:"):
+        host = "skillpulsai.vercel.app"
     proto = request.headers.get("x-forwarded-proto", "https")
     base_url = f"{proto}://{host}"
     content = (
@@ -100,7 +104,7 @@ async def get_sitemap_xml(request: Request):
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         '  <url>\n'
         f'    <loc>{base_url}/</loc>\n'
-        '    <lastmod>2026-10-20</lastmod>\n'
+        '    <lastmod>2026-10-21</lastmod>\n'
         '    <changefreq>daily</changefreq>\n'
         '    <priority>1.0</priority>\n'
         '  </url>\n'

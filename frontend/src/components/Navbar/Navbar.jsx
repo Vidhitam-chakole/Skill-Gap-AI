@@ -24,7 +24,7 @@ export default function Navbar({ activeSection, onNavigate }) {
   return (
     <nav className="navbar">
       <div className="navbar__logo">
-        <img src="/logo.png" alt="SkillGap AI" />
+        <img src="/logo.png" alt="SkillPulse AI" />
       </div>
       <ul className="navbar__links">
         {visibleItems.map((item) => (

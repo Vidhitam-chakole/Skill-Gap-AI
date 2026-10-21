@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://skillgapanalyzerai.vercel.app/sitemap.xml
+Sitemap: https://skillpulsai.vercel.app/sitemap.xml
+Host: https://skillpulsai.vercel.app
