@@ -1,5 +1,6 @@
 import asyncio
 import os
+import time
 import uuid
 from collections import Counter
 from urllib.parse import urlparse
@@ -292,3 +293,94 @@ async def analyze_github_user(user_input: str) -> GitHubResult:
         skillGaps=[],
         pinnedRepos=pinned_repos,
     )
+
+
+# In-memory cache for user suggestions to minimize latency and avoid burning rate limits
+_user_search_cache: dict[str, tuple[float, list[dict]]] = {}
+USER_SEARCH_CACHE_TTL = 300.0  # 5 minutes
+
+
+async def search_github_users(query: str, limit: int = 6) -> list[dict]:
+    """Search for real GitHub users matching query for instant autocomplete suggestions."""
+    if not query:
+        return []
+
+    # Clean query input: strip whitespace, leading @, or extracts username if profile URL is typed
+    clean = extract_github_username(query) or query.strip().lstrip("@")
+    clean = clean.strip()
+    if not clean:
+        return []
+
+    cache_key = f"{clean.lower()}:{limit}"
+    now = time.time()
+    if cache_key in _user_search_cache:
+        timestamp, cached = _user_search_cache[cache_key]
+        if now - timestamp < USER_SEARCH_CACHE_TTL:
+            return cached
+
+    headers = _get_headers()
+    async with httpx.AsyncClient(timeout=8.0) as client:
+        # First try exact/prefix search using `in:login`
+        url = f"https://api.github.com/search/users?q={clean}+in:login&type=Users&per_page={limit}"
+        resp = await client.get(url, headers=headers)
+
+        if resp.status_code == 403:
+            raise ValueError("GitHub API rate limit reached. Please wait a moment.")
+
+        items: list[dict] = []
+        if resp.status_code == 200:
+            items = resp.json().get("items", [])
+
+        # If zero items, retry broader query
+        if not items and len(clean) >= 2:
+            resp_fallback = await client.get(
+                f"https://api.github.com/search/users?q={clean}&type=Users&per_page={limit}",
+                headers=headers,
+            )
+            if resp_fallback.status_code == 200:
+                items = resp_fallback.json().get("items", [])
+
+        if not items:
+            _user_search_cache[cache_key] = (now, [])
+            return []
+
+        # Concurrently fetch user profiles to retrieve real display names and bios
+        async def _fetch_user_meta(item: dict) -> dict:
+            login = item.get("login", "")
+            avatar = item.get("avatar_url", "")
+            html_url = item.get("html_url", f"https://github.com/{login}")
+            name = None
+            bio = None
+            try:
+                profile_resp = await client.get(f"https://api.github.com/users/{login}", headers=headers, timeout=2.5)
+                if profile_resp.status_code == 200:
+                    data = profile_resp.json()
+                    name = data.get("name")
+                    bio = data.get("bio")
+            except Exception:
+                pass
+
+            return {
+                "username": login,
+                "name": name,
+                "avatar_url": avatar,
+                "bio": bio,
+                "html_url": html_url,
+            }
+
+        tasks = [_fetch_user_meta(item) for item in items[:limit]]
+        results = await asyncio.gather(*tasks)
+
+        # Prioritize exact and prefix matches at the top of suggestions list
+        clean_lower = clean.lower()
+        results.sort(
+            key=lambda u: (
+                0 if u["username"].lower() == clean_lower else (
+                    1 if u["username"].lower().startswith(clean_lower) else 2
+                )
+            )
+        )
+
+        _user_search_cache[cache_key] = (now, results)
+        return results
+

@@ -1,17 +1,31 @@
 import sys
 from pathlib import Path
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
 ROOT_DIR = Path(__file__).resolve().parents[3]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from github_analyzer.backend.schemas import GitHubAnalyzeRequest, GitHubResult
-from github_analyzer.backend.service import analyze_github_user
+from github_analyzer.backend.schemas import GitHubAnalyzeRequest, GitHubResult, GitHubSearchUsersResponse
+from github_analyzer.backend.service import analyze_github_user, search_github_users
 from app.services.store import get_github_result, save_github_result
 
 # Router connects real repository tree analyzer
 router = APIRouter(prefix="/github", tags=["github"])
+
+
+@router.get("/search-users", response_model=GitHubSearchUsersResponse)
+async def search_users(
+    q: str = Query(..., min_length=1, description="GitHub username search query"),
+    limit: int = Query(6, ge=1, le=15),
+) -> GitHubSearchUsersResponse:
+    try:
+        users = await search_github_users(q, limit=limit)
+        return GitHubSearchUsersResponse(users=users)
+    except ValueError as exc:
+        raise HTTPException(status_code=429 if "rate limit" in str(exc).lower() else 400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"User search failed: {exc}") from exc
 
 
 @router.post("/analyze", response_model=GitHubResult)
@@ -33,3 +47,4 @@ async def get_results(analysis_id: str) -> GitHubResult:
     if not result:
         raise HTTPException(status_code=404, detail="Analysis not found")
     return result
+

@@ -64,7 +64,60 @@ export const gitHubApi = {
       body: JSON.stringify({ username }),
     }),
   getResults: (analysisId) => request(`/github/results/${analysisId}`),
+  searchUsers: async (query, signal) => {
+    if (!query || !query.trim()) return [];
+    const clean = query.trim().replace(/^@/, '');
+    if (!clean) return [];
+
+    // Attempt 1: Backend proxy (enriched with display names, token rate limit, server cache)
+    try {
+      const response = await fetch(`${API_BASE_URL}/github/search-users?q=${encodeURIComponent(clean)}`, {
+        signal,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.users || [];
+      }
+      if (response.status === 429) {
+        throw new Error('GitHub API rate limit reached. Please wait a moment.');
+      }
+    } catch (err) {
+      if (err.name === 'AbortError') throw err;
+      if (err.message && err.message.includes('rate limit')) throw err;
+      // Fallback to direct GitHub API if backend is unreachable
+    }
+
+    // Attempt 2: Direct Official GitHub API fallback
+    const directRes = await fetch(
+      `https://api.github.com/search/users?q=${encodeURIComponent(clean)}+in:login&type=Users&per_page=6`,
+      {
+        signal,
+        headers: { Accept: 'application/vnd.github.v3+json' },
+      }
+    );
+
+    if (!directRes.ok) {
+      if (directRes.status === 403) {
+        throw new Error('GitHub API rate limit reached. Please wait a moment.');
+      }
+      throw new Error(`GitHub search returned ${directRes.status}`);
+    }
+
+    const directData = await directRes.json();
+    return (directData.items || []).map((item) => ({
+      username: item.login,
+      name: null,
+      avatar_url: item.avatar_url,
+      bio: null,
+      html_url: item.html_url,
+    }));
+  },
 };
+
 
 export const chatApi = {
   getConfig: () => request('/chat/config'),

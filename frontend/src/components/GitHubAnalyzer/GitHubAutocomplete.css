@@ -1,0 +1,396 @@
+/* ─── GitHub Username Autocomplete & Instagram-Style Dropdown ─── */
+
+.gh-autocomplete {
+  position: relative;
+  flex: 1 1 320px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.gh-autocomplete__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.gh-autocomplete__icon-left {
+  position: absolute;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black, #0a0a0a);
+  opacity: 0.6;
+  pointer-events: none;
+  font-size: 1.1rem;
+  z-index: 2;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.gh-autocomplete__input {
+  width: 100%;
+  padding: 0.875rem 2.6rem 0.875rem 2.75rem;
+  border: var(--border, 4px solid #0a0a0a);
+  font-size: 1rem;
+  font-family: var(--font-body, 'Space Grotesk', sans-serif);
+  font-weight: 600;
+  background: var(--white, #fafafa);
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  color: var(--black, #0a0a0a);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.gh-autocomplete__input:focus {
+  background: #ffffff;
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.08), 0 0 0 3px var(--cyan, #00e5ff);
+}
+
+.gh-autocomplete__input-wrapper:focus-within .gh-autocomplete__icon-left {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.gh-autocomplete__actions-right {
+  position: absolute;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  z-index: 2;
+}
+
+.gh-autocomplete__clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  border: 1.5px solid var(--black, #0a0a0a);
+  color: var(--black, #0a0a0a);
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.gh-autocomplete__clear-btn:hover {
+  background: var(--pink, #ff3d9a);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.gh-autocomplete__spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid #cbd5e1;
+  border-top-color: var(--black, #0a0a0a);
+  border-radius: 50%;
+  animation: gh-spin 0.6s linear infinite;
+}
+
+@keyframes gh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Dropdown Floating Card ─── */
+.gh-autocomplete__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--cream, #f5f0e8);
+  border: var(--border, 3px solid #0a0a0a);
+  box-shadow: 6px 6px 0 var(--black, #0a0a0a);
+  z-index: 100;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
+  animation: gh-dropdown-appear 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--black, #0a0a0a) var(--cream, #f5f0e8);
+}
+
+@keyframes gh-dropdown-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gh-autocomplete__dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gh-autocomplete__dropdown::-webkit-scrollbar-track {
+  background: var(--cream, #f5f0e8);
+}
+
+.gh-autocomplete__dropdown::-webkit-scrollbar-thumb {
+  background: var(--black, #0a0a0a);
+}
+
+.gh-autocomplete__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── Individual Username Tab / Card ─── */
+.gh-autocomplete__item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.95rem;
+  cursor: pointer;
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #0a0a0a);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 var(--black, #0a0a0a);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ─── Elevation on Cursor Hover & Keyboard Focus ─── */
+.gh-autocomplete__item:hover,
+.gh-autocomplete__item--active {
+  transform: translate(-2px, -3px);
+  box-shadow: 5px 5px 0 var(--black, #0a0a0a);
+  background: #ffffff;
+}
+
+.gh-autocomplete__item:active {
+  transform: translate(0, 0);
+  box-shadow: 1px 1px 0 var(--black, #0a0a0a);
+}
+
+/* ─── Avatar ─── */
+.gh-autocomplete__avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--black, #0a0a0a);
+  overflow: hidden;
+  background: #f1f5f9;
+  box-shadow: 1.5px 1.5px 0 var(--black, #0a0a0a);
+}
+
+.gh-autocomplete__avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gh-autocomplete__avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: #e2e8f0;
+  color: var(--black, #0a0a0a);
+  text-transform: uppercase;
+}
+
+/* ─── User Content Column ─── */
+.gh-autocomplete__details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.gh-autocomplete__username-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.gh-autocomplete__username {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--black, #0a0a0a);
+  font-family: var(--font-body, monospace);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.gh-autocomplete__verified-icon {
+  flex-shrink: 0;
+  color: #0284c7;
+  font-size: 0.85rem;
+  display: inline-flex;
+}
+
+.gh-autocomplete__name {
+  font-size: 0.82rem;
+  color: #475569;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gh-autocomplete__bio {
+  font-size: 0.72rem;
+  color: #64748b;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.1rem;
+}
+
+/* ─── Feedback States (Empty, Loading, Notice) ─── */
+.gh-autocomplete__state-box {
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: #ffffff;
+  border: 2px solid var(--black, #0a0a0a);
+  box-shadow: 2px 2px 0 var(--black, #0a0a0a);
+  border-radius: 4px;
+}
+
+.gh-autocomplete__state-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.gh-autocomplete__state-title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--black, #0a0a0a);
+  margin: 0;
+}
+
+.gh-autocomplete__state-desc {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+  max-width: 320px;
+}
+
+.gh-autocomplete__rate-limit-badge {
+  display: inline-block;
+  background: var(--pink, #ff3d9a);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border: 1.5px solid var(--black, #0a0a0a);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+/* ─── Mobile Responsiveness ─── */
+@media (max-width: 768px) {
+  .gh-autocomplete {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .gh-autocomplete__dropdown {
+    max-height: 280px;
+    padding: 0.4rem;
+    box-shadow: 4px 4px 0 var(--black, #0a0a0a);
+  }
+
+  .gh-autocomplete__item {
+    padding: 0.65rem 0.8rem;
+    gap: 0.75rem;
+  }
+
+  .gh-autocomplete__avatar-wrapper {
+    width: 38px;
+    height: 38px;
+  }
+
+  .gh-autocomplete__username {
+    font-size: 0.9rem;
+  }
+
+  .gh-autocomplete__name {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gh-autocomplete__input {
+    font-size: 16px; /* Prevents auto-zoom on mobile iOS browsers */
+    padding: 0.75rem 2.4rem 0.75rem 2.6rem;
+  }
+
+  .gh-autocomplete__icon-left {
+    left: 0.85rem;
+    font-size: 1rem;
+  }
+
+  .gh-autocomplete__dropdown {
+    max-height: 250px;
+    padding: 0.35rem;
+    top: calc(100% + 4px);
+  }
+
+  .gh-autocomplete__list {
+    gap: 0.4rem;
+  }
+
+  .gh-autocomplete__item {
+    padding: 0.6rem 0.75rem;
+    gap: 0.65rem;
+  }
+
+  .gh-autocomplete__avatar-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  .gh-autocomplete__username {
+    font-size: 0.88rem;
+  }
+
+  .gh-autocomplete__name {
+    font-size: 0.75rem;
+  }
+}

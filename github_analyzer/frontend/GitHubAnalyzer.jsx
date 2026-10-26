@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { gitHubApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { SectionHeader, Sticker } from '../Decorative/Decorative';
+import GitHubAutocomplete from './GitHubAutocomplete';
 import './Analyzer.css';
 
 export default function GitHubAnalyzer() {
@@ -11,15 +12,16 @@ export default function GitHubAnalyzer() {
   const [error, setError] = useState(null);
   const results = githubResult;
 
-  const handleAnalyze = async (e) => {
-    if (e) e.preventDefault();
-    if (!username.trim()) return;
+  const handleAnalyze = async (e, customUsername) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const targetUser = (customUsername || username).trim();
+    if (!targetUser) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      const data = await gitHubApi.analyze(username.trim());
+      const data = await gitHubApi.analyze(targetUser);
       setGithubResult(data);
       setRoadmap(null); // Reset roadmap so user can regenerate fresh combined roadmap
     } catch (err) {
@@ -39,25 +41,31 @@ export default function GitHubAnalyzer() {
         rotate={-2}
       />
 
-      <form className="analyzer__form brutal-card reveal" onSubmit={handleAnalyze}>
+      <form className="analyzer__form brutal-card reveal" onSubmit={(e) => handleAnalyze(e)} style={{ position: 'relative', zIndex: 30 }}>
         <label className="analyzer__label" htmlFor="github-username">
           GitHub Profile Link or Username
         </label>
-        <div className="analyzer__input-row">
-          <input
+        <div className="analyzer__input-row" style={{ alignItems: 'flex-start' }}>
+          <GitHubAutocomplete
             id="github-username"
-            type="text"
-            className="analyzer__input"
-            placeholder="e.g. torvalds or https://github.com/torvalds"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
+            onChange={setUsername}
+            onSelectUser={(selectedUser, triggerAnalyze) => {
+              setUsername(selectedUser.username);
+              if (triggerAnalyze) {
+                handleAnalyze(null, selectedUser.username);
+              }
+            }}
+            onSubmit={(e) => handleAnalyze(e)}
+            disabled={loading}
+            placeholder="e.g. torvalds, vid, or https://github.com/torvalds"
           />
           <button type="submit" className="brutal-btn brutal-btn--primary" disabled={loading}>
             {loading ? 'Analyzing GitHub...' : 'Analyze GitHub'}
           </button>
         </div>
       </form>
+
 
       {error && <div className="analyzer__error reveal">{error}</div>}
 

@@ -33,3 +33,16 @@ class GitHubResult(BaseModel):
     primaryLanguage: str | None = None
     skillGaps: list[SkillGap]
     pinnedRepos: list[PinnedRepo]
+
+
+class GitHubUserSuggestion(BaseModel):
+    username: str
+    name: str | None = None
+    avatar_url: str
+    bio: str | None = None
+    html_url: str = ""
+
+
+class GitHubSearchUsersResponse(BaseModel):
+    users: list[GitHubUserSuggestion]
+

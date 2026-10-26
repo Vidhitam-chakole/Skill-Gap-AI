@@ -98,6 +98,19 @@ class GitHubResult(BaseModel):
     pinnedRepos: list[PinnedRepo]
 
 
+class GitHubUserSuggestion(BaseModel):
+    username: str
+    name: str | None = None
+    avatar_url: str
+    bio: str | None = None
+    html_url: str = ""
+
+
+class GitHubSearchUsersResponse(BaseModel):
+    users: list[GitHubUserSuggestion]
+
+
+
 class ChatMessageResponse(BaseModel):
     reply: str
     conversationId: str

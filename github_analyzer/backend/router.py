@@ -1,9 +1,24 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
-from .schemas import GitHubAnalyzeRequest, GitHubResult
-from .service import analyze_github_user
+from .schemas import GitHubAnalyzeRequest, GitHubResult, GitHubSearchUsersResponse
+from .service import analyze_github_user, search_github_users
 
 router = APIRouter(prefix="/github", tags=["github"])
+
+
+@router.get("/search-users", response_model=GitHubSearchUsersResponse)
+async def search_users(
+    q: str = Query(..., min_length=1, description="GitHub username search query"),
+    limit: int = Query(6, ge=1, le=15),
+) -> GitHubSearchUsersResponse:
+    try:
+        users = await search_github_users(q, limit=limit)
+        return GitHubSearchUsersResponse(users=users)
+    except ValueError as exc:
+        raise HTTPException(status_code=429 if "rate limit" in str(exc).lower() else 400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"User search failed: {exc}") from exc
+
 
 _github_cache: dict[str, GitHubResult] = {}
 
