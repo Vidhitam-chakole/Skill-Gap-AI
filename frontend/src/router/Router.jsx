@@ -50,31 +50,31 @@ export const PAGE_METADATA = {
   home: {
     title: 'SkillPulse AI',
     description: '100% Free AI Skill Gap Analyzer & Career Intelligence Suite. No sign-in required, no signup, no credit card. Analyze LinkedIn profile PDF, audit public GitHub repositories, verify coding skills with interactive tests, and generate custom engineering roadmaps instantly.',
-    canonical: 'https://skillpulsai.vercel.app/',
+    canonical: 'https://skillplusai.vercel.app/',
     keywords: 'free AI skill gap analyzer, no sign in required, no sign-in required, no signup resume reviewer, free linkedin profile analyzer, free github profile analyzer, free linkedin profile review no login, analyze linkedin profile online free, free github code audit for developers, free career roadmap generator, free coding skill verifier, identify skill gaps for software developer jobs, developer profile analysis for internships no signup, free ats resume checker no login, free developer portfolio review, instant ai career coach, tech interview prep free, PulseBot AI mascot, SkillPulse AI, SkillGap AI',
   },
   linkedin: {
     title: 'SkillPulse AI',
     description: '100% Free LinkedIn profile analysis online with no sign-in required. Upload your LinkedIn PDF to extract verified skills, measure career trajectory, detect missing qualifications, and close skill gaps for software engineering jobs.',
-    canonical: 'https://skillpulsai.vercel.app/linkedin',
+    canonical: 'https://skillplusai.vercel.app/linkedin',
     keywords: 'free LinkedIn profile analyzer, free LinkedIn profile analysis, no sign in required, no signup resume review, AI tool to improve LinkedIn profile, free resume review, skill gap analysis, tech jobs, free ATS score, developer resume critique free',
   },
   github: {
     title: 'SkillPulse AI',
     description: 'Free GitHub profile review tool for developers with no login required. Measure byte-weighted language proficiency, repository test coverage, commit consistency, and engineering signals for software internships and jobs.',
-    canonical: 'https://skillpulsai.vercel.app/github',
+    canonical: 'https://skillplusai.vercel.app/github',
     keywords: 'free GitHub profile analyzer, GitHub profile review tool free, no sign in developer tool, analyze GitHub profile for developers, developer profile analysis for internships, code quality inspection, free repo auditor, github portfolio review free',
   },
   roadmap: {
     title: 'SkillPulse AI',
     description: '100% Free AI career roadmap generator with no sign-in required. Synthesizes real skill gaps from your LinkedIn profile and GitHub repositories into milestone-driven sprints to level up your engineering career.',
-    canonical: 'https://skillpulsai.vercel.app/roadmap',
+    canonical: 'https://skillplusai.vercel.app/roadmap',
     keywords: 'free AI career analyzer, free career roadmap generator, no sign in required, identify skill gaps for software developer jobs, sprint planner, tech career growth, engineering learning roadmap, developer milestone planner free',
   },
   verifier: {
     title: 'SkillPulse AI',
     description: 'Free technical programming skill assessment with interactive coding challenges calibrated to your GitHub tech stack. Automated sandbox scoring, question reviews, and developer skill certification with no sign-in required.',
-    canonical: 'https://skillpulsai.vercel.app/verifier',
+    canonical: 'https://skillplusai.vercel.app/verifier',
     keywords: 'free AI Code & Skill Verifier, free coding assessment no sign in, technical coding challenges, developer skill verification, tech interview prep, coding test free, programming skill certification free',
   },
 };

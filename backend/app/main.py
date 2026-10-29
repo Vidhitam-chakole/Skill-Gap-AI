@@ -83,9 +83,12 @@ PUBLIC_DIR = ROOT_DIR / "frontend" / "public"
 
 @app.get("/robots.txt", response_class=Response)
 async def get_robots_txt(request: Request):
-    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillpulsai.vercel.app"
+    robots_file = ROOT_DIR / "robots.txt"
+    if robots_file.is_file():
+        return FileResponse(str(robots_file), media_type="text/plain")
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillplusai.vercel.app"
     if host in ["testserver", "localhost", "127.0.0.1"] or host.startswith("localhost:"):
-        host = "skillpulsai.vercel.app"
+        host = "skillplusai.vercel.app"
     proto = request.headers.get("x-forwarded-proto", "https")
     base_url = f"{proto}://{host}"
     content = f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {base_url}/sitemap.xml\nHost: {base_url}\n"
@@ -94,9 +97,12 @@ async def get_robots_txt(request: Request):
 
 @app.get("/sitemap.xml", response_class=Response)
 async def get_sitemap_xml(request: Request):
-    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillpulsai.vercel.app"
+    sitemap_file = ROOT_DIR / "sitemap.xml"
+    if sitemap_file.is_file():
+        return FileResponse(str(sitemap_file), media_type="application/xml")
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or "skillplusai.vercel.app"
     if host in ["testserver", "localhost", "127.0.0.1"] or host.startswith("localhost:"):
-        host = "skillpulsai.vercel.app"
+        host = "skillplusai.vercel.app"
     proto = request.headers.get("x-forwarded-proto", "https")
     base_url = f"{proto}://{host}"
     content = (
@@ -107,30 +113,6 @@ async def get_sitemap_xml(request: Request):
         '    <lastmod>2026-10-29</lastmod>\n'
         '    <changefreq>daily</changefreq>\n'
         '    <priority>1.0</priority>\n'
-        '  </url>\n'
-        '  <url>\n'
-        f'    <loc>{base_url}/linkedin</loc>\n'
-        '    <lastmod>2026-10-29</lastmod>\n'
-        '    <changefreq>daily</changefreq>\n'
-        '    <priority>0.9</priority>\n'
-        '  </url>\n'
-        '  <url>\n'
-        f'    <loc>{base_url}/github</loc>\n'
-        '    <lastmod>2026-10-29</lastmod>\n'
-        '    <changefreq>daily</changefreq>\n'
-        '    <priority>0.9</priority>\n'
-        '  </url>\n'
-        '  <url>\n'
-        f'    <loc>{base_url}/roadmap</loc>\n'
-        '    <lastmod>2026-10-29</lastmod>\n'
-        '    <changefreq>daily</changefreq>\n'
-        '    <priority>0.9</priority>\n'
-        '  </url>\n'
-        '  <url>\n'
-        f'    <loc>{base_url}/verifier</loc>\n'
-        '    <lastmod>2026-10-29</lastmod>\n'
-        '    <changefreq>weekly</changefreq>\n'
-        '    <priority>0.8</priority>\n'
         '  </url>\n'
         '</urlset>\n'
     )

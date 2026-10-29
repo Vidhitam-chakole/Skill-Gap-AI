@@ -29,7 +29,7 @@
 graph TD
     User([User Browser]) -->|HTTPS| VercelEdge[Vercel Edge Network]
     
-    subgraph Vercel Deployment [https://skillpulsai.vercel.app]
+    subgraph Vercel Deployment [https://skillplusai.vercel.app]
         VercelEdge -->|/* Request| VercelRewrites[vercel.json Rewrites]
         VercelRewrites -->|/(.*) -> /api/index.py| PyServerless[api/index.py ASGI Handler]
         
@@ -347,7 +347,7 @@ Skill-Gap-AI/
 * [frontend/dist/](file:///c:/Users/Dell/OneDrive/Desktop/Skill-Gap-AI/frontend/dist): Committed pre-built distribution bundle so static assets are always available during deployment.
 
 ### Active Production Domains
-1. **`https://skillpulsai.vercel.app`** (Primary active domain)
+1. **`https://skillplusai.vercel.app`** (Primary active domain)
 2. **`https://skillgapai-app.vercel.app`** (Secondary custom domain)
 3. **`https://skillgapai-fawn.vercel.app`** (Default Vercel deployment domain)
 

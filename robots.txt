@@ -1,6 +1,44 @@
 User-agent: *
 Allow: /
+Allow: /linkedin
+Allow: /github
+Allow: /roadmap
+Allow: /verifier
+Allow: /sitemap.xml
+Allow: /site.webmanifest
 Disallow: /api/
 
-Sitemap: https://skillpulsai.vercel.app/sitemap.xml
-Host: https://skillpulsai.vercel.app
+User-agent: Googlebot
+Allow: /
+Allow: /linkedin
+Allow: /github
+Allow: /roadmap
+Allow: /verifier
+Disallow: /api/
+
+User-agent: Googlebot-Image
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+User-agent: Bingbot
+Allow: /
+Allow: /linkedin
+Allow: /github
+Allow: /roadmap
+Allow: /verifier
+Disallow: /api/
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+Sitemap: https://skillplusai.vercel.app/sitemap.xml
+Host: https://skillplusai.vercel.app
