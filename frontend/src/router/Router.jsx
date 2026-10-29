@@ -48,34 +48,34 @@ export function getPathFromRoute(route) {
 // Per-page SEO, AEO, and GEO metadata definitions
 export const PAGE_METADATA = {
   home: {
-    title: 'SkillPulse AI — AI Skill Gap Analyzer | Free LinkedIn & GitHub Profile Review',
-    description: 'SkillPulse AI is an AI skill gap analyzer and career analyzer. Analyze LinkedIn profile online, run a free GitHub profile review for developers, verify skills, and identify skill gaps for software developer jobs.',
+    title: 'SkillPulse AI — 100% Free AI Skill Gap Analyzer | No Sign-In Required | LinkedIn & GitHub Review',
+    description: '100% Free AI Skill Gap Analyzer & Career Intelligence Suite. No sign-in required, no signup, no credit card. Analyze LinkedIn profile PDF, audit public GitHub repositories, verify coding skills with interactive tests, and generate custom engineering roadmaps instantly.',
     canonical: 'https://skillpulsai.vercel.app/',
-    keywords: 'LinkedIn profile analyzer, GitHub profile analyzer, AI skill gap analyzer, AI career analyzer, Free LinkedIn profile analysis, GitHub profile review tool',
+    keywords: 'free AI skill gap analyzer, no sign in required, no sign-in required, no signup resume reviewer, free linkedin profile analyzer, free github profile analyzer, free linkedin profile review no login, analyze linkedin profile online free, free github code audit for developers, free career roadmap generator, free coding skill verifier, identify skill gaps for software developer jobs, developer profile analysis for internships no signup, free ats resume checker no login, free developer portfolio review, instant ai career coach, tech interview prep free, PulseBot AI mascot, SkillPulse AI, SkillGap AI',
   },
   linkedin: {
-    title: 'LinkedIn Profile Analyzer & AI Resume Review — SkillPulse AI',
-    description: 'Free LinkedIn profile analysis online. Upload your LinkedIn PDF to extract verified skills, measure career trajectory, detect missing qualifications, and close skill gaps for software developer jobs.',
+    title: 'Free LinkedIn Profile Analyzer & AI Resume Review (No Sign-In Required) — SkillPulse AI',
+    description: '100% Free LinkedIn profile analysis online with no sign-in required. Upload your LinkedIn PDF to extract verified skills, measure career trajectory, detect missing qualifications, and close skill gaps for software engineering jobs.',
     canonical: 'https://skillpulsai.vercel.app/linkedin',
-    keywords: 'LinkedIn profile analyzer, Free LinkedIn profile analysis, AI tool to improve LinkedIn profile, resume review, skill gap analysis, tech jobs',
+    keywords: 'free LinkedIn profile analyzer, free LinkedIn profile analysis, no sign in required, no signup resume review, AI tool to improve LinkedIn profile, free resume review, skill gap analysis, tech jobs, free ATS score, developer resume critique free',
   },
   github: {
-    title: 'GitHub Profile Analyzer & Developer Review Tool — SkillPulse AI',
-    description: 'Free GitHub profile review tool for developers. Measure byte-weighted language proficiency, repository test coverage, commit consistency, and engineering signals for software internships and jobs.',
+    title: 'Free GitHub Profile Analyzer & Developer Review Tool (No Sign-In) — SkillPulse AI',
+    description: 'Free GitHub profile review tool for developers with no login required. Measure byte-weighted language proficiency, repository test coverage, commit consistency, and engineering signals for software internships and jobs.',
     canonical: 'https://skillpulsai.vercel.app/github',
-    keywords: 'GitHub profile analyzer, GitHub profile review tool, Analyze GitHub profile for developers, Developer profile analysis for internships, code quality inspection',
+    keywords: 'free GitHub profile analyzer, GitHub profile review tool free, no sign in developer tool, analyze GitHub profile for developers, developer profile analysis for internships, code quality inspection, free repo auditor, github portfolio review free',
   },
   roadmap: {
-    title: 'AI Career Roadmap & Adaptive Sprint Planner — SkillPulse AI',
-    description: 'Personalized AI career roadmap generator. Synthesizes real skill gaps from your LinkedIn profile and GitHub repositories into milestone-driven sprints to level up your engineering career.',
+    title: 'Free AI Career Roadmap & Adaptive Sprint Planner (No Login) — SkillPulse AI',
+    description: '100% Free AI career roadmap generator with no sign-in required. Synthesizes real skill gaps from your LinkedIn profile and GitHub repositories into milestone-driven sprints to level up your engineering career.',
     canonical: 'https://skillpulsai.vercel.app/roadmap',
-    keywords: 'AI career analyzer, AI career roadmap, career roadmap generator, Identify skill gaps for software developer jobs, sprint planner, tech career growth',
+    keywords: 'free AI career analyzer, free career roadmap generator, no sign in required, identify skill gaps for software developer jobs, sprint planner, tech career growth, engineering learning roadmap, developer milestone planner free',
   },
   verifier: {
-    title: 'AI Code & Skill Verifier | Interactive Technical Challenges — SkillPulse AI',
-    description: 'Verify your technical programming skills with interactive coding challenges calibrated to your GitHub tech stack. Automated scoring, question reviews, and developer skill certification.',
+    title: 'Free AI Code & Skill Verifier | Interactive Technical Challenges (No Sign-In) — SkillPulse AI',
+    description: 'Free technical programming skill assessment with interactive coding challenges calibrated to your GitHub tech stack. Automated sandbox scoring, question reviews, and developer skill certification with no sign-in required.',
     canonical: 'https://skillpulsai.vercel.app/verifier',
-    keywords: 'AI Code & Skill Verifier, technical coding challenges, developer skill verification, coding assessment, tech interview prep',
+    keywords: 'free AI Code & Skill Verifier, free coding assessment no sign in, technical coding challenges, developer skill verification, tech interview prep, coding test free, programming skill certification free',
   },
 };
 

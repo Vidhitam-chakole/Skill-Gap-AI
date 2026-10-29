@@ -69,6 +69,15 @@
   transform: rotate(-8deg);
 }
 
+.hero__sticker--free {
+  background: var(--yellow);
+  color: var(--black);
+  top: 12%;
+  right: 18%;
+  transform: rotate(5deg);
+  animation: wiggle 3.5s ease-in-out infinite reverse;
+}
+
 .hero__sticker--ai {
   background: var(--purple);
   color: var(--white);
@@ -124,6 +133,57 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.65rem;
+  border: 2px solid var(--black, #0a0a0f);
+  box-shadow: 2px 2px 0 var(--black, #0a0a0f);
+  border-radius: 4px;
+  background: var(--white, #ffffff);
+  color: var(--black, #0a0a0f);
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hero__badge:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--black, #0a0a0f);
+}
+
+.hero__badge--free {
+  background: var(--lime);
+}
+
+.hero__badge--nosignin {
+  background: var(--yellow);
+}
+
+.hero__badge--instant {
+  background: var(--cyan);
+}
+
+.hero__badge--nocredit {
+  background: var(--pink);
+}
+
+.hero__badge--privacy {
+  background: var(--purple);
+  color: var(--white);
 }
 
 .hero__visual {
@@ -230,12 +290,22 @@
     top: 4%;
   }
 
-  .hero__sticker--ai {
+  .hero__sticker--ai,
+  .hero__sticker--free {
     display: none;
   }
 }
 
 @media (max-width: 600px) {
+  .hero__badges {
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+
+  .hero__badge {
+    font-size: 0.72rem;
+    padding: 0.28rem 0.5rem;
+  }
   .hero {
     padding: 3rem 1rem 2rem;
     gap: 1.5rem;

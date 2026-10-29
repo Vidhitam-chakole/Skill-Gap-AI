@@ -14,11 +14,16 @@ export default function RoadmapPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
+        <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: '0.45rem', justifyContent: 'center', marginBottom: '0.85rem' }}>
+          <span className="hero__badge hero__badge--free">⚡ 100% Free</span>
+          <span className="hero__badge hero__badge--nosignin">🔒 No Sign-In Required</span>
+          <span className="hero__badge hero__badge--instant">🚀 Custom Sprints</span>
+        </div>
         <h1 className="page-hero__title">
-          AI Career <span className="page-hero__title-accent">Roadmap</span>
+          Free AI Career <span className="page-hero__title-accent">Roadmap</span>
         </h1>
         <p className="page-hero__desc">
-          Synthesize findings from your LinkedIn profile and GitHub repositories into an adaptive, milestone-driven sprint roadmap designed to help you land software developer jobs and internships.
+          Synthesize findings from your LinkedIn profile and GitHub repositories into an adaptive, milestone-driven sprint roadmap designed to help you land software developer jobs and internships — 100% free with no account needed.
         </p>
       </header>
 

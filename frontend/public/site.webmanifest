@@ -1,12 +1,15 @@
 {
-  "name": "SkillPulse AI — Career Gap Intelligence",
+  "name": "SkillPulse AI — Free Career Gap Intelligence (No Sign-In Required)",
   "short_name": "SkillPulse AI",
-  "description": "Analyze your LinkedIn and GitHub profiles, discover critical skill gaps, verify skills with interactive coding tests, and level up your career.",
+  "description": "100% Free AI skill gap analyzer with no sign-in required. Analyze LinkedIn & GitHub profiles, verify developer skills with interactive challenges, and get dynamic roadmaps.",
   "start_url": "/",
+  "scope": "/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#0a0a0f",
   "theme_color": "#0a0a0f",
   "orientation": "portrait-primary",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/logo-192.png",
@@ -23,33 +26,33 @@
   ],
   "shortcuts": [
     {
-      "name": "LinkedIn Profile Analyzer",
-      "short_name": "LinkedIn",
-      "description": "Upload LinkedIn PDF and analyze resume skill gaps",
+      "name": "Free LinkedIn Profile Analyzer (No Sign-In)",
+      "short_name": "LinkedIn Review",
+      "description": "Upload LinkedIn PDF and analyze resume skill gaps without logging in",
       "url": "/linkedin",
       "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "GitHub Profile Analyzer",
-      "short_name": "GitHub",
-      "description": "Review GitHub repositories and code quality",
+      "name": "Free GitHub Profile Analyzer (No Sign-In)",
+      "short_name": "GitHub Audit",
+      "description": "Review GitHub repositories and code quality instantly with no sign-in",
       "url": "/github",
       "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "AI Career Roadmap",
-      "short_name": "Roadmap",
+      "name": "Free AI Career Roadmap Generator",
+      "short_name": "Career Roadmap",
       "description": "View adaptive learning sprints and milestone goals",
       "url": "/roadmap",
       "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "AI Code & Skill Verifier",
-      "short_name": "Verifier",
+      "name": "Free AI Code & Skill Verifier",
+      "short_name": "Skill Verifier",
       "description": "Take timed coding challenges and verify technical skills",
       "url": "/verifier",
       "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
     }
   ],
-  "categories": ["education", "productivity", "utilities"]
+  "categories": ["education", "productivity", "utilities", "developer tools", "career"]
 }

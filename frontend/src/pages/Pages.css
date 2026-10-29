@@ -33,6 +33,51 @@
   margin-bottom: 1rem;
 }
 
+/* Page Hero Trust Badges */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.65rem;
+  border: 2px solid var(--black, #0a0a0f);
+  box-shadow: 2px 2px 0 var(--black, #0a0a0f);
+  border-radius: 4px;
+  background: var(--white, #ffffff);
+  color: var(--black, #0a0a0f);
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hero__badge:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--black, #0a0a0f);
+}
+
+.hero__badge--free {
+  background: var(--lime, #b8ff00);
+}
+
+.hero__badge--nosignin {
+  background: var(--yellow, #ffe600);
+}
+
+.hero__badge--instant {
+  background: var(--cyan, #00e5ff);
+}
+
+.hero__badge--nocredit {
+  background: var(--pink, #ff3d9a);
+}
+
+.hero__badge--privacy {
+  background: var(--purple, #9b5de5);
+  color: var(--white, #ffffff);
+}
+
 .page-hero__title {
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 900;

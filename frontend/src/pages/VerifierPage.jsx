@@ -13,11 +13,16 @@ export default function VerifierPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
+        <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: '0.45rem', justifyContent: 'center', marginBottom: '0.85rem' }}>
+          <span className="hero__badge hero__badge--free">⚡ 100% Free</span>
+          <span className="hero__badge hero__badge--nosignin">🔒 No Sign-In Required</span>
+          <span className="hero__badge hero__badge--instant">🚀 Live Sandbox</span>
+        </div>
         <h1 className="page-hero__title">
-          AI Code &amp; <span className="page-hero__title-accent">Skill Verifier</span>
+          Free AI Code &amp; <span className="page-hero__title-accent">Skill Verifier</span>
         </h1>
         <p className="page-hero__desc">
-          Validate your programming proficiency through interactive, timed technical coding challenges. Automated test execution, algorithmic accuracy scoring, and language mastery certification.
+          Validate your programming proficiency through interactive, timed technical coding challenges. Automated test execution, algorithmic accuracy scoring, and language mastery certification — 100% free with no login required.
         </p>
       </header>
 

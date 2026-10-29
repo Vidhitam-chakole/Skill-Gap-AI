@@ -1,6 +1,49 @@
 User-agent: *
 Allow: /
+Allow: /linkedin
+Allow: /github
+Allow: /roadmap
+Allow: /verifier
+Allow: /site.webmanifest
+Allow: /sitemap.xml
 Disallow: /api/
 
+# Explicit indexing rules for Googlebot
+User-agent: Googlebot
+Allow: /
+Allow: /linkedin
+Allow: /github
+Allow: /roadmap
+Allow: /verifier
+Disallow: /api/
+
+# Image indexing rules for Google Images
+User-agent: Googlebot-Image
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Microsoft Bingbot
+User-agent: Bingbot
+Allow: /
+Allow: /linkedin
+Allow: /github
+Allow: /roadmap
+Allow: /verifier
+Disallow: /api/
+
+# Social Media Previews & Crawlers
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap & Host
 Sitemap: https://skillpulsai.vercel.app/sitemap.xml
 Host: https://skillpulsai.vercel.app

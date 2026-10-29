@@ -4,18 +4,33 @@ import './FAQ.css';
 
 export const FAQ_DATA = [
   {
+    q: 'Do I need to sign in, create an account, or enter a credit card to use SkillPulse AI?',
+    a: 'No sign-in or account registration is required! SkillPulse AI is 100% free with zero signup friction. You do not need to provide an email, password, or credit card. You can immediately analyze LinkedIn profile PDFs, audit GitHub repositories, take interactive coding assessments, and generate career roadmaps.',
+    tag: 'Free • No Sign-In',
+  },
+  {
+    q: 'Is SkillPulse AI completely free to use?',
+    a: 'Yes, SkillPulse AI is 100% free forever. There are no paywalls, hidden fees, monthly subscriptions, or usage credits required. All features across LinkedIn parsing, GitHub review, adaptive learning sprints, and PulseBot AI career chat are fully unlocked for everyone.',
+    tag: '100% Free',
+  },
+  {
+    q: 'Is my LinkedIn PDF or personal information kept private without a login?',
+    a: 'Yes. SkillPulse AI is designed privacy-first. Since no sign-in or account registration is required, your uploaded resume or LinkedIn PDF data is processed securely in-session and is never stored permanently, sold to recruiters, or shared with third parties.',
+    tag: 'Privacy & Security',
+  },
+  {
     q: 'What is SkillPulse AI and how does the AI skill gap analyzer work?',
     a: 'SkillPulse AI is an AI-powered career intelligence platform designed for software engineers, students, and tech professionals. It cross-examines your LinkedIn profile or resume PDF against your public GitHub code repositories to detect missing technical skills, benchmark engineering practices, and generate an adaptive learning roadmap to close critical career gaps.',
     tag: 'Platform Overview',
   },
   {
     q: 'How do I get a free LinkedIn profile analysis online?',
-    a: 'You can analyze your LinkedIn profile online in seconds with SkillPulse AI completely free. In your LinkedIn account, navigate to your profile, click "More" in the header card, and select "Save to PDF". Upload the downloaded PDF to SkillPulse AI to parse your work history, verified skills, and identify missing competencies for developer roles.',
+    a: 'You can analyze your LinkedIn profile online in seconds with SkillPulse AI completely free with no account needed. In your LinkedIn account, navigate to your profile, click "More" in the header card, and select "Save to PDF". Upload the downloaded PDF to SkillPulse AI to parse your work history, verified skills, and identify missing competencies for developer roles.',
     tag: 'LinkedIn Analysis',
   },
   {
     q: 'How does the GitHub profile analyzer review developer repositories?',
-    a: 'Enter your GitHub username or profile link into our GitHub profile review tool. SkillPulse AI fetches your public repositories via the GitHub REST API to measure byte-weighted language percentages, repository star metrics, commit velocity, and key engineering signals such as unit test coverage, CI/CD pipelines, and open-source contributions.',
+    a: 'Enter your GitHub username or profile link into our GitHub profile review tool — no sign-in or GitHub account connection required. SkillPulse AI fetches your public repositories via the GitHub REST API to measure byte-weighted language percentages, repository star metrics, commit velocity, and key engineering signals such as unit test coverage, CI/CD pipelines, and open-source contributions.',
     tag: 'GitHub Code Audit',
   },
   {
@@ -32,11 +47,6 @@ export const FAQ_DATA = [
     q: 'How does the AI career roadmap help improve developer profiles?',
     a: 'The AI career analyzer synthesizes gaps from both your LinkedIn resume and GitHub repositories to generate a personalized sprint-based learning roadmap. Instead of generic tutorials, each sprint provides concrete project deliverables, testing frameworks, and milestone goals tailored to your target programming language and job role.',
     tag: 'Career Roadmaps',
-  },
-  {
-    q: 'Is SkillPulse AI free to use?',
-    a: 'Yes, SkillPulse AI is 100% free to use. There are no paywalls, hidden fees, or credit cards required. You can analyze your LinkedIn profile, review unlimited GitHub repositories, complete coding assessments, and generate custom career roadmaps for free.',
-    tag: 'Pricing & Access',
   },
 ];
 
