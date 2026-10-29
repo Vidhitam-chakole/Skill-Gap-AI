@@ -13,7 +13,6 @@ export default function VerifierPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">Interactive Technical Verification</span>
         <h1 className="page-hero__title">
           AI Code &amp; <span className="page-hero__title-accent">Skill Verifier</span>
         </h1>

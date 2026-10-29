@@ -14,7 +14,6 @@ export default function RoadmapPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">Adaptive Career Intelligence</span>
         <h1 className="page-hero__title">
           AI Career <span className="page-hero__title-accent">Roadmap</span>
         </h1>

@@ -11,7 +11,6 @@ export default function LinkedInPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">AI Resume &amp; Profile Intelligence</span>
         <h1 className="page-hero__title">
           LinkedIn Profile <span className="page-hero__title-accent">Analyzer</span>
         </h1>
