@@ -54,7 +54,6 @@ export default function FAQ() {
       </Sticker>
 
       <SectionHeader
-        tag="Answers &amp; Documentation"
         title="Frequently Asked Questions"
         subtitle="Concise, factual answers about our LinkedIn profile analyzer, GitHub code review tool, and AI skill gap analysis platform."
         rotate={1}

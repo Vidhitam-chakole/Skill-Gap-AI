@@ -65,8 +65,9 @@
 .section-header__tag {
   display: inline-block;
   padding: 0.35rem 0.85rem;
-  background: var(--black);
-  color: var(--lime);
+  background: var(--yellow);
+  color: var(--black);
+  box-shadow: 2px 2px 0 var(--black);
   font-family: monospace;
   font-size: 0.8rem;
   font-weight: 600;

@@ -784,43 +784,60 @@
   border-bottom: none;
   padding: 0.85rem 1.25rem;
   font-size: 0.85rem;
-  color: #ffffff !important;
-  background: var(--black, #0a0a0f) !important;
+  font-weight: 800;
+  color: var(--black, #0a0a0f) !important;
+  background: var(--orange, #ff6b1a) !important;
+  cursor: pointer;
+}
+
+.mascot-chat__send-btn:hover:not(:disabled) {
+  background: var(--yellow, #ffe600) !important;
 }
 
 /* ==========================================================================
    Mobile & Responsive Adjustments
    ========================================================================== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  /* Disable roaming across the screen on mobile devices */
+  .mascot-root--roaming:not(.mascot-root--open):not(.mascot-root--hidden) {
+    animation: none !important;
+    transform: none !important;
+  }
+
   .mascot-root {
     bottom: 1rem;
     right: 1rem;
   }
 
+  .mascot-label {
+    display: none !important;
+  }
+
   .mascot-bubble {
-    max-width: 230px;
-    font-size: 0.78rem;
+    max-width: 220px;
+    font-size: 0.75rem;
+    padding: 0.5rem 1.6rem 0.5rem 0.75rem;
   }
 
   .mascot-chat-drawer {
     width: calc(100vw - 1.5rem);
-    height: 520px;
+    height: min(520px, 80vh);
   }
 
   .mascot-chat__header {
-    padding: 0.85rem 1rem;
+    padding: 0.75rem 0.85rem;
   }
 
   .mascot-chat__title {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
 
   .mascot-chat__context-tag {
-    max-width: 100px;
+    max-width: 90px;
   }
 
   .mascot-msg__bubble {
-    max-width: 90%;
+    max-width: 92%;
     font-size: 0.82rem;
   }
 

@@ -191,7 +191,7 @@ export default function Roadmap() {
               <div style={{ marginTop: '1.5rem' }}>
                 <button
                   type="button"
-                  className="brutal-btn brutal-btn--dark"
+                  className="brutal-btn brutal-btn--primary"
                   onClick={handleAskAIAboutRoadmap}
                 >
                   Ask PulseBot AI Coach to Guide Me →

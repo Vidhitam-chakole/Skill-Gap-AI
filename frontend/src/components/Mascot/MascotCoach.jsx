@@ -361,13 +361,6 @@ export default function MascotCoach() {
             {/* Hover Jet Propulsion Glow */}
             <div className="mascot-figure__thruster" />
           </div>
-
-          {/* Floating Mini Label */}
-          {!isOpen && (
-            <span className="mascot-label">
-              skillplus ai
-            </span>
-          )}
         </div>
 
         {/* Expanded Neo-Brutalist Career Coach Chat Drawer */}
@@ -485,7 +478,7 @@ export default function MascotCoach() {
               />
               <button
                 type="submit"
-                className="brutal-btn brutal-btn--dark mascot-chat__send-btn"
+                className="brutal-btn brutal-btn--primary mascot-chat__send-btn"
                 disabled={loading || !input.trim()}
               >
                 {loading ? 'Thinking...' : 'Send →'}

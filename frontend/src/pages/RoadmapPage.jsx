@@ -86,19 +86,6 @@ export default function RoadmapPage() {
               Chat with AI Mentor →
             </div>
           </div>
-
-          <div className="page-next-card" onClick={() => navigate('/github')}>
-            <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--orange)' }}>Repository Audit</span>
-              <h3 className="page-next-card__title">Benchmark GitHub Quality</h3>
-              <p className="page-next-card__desc">
-                Track how completing roadmap sprints enhances your GitHub metrics, commit frequency, and language proficiency over time.
-              </p>
-            </div>
-            <div className="page-next-card__cta">
-              Inspect GitHub Profile →
-            </div>
-          </div>
         </div>
       </section>
 

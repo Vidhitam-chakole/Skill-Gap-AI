@@ -107,6 +107,11 @@
     font-size: 0.95rem;
   }
 
+  .home__footer-nav {
+    gap: 0.5rem 0.35rem;
+    font-size: 0.8rem;
+  }
+
   .home__footer-copy {
     font-size: 0.72rem;
   }
