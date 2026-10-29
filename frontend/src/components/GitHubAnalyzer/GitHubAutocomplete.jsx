@@ -297,7 +297,7 @@ export default function GitHubAutocomplete({
 
           {error && (
             <div className="gh-autocomplete__state-box">
-              <span className="gh-autocomplete__state-icon" role="img" aria-label="Warning">⚠️</span>
+              <span className="gh-autocomplete__state-icon" aria-label="Warning">[!]</span>
               <p className="gh-autocomplete__state-title">Search Notice</p>
               <p className="gh-autocomplete__state-desc">{error}</p>
               {error.toLowerCase().includes('rate limit') && (
@@ -308,7 +308,7 @@ export default function GitHubAutocomplete({
 
           {!loading && !error && suggestions.length === 0 && extractedQuery && (
             <div className="gh-autocomplete__state-box">
-              <span className="gh-autocomplete__state-icon" role="img" aria-label="Not Found">🔍</span>
+              <span className="gh-autocomplete__state-icon" aria-label="Not Found">[?]</span>
               <p className="gh-autocomplete__state-title">No GitHub users found</p>
               <p className="gh-autocomplete__state-desc">
                 No accounts match &ldquo;<strong>{extractedQuery}</strong>&rdquo;. You can still type the full username or URL and click Analyze.

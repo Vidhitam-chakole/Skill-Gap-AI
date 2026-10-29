@@ -370,7 +370,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
               </span>
               <span className="verifier__concept-tag">{currentQ.concept}</span>
               <span className="verifier__badge-dynamic">
-                ✨ Dynamic Custom Paper ({quiz.language})
+                Dynamic Custom Paper ({quiz.language})
               </span>
             </div>
           </div>
@@ -390,7 +390,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
               style={{ background: 'transparent', border: 'none', color: '#ff6b1a', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, textDecoration: 'underline' }}
               title="Generate new questions for this language"
             >
-              🎲 Re-roll Questions &rarr;
+              Re-roll Questions &rarr;
             </button>
           </div>
 
@@ -497,7 +497,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
             {/* Key Insights & Suggestions */}
             <div className="verifier__card-block">
               <h3>
-                <span>💡</span> Key Insights &amp; Suggestions
+                Key Insights &amp; Suggestions
               </h3>
               <div className="verifier__insight-box">{formatInsight(results.aiDetectionInsight)}</div>
               <ul className="verifier__rec-list">
@@ -512,7 +512,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
             {/* Core Topics Tested */}
             <div className="verifier__card-block">
               <h3>
-                <span>📊</span> Core Topics Tested
+                Core Topics Tested
               </h3>
               <div className="verifier__concepts-list">
                 {results.conceptBreakdown.map((c, i) => (
@@ -596,7 +596,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
               className="brutal-btn brutal-btn--primary"
               onClick={() => handleStartQuiz(results.language)}
             >
-              🎲 Retake {results.language} Assessment
+              Retake {results.language} Assessment →
             </button>
             <button
               type="button"

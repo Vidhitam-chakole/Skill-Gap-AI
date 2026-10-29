@@ -86,7 +86,7 @@ export default function LinkedInAnalyzer() {
       {!results && (
         <div className="analyzer__steps-card brutal-card reveal">
           <h3 className="analyzer__steps-title">
-            <span>📋</span> How to Analyze Your LinkedIn Profile Online (Free &amp; Instant):
+            <span>[GUIDE]</span> How to Analyze Your LinkedIn Profile Online (Free &amp; Instant):
           </h3>
           <p className="analyzer__steps-sub">
             LinkedIn has a built-in feature to download your official profile as a PDF in 3 seconds:
@@ -139,7 +139,7 @@ export default function LinkedInAnalyzer() {
                 style={{ display: 'none' }}
                 onChange={handleFileSelect}
               />
-              <span className="analyzer__dropzone-icon">📥</span>
+              <span className="analyzer__dropzone-icon">↓</span>
               <p className="analyzer__dropzone-title">Click to browse or drop your LinkedIn profile PDF here</p>
               <p className="analyzer__dropzone-hint">Accepts official LinkedIn resume .pdf export or CV (Max 15MB)</p>
             </div>
@@ -176,7 +176,7 @@ export default function LinkedInAnalyzer() {
           {/* Header Profile Dossier Card */}
           <div className="analyzer__dossier-card brutal-card">
             <div className="analyzer__dossier-header-row">
-              <span className="analyzer__dossier-badge">✓ Verified Candidate Profile</span>
+              <span className="analyzer__dossier-badge">[VERIFIED] Candidate Profile</span>
               <button
                 type="button"
                 className="analyzer__reupload-btn"
@@ -186,7 +186,7 @@ export default function LinkedInAnalyzer() {
                 }}
                 title="Upload another LinkedIn profile PDF"
               >
-                🔄 Upload Another PDF
+                Upload Another PDF →
               </button>
             </div>
             <div className="analyzer__dossier-top">
@@ -206,19 +206,19 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__contact-strip">
               {results.contact?.email && (
                 <a href={`mailto:${results.contact.email}`} className="analyzer__contact-pill">
-                  <span className="analyzer__contact-icon">✉️</span>
+                  <span className="analyzer__contact-icon">EMAIL</span>
                   <span>{results.contact.email}</span>
                 </a>
               )}
               {results.contact?.phone && (
                 <div className="analyzer__contact-pill">
-                  <span className="analyzer__contact-icon">📞</span>
+                  <span className="analyzer__contact-icon">TEL</span>
                   <span>{results.contact.phone}</span>
                 </div>
               )}
               {results.contact?.location && (
                 <div className="analyzer__contact-pill">
-                  <span className="analyzer__contact-icon">📍</span>
+                  <span className="analyzer__contact-icon">LOC</span>
                   <span>{results.contact.location}</span>
                 </div>
               )}
@@ -229,7 +229,7 @@ export default function LinkedInAnalyzer() {
                   rel="noreferrer"
                   className="analyzer__contact-pill analyzer__contact-pill--link"
                 >
-                  <span className="analyzer__contact-icon">🔗</span>
+                  <span className="analyzer__contact-icon">URL</span>
                   <span>View LinkedIn Profile &rarr;</span>
                 </a>
               )}
@@ -242,7 +242,7 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__col">
               {/* Experience Section */}
               <div className="analyzer__panel brutal-card reveal">
-                <h3>💼 Professional Experience</h3>
+                <h3>Professional Experience</h3>
                 <p className="analyzer__panel-subtitle">Career history extracted from your profile:</p>
 
                 {results.experience && results.experience.length > 0 ? (
@@ -271,7 +271,7 @@ export default function LinkedInAnalyzer() {
 
               {/* Education Section */}
               <div className="analyzer__panel brutal-card reveal" style={{ marginTop: '2rem' }}>
-                <h3>🎓 Education History</h3>
+                <h3>Education History</h3>
                 <p className="analyzer__panel-subtitle">Academic degrees and institutions:</p>
 
                 {results.education && results.education.length > 0 ? (
@@ -299,7 +299,7 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__col">
               {/* Skills Section */}
               <div className="analyzer__panel brutal-card reveal-right">
-                <h3>🛠️ Verified Skills &amp; Proficiencies</h3>
+                <h3>Verified Skills &amp; Proficiencies</h3>
                 <p className="analyzer__panel-subtitle">Technical skills and domain competencies identified:</p>
 
                 {results.skills && results.skills.length > 0 ? (
@@ -315,7 +315,7 @@ export default function LinkedInAnalyzer() {
 
               {/* Certifications Section */}
               <div className="analyzer__panel brutal-card reveal-right" style={{ marginTop: '2rem' }}>
-                <h3>📜 Licenses &amp; Certifications</h3>
+                <h3>Licenses &amp; Certifications</h3>
                 <p className="analyzer__panel-subtitle">Professional accreditations and verified credentials:</p>
 
                 {results.certifications && results.certifications.length > 0 ? (

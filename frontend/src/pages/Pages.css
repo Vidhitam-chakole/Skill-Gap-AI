@@ -1,0 +1,254 @@
+/* ==========================================================================
+   SkillPulse AI — Dedicated Page Layouts (LinkedIn, GitHub, Roadmap, Verifier)
+   Neo-Brutalist Architecture & High-Performance Typography
+   ========================================================================== */
+
+.page-wrapper {
+  min-height: calc(100vh - 80px);
+  padding: 2rem 1.5rem 5rem 1.5rem;
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Page Dedicated Hero Header */
+.page-hero {
+  position: relative;
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.page-hero__badge {
+  display: inline-block;
+  background: var(--black, #0a0a0f);
+  color: var(--lime, #a6ff00);
+  border: 2px solid var(--white, #ffffff);
+  box-shadow: 3px 3px 0 var(--black, #0a0a0f);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.page-hero__title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 1.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.page-hero__title-accent {
+  background: var(--yellow, #ffe600);
+  border: 3px solid var(--black, #0a0a0f);
+  box-shadow: 5px 5px 0 var(--black, #0a0a0f);
+  padding: 0.1rem 0.5rem;
+  display: inline-block;
+  transform: rotate(-1deg);
+}
+
+.page-hero__desc {
+  max-width: 780px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Cross-linking Next Steps Banners */
+.page-next-steps {
+  margin: 4.5rem 0 3.5rem 0;
+}
+
+.page-next-steps__title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page-next-steps__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.page-next-card {
+  background: var(--white, #ffffff);
+  border: 3px solid var(--black, #0a0a0f);
+  padding: 1.75rem;
+  box-shadow: 6px 6px 0 var(--black, #0a0a0f);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.page-next-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--black, #0a0a0f);
+  background: var(--cream, #f7f5ee);
+}
+
+.page-next-card__tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: var(--cyan, #00e5ff);
+  border: 1.5px solid var(--black, #0a0a0f);
+  padding: 0.2rem 0.5rem;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+}
+
+.page-next-card__title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin: 0 0 0.5rem 0;
+}
+
+.page-next-card__desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #444;
+  margin: 0 0 1.25rem 0;
+  flex: 1;
+}
+
+.page-next-card__cta {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--black, #0a0a0f);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* In-depth AEO & GEO Semantic Guidance Section */
+.page-aeo-section {
+  margin: 4.5rem 0 2rem 0;
+  background: var(--cream, #f7f5ee);
+  border: 3px solid var(--black, #0a0a0f);
+  padding: 2.5rem 2rem;
+  box-shadow: 6px 6px 0 var(--black, #0a0a0f);
+}
+
+.page-aeo-section__header {
+  margin-bottom: 2rem;
+}
+
+.page-aeo-section__title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+}
+
+.page-aeo-section__subtitle {
+  font-size: 1rem;
+  color: #444;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.page-aeo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.page-aeo-card {
+  background: var(--white, #ffffff);
+  border: 2px solid var(--black, #0a0a0f);
+  padding: 1.5rem;
+  box-shadow: 3px 3px 0 var(--black, #0a0a0f);
+}
+
+.page-aeo-card__num {
+  font-size: 0.75rem;
+  font-weight: 900;
+  background: var(--yellow, #ffe600);
+  border: 1.5px solid var(--black, #0a0a0f);
+  padding: 0.15rem 0.5rem;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.page-aeo-card__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+}
+
+.page-aeo-card__text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #333;
+  margin: 0;
+}
+
+/* Empty State Onboarding Card (For Roadmap when not analyzed) */
+.page-onboarding-card {
+  background: var(--white, #ffffff);
+  border: 4px solid var(--black, #0a0a0f);
+  box-shadow: 8px 8px 0 var(--black, #0a0a0f);
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.page-onboarding-card__icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.page-onboarding-card__title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.page-onboarding-card__desc {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #333;
+  max-width: 620px;
+  margin: 0 auto 2rem auto;
+}
+
+.page-onboarding-card__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding: 1.5rem 1rem 4rem 1rem;
+  }
+
+  .page-hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .page-hero__desc {
+    font-size: 1rem;
+  }
+
+  .page-aeo-section {
+    padding: 1.75rem 1.25rem;
+  }
+}
+

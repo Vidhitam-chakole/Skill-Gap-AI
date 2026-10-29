@@ -96,15 +96,6 @@ export default function FAQ() {
             );
           })}
         </div>
-
-        <div className="faq__footer-callout">
-          <p>
-            Have a custom query? Ask our built-in <strong>Local AI Career Coach</strong> below for real-time mentorship and resume feedback.
-          </p>
-          <a href="#chat" className="brutal-btn brutal-btn--primary">
-            Ask AI Assistant &rarr;
-          </a>
-        </div>
       </div>
     </section>
   );

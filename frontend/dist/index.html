@@ -12,7 +12,7 @@
     <title>SkillPulse AI — AI Skill Gap Analyzer | Free LinkedIn &amp; GitHub Profile Review</title>
     <meta name="title" content="SkillPulse AI — AI Skill Gap Analyzer | Free LinkedIn &amp; GitHub Profile Review" />
     <meta name="description" content="SkillPulse AI is an AI skill gap analyzer and career analyzer. Analyze LinkedIn profile online, run a free GitHub profile review for developers, verify skills, and identify skill gaps for software developer jobs &amp; internships." />
-    <meta name="keywords" content="LinkedIn profile analyzer, GitHub profile analyzer, AI skill gap analyzer, AI career analyzer, Free LinkedIn profile analysis, GitHub profile review tool, Analyze LinkedIn profile online, Analyze GitHub profile for developers, AI tool to improve LinkedIn profile, Identify skill gaps for software developer jobs, Developer profile analysis for internships, SkillPulse AI, SkillGap AI, tech interview prep, career roadmap generator" />
+    <meta name="keywords" content="LinkedIn profile analyzer, GitHub profile analyzer, AI skill gap analyzer, AI career analyzer, Free LinkedIn profile analysis, GitHub profile review tool, Analyze LinkedIn profile online, Analyze GitHub profile for developers, AI tool to improve LinkedIn profile, Identify skill gaps for software developer jobs, Developer profile analysis for internships, SkillPulse AI, SkillGap AI, tech interview prep, career roadmap generator, PulseBot AI mascot" />
     <meta name="author" content="SkillPulse AI" />
     <meta name="creator" content="SkillPulse AI" />
     <meta name="publisher" content="SkillPulse AI" />
@@ -70,7 +70,7 @@
     <!-- Preload Critical Above-The-Fold Assets -->
     <link rel="preload" as="image" type="image/svg+xml" href="/logo.svg" />
 
-    <!-- Structured Data (JSON-LD) for Search Engines -->
+    <!-- Structured Data (JSON-LD) for Search, Answer & Generative Engines (SEO / AEO / GEO) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -81,9 +81,14 @@
           "url": "https://skillpulsai.vercel.app/",
           "name": "SkillPulse AI",
           "alternateName": ["SkillPulse", "SkillGap AI"],
-          "description": "AI-Powered Skill Gap Analyzer, Free LinkedIn Profile Analysis & GitHub Profile Review Tool",
+          "description": "AI-Powered Skill Gap Analyzer, Free LinkedIn Profile Analysis & GitHub Profile Review Tool with PulseBot Career Mascot",
           "publisher": {
             "@id": "https://skillpulsai.vercel.app/#organization"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://skillpulsai.vercel.app/github?q={search_term_string}",
+            "query-input": "required name=search_term_string"
           },
           "inLanguage": "en-US"
         },
@@ -111,15 +116,85 @@
             "price": "0",
             "priceCurrency": "USD"
           },
-          "description": "AI skill gap analyzer and career intelligence suite. Analyze LinkedIn profile online, review GitHub repositories, verify code proficiency, and build adaptive sprint roadmaps.",
+          "description": "Full-stack AI skill gap analyzer and career intelligence suite with dedicated pages for LinkedIn PDF review, GitHub repository inspection, adaptive sprint roadmaps, interactive skill verification, and a roving AI mascot companion.",
           "featureList": [
-            "Free LinkedIn Profile Analysis & PDF Dossier Parser",
-            "GitHub Profile Analyzer & Developer Review Tool",
-            "Interactive AI Code & Skill Verifier with Automated Grading",
-            "Dynamic Adaptive Career Sprint Roadmap",
-            "Local AI Career Mentor Coach"
+            "Dedicated Free LinkedIn Profile Analyzer & PDF Dossier Parser (/linkedin)",
+            "Dedicated GitHub Profile Analyzer & Developer Review Tool (/github)",
+            "Dedicated AI Career Roadmap & Sprint Planner (/roadmap)",
+            "Dedicated Interactive AI Code & Skill Verifier (/verifier)",
+            "PulseBot Roving AI Career Mascot & Intelligence Companion"
           ],
           "screenshot": "https://skillpulsai.vercel.app/og-image.png"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "@id": "https://skillpulsai.vercel.app/#navigation",
+          "name": [
+            "Home",
+            "LinkedIn Profile Analyzer",
+            "GitHub Profile Analyzer",
+            "AI Career Roadmap",
+            "AI Code & Skill Verifier"
+          ],
+          "url": [
+            "https://skillpulsai.vercel.app/",
+            "https://skillpulsai.vercel.app/linkedin",
+            "https://skillpulsai.vercel.app/github",
+            "https://skillpulsai.vercel.app/roadmap",
+            "https://skillpulsai.vercel.app/verifier"
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://skillpulsai.vercel.app/#howto-linkedin",
+          "name": "How to Analyze Your LinkedIn Profile to Uncover Engineering Skill Gaps",
+          "description": "Step-by-step guide to exporting your official LinkedIn PDF profile and running an AI skill gap analysis for software developer jobs.",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "Export Official LinkedIn Profile PDF",
+              "text": "Navigate to your LinkedIn profile in your desktop browser, click the 'More' button in the profile header card, and choose 'Save to PDF'."
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "Upload to SkillPulse AI",
+              "text": "Visit https://skillpulsai.vercel.app/linkedin and drag and drop your downloaded PDF file into the secure analyzer."
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "Review Gaps and Career Roadmap",
+              "text": "Inspect your verified skills, ATS scores, and automatically synthesize custom project sprints to close identified career gaps."
+            }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://skillpulsai.vercel.app/#howto-github",
+          "name": "How to Review GitHub Repositories for Developer Job Applications",
+          "description": "Step-by-step instructions to benchmark GitHub commit velocity, testing coverage, and language percentages.",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "Enter GitHub Username",
+              "text": "Navigate to https://skillpulsai.vercel.app/github and type your GitHub handle or paste your profile URL."
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "Inspect Byte-Weighted Signals",
+              "text": "Examine language proficiency metrics, test suite detection, CI/CD pipeline signals, and documentation quality."
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "Validate Technical Skills",
+              "text": "Launch the AI Code & Skill Verifier to prove proficiency in detected programming languages through timed coding tests."
+            }
+          ]
         },
         {
           "@type": "FAQPage",
@@ -130,7 +205,15 @@
               "name": "What is SkillPulse AI and how does the AI skill gap analyzer work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "SkillPulse AI is an AI-powered career intelligence platform designed for software engineers, students, and tech professionals. It cross-examines your LinkedIn profile or resume PDF against your public GitHub code repositories to detect missing technical skills, benchmark engineering practices, and generate an adaptive learning roadmap to close critical career gaps."
+                "text": "SkillPulse AI is an AI career intelligence platform for software engineers. It cross-examines your LinkedIn profile PDF against your public GitHub repositories to detect missing technical competencies, benchmark code quality, and generate adaptive learning sprints."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is PulseBot the AI Career Mascot and how does it assist developers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "PulseBot is a roving AI career assistant present across every page of SkillPulse AI. Powered by Groq and Llama 3.3 70B, PulseBot answers questions about tech interview prep, system design patterns, resume optimization, and roadmap priorities in real time."
               }
             },
             {
@@ -138,7 +221,7 @@
               "name": "How do I get a free LinkedIn profile analysis online?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can analyze your LinkedIn profile online in seconds with SkillPulse AI completely free. In your LinkedIn account, navigate to your profile, click 'More' in the header card, and select 'Save to PDF'. Upload the downloaded PDF to SkillPulse AI to parse your work history, verified skills, and identify missing competencies for developer roles."
+                "text": "Navigate to https://skillpulsai.vercel.app/linkedin, export your LinkedIn profile as a PDF using LinkedIn's 'Save to PDF' feature, and upload it for instant parsing of work history, verified skills, and job readiness."
               }
             },
             {
@@ -146,15 +229,7 @@
               "name": "How does the GitHub profile analyzer review developer repositories?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Enter your GitHub username or profile link into our GitHub profile review tool. SkillPulse AI fetches your public repositories via the GitHub REST API to measure byte-weighted language percentages, repository star metrics, commit velocity, and key engineering signals such as unit test coverage, CI/CD pipelines, and open-source contributions."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Can SkillPulse AI identify skill gaps for software developer jobs and internships?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. SkillPulse AI is purpose-built for developer profile analysis for internships and full-time software engineering jobs. It benchmarks your profile against current industry hiring demands, highlighting missing qualifications such as containerization (Docker, Kubernetes), automated testing, system design, and backend microservices."
+                "text": "Visit https://skillpulsai.vercel.app/github and enter your GitHub username. The analyzer measures byte-weighted language percentages, unit test coverage, CI/CD workflows, commit velocity, and documentation standards."
               }
             },
             {
@@ -162,7 +237,7 @@
               "name": "What is the AI Code & Skill Verifier and how does it test skills?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The AI Code & Skill Verifier offers interactive, timed technical coding challenges calibrated to the programming languages found in your GitHub repositories. It tests practical engineering concepts such as concurrency, memory management, and language quirks with instant automated scoring and detailed question reviews."
+                "text": "Available at https://skillpulsai.vercel.app/verifier, the AI Code Verifier offers interactive, timed technical coding challenges tailored to Python, JavaScript, TypeScript, Go, and Java with automated sandbox grading."
               }
             },
             {
@@ -170,7 +245,7 @@
               "name": "How does the AI career roadmap help improve developer profiles?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The AI career analyzer synthesizes gaps from both your LinkedIn resume and GitHub repositories to generate a personalized sprint-based learning roadmap. Instead of generic tutorials, each sprint provides concrete project deliverables, testing frameworks, and milestone goals tailored to your target programming language and job role."
+                "text": "Accessible at https://skillpulsai.vercel.app/roadmap, the dynamic sprint generator transforms identified profile gaps into 4-week milestone projects with architecture blueprints, test requirements, and actionable deliverables."
               }
             },
             {
@@ -178,7 +253,7 @@
               "name": "Is SkillPulse AI free to use?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, SkillPulse AI is 100% free to use. There are no paywalls, hidden fees, or credit cards required. You can analyze your LinkedIn profile, review unlimited GitHub repositories, complete coding assessments, and generate custom career roadmaps for free."
+                "text": "Yes, SkillPulse AI is 100% free with no paywalls or credit cards required. You can analyze LinkedIn profiles, review GitHub repositories, generate custom roadmaps, and chat with PulseBot for free."
               }
             }
           ]
@@ -186,9 +261,9 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-6Vg_nqq5.js"></script>
+    <script type="module" crossorigin src="/assets/index-BZ__cLn-.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-DOsHF4BJ.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-CkXj_fUw.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-ClGN5G-o.css">
   </head>
   <body>
     <div id="root"></div>

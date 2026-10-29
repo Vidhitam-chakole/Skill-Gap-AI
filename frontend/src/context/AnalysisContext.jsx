@@ -12,6 +12,14 @@ export function AnalysisProvider({ children }) {
   const startVerification = (langName) => {
     setIsVerifierUnlocked(true);
     setVerifierTargetLang(langName);
+
+    // Notify app router to navigate to verifier page if not already there
+    window.dispatchEvent(
+      new CustomEvent('app-navigate', {
+        detail: { destination: 'verifier' },
+      })
+    );
+
     setTimeout(() => {
       const el = document.getElementById('verifier');
       if (el) {

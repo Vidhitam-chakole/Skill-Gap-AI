@@ -13,8 +13,6 @@ export default function Hero({ onNavigate }) {
       <div className="hero__sticker hero__sticker--ai">AI POWERED</div>
 
       <div className="hero__content">
-        <p className="hero__eyebrow reveal">AI Skill Gap Analyzer &amp; Career Intelligence</p>
-
         <h1 className="hero__title reveal">
           <span className="hero__title-line">Close Your</span>
           <span className="hero__title-line hero__title-line--accent">Skill Gap</span>
@@ -38,7 +36,7 @@ export default function Hero({ onNavigate }) {
             onClick={() => onNavigate('github')}
             aria-label="Analyze GitHub profile for developers"
           >
-            Analyze GitHub ★
+            Analyze GitHub →
           </button>
         </div>
       </div>

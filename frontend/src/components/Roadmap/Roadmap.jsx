@@ -42,8 +42,13 @@ export default function Roadmap() {
   };
 
   const handleAskAIAboutRoadmap = () => {
-    const chatSection = document.getElementById('chat');
-    chatSection?.scrollIntoView({ behavior: 'smooth' });
+    window.dispatchEvent(
+      new CustomEvent('open-mascot-chat', {
+        detail: {
+          prompt: 'Explain my dynamic roadmap sprints and recommend what I should focus on first to close my engineering gaps.',
+        },
+      })
+    );
   };
 
   return (
@@ -139,7 +144,7 @@ export default function Roadmap() {
 
                 {week.deliverable && (
                   <div className="roadmap__deliverable">
-                    <span className="roadmap__deliverable-label">📦 Key Deliverable:</span>
+                    <span className="roadmap__deliverable-label">Key Deliverable:</span>
                     <p className="roadmap__deliverable-text">{week.deliverable}</p>
                   </div>
                 )}
@@ -189,7 +194,7 @@ export default function Roadmap() {
                   className="brutal-btn brutal-btn--dark"
                   onClick={handleAskAIAboutRoadmap}
                 >
-                  💬 Ask Local AI Agent to Guide Me
+                  Ask PulseBot AI Coach to Guide Me →
                 </button>
               </div>
             </div>

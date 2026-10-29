@@ -186,7 +186,7 @@ export default function GitHubAnalyzer() {
                   <li key={i} className="analyzer__repo-item">
                     <span className="analyzer__repo-name">{repo.name}</span>
                     <div className="analyzer__repo-meta">
-                      <span>★ {repo.stars}</span>
+                      <span>Stars: {repo.stars}</span>
                       <span>{repo.language}</span>
                     </div>
                   </li>

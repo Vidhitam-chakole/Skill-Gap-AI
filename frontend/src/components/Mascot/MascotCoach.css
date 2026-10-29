@@ -1,0 +1,830 @@
+/* ==========================================================================
+   SkillPulse AI — skillplus ai Roving Mascot & Career Companion
+   Neo-Brutalist Architecture & Take-Copter Bamboo Propeller
+   ========================================================================== */
+
+.mascot-root {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Hidden state (used on Home page before scrolling to AI Career Analyzer section) */
+.mascot-root--hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(60px) scale(0.6) !important;
+}
+
+.mascot-root--open {
+  bottom: 1.5rem;
+  right: 1.5rem;
+  pointer-events: auto;
+}
+
+/* Backdrop */
+.mascot-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  animation: fadeInBackdrop 0.2s ease-out;
+}
+
+@keyframes fadeInBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   Roaming Motion Along Viewport Bottom
+   ========================================================================== */
+.mascot-root--roaming:not(.mascot-root--open):not(.mascot-root--hidden) {
+  animation: mascotPatrol 24s ease-in-out infinite alternate;
+}
+
+@keyframes mascotPatrol {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-140px, -20px);
+  }
+  50% {
+    transform: translate(-280px, 0);
+  }
+  75% {
+    transform: translate(-140px, -25px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ==========================================================================
+   Speech / Thought Bubble
+   ========================================================================== */
+.mascot-bubble {
+  pointer-events: auto;
+  position: relative;
+  background: var(--white, #ffffff);
+  color: var(--black, #0a0a0f);
+  border: 3px solid var(--black, #0a0a0f);
+  padding: 0.75rem 2rem 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 0.85rem;
+  max-width: 280px;
+  box-shadow: 4px 4px 0 var(--black, #0a0a0f);
+  cursor: pointer;
+  animation: bubblePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom right;
+}
+
+.mascot-bubble:hover {
+  background: var(--yellow, #ffe600);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--black, #0a0a0f);
+}
+
+.mascot-bubble__close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  line-height: 1;
+  color: #666;
+}
+
+.mascot-bubble__close:hover {
+  color: #000;
+}
+
+.mascot-bubble__tail {
+  position: absolute;
+  bottom: -9px;
+  right: 28px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid var(--black, #0a0a0f);
+}
+
+@keyframes bubblePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Floating Mascot Avatar Button
+   ========================================================================== */
+.mascot-avatar-btn {
+  pointer-events: auto;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.mascot-avatar-btn:hover {
+  transform: scale(1.08) translateY(-4px);
+}
+
+.mascot-avatar-btn:active {
+  transform: scale(0.96);
+}
+
+.mascot-avatar-btn--docked {
+  display: none;
+}
+
+/* Badge Alert */
+.mascot-badge {
+  position: absolute;
+  top: -4px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  background: #ff0055;
+  color: #ffffff;
+  border: 2px solid var(--black, #0a0a0f);
+  font-size: 0.72rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 0 var(--black, #0a0a0f);
+  z-index: 10;
+  animation: pulseBadge 2s infinite ease-in-out;
+}
+
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+.mascot-label {
+  margin-top: 0.35rem;
+  background: var(--black, #0a0a0f);
+  color: var(--yellow, #ffe600);
+  border: 2px solid var(--white, #ffffff);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  box-shadow: 2px 2px 0 var(--black, #0a0a0f);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Mascot Character Figure & Bamboo Copter (Take-copter)
+   ========================================================================== */
+.mascot-figure {
+  width: 68px;
+  height: 76px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: mascotHover 3s ease-in-out infinite alternate;
+}
+
+@keyframes mascotHover {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Bamboo Copter Flight Unit */
+.mascot-bamboo-copter {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  margin-bottom: -1px;
+}
+
+.mascot-copter-blades {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spinBambooCopter 0.22s linear infinite;
+  transform-origin: center center;
+}
+
+.mascot-copter-blades--fast {
+  animation-duration: 0.1s !important;
+}
+
+@keyframes spinBambooCopter {
+  0% {
+    transform: rotateY(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotateY(180deg) scaleX(0.25);
+  }
+  100% {
+    transform: rotateY(360deg) scaleX(1);
+  }
+}
+
+.copter-blade {
+  width: 24px;
+  height: 5px;
+  background: var(--yellow, #ffe600);
+  border: 2px solid var(--black, #0a0a0f);
+  border-radius: 4px;
+  box-shadow: 1px 1px 0 var(--black, #0a0a0f);
+}
+
+.copter-blade--left {
+  margin-right: -2px;
+}
+
+.copter-blade--right {
+  margin-left: -2px;
+}
+
+.copter-center-hub {
+  width: 8px;
+  height: 8px;
+  background: var(--orange, #ff5c00);
+  border: 2px solid var(--black, #0a0a0f);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.mascot-copter-shaft {
+  width: 3.5px;
+  height: 10px;
+  background: var(--black, #0a0a0f);
+}
+
+.mascot-copter-suction {
+  width: 14px;
+  height: 3px;
+  background: var(--orange, #ff5c00);
+  border: 1.5px solid var(--black, #0a0a0f);
+  border-radius: 3px 3px 0 0;
+}
+
+/* Head */
+.mascot-figure__head {
+  width: 58px;
+  height: 42px;
+  background: var(--yellow, #ffe600);
+  border: 3px solid var(--black, #0a0a0f);
+  box-shadow: 4px 4px 0 var(--black, #0a0a0f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.mascot-figure__screen {
+  width: 100%;
+  height: 100%;
+  background: #0d1117;
+  border: 2px solid var(--black, #0a0a0f);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* Eyes */
+.mascot-figure__eyes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mascot-eye {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--cyan, #00e5ff);
+  text-shadow: 0 0 4px var(--cyan, #00e5ff);
+  line-height: 1;
+}
+
+.mascot-eye--open {
+  width: 7px;
+  height: 7px;
+  background: var(--cyan, #00e5ff);
+  box-shadow: 0 0 6px var(--cyan, #00e5ff);
+  display: inline-block;
+  animation: eyeBlink 4s infinite;
+}
+
+@keyframes eyeBlink {
+  0%, 96%, 100% {
+    transform: scaleY(1);
+  }
+  98% {
+    transform: scaleY(0.1);
+  }
+}
+
+.mascot-eye--happy {
+  color: var(--lime, #a6ff00);
+  text-shadow: 0 0 6px var(--lime, #a6ff00);
+}
+
+.mascot-eye--thinking {
+  width: 6px;
+  height: 6px;
+  background: var(--orange, #ff5c00);
+  display: inline-block;
+  border-radius: 50%;
+  animation: eyeThink 0.8s infinite alternate;
+}
+
+@keyframes eyeThink {
+  0% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(2px);
+  }
+}
+
+.mascot-mouth-wave {
+  width: 22px;
+  height: 2px;
+  background: var(--cyan, #00e5ff);
+  opacity: 0.85;
+}
+
+/* Body */
+.mascot-figure__body {
+  width: 44px;
+  height: 18px;
+  background: var(--orange, #ff5c00);
+  border: 3px solid var(--black, #0a0a0f);
+  border-top: none;
+  box-shadow: 4px 4px 0 var(--black, #0a0a0f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mascot-figure__core {
+  width: 14px;
+  height: 6px;
+  background: var(--lime, #a6ff00);
+  border: 1.5px solid var(--black, #0a0a0f);
+  animation: coreGlow 1.8s infinite alternate;
+}
+
+@keyframes coreGlow {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 6px var(--lime, #a6ff00);
+  }
+}
+
+.mascot-arm {
+  position: absolute;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  background: var(--black, #0a0a0f);
+}
+
+.mascot-arm--left {
+  left: -6px;
+  transform: rotate(15deg);
+}
+
+.mascot-arm--right {
+  right: -6px;
+  transform: rotate(-15deg);
+}
+
+/* Thruster Glow */
+.mascot-figure__thruster {
+  width: 16px;
+  height: 6px;
+  background: var(--cyan, #00e5ff);
+  filter: blur(2px);
+  margin-top: 2px;
+  animation: thrusterPuff 0.6s infinite alternate;
+}
+
+@keyframes thrusterPuff {
+  0% {
+    transform: scaleX(0.7);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleX(1.3);
+    opacity: 0.9;
+  }
+}
+
+/* ==========================================================================
+   Mascot Chat Drawer Window
+   ========================================================================== */
+.mascot-chat-drawer {
+  pointer-events: auto;
+  position: relative;
+  width: 440px;
+  max-width: calc(100vw - 2.5rem);
+  height: 620px;
+  max-height: calc(100vh - 4rem);
+  background: var(--white, #ffffff);
+  border: 4px solid var(--black, #0a0a0f);
+  box-shadow: 8px 8px 0 var(--black, #0a0a0f);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: drawerPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: bottom right;
+
+  /* Remove vertical scrollbar */
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.mascot-chat-drawer::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@keyframes drawerPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Header */
+.mascot-chat__header {
+  background: var(--black, #0a0a0f);
+  color: var(--white, #ffffff);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--black, #0a0a0f);
+  flex-shrink: 0;
+}
+
+.mascot-chat__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mascot-chat__mini-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--yellow, #ffe600);
+  border: 2px solid var(--white, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--black, #0a0a0f);
+}
+
+.mascot-chat__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--white, #ffffff);
+}
+
+.mascot-chat__status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--lime, #a6ff00);
+}
+
+.mascot-status-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--lime, #a6ff00);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--lime, #a6ff00);
+  display: inline-block;
+}
+
+.mascot-chat__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mascot-chat__context-tag {
+  background: var(--lime, #a6ff00);
+  color: var(--black, #0a0a0f);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border: 1.5px solid var(--white, #ffffff);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mascot-chat__action-btn {
+  background: var(--white, #ffffff);
+  color: var(--black, #0a0a0f);
+  border: 2px solid var(--black, #0a0a0f);
+  font-size: 0.85rem;
+  font-weight: 800;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--white, #ffffff);
+  transition: transform 0.1s ease;
+}
+
+.mascot-chat__action-btn:hover {
+  background: var(--yellow, #ffe600);
+  transform: translate(-1px, -1px);
+}
+
+.mascot-chat__action-btn--close {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.mascot-chat__action-btn--close:hover {
+  background: #d9363e;
+}
+
+/* Messages */
+.mascot-chat__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: var(--cream, #f7f5ee);
+
+  /* Remove vertical scrollbar */
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.mascot-chat__messages::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.mascot-msg__context-badge {
+  background: var(--yellow, #ffe600);
+  border: 2px solid var(--black, #0a0a0f);
+  padding: 0.35rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--black, #0a0a0f);
+  box-shadow: 2px 2px 0 var(--black, #0a0a0f);
+}
+
+.mascot-msg {
+  display: flex;
+}
+
+.mascot-msg--user {
+  justify-content: flex-end;
+}
+
+.mascot-msg__bubble {
+  max-width: 84%;
+  padding: 0.75rem 1rem;
+  border: 3px solid var(--black, #0a0a0f);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  box-shadow: 3px 3px 0 var(--black, #0a0a0f);
+  white-space: pre-wrap;
+  color: #0a0a0f !important;
+}
+
+.mascot-msg--bot .mascot-msg__bubble {
+  background: var(--white, #ffffff);
+  color: #0a0a0f !important;
+  transform: rotate(-0.4deg);
+}
+
+.mascot-msg--user .mascot-msg__bubble {
+  background: var(--orange, #ff5c00);
+  color: #0a0a0f !important;
+  font-weight: 700;
+  transform: rotate(0.4deg);
+}
+
+.mascot-msg__typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.75rem 1rem;
+}
+
+.mascot-msg__typing .dot {
+  width: 7px;
+  height: 7px;
+  background: var(--black, #0a0a0f);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.mascot-msg__typing .dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.mascot-msg__typing .dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.mascot-typing-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #555;
+  margin-left: 0.4rem;
+}
+
+/* Suggestion Chips — High-contrast & easily visible */
+.mascot-chat__suggestions {
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--white, #ffffff);
+  border-top: 2px solid var(--black, #0a0a0f);
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  /* Remove scrollbars */
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.mascot-chat__suggestions::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.mascot-chat__chip {
+  background: var(--cream, #f7f5ee) !important;
+  color: #0a0a0f !important;
+  border: 2px solid var(--black, #0a0a0f) !important;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 800 !important;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--black, #0a0a0f);
+  white-space: nowrap;
+  transition: transform 0.1s ease, background 0.1s ease;
+}
+
+.mascot-chat__chip:hover {
+  background: var(--yellow, #ffe600) !important;
+  color: #0a0a0f !important;
+  transform: translate(-1px, -1px);
+}
+
+/* Input Area — Clear black text on solid white input */
+.mascot-chat__input-area {
+  display: flex;
+  border-top: 3px solid var(--black, #0a0a0f);
+  background: #ffffff !important;
+  flex-shrink: 0;
+}
+
+.mascot-chat__input {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  border: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #ffffff !important;
+  color: #0a0a0f !important;
+}
+
+.mascot-chat__input:focus {
+  outline: none;
+}
+
+.mascot-chat__input::placeholder {
+  color: #64748b !important;
+  opacity: 1;
+}
+
+.mascot-chat__send-btn {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.85rem;
+  color: #ffffff !important;
+  background: var(--black, #0a0a0f) !important;
+}
+
+/* ==========================================================================
+   Mobile & Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 600px) {
+  .mascot-root {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .mascot-bubble {
+    max-width: 230px;
+    font-size: 0.78rem;
+  }
+
+  .mascot-chat-drawer {
+    width: calc(100vw - 1.5rem);
+    height: 520px;
+  }
+
+  .mascot-chat__header {
+    padding: 0.85rem 1rem;
+  }
+
+  .mascot-chat__title {
+    font-size: 0.88rem;
+  }
+
+  .mascot-chat__context-tag {
+    max-width: 100px;
+  }
+
+  .mascot-msg__bubble {
+    max-width: 90%;
+    font-size: 0.82rem;
+  }
+
+  .mascot-chat__input {
+    font-size: 16px; /* Prevents auto-zoom on mobile iOS */
+  }
+}

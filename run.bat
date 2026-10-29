@@ -12,3 +12,5 @@ start "SkillGap AI - Frontend" cmd /k "cd frontend && npm run dev -- --host 0.0.
 echo Both servers launched in background windows.
 timeout /t 2 /nobreak >nul
 start http://localhost:5173
+ 
+@REM  .\run.bat cmd to run directy

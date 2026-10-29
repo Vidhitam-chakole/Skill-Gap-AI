@@ -89,13 +89,6 @@
   max-width: 640px;
 }
 
-.hero__eyebrow {
-  font-family: monospace;
-  font-size: 0.9rem;
-  color: var(--orange);
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
 
 .hero__title {
   font-size: clamp(3rem, 8vw, 6.5rem);
@@ -248,10 +241,6 @@
     gap: 1.5rem;
   }
 
-  .hero__eyebrow {
-    margin-bottom: 0.75rem;
-    font-size: 0.8rem;
-  }
 
   .hero__title {
     font-size: clamp(2.1rem, 10vw, 3.4rem);

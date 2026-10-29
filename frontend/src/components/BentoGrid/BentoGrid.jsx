@@ -257,7 +257,7 @@ export default function BentoGrid({ onNavigate }) {
   };
 
   return (
-    <section className="bento">
+    <section className="bento" id="bento-tools">
       <h2 className="bento__title reveal">AI Career Analyzer &amp; Profile Review Tools</h2>
       <div className="bento__grid">
         {FEATURES.map((f, i) => {

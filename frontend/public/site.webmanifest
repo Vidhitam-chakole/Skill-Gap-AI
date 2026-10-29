@@ -21,5 +21,35 @@
       "purpose": "any maskable"
     }
   ],
+  "shortcuts": [
+    {
+      "name": "LinkedIn Profile Analyzer",
+      "short_name": "LinkedIn",
+      "description": "Upload LinkedIn PDF and analyze resume skill gaps",
+      "url": "/linkedin",
+      "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "GitHub Profile Analyzer",
+      "short_name": "GitHub",
+      "description": "Review GitHub repositories and code quality",
+      "url": "/github",
+      "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Career Roadmap",
+      "short_name": "Roadmap",
+      "description": "View adaptive learning sprints and milestone goals",
+      "url": "/roadmap",
+      "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Code & Skill Verifier",
+      "short_name": "Verifier",
+      "description": "Take timed coding challenges and verify technical skills",
+      "url": "/verifier",
+      "icons": [{ "src": "/logo-192.png", "sizes": "192x192" }]
+    }
+  ],
   "categories": ["education", "productivity", "utilities"]
 }
