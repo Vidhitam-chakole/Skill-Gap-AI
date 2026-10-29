@@ -1,10 +1,11 @@
-import { useState, useCallback, useEffect } from 'react';
-import IntroAnimation from './components/IntroAnimation/IntroAnimation';
+import { useState, useCallback, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
 import { AnalysisProvider } from './context/AnalysisContext';
 import { useScrollReveal, useParallax, useIntroSeen, useScrollSpy } from './hooks/useAnimations';
 import './App.css';
+
+const IntroAnimation = lazy(() => import('./components/IntroAnimation/IntroAnimation'));
 
 const SECTIONS = ['home', 'linkedin', 'github', 'verifier', 'roadmap', 'chat', 'faq'];
 
@@ -48,7 +49,11 @@ function AppShell() {
 
   return (
     <>
-      {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
+      {showIntro && (
+        <Suspense fallback={null}>
+          <IntroAnimation onComplete={handleIntroComplete} />
+        </Suspense>
+      )}
 
       <div className={`app ${showIntro ? 'app--hidden' : ''}`} ref={scrollRef}>
         <Navbar activeSection={activeSection} onNavigate={handleNavigate} />

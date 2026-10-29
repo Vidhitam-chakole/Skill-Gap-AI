@@ -1,15 +1,16 @@
-import { useCallback, useState } from 'react';
+import { useCallback, lazy, Suspense } from 'react';
 import { useAnalysis } from '../context/AnalysisContext';
 import Hero from '../components/Hero/Hero';
 import Marquee from '../components/Marquee/Marquee';
 import BentoGrid from '../components/BentoGrid/BentoGrid';
-import LinkedInAnalyzer from '../components/LinkedInAnalyzer/LinkedInAnalyzer';
-import GitHubAnalyzer from '../components/GitHubAnalyzer/GitHubAnalyzer';
-import SkillVerifier from '../components/SkillVerifier/SkillVerifier';
-import Roadmap from '../components/Roadmap/Roadmap';
-import ChatBot from '../components/ChatBot/ChatBot';
-import FAQ from '../components/FAQ/FAQ';
 import { FloatingShapes } from '../components/Decorative/Decorative';
+
+const LinkedInAnalyzer = lazy(() => import('../components/LinkedInAnalyzer/LinkedInAnalyzer'));
+const GitHubAnalyzer = lazy(() => import('../components/GitHubAnalyzer/GitHubAnalyzer'));
+const SkillVerifier = lazy(() => import('../components/SkillVerifier/SkillVerifier'));
+const Roadmap = lazy(() => import('../components/Roadmap/Roadmap'));
+const ChatBot = lazy(() => import('../components/ChatBot/ChatBot'));
+const FAQ = lazy(() => import('../components/FAQ/FAQ'));
 
 const MARQUEE_ITEMS = [
   'LinkedIn Profile Analyzer',
@@ -46,19 +47,36 @@ export default function Home({ onNavigate }) {
 
       <Marquee items={[...MARQUEE_ITEMS].reverse()} speed={30} direction="right" />
 
-      <LinkedInAnalyzer />
-      <GitHubAnalyzer />
+      <Suspense fallback={<div id="linkedin" className="section-loading-fallback" />}>
+        <LinkedInAnalyzer />
+      </Suspense>
+
+      <Suspense fallback={<div id="github" className="section-loading-fallback" />}>
+        <GitHubAnalyzer />
+      </Suspense>
 
       {/* AI Code & Skill Verifier: Ready whenever GitHub or LinkedIn is analyzed */}
-      {isVerifierReady && <SkillVerifier initialLanguage={verifierTargetLang} />}
+      {isVerifierReady && (
+        <Suspense fallback={<div id="verifier" className="section-loading-fallback" />}>
+          <SkillVerifier initialLanguage={verifierTargetLang} />
+        </Suspense>
+      )}
 
-      <Roadmap />
-      <ChatBot />
-      <FAQ />
+      <Suspense fallback={<div id="roadmap" className="section-loading-fallback" />}>
+        <Roadmap />
+      </Suspense>
+
+      <Suspense fallback={<div id="chat" className="section-loading-fallback" />}>
+        <ChatBot />
+      </Suspense>
+
+      <Suspense fallback={<div id="faq" className="section-loading-fallback" />}>
+        <FAQ />
+      </Suspense>
 
       <footer className="home__footer" role="contentinfo">
         <div className="home__footer-inner">
-          <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" />
+          <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
           <p>SkillPulse AI — Close your skill gap. Level up your career.</p>
 
           <nav className="home__footer-nav" aria-label="Footer Quick Navigation">
@@ -83,4 +101,3 @@ export default function Home({ onNavigate }) {
     </main>
   );
 }
-

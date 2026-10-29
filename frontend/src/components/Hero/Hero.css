@@ -212,35 +212,8 @@
 }
 
 @keyframes arrowBounce {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(10px, -10px); }
-}
-
-.hero__scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  opacity: 0.6;
-}
-
-.hero__scroll-line {
-  width: 2px;
-  height: 40px;
-  background: var(--black);
-  animation: scrollPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { transform: scaleY(1); opacity: 1; }
-  50% { transform: scaleY(0.5); opacity: 0.4; }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(10px, -10px, 0); }
 }
 
 @media (max-width: 900px) {

@@ -13,9 +13,8 @@
   --shadow: 8px 8px 0 var(--black);
   --shadow-lg: 12px 12px 0 var(--black);
   --shadow-hover: 4px 4px 0 var(--black);
-  --font-display: 'Archivo Black', 'Syne', sans-serif;
+  --font-display: 'Archivo Black', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
-  --font-kinetic: 'Syne', sans-serif;
   --nav-width: 80px;
 }
 

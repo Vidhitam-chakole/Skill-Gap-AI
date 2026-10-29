@@ -5,11 +5,13 @@
   background: var(--black);
   color: var(--white);
   padding: 0.875rem 0;
+  contain: paint;
 }
 
 .marquee__track {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: marqueeScroll var(--speed, 30s) linear infinite;
 }
 
@@ -35,6 +37,6 @@
 }
 
 @keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }

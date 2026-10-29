@@ -77,9 +77,9 @@ const FEATURES = [
   },
 ];
 
-
 export default function BentoGrid({ onNavigate }) {
   const eyeRefs = useRef({});
+  const eyePositions = useRef(new Map());
   const targetPos = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const [isAmbient, setIsAmbient] = useState(true);
   const [blinkingEyes, setBlinkingEyes] = useState({});
@@ -88,24 +88,43 @@ export default function BentoGrid({ onNavigate }) {
   const ambientTimer = useRef(null);
   const rafId = useRef(null);
 
-  // Update eye pupils to look at target position
+  // Cache eye bounding coordinates to avoid repeated layout thrashing (getBoundingClientRect) on every mousemove
+  const refreshEyePositions = useCallback(() => {
+    if (!eyeRefs.current) return;
+    Object.entries(eyeRefs.current).forEach(([key, eyeEl]) => {
+      if (!eyeEl) return;
+      const rect = eyeEl.getBoundingClientRect();
+      eyePositions.current.set(key, {
+        cx: rect.left + rect.width / 2,
+        cy: rect.top + rect.height / 2,
+        maxTravel: rect.width * 0.24,
+      });
+    });
+  }, []);
+
+  // Update eye pupils to look at target position using cached layout measurements
   const updateEyes = useCallback(() => {
     if (!eyeRefs.current) return;
 
-    Object.values(eyeRefs.current).forEach((eyeEl) => {
+    Object.entries(eyeRefs.current).forEach(([key, eyeEl]) => {
       if (!eyeEl) return;
-      const rect = eyeEl.getBoundingClientRect();
-      const eyeCenterX = rect.left + rect.width / 2;
-      const eyeCenterY = rect.top + rect.height / 2;
+      let pos = eyePositions.current.get(key);
+      if (!pos) {
+        const rect = eyeEl.getBoundingClientRect();
+        pos = {
+          cx: rect.left + rect.width / 2,
+          cy: rect.top + rect.height / 2,
+          maxTravel: rect.width * 0.24,
+        };
+        eyePositions.current.set(key, pos);
+      }
 
-      const dx = targetPos.current.x - eyeCenterX;
-      const dy = targetPos.current.y - eyeCenterY;
+      const dx = targetPos.current.x - pos.cx;
+      const dy = targetPos.current.y - pos.cy;
       const angle = Math.atan2(dy, dx);
       const dist = Math.hypot(dx, dy);
 
-      const maxTravel = rect.width * 0.24;
-      const travel = Math.min(dist / 14, maxTravel);
-
+      const travel = Math.min(dist / 14, pos.maxTravel);
       const pupilX = Math.cos(angle) * travel;
       const pupilY = Math.sin(angle) * travel;
 
@@ -161,7 +180,7 @@ export default function BentoGrid({ onNavigate }) {
     [updateEyes, startAmbientLoop]
   );
 
-  // Setup cursor and touch listeners
+  // Setup cursor, scroll and resize listeners
   useEffect(() => {
     const onMouseMove = (e) => handlePointerActive(e.clientX, e.clientY);
     const onTouchStart = (e) => {
@@ -174,18 +193,23 @@ export default function BentoGrid({ onNavigate }) {
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('scroll', refreshEyePositions, { passive: true });
+    window.addEventListener('resize', refreshEyePositions, { passive: true });
 
+    refreshEyePositions();
     startAmbientLoop();
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('scroll', refreshEyePositions);
+      window.removeEventListener('resize', refreshEyePositions);
       if (ambientTimer.current) clearTimeout(ambientTimer.current);
       if (idleTimer.current) clearTimeout(idleTimer.current);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, [handlePointerActive, startAmbientLoop]);
+  }, [handlePointerActive, refreshEyePositions, startAmbientLoop]);
 
   // Completely desynchronized, random individual blinking for each eye
   useEffect(() => {
@@ -194,19 +218,15 @@ export default function BentoGrid({ onNavigate }) {
 
     FEATURES.forEach((feature, index) => {
       const scheduleNextBlink = () => {
-        // Individual random delay: between 2200ms and 6500ms
         const delay = 2200 + Math.random() * 4300;
         const timerId = setTimeout(() => {
           if (!isMounted) return;
 
-          // Blink only this specific eye
           setBlinkingEyes((prev) => ({ ...prev, [feature.id]: true }));
 
-          // Natural blink duration ~130ms
           const closeTimer = setTimeout(() => {
             if (!isMounted) return;
             setBlinkingEyes((prev) => ({ ...prev, [feature.id]: false }));
-            // Schedule this eye's next blink independently
             scheduleNextBlink();
           }, 125 + Math.random() * 35);
           timers.push(closeTimer);
@@ -214,7 +234,6 @@ export default function BentoGrid({ onNavigate }) {
         timers.push(timerId);
       };
 
-      // Stagger each eye's initial start so they never blink together on load
       const initialOffset = 400 + index * 650 + Math.random() * 1100;
       const initialTimer = setTimeout(() => {
         if (!isMounted) return;
@@ -230,7 +249,6 @@ export default function BentoGrid({ onNavigate }) {
   }, []);
 
   const handleCardClick = (feature) => {
-    // Satisfying feedback wink for the clicked card
     setBlinkingEyes((prev) => ({ ...prev, [feature.id]: true }));
     setTimeout(() => {
       setBlinkingEyes((prev) => ({ ...prev, [feature.id]: false }));

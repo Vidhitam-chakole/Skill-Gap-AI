@@ -86,6 +86,10 @@
   line-height: 1.4;
 }
 
+.section-loading-fallback {
+  min-height: 200px;
+}
+
 @media (max-width: 768px) {
   .app__main {
     margin-left: 0;

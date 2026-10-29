@@ -25,7 +25,10 @@ export default function Navbar({ activeSection, onNavigate }) {
   return (
     <nav className="navbar" aria-label="Main Navigation">
       <div className="navbar__logo">
-        <img src="/logo.png" alt="SkillPulse AI" />
+        <picture>
+          <source srcSet="/logo-192.webp" type="image/webp" />
+          <img src="/logo-192.png" alt="SkillPulse AI" width="52" height="52" loading="eager" />
+        </picture>
       </div>
       <ul className="navbar__links">
         {visibleItems.map((item) => (

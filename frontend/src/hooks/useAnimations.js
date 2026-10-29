@@ -12,6 +12,7 @@ export function useScrollReveal(threshold = 0.12) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -19,7 +20,11 @@ export function useScrollReveal(threshold = 0.12) {
     );
 
     const observeAll = () => {
-      el.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((node) => observer.observe(node));
+      el.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((node) => {
+        if (!node.classList.contains('visible')) {
+          observer.observe(node);
+        }
+      });
     };
 
     observeAll();
@@ -37,14 +42,25 @@ export function useScrollReveal(threshold = 0.12) {
 
 export function useParallax(intensity = 0.03) {
   useEffect(() => {
+    let ticking = false;
+    let targetX = 0;
+    let targetY = 0;
+
     const handleMove = (e) => {
-      const x = (e.clientX - window.innerWidth / 2) * intensity;
-      const y = (e.clientY - window.innerHeight / 2) * intensity;
-      document.documentElement.style.setProperty('--parallax-x', `${x}px`);
-      document.documentElement.style.setProperty('--parallax-y', `${y}px`);
+      targetX = (e.clientX - window.innerWidth / 2) * intensity;
+      targetY = (e.clientY - window.innerHeight / 2) * intensity;
+
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          document.documentElement.style.setProperty('--parallax-x', `${targetX}px`);
+          document.documentElement.style.setProperty('--parallax-y', `${targetY}px`);
+          ticking = false;
+        });
+      }
     };
 
-    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mousemove', handleMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMove);
   }, [intensity]);
 }
