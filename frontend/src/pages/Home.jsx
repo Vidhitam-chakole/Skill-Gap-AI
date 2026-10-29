@@ -8,17 +8,14 @@ import { FloatingShapes } from '../components/Decorative/Decorative';
 const FAQ = lazy(() => import('../components/FAQ/FAQ'));
 
 const MARQUEE_ITEMS = [
-  '100% Free • No Sign-In Required',
   'LinkedIn Profile Analyzer',
   'GitHub Profile Analyzer',
   'AI Skill Gap Analyzer',
-  'No Signup Career Intelligence',
+  'AI Career Analyzer',
   'Free LinkedIn Profile Analysis',
   'GitHub Profile Review Tool',
   'Developer Profile Analysis for Internships',
-  'No Login Required',
   'Identify Skill Gaps for Software Jobs',
-  'Free Coding Skill Verifier',
 ];
 
 export default function Home() {

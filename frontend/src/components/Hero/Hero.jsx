@@ -10,7 +10,6 @@ export default function Hero({ onNavigate }) {
       </div>
 
       <div className="hero__sticker hero__sticker--new">NEW!</div>
-      <div className="hero__sticker hero__sticker--free">100% FREE • NO LOGIN</div>
       <div className="hero__sticker hero__sticker--ai">AI POWERED</div>
 
       <div className="hero__content">
@@ -39,14 +38,6 @@ export default function Hero({ onNavigate }) {
           >
             Analyze GitHub →
           </button>
-        </div>
-
-        <div className="hero__badges reveal" aria-label="Key Platform Guarantees">
-          <span className="hero__badge hero__badge--free">⚡ 100% Free Forever</span>
-          <span className="hero__badge hero__badge--nosignin">🔒 No Sign-In Required</span>
-          <span className="hero__badge hero__badge--instant">🚀 Instant AI Analysis</span>
-          <span className="hero__badge hero__badge--nocredit">💳 No Credit Card</span>
-          <span className="hero__badge hero__badge--privacy">🛡️ Zero Data Retention</span>
         </div>
       </div>
 

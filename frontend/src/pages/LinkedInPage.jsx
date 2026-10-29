@@ -11,16 +11,11 @@ export default function LinkedInPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: '0.45rem', justifyContent: 'center', marginBottom: '0.85rem' }}>
-          <span className="hero__badge hero__badge--free">⚡ 100% Free</span>
-          <span className="hero__badge hero__badge--nosignin">🔒 No Sign-In Required</span>
-          <span className="hero__badge hero__badge--instant">🚀 Instant PDF Parsing</span>
-        </div>
         <h1 className="page-hero__title">
-          Free LinkedIn Profile <span className="page-hero__title-accent">Analyzer</span>
+          LinkedIn Profile <span className="page-hero__title-accent">Analyzer</span>
         </h1>
         <p className="page-hero__desc">
-          Upload your official LinkedIn PDF dossier to parse career history, extract verified skills, benchmark against tech industry hiring standards, and detect critical software engineering gaps — 100% free with no account needed.
+          Upload your official LinkedIn PDF dossier to parse career history, extract verified skills, benchmark against tech industry hiring standards, and detect critical software engineering gaps.
         </p>
       </header>
 
