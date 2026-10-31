@@ -3,11 +3,10 @@
 # SkillPulse AI (SkillGap AI)
 ### *Next-Generation AI Career Gap Intelligence & Profile Review Suite*
 
-[![Live Deployment](https://img.shields.io/badge/Live%20Demo-skillplusai.vercel.app-FF6B1A?style=for-the-badge&logo=vercel&logoColor=white)](https://skillplusai.vercel.app/)
+
 [![React](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.11-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
-[![Access](https://img.shields.io/badge/Access-100%25%20Free%20•%20No%20Login-A6FF00?style=for-the-badge&logo=shield&logoColor=black)](https://skillplusai.vercel.app/)
 
 <br />
 
