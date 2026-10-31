@@ -1,112 +1,183 @@
-# SkillGap AI — Career Gap Intelligence Platform
+<div align="center">
 
-SkillGap AI analyzes your LinkedIn PDF export and GitHub profile, surfaces critical technical skill gaps, generates a structured 4-week personalized learning roadmap, and provides a Local AI Career Agent that offers customized mentorship based on your analysis.
+# ⚡ SkillPulse AI (SkillGap AI)
+### *Next-Generation AI Career Gap Intelligence & Profile Review Suite*
 
-## Key Features
+[![Live Deployment](https://img.shields.io/badge/Live%20Demo-skillplusai.vercel.app-FF6B1A?style=for-the-badge&logo=vercel&logoColor=white)](https://skillplusai.vercel.app/)
+[![React](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.11-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
+[![Access](https://img.shields.io/badge/Access-100%25%20Free%20•%20No%20Login-A6FF00?style=for-the-badge&logo=shield&logoColor=black)](https://skillplusai.vercel.app/)
 
-1. **LinkedIn Profile & Resume PDF Review**
-   - **Step-by-step guidance** directly in the UI showing how to download your official LinkedIn profile PDF via **More → Save to PDF** in 3 seconds.
-   - Accepts your **LinkedIn Profile PDF export (`.pdf`)** and **LinkedIn Name** for accurate context and attribution.
-   - Parses verified headline, experience, detected technical skills, and identifies missing industry-standard competencies.
-   - Also supports direct Name / Profile URL analysis mode.
+<br />
 
-2. **GitHub Profile Review**
-   - Real-time GitHub REST API query via **GitHub Profile Link** or **Username** (e.g. `torvalds` or `https://github.com/torvalds`).
-   - Analyzes real repositories, star metrics, followers, activity velocity, and byte-weighted language percentages.
-   - Detects missing developer practices: test coverage, CI/CD automation, open-source contributions, and documentation.
+<!-- Project Screenshot -->
+<p align="center">
+  <img src="./assets/project-screenshot.png" alt="SkillPulse AI Project Preview" width="850" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);" />
+</p>
 
-3. **Dynamic Adaptive Career Roadmap**
-   - Real synthesis merging findings from your LinkedIn PDF review and GitHub repositories.
-   - Dynamically adapts to your **GitHub strong programming languages** (Python, TypeScript, Go, Java, Rust, etc.).
-   - Eliminates rigid 4-week bounds: generates adaptive sprint milestones (3 to 7+) based on actual gap complexity and career score.
-   - Provides concrete, language-specific tasks, test frameworks, CI/CD setups, and shippable deliverables.
+<!-- Centered Live Link Directly Below Screenshot -->
+<p align="center">
+  🌐 <b>Live Application:</b> <a href="https://skillplusai.vercel.app/" target="_blank"><b>https://skillplusai.vercel.app/</b></a> 🚀
+</p>
 
-4. **Local AI Career Agent**
-   - Runs 100% locally offline with an intelligent, context-driven career mentor engine.
-   - Primed with your verified LinkedIn PDF headline & skills, GitHub languages & stats, and roadmap priorities.
-   - Answers queries on reviews, skill gaps, week-by-week actions, and technical growth.
-   - Optional OpenAI integration if `OPENAI_API_KEY` is provided in `.env`.
+<p align="center">
+  <a href="https://skillplusai.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Launch%20SkillPulse%20AI-Visit%20Website-FF6B1A?style=for-the-badge&logo=vercel&logoColor=white" alt="Launch Live App" />
+  </a>
+</p>
+
+<br />
 
 ---
 
-## Modular Architecture
+</div>
 
-The repository is modularized into dedicated domain folders: each element has its own isolated `frontend/` and `backend/` subfolder, unified under the main application:
+## 📌 Overview
+
+**SkillPulse AI** (formerly SkillGap AI) is an intelligent, full-stack career platform designed for software engineers, tech students, and developers. It cross-examines your official **LinkedIn Profile PDF** against your public **GitHub code repositories** to identify critical competency gaps, benchmark engineering best practices, generate adaptive milestone sprint roadmaps, and provide a context-aware AI mentor (*PulseBot*).
+
+> **✨ 100% Free Forever • Zero Sign-In Required • No Credit Card • In-Session Privacy First**
+
+---
+
+## 🌟 Key Features
+
+### 1. 📄 Free LinkedIn Profile & PDF Dossier Analyzer
+- **Instant PDF Extraction**: Upload your official LinkedIn resume PDF exported directly via LinkedIn (**More → Save to PDF**).
+- **Competency Auditing**: Evaluates claimed experience, detected tech skills, and highlights missing industry qualifications.
+- **ATS Readiness Scoring**: Real-time evaluation against current engineering hiring bars.
+
+### 2. 🐙 Deep GitHub Profile & Code Review Tool
+- **Real-Time GitHub REST Integration**: Enter any public GitHub username (or profile link) with zero authentication barriers.
+- **Byte-Weighted Language Signals**: Accurate repository code distribution, commit velocity, and consistency metrics.
+- **Engineering Hygiene Checks**: Identifies missing test coverage, CI/CD automation pipelines, open-source engagement, and documentation depth.
+
+### 3. 🗺️ Adaptive AI Career Roadmap & Sprint Planner
+- **Synthesized Profile Intelligence**: Combines real signals from both your LinkedIn resume and GitHub audit.
+- **Stack-Specific Calibration**: Adapts directly to your primary programming languages (Python, TypeScript, Go, Java, Rust).
+- **Flexible Milestone Sprints**: Generates structured 3 to 7-week projects with concrete system architecture blueprints, test frameworks, and shippable deliverables.
+
+### 4. 🧪 Interactive AI Code & Skill Verifier
+- **Hands-On Coding Assessments**: Timed, multi-language technical challenges calibrated to the languages detected in your GitHub profile.
+- **Algorithmic Accuracy & Edge Cases**: Instant automated grading, syntax validation, and detailed question-by-question reviews.
+
+### 5. 🤖 PulseBot — Autonomous AI Career Coach
+- **Roving Career Mascot**: Companion assistant powered by high-speed inference (Groq / Llama 3.3 70B).
+- **Full Context Memory**: Primed with your verified profile strengths, gaps, and roadmap milestones to answer queries about tech interview prep, system design, and resume optimization.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, Neo-Brutalist CSS System, Lucide Icons, Canvas Animations |
+| **Backend** | Python 3.11, FastAPI, Starlette, Uvicorn, Pydantic v2 |
+| **AI / LLM** | Groq API (`llama-3.3-70b-versatile`), Context-Driven Prompt Synthesis |
+| **Parsing & APIs** | PyPDF (`pypdf`), GitHub REST API v3, Google Search Console & Schema.org JSON-LD |
+| **Deployment** | Vercel Serverless Functions (`api/index.py`), SPA Static Serving |
+
+---
+
+## 📁 Repository Structure
 
 ```
 Skill-Gap-AI/
-├── linkedin_analyzer/           # LinkedIn Analysis Module
-│   ├── backend/                 # PDF parser (pypdf), router, service, schemas
-│   └── frontend/                # LinkedIn review UI component & styles
-│
-├── github_analyzer/             # GitHub Analysis Module
-│   ├── backend/                 # GitHub REST API consumer & gap service
-│   └── frontend/                # GitHub review UI component & styles
-│
-├── roadmap/                     # Roadmap Module
-│   ├── backend/                 # Gap synthesis, GitHub language adaptation & dynamic sprint task planner
-│   └── frontend/                # Roadmap UI component & styles
-│
-├── ai_agent/                    # Local AI Agent Module
-│   ├── backend/                 # Contextual AI mentor engine
-│   └── frontend/                # AI Chatbot UI component & suggestions
-│
-├── backend/                     # Universal Backend (FastAPI on Port 8000)
-│   ├── app/
-│   │   ├── main.py              # Mounts all modular routers
-│   │   ├── config.py            # Environment & CORS configuration
-│   │   ├── schemas.py           # Shared schema models
-│   │   ├── routers/             # API routing bridge
-│   │   └── services/store.py    # Local JSON persistence for analyses
-│   └── requirements.txt
-│
-└── frontend/                    # Universal Frontend (React 18 + Vite on Port 5173)
-    ├── src/
-    │   ├── components/
-    │   │   ├── LinkedInAnalyzer/
-    │   │   ├── GitHubAnalyzer/
-    │   │   ├── Roadmap/
-    │   │   ├── ChatBot/
-    │   │   ├── Hero/
-    │   │   ├── BentoGrid/
-    │   │   └── Navbar/
-    │   ├── pages/Home.jsx
-    │   ├── context/AnalysisContext.jsx
-    │   └── services/api.js      # Centralized HTTP client
-    └── package.json
+├── assets/                      # Project screenshots & visual branding
+│   └── project-screenshot.png
+├── linkedin_analyzer/           # LinkedIn PDF Parser & Scoring Module
+│   ├── backend/                 # pypdf parsing service, schemas, and endpoints
+│   └── frontend/                # LinkedIn analysis UI components
+├── github_analyzer/             # GitHub Profiler & Code Quality Module
+│   ├── backend/                 # GitHub REST API consumer & language analyzer
+│   └── frontend/                # GitHub analysis UI components
+├── roadmap/                     # Adaptive Career Roadmap Module
+│   ├── backend/                 # Gap synthesis & sprint generator service
+│   └── frontend/                # Interactive milestone roadmap view
+├── skill_verifier/              # Technical Assessment & Coding Sandbox
+│   ├── backend/                 # Question bank, scoring engine, sandbox grader
+│   └── frontend/                # Interactive code runner & quiz interface
+├── ai_agent/                    # Autonomous AI Career Coach Module
+│   ├── backend/                 # PulseBot mentor engine (Groq/OpenAI compatible)
+│   └── frontend/                # Roving chatbot widget & prompt suggestions
+├── backend/                     # Universal API App (FastAPI)
+│   └── app/
+│       ├── main.py              # Root router, SPA static server, sitemap handler
+│       ├── config.py            # CORS & environment configuration
+│       └── routers/             # Modular API endpoints (/api/*)
+├── frontend/                    # Universal React SPA (Vite)
+│   ├── src/                     # Components, pages, hooks, router, and context
+│   ├── public/                  # Favicons, webmanifest, branding vectors
+│   └── index.html               # Semantic HTML5, GEO/AEO Schema.org JSON-LD
+├── run.bat                      # Windows one-click local developer runner
+├── sitemap.xml                  # Root SEO sitemap with Google Image schemas
+├── robots.txt                   # Search crawler indexing rules
+└── vercel.json                  # Production Vercel deployment configuration
 ```
 
 ---
 
-## How to Run
+## 🚀 Getting Started Locally
 
-### 1. Backend Server (Port 8000)
+### Prerequisites
+- **Node.js** (v18 or higher)
+- **Python** (v3.10 or v3.11)
+- **Git**
 
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Vidhitam-chakole/Skill-Gap-AI.git
+cd Skill-Gap-AI
+```
+
+### 2. Backend Setup
 ```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate       # On Windows (or source venv/bin/activate on macOS/Linux)
+
+# Windows:
+venv\Scripts\activate
+# macOS / Linux:
+# source venv/bin/activate
+
 pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+python -m uvicorn app.main:app --reload --port 8000
 ```
+> Backend API will be available at: **http://localhost:8000**  
+> Health Check endpoint: **http://localhost:8000/api/health**
 
-Backend health check: [http://localhost:8000/api/health](http://localhost:8000/api/health)
-
-### 2. Frontend Development Server (Port 5173)
-
+### 3. Frontend Setup
+In a new terminal window:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser. Vite proxies `/api` requests directly to `http://localhost:8000`.
+> Frontend will be running at: **http://localhost:5173**
 
 ---
 
-## How to Download Your LinkedIn Profile PDF
+### ⚡ One-Click Startup (Windows)
+You can launch both the backend and frontend simultaneously with a single command:
+```cmd
+run.bat
+```
 
-1. Open your profile on [LinkedIn](https://www.linkedin.com).
-2. In the top card of your profile, click the **'More'** button (next to 'Open to' / 'Add profile section').
-3. Click **'Save to PDF'** to immediately download your official LinkedIn resume PDF.
-4. Upload that PDF directly in the LinkedIn Review section.
+---
+
+## 🛡️ Privacy & Guarantees
+
+- **No Sign-In Required**: Start auditing LinkedIn dossiers or GitHub repos instantly without registering an account or entering an email.
+- **Zero Data Retention**: Uploaded profile PDFs are processed entirely in memory/in-session and never stored permanently or sold to third-party recruiters.
+- **100% Free**: No subscriptions, paywalls, or feature locks.
+
+---
+
+<div align="center">
+
+Made with ❤️ by [Vidhitam Chakole](https://github.com/Vidhitam-chakole)
+
+**[Visit SkillPulse AI Live](https://skillplusai.vercel.app/)**
+
+</div>
