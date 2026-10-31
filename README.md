@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ SkillPulse AI (SkillGap AI)
+# SkillPulse AI (SkillGap AI)
 ### *Next-Generation AI Career Gap Intelligence & Profile Review Suite*
 
 [![Live Deployment](https://img.shields.io/badge/Live%20Demo-skillplusai.vercel.app-FF6B1A?style=for-the-badge&logo=vercel&logoColor=white)](https://skillplusai.vercel.app/)
@@ -18,7 +18,7 @@
 
 <!-- Centered Live Link Directly Below Screenshot -->
 <p align="center">
-  🌐 <b>Live Application:</b> <a href="https://skillplusai.vercel.app/" target="_blank"><b>https://skillplusai.vercel.app/</b></a> 🚀
+  <b>Live Application:</b> <a href="https://skillplusai.vercel.app/" target="_blank"><b>https://skillplusai.vercel.app/</b></a>
 </p>
 
 <p align="center">
@@ -33,42 +33,42 @@
 
 </div>
 
-## 📌 Overview
+## Overview
 
 **SkillPulse AI** (formerly SkillGap AI) is an intelligent, full-stack career platform designed for software engineers, tech students, and developers. It cross-examines your official **LinkedIn Profile PDF** against your public **GitHub code repositories** to identify critical competency gaps, benchmark engineering best practices, generate adaptive milestone sprint roadmaps, and provide a context-aware AI mentor (*PulseBot*).
 
-> **✨ 100% Free Forever • Zero Sign-In Required • No Credit Card • In-Session Privacy First**
+> **100% Free Forever • Zero Sign-In Required • No Credit Card • In-Session Privacy First**
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-### 1. 📄 Free LinkedIn Profile & PDF Dossier Analyzer
-- **Instant PDF Extraction**: Upload your official LinkedIn resume PDF exported directly via LinkedIn (**More → Save to PDF**).
+### 1. Free LinkedIn Profile & PDF Dossier Analyzer
+- **Instant PDF Extraction**: Upload your official LinkedIn resume PDF exported directly via LinkedIn (**More -> Save to PDF**).
 - **Competency Auditing**: Evaluates claimed experience, detected tech skills, and highlights missing industry qualifications.
 - **ATS Readiness Scoring**: Real-time evaluation against current engineering hiring bars.
 
-### 2. 🐙 Deep GitHub Profile & Code Review Tool
+### 2. Deep GitHub Profile & Code Review Tool
 - **Real-Time GitHub REST Integration**: Enter any public GitHub username (or profile link) with zero authentication barriers.
 - **Byte-Weighted Language Signals**: Accurate repository code distribution, commit velocity, and consistency metrics.
 - **Engineering Hygiene Checks**: Identifies missing test coverage, CI/CD automation pipelines, open-source engagement, and documentation depth.
 
-### 3. 🗺️ Adaptive AI Career Roadmap & Sprint Planner
+### 3. Adaptive AI Career Roadmap & Sprint Planner
 - **Synthesized Profile Intelligence**: Combines real signals from both your LinkedIn resume and GitHub audit.
 - **Stack-Specific Calibration**: Adapts directly to your primary programming languages (Python, TypeScript, Go, Java, Rust).
 - **Flexible Milestone Sprints**: Generates structured 3 to 7-week projects with concrete system architecture blueprints, test frameworks, and shippable deliverables.
 
-### 4. 🧪 Interactive AI Code & Skill Verifier
+### 4. Interactive AI Code & Skill Verifier
 - **Hands-On Coding Assessments**: Timed, multi-language technical challenges calibrated to the languages detected in your GitHub profile.
 - **Algorithmic Accuracy & Edge Cases**: Instant automated grading, syntax validation, and detailed question-by-question reviews.
 
-### 5. 🤖 PulseBot — Autonomous AI Career Coach
+### 5. PulseBot — Autonomous AI Career Coach
 - **Roving Career Mascot**: Companion assistant powered by high-speed inference (Groq / Llama 3.3 70B).
 - **Full Context Memory**: Primed with your verified profile strengths, gaps, and roadmap milestones to answer queries about tech interview prep, system design, and resume optimization.
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## Tech Stack & Architecture
 
 | Layer | Technologies |
 | :--- | :--- |
@@ -80,7 +80,7 @@
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 Skill-Gap-AI/
@@ -118,7 +118,7 @@ Skill-Gap-AI/
 
 ---
 
-## 🚀 Getting Started Locally
+## Getting Started Locally
 
 ### Prerequisites
 - **Node.js** (v18 or higher)
@@ -158,7 +158,7 @@ npm run dev
 
 ---
 
-### ⚡ One-Click Startup (Windows)
+### One-Click Startup (Windows)
 You can launch both the backend and frontend simultaneously with a single command:
 ```cmd
 run.bat
@@ -166,7 +166,7 @@ run.bat
 
 ---
 
-## 🛡️ Privacy & Guarantees
+## Privacy & Guarantees
 
 - **No Sign-In Required**: Start auditing LinkedIn dossiers or GitHub repos instantly without registering an account or entering an email.
 - **Zero Data Retention**: Uploaded profile PDFs are processed entirely in memory/in-session and never stored permanently or sold to third-party recruiters.
@@ -175,8 +175,6 @@ run.bat
 ---
 
 <div align="center">
-
-Made with ❤️ by [Vidhitam Chakole](https://github.com/Vidhitam-chakole)
 
 **[Visit SkillPulse AI Live](https://skillplusai.vercel.app/)**
 
