@@ -25,19 +25,12 @@ export default function Home() {
     (destination) => {
       if (destination === 'chat') {
         openMascotChat();
-      } else if (destination === 'linkedin') {
-        navigate('/linkedin');
-      } else if (destination === 'github') {
-        navigate('/github');
-      } else if (destination === 'roadmap' || destination === 'reports') {
-        navigate('/roadmap');
-      } else if (destination === 'verifier') {
-        navigate('/verifier');
       } else if (destination === 'faq') {
-        const el = document.getElementById('faq');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+      } else if (destination === 'reports') {
+        navigate('/roadmap');
       } else {
-        navigate('/');
+        navigate(destination === 'home' ? '/' : `/${destination}`);
       }
     },
     [navigate, openMascotChat]
@@ -65,7 +58,7 @@ export default function Home() {
       <footer className="home__footer" role="contentinfo">
         <div className="home__footer-inner">
           <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
-          <p>SkillPulse AI — Close your skill gap. Level up your career.</p>
+          <p>SkillPulse AI</p>
 
           <nav className="home__footer-nav" aria-label="Footer Quick Navigation">
             <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>

@@ -2,23 +2,17 @@ import { useAnalysis } from '../../context/AnalysisContext';
 import './Navbar.css';
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Home', icon: 'H', path: '/' },
-  { id: 'linkedin', label: 'LinkedIn', icon: 'in', path: '/linkedin' },
-  { id: 'github', label: 'GitHub', icon: 'gh', path: '/github' },
-  { id: 'roadmap', label: 'Roadmap', icon: 'R', path: '/roadmap' },
-  { id: 'verifier', label: 'Verifier', icon: 'V', path: '/verifier' },
-  { id: 'chat', label: 'PulseBot', icon: 'AI', isMascot: true },
+  { id: 'home', label: 'Home', icon: 'H' },
+  { id: 'linkedin', label: 'LinkedIn', icon: 'in' },
+  { id: 'github', label: 'GitHub', icon: 'gh' },
+  { id: 'roadmap', label: 'Roadmap', icon: 'R' },
+  { id: 'verifier', label: 'Verifier', icon: 'V' },
   { id: 'faq', label: 'FAQ', icon: '?' },
 ];
 
 export default function Navbar({ activeSection, onNavigate }) {
   const { linkedinResult, githubResult, isVerifierUnlocked } = useAnalysis();
   const isVerifierReady = Boolean(linkedinResult || githubResult || isVerifierUnlocked);
-
-  const visibleItems = NAV_ITEMS.filter((item) => {
-    // Show Verifier always or if unlocked/ready
-    return true;
-  });
 
   return (
     <nav className="navbar" aria-label="Main Navigation">
@@ -35,10 +29,10 @@ export default function Navbar({ activeSection, onNavigate }) {
       </div>
 
       <ul className="navbar__links">
-        {visibleItems.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <li key={item.id}>
             <button
-              className={`navbar__link ${activeSection === item.id ? 'navbar__link--active' : ''} ${item.id === 'verifier' && isVerifierReady ? 'navbar__link--unlocked' : ''} ${item.isMascot ? 'navbar__link--mascot' : ''}`}
+              className={`navbar__link ${activeSection === item.id ? 'navbar__link--active' : ''} ${item.id === 'verifier' && isVerifierReady ? 'navbar__link--unlocked' : ''}`}
               onClick={() => onNavigate(item.id)}
               title={item.label}
               aria-label={`Navigate to ${item.label}`}

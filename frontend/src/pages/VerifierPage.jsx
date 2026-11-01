@@ -77,7 +77,7 @@ export default function VerifierPage() {
       <footer className="home__footer" role="contentinfo" style={{ marginTop: '4rem' }}>
         <div className="home__footer-inner">
           <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
-          <p>SkillPulse AI — Close your skill gap. Level up your career.</p>
+          <p>SkillPulse AI</p>
 
           <nav className="home__footer-nav" aria-label="Footer Quick Navigation">
             <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>

@@ -86,20 +86,15 @@ Skill-Gap-AI/
 ├── assets/                      # Project screenshots & visual branding
 │   └── project-screenshot.png
 ├── linkedin_analyzer/           # LinkedIn PDF Parser & Scoring Module
-│   ├── backend/                 # pypdf parsing service, schemas, and endpoints
-│   └── frontend/                # LinkedIn analysis UI components
+│   └── backend/                 # pypdf parsing service, schemas, and endpoints
 ├── github_analyzer/             # GitHub Profiler & Code Quality Module
-│   ├── backend/                 # GitHub REST API consumer & language analyzer
-│   └── frontend/                # GitHub analysis UI components
+│   └── backend/                 # GitHub REST API consumer & language analyzer
 ├── roadmap/                     # Adaptive Career Roadmap Module
-│   ├── backend/                 # Gap synthesis & sprint generator service
-│   └── frontend/                # Interactive milestone roadmap view
+│   └── backend/                 # Gap synthesis & sprint generator service
 ├── skill_verifier/              # Technical Assessment & Coding Sandbox
-│   ├── backend/                 # Question bank, scoring engine, sandbox grader
-│   └── frontend/                # Interactive code runner & quiz interface
+│   └── backend/                 # Question bank, scoring engine, sandbox grader
 ├── ai_agent/                    # Autonomous AI Career Coach Module
-│   ├── backend/                 # PulseBot mentor engine (Groq/OpenAI compatible)
-│   └── frontend/                # Roving chatbot widget & prompt suggestions
+│   └── backend/                 # PulseBot mentor engine (Groq/OpenAI compatible)
 ├── backend/                     # Universal API App (FastAPI)
 │   └── app/
 │       ├── main.py              # Root router, SPA static server, sitemap handler

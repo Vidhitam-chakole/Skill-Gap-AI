@@ -31,15 +31,7 @@ function AppShell() {
   useEffect(() => {
     const handleAppNav = (e) => {
       const destination = e.detail?.destination;
-      if (destination === 'verifier') {
-        navigate('/verifier');
-      } else if (destination === 'linkedin') {
-        navigate('/linkedin');
-      } else if (destination === 'github') {
-        navigate('/github');
-      } else if (destination === 'roadmap') {
-        navigate('/roadmap');
-      }
+      if (destination) navigate(`/${destination}`);
     };
 
     window.addEventListener('app-navigate', handleAppNav);
@@ -59,32 +51,17 @@ function AppShell() {
       }
 
       if (target === 'faq') {
+        const scrollToFaq = () => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
         if (route === 'home') {
-          const el = document.getElementById('faq');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          scrollToFaq();
         } else {
           navigate('/');
-          setTimeout(() => {
-            const el = document.getElementById('faq');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
+          setTimeout(scrollToFaq, 150);
         }
         return;
       }
 
-      if (target === 'home') {
-        navigate('/');
-      } else if (target === 'linkedin') {
-        navigate('/linkedin');
-      } else if (target === 'github') {
-        navigate('/github');
-      } else if (target === 'roadmap') {
-        navigate('/roadmap');
-      } else if (target === 'verifier') {
-        navigate('/verifier');
-      } else {
-        navigate(target);
-      }
+      navigate(target === 'home' ? '/' : `/${target}`);
     },
     [route, navigate, openMascotChat]
   );

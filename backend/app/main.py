@@ -13,7 +13,8 @@ if str(BACKEND_DIR) not in sys.path:
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import settings
@@ -73,9 +74,6 @@ async def http_exception_handler(_request: Request, exc: StarletteHTTPException)
 async def validation_exception_handler(_request: Request, exc: RequestValidationError) -> JSONResponse:
     return JSONResponse(status_code=422, content={"message": _error_message(exc.errors())})
 
-
-from fastapi.responses import FileResponse, JSONResponse, Response
-from fastapi.staticfiles import StaticFiles
 
 DIST_DIR = ROOT_DIR / "frontend" / "dist"
 PUBLIC_DIR = ROOT_DIR / "frontend" / "public"
