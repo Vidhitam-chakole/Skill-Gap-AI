@@ -13,6 +13,7 @@ export default function VerifierPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
+        <span className="page-hero__badge">Skill Plus AI</span>
         <h1 className="page-hero__title">
           AI Code &amp; <span className="page-hero__title-accent">Skill Verifier</span>
         </h1>
@@ -76,8 +77,8 @@ export default function VerifierPage() {
       {/* Footer */}
       <footer className="home__footer" role="contentinfo" style={{ marginTop: '4rem' }}>
         <div className="home__footer-inner">
-          <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
-          <p>SkillPulse AI</p>
+          <img src="/logo.svg" alt="Skill Plus AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
+          <p>Skill Plus AI</p>
 
           <nav className="home__footer-nav" aria-label="Footer Quick Navigation">
             <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>

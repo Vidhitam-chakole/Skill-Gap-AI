@@ -14,11 +14,11 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
-      <image:title>SkillPulse AI — Homepage Preview and Career Intelligence Dashboard</image:title>
+      <image:title>Skill Plus AI — Homepage Preview and Career Intelligence Dashboard</image:title>
     </image:image>
     <image:image>
       <image:loc>https://skillplusai.vercel.app/logo.png</image:loc>
-      <image:title>SkillPulse AI Official Logo</image:title>
+      <image:title>Skill Plus AI Official Logo</image:title>
     </image:image>
   </url>
 
@@ -30,7 +30,7 @@
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
-      <image:title>SkillPulse AI — LinkedIn Profile Analyzer &amp; Resume Review</image:title>
+      <image:title>Skill Plus AI — LinkedIn Profile Analyzer &amp; Resume Review</image:title>
     </image:image>
   </url>
 
@@ -42,7 +42,7 @@
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
-      <image:title>SkillPulse AI — GitHub Profile Analyzer &amp; Code Review</image:title>
+      <image:title>Skill Plus AI — GitHub Profile Analyzer &amp; Code Review</image:title>
     </image:image>
   </url>
 
@@ -54,7 +54,7 @@
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
-      <image:title>SkillPulse AI — AI Career Roadmap &amp; Sprint Planner</image:title>
+      <image:title>Skill Plus AI — AI Career Roadmap &amp; Sprint Planner</image:title>
     </image:image>
   </url>
 
@@ -66,7 +66,7 @@
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
-      <image:title>SkillPulse AI — Interactive Coding Challenges &amp; Skill Verifier</image:title>
+      <image:title>Skill Plus AI — Interactive Coding Challenges &amp; Skill Verifier</image:title>
     </image:image>
   </url>
 </urlset>

@@ -1,6 +1,6 @@
 <div align="center">
 
-# SkillPulse AI (SkillGap AI)
+# Skill Plus AI (SkillGap AI)
 ### *Next-Generation AI Career Gap Intelligence & Profile Review Suite*
 
 
@@ -12,7 +12,7 @@
 
 <!-- Project Screenshot -->
 <p align="center">
-  <img src="./assets/project-screenshot.png" alt="SkillPulse AI Project Preview" width="850" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);" />
+  <img src="./assets/project-screenshot.png" alt="Skill Plus AI Project Preview" width="850" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);" />
 </p>
 
 <!-- Centered Live Link Directly Below Screenshot -->
@@ -22,7 +22,7 @@
 
 <p align="center">
   <a href="https://skillplusai.vercel.app/" target="_blank">
-    <img src="https://img.shields.io/badge/Launch%20SkillPulse%20AI-Visit%20Website-FF6B1A?style=for-the-badge&logo=vercel&logoColor=white" alt="Launch Live App" />
+    <img src="https://img.shields.io/badge/Launch%20Skill%20Plus%20AI-Visit%20Website-FF6B1A?style=for-the-badge&logo=vercel&logoColor=white" alt="Launch Live App" />
   </a>
 </p>
 
@@ -34,7 +34,7 @@
 
 ## Overview
 
-**SkillPulse AI** (formerly SkillGap AI) is an intelligent, full-stack career platform designed for software engineers, tech students, and developers. It cross-examines your official **LinkedIn Profile PDF** against your public **GitHub code repositories** to identify critical competency gaps, benchmark engineering best practices, generate adaptive milestone sprint roadmaps, and provide a context-aware AI mentor (*PulseBot*).
+**Skill Plus AI** (formerly SkillGap AI) is an intelligent, full-stack career platform designed for software engineers, tech students, and developers. It cross-examines your official **LinkedIn Profile PDF** against your public **GitHub code repositories** to identify critical competency gaps, benchmark engineering best practices, generate adaptive milestone sprint roadmaps, and provide a context-aware AI mentor (*PulseBot*).
 
 > **100% Free Forever • Zero Sign-In Required • No Credit Card • In-Session Privacy First**
 
@@ -170,6 +170,6 @@ run.bat
 
 <div align="center">
 
-**[Visit SkillPulse AI Live](https://skillplusai.vercel.app/)**
+**[Visit Skill Plus AI Live](https://skillplusai.vercel.app/)**
 
 </div>

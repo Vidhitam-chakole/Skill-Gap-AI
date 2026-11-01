@@ -20,11 +20,11 @@ export default function Navbar({ activeSection, onNavigate }) {
         className="navbar__logo"
         onClick={() => onNavigate('home')}
         style={{ cursor: 'pointer' }}
-        title="SkillPulse AI Home"
+        title="Skill Plus AI Home"
       >
         <picture>
           <source srcSet="/logo-192.webp" type="image/webp" />
-          <img src="/logo-192.png" alt="SkillPulse AI" width="52" height="52" loading="eager" />
+          <img src="/logo-192.png" alt="Skill Plus AI" width="52" height="52" loading="eager" />
         </picture>
       </div>
 

@@ -4,23 +4,23 @@ import './FAQ.css';
 
 export const FAQ_DATA = [
   {
-    q: 'What is SkillPulse AI and how does the AI skill gap analyzer work?',
-    a: 'SkillPulse AI is an AI-powered career intelligence platform designed for software engineers, students, and tech professionals. It cross-examines your LinkedIn profile or resume PDF against your public GitHub code repositories to detect missing technical skills, benchmark engineering practices, and generate an adaptive learning roadmap to close critical career gaps.',
+    q: 'What is Skill Plus AI and how does the AI skill gap analyzer work?',
+    a: 'Skill Plus AI is an AI-powered career intelligence platform designed for software engineers, students, and tech professionals. It cross-examines your LinkedIn profile or resume PDF against your public GitHub code repositories to detect missing technical skills, benchmark engineering practices, and generate an adaptive learning roadmap to close critical career gaps.',
     tag: 'Platform Overview',
   },
   {
     q: 'How do I get a free LinkedIn profile analysis online?',
-    a: 'You can analyze your LinkedIn profile online in seconds with SkillPulse AI completely free. In your LinkedIn account, navigate to your profile, click "More" in the header card, and select "Save to PDF". Upload the downloaded PDF to SkillPulse AI to parse your work history, verified skills, and identify missing competencies for developer roles.',
+    a: 'You can analyze your LinkedIn profile online in seconds with Skill Plus AI completely free. In your LinkedIn account, navigate to your profile, click "More" in the header card, and select "Save to PDF". Upload the downloaded PDF to Skill Plus AI to parse your work history, verified skills, and identify missing competencies for developer roles.',
     tag: 'LinkedIn Analysis',
   },
   {
     q: 'How does the GitHub profile analyzer review developer repositories?',
-    a: 'Enter your GitHub username or profile link into our GitHub profile review tool. SkillPulse AI fetches your public repositories via the GitHub REST API to measure byte-weighted language percentages, repository star metrics, commit velocity, and key engineering signals such as unit test coverage, CI/CD pipelines, and open-source contributions.',
+    a: 'Enter your GitHub username or profile link into our GitHub profile review tool. Skill Plus AI fetches your public repositories via the GitHub REST API to measure byte-weighted language percentages, repository star metrics, commit velocity, and key engineering signals such as unit test coverage, CI/CD pipelines, and open-source contributions.',
     tag: 'GitHub Code Audit',
   },
   {
-    q: 'Can SkillPulse AI identify skill gaps for software developer jobs and internships?',
-    a: 'Yes. SkillPulse AI is purpose-built for developer profile analysis for internships and full-time software engineering jobs. It benchmarks your profile against current industry hiring demands, highlighting missing qualifications such as containerization (Docker, Kubernetes), automated testing, system design, and backend microservices.',
+    q: 'Can Skill Plus AI identify skill gaps for software developer jobs and internships?',
+    a: 'Yes. Skill Plus AI is purpose-built for developer profile analysis for internships and full-time software engineering jobs. It benchmarks your profile against current industry hiring demands, highlighting missing qualifications such as containerization (Docker, Kubernetes), automated testing, system design, and backend microservices.',
     tag: 'Internships & Jobs',
   },
   {
@@ -34,8 +34,8 @@ export const FAQ_DATA = [
     tag: 'Career Roadmaps',
   },
   {
-    q: 'Is SkillPulse AI free to use?',
-    a: 'Yes, SkillPulse AI is 100% free to use. There are no paywalls, hidden fees, or credit cards required. You can analyze your LinkedIn profile, review unlimited GitHub repositories, complete coding assessments, and generate custom career roadmaps for free.',
+    q: 'Is Skill Plus AI free to use?',
+    a: 'Yes, Skill Plus AI is 100% free to use. There are no paywalls, hidden fees, or credit cards required. You can analyze your LinkedIn profile, review unlimited GitHub repositories, complete coding assessments, and generate custom career roadmaps for free.',
     tag: 'Pricing & Access',
   },
 ];

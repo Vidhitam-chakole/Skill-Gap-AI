@@ -14,13 +14,13 @@ export default function Hero({ onNavigate }) {
 
       <div className="hero__content">
         <h1 className="hero__title reveal">
-          <span className="hero__title-line">Close Your</span>
-          <span className="hero__title-line hero__title-line--accent">Skill Gap</span>
-          <span className="hero__title-line hero__title-line--small">with AI</span>
+          <span className="hero__title-line">Skill</span>
+          <span className="hero__title-line hero__title-line--accent">Plus</span>
+          <span className="hero__title-line hero__title-line--small">AI</span>
         </h1>
 
         <p className="hero__desc reveal">
-          Free LinkedIn profile analyzer and GitHub profile review tool. Identify skill gaps for software developer jobs and internships with personalized AI career roadmaps.
+          Close your skill gap with AI. Free LinkedIn profile analyzer and GitHub profile review tool. Identify skill gaps for software developer jobs and internships with personalized AI career roadmaps.
         </p>
 
         <div className="hero__actions reveal">
@@ -53,7 +53,7 @@ export default function Hero({ onNavigate }) {
         <div className="hero__card hero__card--3">
           <picture>
             <source srcSet="/logo.webp" type="image/webp" />
-            <img src="/logo.png" alt="SkillPulse AI Logo" className="hero__card-logo" width="160" height="106" fetchPriority="high" />
+            <img src="/logo.png" alt="Skill Plus AI Logo" className="hero__card-logo" width="160" height="106" fetchPriority="high" />
           </picture>
         </div>
         <div className="hero__arrow-deco" aria-hidden="true">→</div>

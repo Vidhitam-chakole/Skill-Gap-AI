@@ -57,8 +57,8 @@ export default function Home() {
       {/* Footer */}
       <footer className="home__footer" role="contentinfo">
         <div className="home__footer-inner">
-          <img src="/logo.svg" alt="SkillPulse AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
-          <p>SkillPulse AI</p>
+          <img src="/logo.svg" alt="Skill Plus AI Logo" className="home__footer-logo" width="72" height="72" loading="lazy" />
+          <p>Skill Plus AI</p>
 
           <nav className="home__footer-nav" aria-label="Footer Quick Navigation">
             <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>

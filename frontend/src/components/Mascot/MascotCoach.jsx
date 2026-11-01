@@ -205,7 +205,7 @@ export default function MascotCoach() {
         { text: 'Review my GitHub repositories', tab: '/github' },
         { text: 'Generate dynamic Career Roadmap', tab: '/roadmap' },
         { text: 'Take AI Code Verification test', tab: '/verifier' },
-        { text: 'How does SkillPulse AI work?', tab: '/' },
+        { text: 'How does Skill Plus AI work?', tab: '/' },
       ];
 
   const getTabForText = (text) => {
@@ -253,7 +253,7 @@ export default function MascotCoach() {
 
       <aside
         className={`mascot-root ${!shouldShowMascot ? 'mascot-root--hidden' : ''} ${!isOpen ? 'mascot-root--roaming' : ''} ${isOpen ? 'mascot-root--open' : ''}`}
-        aria-label="SkillPulse AI Career Mascot"
+        aria-label="Skill Plus AI Career Mascot"
       >
         {/* Speech / Thought Bubble (When closed) */}
         {!isOpen && showSpeechBubble && (
