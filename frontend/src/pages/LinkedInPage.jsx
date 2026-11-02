@@ -5,13 +5,13 @@ import './Pages.css';
 const LinkedInAnalyzer = lazy(() => import('../components/LinkedInAnalyzer/LinkedInAnalyzer'));
 
 export default function LinkedInPage() {
-  const { navigate, openMascotChat } = useRouter();
+  const { navigate } = useRouter();
 
   return (
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">Skill Plus AI</span>
+
         <h1 className="page-hero__title">
           LinkedIn Profile <span className="page-hero__title-accent">Analyzer</span>
         </h1>
@@ -33,7 +33,6 @@ export default function LinkedInPage() {
         <div className="page-next-steps__grid">
           <div className="page-next-card" onClick={() => navigate('/github')}>
             <div>
-              <span className="page-next-card__tag">Step 2: Code Verification</span>
               <h3 className="page-next-card__title">Analyze Your GitHub Repositories</h3>
               <p className="page-next-card__desc">
                 Cross-reference your claimed LinkedIn skills with actual code commits, test suites, and language distributions across your public GitHub profile.
@@ -46,7 +45,6 @@ export default function LinkedInPage() {
 
           <div className="page-next-card" onClick={() => navigate('/roadmap')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--yellow)' }}>Step 3: Action Plan</span>
               <h3 className="page-next-card__title">Generate Dynamic Career Roadmap</h3>
               <p className="page-next-card__desc">
                 Transform identified LinkedIn gaps into milestone-driven engineering sprints with curated system design topics, project architectures, and learning goals.
@@ -54,19 +52,6 @@ export default function LinkedInPage() {
             </div>
             <div className="page-next-card__cta">
               View Adaptive Roadmap →
-            </div>
-          </div>
-
-          <div className="page-next-card" onClick={() => openMascotChat('Review my LinkedIn profile strengths and suggest 3 high-impact resume improvements')}>
-            <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--lime)' }}>Step 4: AI Coaching</span>
-              <h3 className="page-next-card__title">Chat with PulseBot Mascot</h3>
-              <p className="page-next-card__desc">
-                Ask our roving AI Career Coach for personalized resume bullet rewrites, ATS keyword optimization, and tech interview strategy.
-              </p>
-            </div>
-            <div className="page-next-card__cta">
-              Ask AI Coach Now →
             </div>
           </div>
         </div>

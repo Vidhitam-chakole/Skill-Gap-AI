@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAnalysis } from '../../context/AnalysisContext';
-import { SectionHeader, Sticker } from '../Decorative/Decorative';
+import { SectionHeader } from '../Decorative/Decorative';
 import { skillVerifierApi } from '../../services/api';
 import './SkillVerifier.css';
 
@@ -284,7 +284,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
 
   return (
     <section id="verifier" className="verifier">
-      <Sticker color="yellow" rotation={3} className="verifier__sticker">AI Skill Verifier &amp; Assessment</Sticker>
+
 
       <SectionHeader
         title="AI Skill Verifier &amp; Technical Coding Assessment"

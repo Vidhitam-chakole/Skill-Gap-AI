@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { roadmapApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
-import { SectionHeader, Sticker } from '../Decorative/Decorative';
+import { SectionHeader } from '../Decorative/Decorative';
 import '../LinkedInAnalyzer/Analyzer.css';
 import './Roadmap.css';
 
@@ -53,7 +53,7 @@ export default function Roadmap() {
 
   return (
     <section id="roadmap" className="roadmap">
-      <Sticker color="yellow" rotation={-3} className="roadmap__sticker">AI Career Roadmap</Sticker>
+
 
       <SectionHeader
         title="AI Career Analyzer &amp; Adaptive Roadmap"

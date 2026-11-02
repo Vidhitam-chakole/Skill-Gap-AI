@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SectionHeader, Sticker } from '../Decorative/Decorative';
+import { SectionHeader } from '../Decorative/Decorative';
 import './FAQ.css';
 
 export const FAQ_DATA = [
@@ -49,9 +49,9 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="faq-section" aria-labelledby="faq-heading">
-      <Sticker color="yellow" rotation={-3} className="faq__sticker">
-        AEO &amp; Knowledge Base
-      </Sticker>
+
+
+
 
       <SectionHeader
         title="Frequently Asked Questions"

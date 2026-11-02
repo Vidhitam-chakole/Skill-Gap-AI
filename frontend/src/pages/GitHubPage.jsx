@@ -5,13 +5,13 @@ import './Pages.css';
 const GitHubAnalyzer = lazy(() => import('../components/GitHubAnalyzer/GitHubAnalyzer'));
 
 export default function GitHubPage() {
-  const { navigate, openMascotChat } = useRouter();
+  const { navigate } = useRouter();
 
   return (
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">Skill Plus AI</span>
+
         <h1 className="page-hero__title">
           GitHub Profile <span className="page-hero__title-accent">Analyzer</span>
         </h1>
@@ -33,7 +33,6 @@ export default function GitHubPage() {
         <div className="page-next-steps__grid">
           <div className="page-next-card" onClick={() => navigate('/verifier')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--lime)' }}>Step 2: Technical Test</span>
               <h3 className="page-next-card__title">Interactive AI Skill Verifier</h3>
               <p className="page-next-card__desc">
                 Put your detected GitHub languages to the test. Take automated, timed coding challenges tailored to Python, JavaScript, TypeScript, Go, or Java.
@@ -46,7 +45,6 @@ export default function GitHubPage() {
 
           <div className="page-next-card" onClick={() => navigate('/roadmap')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--yellow)' }}>Step 3: Roadmap</span>
               <h3 className="page-next-card__title">Synthesize Your Career Roadmap</h3>
               <p className="page-next-card__desc">
                 Generate dynamic 4-week project sprints to build production-grade repositories that impress technical hiring managers and senior architects.
@@ -59,7 +57,6 @@ export default function GitHubPage() {
 
           <div className="page-next-card" onClick={() => navigate('/linkedin')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--pink)' }}>Step 4: Resume Match</span>
               <h3 className="page-next-card__title">Cross-Reference LinkedIn Profile</h3>
               <p className="page-next-card__desc">
                 Upload your LinkedIn PDF dossier to compare your claimed experience with your real GitHub commits and identify discrepancies.

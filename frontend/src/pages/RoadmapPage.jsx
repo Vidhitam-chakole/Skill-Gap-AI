@@ -6,7 +6,7 @@ import './Pages.css';
 const Roadmap = lazy(() => import('../components/Roadmap/Roadmap'));
 
 export default function RoadmapPage() {
-  const { navigate, openMascotChat } = useRouter();
+  const { navigate } = useRouter();
   const { linkedinResult, githubResult } = useAnalysis();
   const hasAnalysis = Boolean(linkedinResult || githubResult);
 
@@ -14,7 +14,7 @@ export default function RoadmapPage() {
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">Skill Plus AI</span>
+
         <h1 className="page-hero__title">
           AI Career <span className="page-hero__title-accent">Roadmap</span>
         </h1>
@@ -64,7 +64,6 @@ export default function RoadmapPage() {
         <div className="page-next-steps__grid">
           <div className="page-next-card" onClick={() => navigate('/verifier')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--lime)' }}>Interactive Practice</span>
               <h3 className="page-next-card__title">Validate Skills in Code Verifier</h3>
               <p className="page-next-card__desc">
                 Test your knowledge of concurrency, memory management, and asynchronous patterns with instant automated test grading.
@@ -72,19 +71,6 @@ export default function RoadmapPage() {
             </div>
             <div className="page-next-card__cta">
               Start Verification Challenges →
-            </div>
-          </div>
-
-          <div className="page-next-card" onClick={() => openMascotChat('Explain my roadmap sprints and recommend the best project architecture for sprint 1')}>
-            <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--cyan)' }}>AI Mentorship</span>
-              <h3 className="page-next-card__title">Ask PulseBot for Sprint Feedback</h3>
-              <p className="page-next-card__desc">
-                Have questions about specific sprint tasks or need book and course recommendations? PulseBot is ready to guide you.
-              </p>
-            </div>
-            <div className="page-next-card__cta">
-              Chat with AI Mentor →
             </div>
           </div>
         </div>

@@ -6,14 +6,14 @@ import './Pages.css';
 const SkillVerifier = lazy(() => import('../components/SkillVerifier/SkillVerifier'));
 
 export default function VerifierPage() {
-  const { navigate, openMascotChat } = useRouter();
+  const { navigate } = useRouter();
   const { verifierTargetLang } = useAnalysis();
 
   return (
     <div className="page-wrapper">
       {/* Page Hero Header */}
       <header className="page-hero">
-        <span className="page-hero__badge">Skill Plus AI</span>
+
         <h1 className="page-hero__title">
           AI Code &amp; <span className="page-hero__title-accent">Skill Verifier</span>
         </h1>
@@ -35,7 +35,6 @@ export default function VerifierPage() {
         <div className="page-next-steps__grid">
           <div className="page-next-card" onClick={() => navigate('/roadmap')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--yellow)' }}>Career Strategy</span>
               <h3 className="page-next-card__title">Translate Scores into Sprint Sprints</h3>
               <p className="page-next-card__desc">
                 Review your dynamic roadmap to see which verified skills open new project milestones and interview opportunities.
@@ -48,7 +47,6 @@ export default function VerifierPage() {
 
           <div className="page-next-card" onClick={() => navigate('/github')}>
             <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--cyan)' }}>Repository Audit</span>
               <h3 className="page-next-card__title">Analyze GitHub Repositories</h3>
               <p className="page-next-card__desc">
                 Verify that your public GitHub repositories reflect the languages and frameworks you've demonstrated in testing.
@@ -56,19 +54,6 @@ export default function VerifierPage() {
             </div>
             <div className="page-next-card__cta">
               Review GitHub Profile →
-            </div>
-          </div>
-
-          <div className="page-next-card" onClick={() => openMascotChat('Give me 3 practice tips for technical coding assessments and data structure interviews')}>
-            <div>
-              <span className="page-next-card__tag" style={{ background: 'var(--lime)' }}>AI Tutoring</span>
-              <h3 className="page-next-card__title">Practice with PulseBot Mascot</h3>
-              <p className="page-next-card__desc">
-                Stuck on a tricky edge case or time complexity optimization? Ask PulseBot for hints and conceptual breakdowns.
-              </p>
-            </div>
-            <div className="page-next-card__cta">
-              Ask PulseBot for Hints →
             </div>
           </div>
         </div>

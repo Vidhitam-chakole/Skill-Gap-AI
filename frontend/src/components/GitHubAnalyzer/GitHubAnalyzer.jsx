@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { gitHubApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
-import { SectionHeader, Sticker } from '../Decorative/Decorative';
+import { SectionHeader } from '../Decorative/Decorative';
 import GitHubAutocomplete from './GitHubAutocomplete';
 import '../LinkedInAnalyzer/Analyzer.css';
 
@@ -33,7 +33,7 @@ export default function GitHubAnalyzer() {
 
   return (
     <section id="github" className="analyzer analyzer--github">
-      <Sticker color="cyan" rotation={-4} className="analyzer__sticker">GitHub Profile Review Tool</Sticker>
+
 
       <SectionHeader
         title="GitHub Profile Analyzer &amp; Developer Review Tool"

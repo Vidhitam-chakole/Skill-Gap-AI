@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { linkedInApi } from '../../services/api';
 import { useAnalysis } from '../../context/AnalysisContext';
-import { SectionHeader, Sticker } from '../Decorative/Decorative';
+import { SectionHeader } from '../Decorative/Decorative';
 import './Analyzer.css';
 
 export default function LinkedInAnalyzer() {
@@ -74,7 +74,7 @@ export default function LinkedInAnalyzer() {
 
   return (
     <section id="linkedin" className="analyzer">
-      <Sticker color="pink" rotation={3} className="analyzer__sticker">Free LinkedIn Profile Analysis</Sticker>
+
 
       <SectionHeader
         title="LinkedIn Profile Analyzer &amp; Resume Review"
