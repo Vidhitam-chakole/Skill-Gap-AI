@@ -1,0 +1,338 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": true,
+  "lint": {
+    "ok": false,
+    "errorCount": 10,
+    "warningCount": 6,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "root_missing_composition_id",
+        "severity": "error",
+        "message": "Root composition is missing `data-composition-id`.",
+        "selector": "#bg-music",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add a stable `data-composition-id` to the entry composition wrapper."
+      },
+      {
+        "code": "root_missing_dimensions",
+        "severity": "error",
+        "message": "Root composition is missing `data-width` or `data-height`.",
+        "selector": "#bg-music",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Set numeric `data-width` and `data-height` on the entry composition root."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#mascot-container\" for y between 4.50s and 4.80s.",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#mascot-container\" for y between 4.80s and 5.10s.",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#mascot-container\" for y between 9.50s and 9.60s.",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#mascot-container\" for y between 9.60s and 10.10s.",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#mascot-container\" for y between 15.20s and 15.90s.",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 4.80s and 5.10s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 9.60s and 9.60s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 9.60s and 10.10s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 11.20s and 11.20s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 12.80s and 12.80s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 14.40s and 14.40s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"+=18\" on \"#mascot-container\" start while another writer for the same property is active between 15.20s and 15.90s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "gsap_relative_value_second_writer",
+        "severity": "error",
+        "message": "Relative value(s) y: \"-=18\" on \"#mascot-container\" start while another writer for the same property is active between 16.00s and 16.00s. Relative tweens capture their base at tween init: the sequential path inits mid-flight of the other writer, a cold render worker landing later inits with its end state, so the same frame renders at two different positions (snap at chunk boundaries).",
+        "selector": "#mascot-container",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use absolute values for y, or a fromTo() with explicit endpoints, so every seek path resolves the same state. Single-writer relative values are safe; the conflict is the second writer."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 370 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 0,
+    "samples": [],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [],
+    "checked": 0,
+    "passed": 0
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "step": 0,
+    "samples": 0
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

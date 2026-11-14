@@ -1,0 +1,9 @@
+{
+  "name": "skill-plus-ai-brag",
+  "private": true,
+  "scripts": {
+    "dev": "hyperframes preview",
+    "check": "hyperframes check",
+    "render": "hyperframes render"
+  }
+}

@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Skill Plus AI — 30s Launch Brag</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <!-- GSAP 3 -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #f5f0e8;
+        --ink: #0a0a0a;
+        --orange: #ff6b1a;
+        --cyan: #00e5ff;
+        --yellow: #ffe600;
+        --pink: #ff3d9a;
+        --lime: #b8ff00;
+        --purple: #9b5de5;
+        --white: #fafafa;
+        --border: 4px solid #0a0a0a;
+        --shadow: 8px 8px 0 #0a0a0a;
+        --shadow-lg: 14px 14px 0 #0a0a0a;
+        --font-display: 'Archivo Black', sans-serif;
+        --font-body: 'Space Grotesk', sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-body);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        background: var(--ground);
+        perspective: 1400px;
+        overflow: hidden;
+      }
+
+      .grid-bg {
+        position: absolute;
+        inset: 0;
+        background-image: 
+          linear-gradient(to right, rgba(10, 10, 10, 0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(10, 10, 10, 0.06) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
+      #camera {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        transform-style: preserve-3d;
+        transform-origin: 50% 50%;
+        will-change: transform;
+      }
+
+      .deco-shape {
+        position: absolute;
+        border: var(--border);
+        box-shadow: var(--shadow);
+        pointer-events: none;
+      }
+      .deco-circle {
+        border-radius: 50%;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform-style: preserve-3d;
+      }
+
+      .brutal-card {
+        border: var(--border);
+        box-shadow: var(--shadow);
+        background: var(--white);
+        border-radius: 4px;
+      }
+
+      .step-badge {
+        font-family: var(--font-display);
+        font-size: 24px;
+        text-transform: uppercase;
+        background: var(--yellow);
+        border: var(--border);
+        box-shadow: 6px 6px 0 var(--ink);
+        padding: 8px 24px;
+        margin-bottom: 20px;
+        color: var(--ink);
+      }
+
+      .sticker {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 18px;
+        font-family: var(--font-display);
+        font-size: 20px;
+        text-transform: uppercase;
+        border: var(--border);
+        box-shadow: 5px 5px 0 var(--ink);
+        color: var(--ink);
+        transform: rotate(-3deg);
+      }
+      .sticker--yellow { background: var(--yellow); }
+      .sticker--lime { background: var(--lime); transform: rotate(4deg); }
+      .sticker--orange { background: var(--orange); }
+
+      /* SCENE 1 */
+      #scene-1 { z-index: 10; }
+      .hero-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .hero-title-group {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      .hero-title {
+        font-family: var(--font-display);
+        font-size: 130px;
+        line-height: 0.95;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-shadow: 8px 8px 0px rgba(10, 10, 10, 0.15);
+      }
+      .hero-title-accent {
+        color: var(--orange);
+        background: var(--ink);
+        padding: 4px 24px;
+        border-radius: 8px;
+        box-shadow: 10px 10px 0 var(--orange);
+      }
+      .hero-tagline {
+        font-family: var(--font-body);
+        font-size: 32px;
+        font-weight: 700;
+        max-width: 1100px;
+        line-height: 1.35;
+        background: var(--white);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        padding: 16px 36px;
+        margin-top: 12px;
+        color: var(--ink);
+      }
+      .hero-badges-row {
+        display: flex;
+        gap: 28px;
+        margin-top: 32px;
+      }
+
+      /* SCENE 2: LINKEDIN EXTRACTION */
+      #scene-2 { z-index: 20; opacity: 0; pointer-events: none; }
+      .feature-box {
+        width: 1420px;
+        padding: 36px 44px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .feature-box__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 4px solid var(--ink);
+        padding-bottom: 18px;
+      }
+      .feature-box__title {
+        font-family: var(--font-display);
+        font-size: 38px;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+      .pdf-pill {
+        padding: 8px 20px;
+        background: var(--orange);
+        font-family: var(--font-display);
+        font-size: 20px;
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        color: var(--ink);
+      }
+      .linkedin-content {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 36px;
+        align-items: center;
+      }
+      .dossier-details {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .dossier-headline {
+        font-family: var(--font-display);
+        font-size: 28px;
+        color: var(--ink);
+      }
+      .skills-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .score-box-big {
+        background: var(--ground);
+        border: 4px solid var(--ink);
+        box-shadow: 6px 6px 0 var(--ink);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+      }
+      .score-num-giant {
+        font-family: var(--font-display);
+        font-size: 88px;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .score-sublabel {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      /* SCENE 3: GITHUB CODE REVIEW */
+      #scene-3 { z-index: 30; opacity: 0; pointer-events: none; }
+      .github-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .lang-bars-big {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .lang-row-big {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-weight: 700;
+        font-size: 22px;
+        color: var(--ink);
+      }
+      .lang-track-big {
+        flex: 1;
+        height: 32px;
+        background: #e0d9cf;
+        border: 3px solid var(--ink);
+        overflow: hidden;
+      }
+      .github-metrics-row {
+        display: flex;
+        gap: 32px;
+        border-top: 4px solid var(--ink);
+        padding-top: 18px;
+      }
+      .metric-badge {
+        flex: 1;
+        background: var(--ground);
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        padding: 14px 20px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      /* SCENE 4: CAREER ROADMAP & VERIFIER */
+      #scene-4 { z-index: 40; opacity: 0; pointer-events: none; }
+      .roadmap-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        width: 1420px;
+      }
+      .sprint-card-box {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .sprint-badge-tag {
+        font-family: var(--font-display);
+        font-size: 20px;
+        display: inline-block;
+        padding: 6px 14px;
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        width: fit-content;
+        color: var(--ink);
+      }
+      .sprint-card-heading {
+        font-family: var(--font-display);
+        font-size: 30px;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+      .verifier-card-full {
+        width: 1420px;
+        padding: 22px 36px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--lime);
+        margin-top: 24px;
+      }
+
+      /* SCENE 5: PULSEBOT CHAT & OUTRO */
+      #scene-5 { z-index: 50; opacity: 0; pointer-events: none; }
+      .chat-showcase-box {
+        width: 1300px;
+        padding: 28px 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+      .chat-header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 4px solid var(--ink);
+        padding-bottom: 12px;
+      }
+      .chat-message-row {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .chat-bubble-user {
+        align-self: flex-end;
+        background: var(--yellow);
+        border: 3px solid var(--ink);
+        box-shadow: 5px 5px 0 var(--ink);
+        padding: 14px 24px;
+        font-weight: 700;
+        font-size: 24px;
+        max-width: 800px;
+        border-radius: 8px 8px 0 8px;
+        color: var(--ink);
+      }
+      .chat-bubble-bot {
+        align-self: flex-start;
+        background: var(--ground);
+        border: 3px solid var(--ink);
+        box-shadow: 5px 5px 0 var(--ink);
+        padding: 16px 26px;
+        font-weight: 700;
+        font-size: 24px;
+        max-width: 900px;
+        border-radius: 8px 8px 8px 0;
+        color: var(--ink);
+      }
+      .outro-headline-30s {
+        font-family: var(--font-display);
+        font-size: 64px;
+        text-transform: uppercase;
+        text-align: center;
+        color: var(--ink);
+        margin-top: 10px;
+      }
+      .cta-button-30s {
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        font-family: var(--font-display);
+        font-size: 34px;
+        text-transform: uppercase;
+        background: var(--orange);
+        color: var(--ink);
+        border: var(--border);
+        box-shadow: 10px 10px 0 var(--ink);
+        padding: 16px 48px;
+        border-radius: 4px;
+        margin-top: 14px;
+      }
+
+      /* PULSEBOT MASCOT */
+      #mascot-container {
+        position: absolute;
+        z-index: 100;
+        width: 300px;
+        pointer-events: none;
+        transform-style: preserve-3d;
+      }
+      .pulsebot {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mascot-speech {
+        position: absolute;
+        bottom: 260px;
+        left: -30px;
+        background: var(--white);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        padding: 12px 20px;
+        font-weight: 700;
+        font-size: 20px;
+        width: 320px;
+        border-radius: 8px;
+        z-index: 110;
+        line-height: 1.3;
+        color: var(--ink);
+      }
+      .mascot-speech::after {
+        content: '';
+        position: absolute;
+        bottom: -16px;
+        left: 70px;
+        border-width: 16px 14px 0;
+        border-style: solid;
+        border-color: var(--ink) transparent;
+        display: block;
+        width: 0;
+      }
+      .bamboo-copter {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: -6px;
+        z-index: 105;
+      }
+      .copter-blades {
+        position: relative;
+        width: 110px;
+        height: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform-origin: 50% 50%;
+      }
+      .copter-wing {
+        position: absolute;
+        width: 48px;
+        height: 10px;
+        background: var(--yellow);
+        border: 3px solid var(--ink);
+        border-radius: 6px;
+      }
+      .copter-wing--left { left: 0; }
+      .copter-wing--right { right: 0; }
+      .copter-hub {
+        width: 18px;
+        height: 18px;
+        background: var(--orange);
+        border: 3px solid var(--ink);
+        border-radius: 50%;
+        z-index: 2;
+      }
+      .copter-stem {
+        width: 6px;
+        height: 18px;
+        background: var(--ink);
+      }
+      .robot-head {
+        width: 130px;
+        height: 105px;
+        background: var(--white);
+        border: var(--border);
+        box-shadow: 6px 6px 0 var(--ink);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 102;
+      }
+      .robot-visor {
+        width: 100px;
+        height: 68px;
+        background: #05070a;
+        border: 3px solid var(--ink);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .visor-eyes {
+        display: flex;
+        gap: 20px;
+        font-family: var(--font-display);
+        font-size: 24px;
+        color: var(--cyan);
+        text-shadow: 0 0 8px var(--cyan);
+      }
+      .visor-mouth {
+        width: 22px;
+        height: 4px;
+        background: var(--lime);
+        border-radius: 2px;
+        box-shadow: 0 0 6px var(--lime);
+      }
+      .robot-torso {
+        width: 105px;
+        height: 80px;
+        background: var(--orange);
+        border: var(--border);
+        box-shadow: 6px 6px 0 var(--ink);
+        border-radius: 14px;
+        margin-top: -6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 101;
+      }
+      .pulse-core {
+        width: 36px;
+        height: 36px;
+        background: var(--cyan);
+        border: 3px solid var(--ink);
+        border-radius: 50%;
+        box-shadow: 0 0 14px var(--cyan);
+      }
+      .robot-arm {
+        position: absolute;
+        width: 18px;
+        height: 48px;
+        background: var(--white);
+        border: 3px solid var(--ink);
+        border-radius: 8px;
+        top: 12px;
+      }
+      .robot-arm--left { left: -14px; transform: rotate(15deg); }
+      .robot-arm--right { right: -14px; transform: rotate(-15deg); }
+      .robot-thruster {
+        width: 30px;
+        height: 16px;
+        background: var(--yellow);
+        border: 3px solid var(--ink);
+        border-radius: 0 0 10px 10px;
+        margin-top: -4px;
+        box-shadow: 0 8px 16px rgba(0, 229, 255, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- AUDIO ELEMENTS -->
+      <audio id="bg-music" data-start="0" data-duration="30" data-track-index="10" data-volume="0.35" src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3"></audio>
+      <audio id="sfx-title-drop" data-start="0.4" data-duration="0.19" data-track-index="11" data-volume="0.6" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="sfx-stickers" data-start="1.0" data-duration="0.11" data-track-index="12" data-volume="0.55" src="assets/sfx/interface/drop_001.ogg"></audio>
+      <audio id="sfx-linkedin" data-start="5.4" data-duration="0.30" data-track-index="13" data-volume="0.5" src="assets/sfx/casino/card-slide-1.ogg"></audio>
+      <audio id="sfx-ats-score" data-start="7.5" data-duration="0.20" data-track-index="14" data-volume="0.6" src="assets/sfx/interface/switch_001.ogg"></audio>
+      <audio id="sfx-github" data-start="11.4" data-duration="0.30" data-track-index="15" data-volume="0.5" src="assets/sfx/casino/card-slide-1.ogg"></audio>
+      <audio id="sfx-lang-bars" data-start="13.0" data-duration="0.15" data-track-index="16" data-volume="0.55" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-roadmap" data-start="17.5" data-duration="0.15" data-track-index="17" data-volume="0.55" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-verifier" data-start="19.8" data-duration="0.26" data-track-index="18" data-volume="0.6" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
+      <audio id="sfx-chat" data-start="23.8" data-duration="0.15" data-track-index="19" data-volume="0.55" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-bell" data-start="26.5" data-duration="1.50" data-track-index="20" data-volume="0.65" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+
+      <div class="grid-bg"></div>
+
+      <!-- SCREEN STUDIO 2.5D CAMERA WRAPPER -->
+      <div id="camera">
+        <!-- Floating Neo-brutalist Background Elements -->
+        <div class="deco-shape deco-circle" style="width: 140px; height: 140px; background: var(--yellow); top: 80px; left: 80px;" data-layout-ignore="true"></div>
+        <div class="deco-shape" style="width: 90px; height: 90px; background: var(--pink); bottom: 100px; right: 100px; transform: rotate(18deg);" data-layout-ignore="true"></div>
+        <div class="deco-shape deco-circle" style="width: 80px; height: 80px; background: var(--cyan); bottom: 80px; left: 120px;" data-layout-ignore="true"></div>
+
+        <!-- ==================== SCENE 1: HOOK & HERO ==================== -->
+        <section id="scene-1" class="scene">
+          <div class="hero-center">
+            <div class="hero-title-group" id="hero-title-el">
+              <h1 class="hero-title">SKILL</h1>
+              <div class="hero-title hero-title-accent">PLUS</div>
+              <h1 class="hero-title">AI</h1>
+            </div>
+
+            <div class="hero-tagline" id="hero-tagline-el">
+              Close your tech career gap with AI • Cross-examines LinkedIn PDFs & GitHub code
+            </div>
+
+            <div class="hero-badges-row">
+              <div class="sticker sticker--lime" id="sticker-1">100% FREE FOREVER</div>
+              <div class="sticker sticker--yellow" id="sticker-2">ZERO SIGN-IN REQUIRED</div>
+              <div class="sticker sticker--orange" id="sticker-3">IN-SESSION PRIVACY FIRST</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCENE 2: FEATURE 1 — LINKEDIN PDF ==================== -->
+        <section id="scene-2" class="scene">
+          <div class="step-badge" id="badge-step-1">01 • LINKEDIN PROFILE PDF EXTRACTION</div>
+          <div class="brutal-card feature-box" id="card-linkedin-box">
+            <div class="feature-box__top">
+              <h2 class="feature-box__title">Instant Dossier Analysis</h2>
+              <span class="pdf-pill" data-layout-ignore="true">MORE -> SAVE TO PDF</span>
+            </div>
+            <div class="linkedin-content">
+              <div class="dossier-details">
+                <div class="dossier-headline">Extracted Competency & Skill Audit</div>
+                <div style="font-size: 20px; font-weight: 600;" data-layout-ignore="true">
+                  Automatically extracts claimed experience, verified roles, and highlights missing industry qualifications.
+                </div>
+                <div class="skills-cloud" data-layout-ignore="true">
+                  <span class="sticker sticker--yellow" style="font-size: 16px; padding: 6px 12px; transform: none;">System Design</span>
+                  <span class="sticker sticker--lime" style="font-size: 16px; padding: 6px 12px; transform: none;">Kafka Pipelines</span>
+                  <span class="sticker sticker--orange" style="font-size: 16px; padding: 6px 12px; transform: none;">CI/CD Actions</span>
+                  <span class="sticker" style="background: var(--cyan); font-size: 16px; padding: 6px 12px; transform: none;">Microservices</span>
+                </div>
+              </div>
+              <div class="score-box-big">
+                <div class="score-sublabel">ATS Readiness Score</div>
+                <span class="score-num-giant" id="score-ats-num">87</span>
+                <div style="font-size: 16px; font-weight: 700; color: #444;" data-layout-ignore="true">Top 10% Senior Engineering Bar</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCENE 3: FEATURE 2 — GITHUB REVIEW ==================== -->
+        <section id="scene-3" class="scene">
+          <div class="step-badge" id="badge-step-2">02 • DEEP GITHUB CODE & REPO REVIEW</div>
+          <div class="brutal-card feature-box" id="card-github-box">
+            <div class="feature-box__top">
+              <h2 class="feature-box__title">Repo Quality & Hygiene Audit</h2>
+              <span class="pdf-pill" style="background: var(--cyan);" data-layout-ignore="true">@developer • 42 REPOS</span>
+            </div>
+            <div class="github-content">
+              <div class="lang-bars-big">
+                <div class="lang-row-big">
+                  <span style="width: 140px;" data-layout-ignore="true">TypeScript</span>
+                  <div class="lang-track-big"><div class="lang-fill" id="lang-fill-ts" style="width: 54%; background: var(--cyan);"></div></div>
+                  <span data-layout-ignore="true">54%</span>
+                </div>
+                <div class="lang-row-big">
+                  <span style="width: 140px;" data-layout-ignore="true">Python</span>
+                  <div class="lang-track-big"><div class="lang-fill" id="lang-fill-py" style="width: 32%; background: var(--orange);"></div></div>
+                  <span data-layout-ignore="true">32%</span>
+                </div>
+                <div class="lang-row-big">
+                  <span style="width: 140px;" data-layout-ignore="true">Go</span>
+                  <div class="lang-track-big"><div class="lang-fill" id="lang-fill-go" style="width: 14%; background: var(--lime);"></div></div>
+                  <span data-layout-ignore="true">14%</span>
+                </div>
+              </div>
+              <div class="github-metrics-row" data-layout-ignore="true">
+                <div class="metric-badge"><strong>Commit Velocity:</strong> 18 commits / wk</div>
+                <div class="metric-badge"><strong>Test Hygiene:</strong> 82% Automated CI/CD</div>
+                <div class="metric-badge"><strong>Gap Flag:</strong> Missing Distributed Caching</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCENE 4: FEATURE 3 — CAREER ROADMAP ==================== -->
+        <section id="scene-4" class="scene">
+          <div class="step-badge" id="badge-step-3">03 • ADAPTIVE CAREER ROADMAP & SPRINTS</div>
+          <div class="roadmap-grid">
+            <div class="brutal-card sprint-card-box" id="sprint-box-1" style="border-left: 14px solid var(--pink);">
+              <span class="sprint-badge-tag" style="background: var(--pink);" data-layout-ignore="true">SPRINT 01 • 3 WEEKS</span>
+              <h3 class="sprint-card-heading">Distributed Systems & Redis Caching</h3>
+              <p style="font-size: 19px; font-weight: 600; line-height: 1.4;" data-layout-ignore="true">
+                Master high-throughput event queues, atomic rate limiters, and cluster replication patterns.
+              </p>
+            </div>
+            <div class="brutal-card sprint-card-box" id="sprint-box-2" style="border-left: 14px solid var(--yellow);">
+              <span class="sprint-badge-tag" style="background: var(--yellow);" data-layout-ignore="true">SPRINT 02 • 2 WEEKS</span>
+              <h3 class="sprint-card-heading">Async Architecture & CI/CD Pipelines</h3>
+              <p style="font-size: 19px; font-weight: 600; line-height: 1.4;" data-layout-ignore="true">
+                Implement end-to-end GitHub Actions automated testing, Docker containers, and live deployment.
+              </p>
+            </div>
+          </div>
+          <div class="brutal-card verifier-card-full" id="verifier-box-full">
+            <div>
+              <h3 style="font-family: var(--font-display); font-size: 30px; text-transform: uppercase;">Interactive AI Code Verifier</h3>
+              <div style="font-weight: 700; font-size: 18px;" data-layout-ignore="true">
+                Live multi-language technical challenges calibrated to your detected GitHub stack.
+              </div>
+            </div>
+            <div class="verifier-score" data-layout-ignore="true">94% PROFICIENCY</div>
+          </div>
+        </section>
+
+        <!-- ==================== SCENE 5: FEATURE 4 — PULSEBOT & OUTRO ==================== -->
+        <section id="scene-5" class="scene">
+          <div class="step-badge" id="badge-step-4">04 • PULSEBOT AI CAREER ASSISTANT</div>
+          <div class="brutal-card chat-showcase-box" id="chat-card-box">
+            <div class="chat-header-bar">
+              <span style="font-family: var(--font-display); font-size: 24px;">PulseBot AI Mentor • Full Context Memory</span>
+              <span class="sticker sticker--lime" style="font-size: 16px; padding: 4px 12px; transform: none;" data-layout-ignore="true">ONLINE</span>
+            </div>
+            <div class="chat-message-row">
+              <div class="chat-bubble-user" id="chat-msg-user">
+                "How do I prep for a Senior Distributed Systems interview?"
+              </div>
+              <div class="chat-bubble-bot" id="chat-msg-bot">
+                "Focus on Kafka event partitions & Redis cluster caching from your Sprint 1 roadmap. Your GitHub repos already verify Python & Go concurrency!"
+              </div>
+            </div>
+          </div>
+
+          <h2 class="outro-headline-30s">STOP GUESSING YOUR CAREER GAPS.</h2>
+          <div class="cta-button-30s" id="outro-cta-30s">
+            LAUNCH SKILL PLUS AI →
+          </div>
+          <div class="url-pill" style="margin-top: 14px;">
+            skillplusai.vercel.app
+          </div>
+        </section>
+      </div>
+
+      <!-- ==================== PULSEBOT INTERACTIVE MASCOT ==================== -->
+      <div id="mascot-container" style="top: 240px; right: 140px;" data-layout-ignore="true">
+        <div class="pulsebot" id="pulsebot-figure">
+          <!-- Speech Bubble -->
+          <div class="mascot-speech" id="mascot-bubble" data-layout-ignore="true">
+            Hey! I'm PulseBot! Ready to close your skill gap?
+          </div>
+
+          <!-- Bamboo Copter Flight Unit -->
+          <div class="bamboo-copter">
+            <div class="copter-blades" id="copter-blades">
+              <span class="copter-wing copter-wing--left"></span>
+              <span class="copter-hub"></span>
+              <span class="copter-wing copter-wing--right"></span>
+            </div>
+            <div class="copter-stem"></div>
+          </div>
+
+          <!-- Robot Head Display -->
+          <div class="robot-head">
+            <div class="robot-visor">
+              <div class="visor-eyes" id="mascot-eyes" data-layout-ignore="true">^ ^</div>
+              <div class="visor-mouth"></div>
+            </div>
+          </div>
+
+          <!-- Torso with Pulse Core -->
+          <div class="robot-torso">
+            <div class="pulse-core" id="pulse-core"></div>
+            <div class="robot-arm robot-arm--left" id="robot-arm-l"></div>
+            <div class="robot-arm robot-arm--right" id="robot-arm-r"></div>
+          </div>
+
+          <!-- Hover Thruster Glow -->
+          <div class="robot-thruster" id="robot-thruster"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+
+      // Register DOM Elements
+      const camera = "#camera";
+      const scene1 = "#scene-1";
+      const scene2 = "#scene-2";
+      const scene3 = "#scene-3";
+      const scene4 = "#scene-4";
+      const scene5 = "#scene-5";
+      const mascot = "#mascot-container";
+      const mascotFigure = "#pulsebot-figure";
+      const bubble = "#mascot-bubble";
+      const copter = "#copter-blades";
+      const core = "#pulse-core";
+      const armR = "#robot-arm-r";
+
+      // Bamboo Copter Continuous Spin (30 seconds)
+      tl.to(copter, { rotation: 360 * 60, duration: 30, ease: "none" }, 0);
+
+      // Pulse Core Glow Breathing (Continuous across 30s)
+      tl.set(core, { scale: 1.0, filter: "brightness(1.0)" }, 0);
+      tl.to(core, {
+        scale: 1.15,
+        filter: "brightness(1.3)",
+        duration: 0.25,
+        repeat: 59,
+        yoyo: true,
+        ease: "power1.inOut"
+      }, 0);
+
+      // Mascot Idle Hover (Continuous on child figure)
+      tl.set(mascotFigure, { y: 0 }, 0);
+      tl.to(mascotFigure, {
+        y: -16,
+        duration: 0.8,
+        repeat: 37,
+        yoyo: true,
+        ease: "sine.inOut"
+      }, 0);
+
+      // =========================================================
+      // SCENE 1: HOOK & HERO REVEAL (0.0s – 5.0s)
+      // =========================================================
+      tl.set(camera, { rotateX: 2, rotateY: -3, scale: 1.02 }, 0);
+      tl.set(scene1, { opacity: 1 }, 0);
+      tl.set(mascot, { x: 0, y: 0, opacity: 1 }, 0);
+      tl.set(bubble, { scale: 1, opacity: 1 }, 0);
+      tl.set("#hero-title-el", { y: 0, opacity: 1 }, 0);
+      tl.set("#hero-tagline-el", { scale: 1, opacity: 1 }, 0);
+
+      tl.from("#sticker-1", { scale: 0, rotation: -20, duration: 0.25, ease: "back.out(2)" }, 0.9);
+      tl.from("#sticker-2", { scale: 0, rotation: 20, duration: 0.25, ease: "back.out(2)" }, 1.1);
+      tl.from("#sticker-3", { scale: 0, rotation: -15, duration: 0.25, ease: "back.out(2)" }, 1.3);
+
+      tl.to(camera, { rotateX: 0, rotateY: 0, scale: 1.0, duration: 1.5, ease: "power2.inOut" }, 1.5);
+
+      // =========================================================
+      // SCENE 1 -> SCENE 2 TRANSITION (5.0s)
+      // =========================================================
+      tl.to(scene1, { opacity: 0, duration: 0.4, ease: "power2.in" }, 4.6);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 4.6);
+
+      tl.to(camera, { x: 0, y: 0, scale: 1.02, rotateX: 2, rotateY: -3, duration: 0.6, ease: "power3.inOut" }, 4.7);
+
+      // =========================================================
+      // SCENE 2: FEATURE 1 — LINKEDIN PDF EXTRACTION (5.0s – 11.0s)
+      // =========================================================
+      tl.set(scene2, { opacity: 1 }, 5.0);
+      tl.from("#badge-step-1", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 5.0);
+      tl.from("#card-linkedin-box", { y: 40, opacity: 0, duration: 0.45, ease: "power3.out" }, 5.3);
+
+      tl.to(mascot, { x: 80, y: 390, scale: 0.9, duration: 0.6, ease: "power2.out" }, 5.0);
+      tl.call(() => {
+        const e = document.getElementById("mascot-eyes");
+        const b = document.getElementById("mascot-bubble");
+        if (e) e.innerText = "• •";
+        if (b) b.innerText = "Extracted PDF dossier! 4 gaps detected.";
+      }, null, 5.1);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 5.4);
+
+      tl.from("#score-ats-num", { scale: 1.4, duration: 0.4, ease: "bounce.out" }, 7.5);
+
+      // =========================================================
+      // SCENE 2 -> SCENE 3 TRANSITION (11.0s)
+      // =========================================================
+      tl.to(scene2, { opacity: 0, duration: 0.4, ease: "power2.in" }, 10.6);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 10.6);
+
+      tl.to(camera, { x: 0, y: 0, scale: 1.02, rotateX: 2, rotateY: 3, duration: 0.6, ease: "power3.inOut" }, 10.7);
+
+      // =========================================================
+      // SCENE 3: FEATURE 2 — GITHUB CODE REVIEW (11.0s – 17.0s)
+      // =========================================================
+      tl.set(scene3, { opacity: 1 }, 11.0);
+      tl.from("#badge-step-2", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 11.0);
+      tl.from("#card-github-box", { x: 60, opacity: 0, duration: 0.45, ease: "power3.out" }, 11.3);
+
+      tl.call(() => {
+        const e = document.getElementById("mascot-eyes");
+        const b = document.getElementById("mascot-bubble");
+        if (e) e.innerText = "• •";
+        if (b) b.innerText = "Scanning 42 repos & commit velocity...";
+      }, null, 11.1);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 11.5);
+
+      tl.from("#lang-fill-ts", { width: 0, duration: 0.6, ease: "power2.out" }, 12.8);
+      tl.from("#lang-fill-py", { width: 0, duration: 0.6, ease: "power2.out" }, 13.1);
+      tl.from("#lang-fill-go", { width: 0, duration: 0.6, ease: "power2.out" }, 13.4);
+
+      // =========================================================
+      // SCENE 3 -> SCENE 4 TRANSITION (17.0s)
+      // =========================================================
+      tl.to(scene3, { opacity: 0, duration: 0.4, ease: "power2.in" }, 16.6);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 16.6);
+
+      tl.to(camera, { x: 0, y: 0, scale: 1.02, rotateX: -2, rotateY: -3, duration: 0.6, ease: "power3.inOut" }, 16.7);
+
+      // =========================================================
+      // SCENE 4: FEATURE 3 — CAREER ROADMAP & VERIFIER (17.0s – 23.0s)
+      // =========================================================
+      tl.set(scene4, { opacity: 1 }, 17.0);
+      tl.from("#badge-step-3", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 17.0);
+
+      tl.call(() => {
+        const e = document.getElementById("mascot-eyes");
+        const b = document.getElementById("mascot-bubble");
+        if (e) e.innerText = "~ ^";
+        if (b) b.innerText = "Adaptive Sprints & 94% Verified!";
+      }, null, 17.1);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 17.4);
+
+      tl.from("#sprint-box-1", { y: 40, opacity: 0, duration: 0.4, ease: "back.out(1.7)" }, 17.5);
+      tl.from("#sprint-box-2", { y: 40, opacity: 0, duration: 0.4, ease: "back.out(1.7)" }, 18.2);
+      tl.from("#verifier-box-full", { scale: 0.92, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 19.8);
+
+      tl.to(armR, { rotation: -60, duration: 0.25, yoyo: true, repeat: 4 }, 20.0);
+
+      // =========================================================
+      // SCENE 4 -> SCENE 5 TRANSITION (23.0s)
+      // =========================================================
+      tl.to(scene4, { opacity: 0, duration: 0.4, ease: "power2.in" }, 22.6);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 22.6);
+
+      tl.to(camera, { x: 0, y: 0, scale: 1.0, rotateX: 0, rotateY: 0, duration: 0.6, ease: "power3.inOut" }, 22.7);
+
+      // =========================================================
+      // SCENE 5: FEATURE 4 — PULSEBOT CHAT & WORKSTATION OUTRO (23.0s – 30.0s)
+      // Position PulseBot safely to the right side so it never collides with outro CTA
+      // =========================================================
+      tl.set(scene5, { opacity: 1 }, 23.0);
+      tl.from("#badge-step-4", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 23.0);
+      tl.from("#chat-card-box", { scale: 0.95, opacity: 0, duration: 0.4, ease: "power3.out" }, 23.3);
+
+      tl.from("#chat-msg-user", { x: 40, opacity: 0, duration: 0.35, ease: "power2.out" }, 23.8);
+      tl.from("#chat-msg-bot", { x: -40, opacity: 0, duration: 0.4, ease: "back.out(1.5)" }, 24.5);
+
+      tl.to(mascot, { x: 620, y: 390, scale: 0.95, duration: 0.6, ease: "power2.out" }, 23.2);
+      tl.call(() => {
+        const e = document.getElementById("mascot-eyes");
+        const b = document.getElementById("mascot-bubble");
+        if (e) e.innerText = "^ ^";
+        if (b) b.innerText = "Ask me anything about interview prep!";
+      }, null, 23.5);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 23.8);
+
+      tl.from(".outro-headline-30s", { y: -20, opacity: 0, duration: 0.4, ease: "power3.out" }, 25.8);
+      tl.from("#outro-cta-30s", { y: 20, opacity: 0, duration: 0.4, ease: "back.out(1.8)" }, 26.5);
+
+      tl.to("#outro-cta-30s", { scale: 1.04, boxShadow: "14px 14px 0 #0a0a0a", duration: 0.3, yoyo: true, repeat: 4, ease: "power1.inOut" }, 27.2);
+
+      tl.seek(0);
+    </script>
+  </body>
+</html>

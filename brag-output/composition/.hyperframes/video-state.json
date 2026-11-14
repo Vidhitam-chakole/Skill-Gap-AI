@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "historyId": "230b9d64-78cb-4910-b085-4b7510fb5ed3",
+  "currentRevision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
+  "pendingChanges": false,
+  "files": {
+    "assets/sfx/casino/card-slide-1.ogg": {
+      "hash": "006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\00\\006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690"
+    },
+    "assets/sfx/casino/chips-collide-1.ogg": {
+      "hash": "f41b3d106360fc68ebc061a211d4265b4cb5fa1fbe86e4d57d3673510e2c3784",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\f4\\f41b3d106360fc68ebc061a211d4265b4cb5fa1fbe86e4d57d3673510e2c3784"
+    },
+    "assets/sfx/impact/impactBell_heavy_000.ogg": {
+      "hash": "94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\94\\94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f"
+    },
+    "assets/sfx/impact/impactSoft_medium_001.ogg": {
+      "hash": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\76\\7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf"
+    },
+    "assets/sfx/interface/click_001.ogg": {
+      "hash": "ccfb7fa0cccdd9faec0eb16033c732b1e308d139d80f799161495d58f7adcdb9",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\cc\\ccfb7fa0cccdd9faec0eb16033c732b1e308d139d80f799161495d58f7adcdb9"
+    },
+    "assets/sfx/interface/drop_001.ogg": {
+      "hash": "692ee3a6f1821402ca649ff735bee9591dc4846c8098fc7d6a90fd15fa57c1af",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\69\\692ee3a6f1821402ca649ff735bee9591dc4846c8098fc7d6a90fd15fa57c1af"
+    },
+    "assets/sfx/interface/switch_001.ogg": {
+      "hash": "3b74efad87f1e69dbd1d05c5ad952ab90859b5a3d11da6ec5bd79b4f03b42afa",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\3b\\3b74efad87f1e69dbd1d05c5ad952ab90859b5a3d11da6ec5bd79b4f03b42afa"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\53\\53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014"
+    },
+    "package.json": {
+      "hash": "a1cc8889be74c9bd616032cf9a376eacb597a837f8d59793b3ede7aec39c75cd",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a1\\a1cc8889be74c9bd616032cf9a376eacb597a837f8d59793b3ede7aec39c75cd"
+    },
+    "assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3": {
+      "hash": "aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\aa\\aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f"
+    }
+  },
+  "revisions": {
+    "52d6891c-7620-44ce-bf33-d5c2b392d235": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794682607254,
+      "endedAt": 1794682607261,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a2\\a208b6245fb91cdc30f1482a675e6ac305d7813d96ef09cdf813794f7b535ef7",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\83\\8348f8ab67a0e3b2d02970a1bb73ea0f81172f8bec2aad2133c9e4ed8ca629b9"
+        }
+      }
+    },
+    "e7d9311d-063d-414f-b322-8ab10ae7ae1f": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794682730191,
+      "endedAt": 1794682730195,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\83\\8348f8ab67a0e3b2d02970a1bb73ea0f81172f8bec2aad2133c9e4ed8ca629b9",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bd\\bdbbbf127bf68f791d92e537669648d1ac873b636b2ff1bb55059937c41a6047"
+        }
+      }
+    },
+    "f8723c95-e739-456d-9b86-12b9ee686cc6": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794683203550,
+      "endedAt": 1794683203554,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bd\\bdbbbf127bf68f791d92e537669648d1ac873b636b2ff1bb55059937c41a6047",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\e2\\e29449eb7eeee8c38b91cdacee35492f05ce8bc1784139ef3a6324f3fb228617"
+        }
+      }
+    },
+    "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794683324954,
+      "endedAt": 1794683324958,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\e2\\e29449eb7eeee8c38b91cdacee35492f05ce8bc1784139ef3a6324f3fb228617",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
+      "id": "2294b850-f30c-4c53-947c-c68be29e5e9a"
+    },
+    "revisions": {
+      "52d6891c-7620-44ce-bf33-d5c2b392d235": [
+        {
+          "id": "fbec699c-5232-40d0-96c6-d36e0b86dbf6",
+          "scope": "project",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794682619767,
+          "contentHash": "dd68980b2f18caa1d7fe57278b33ed5ba69d3bd37ecc9bdac9b8dda9e1b79fcb",
+          "revision": "52d6891c-7620-44ce-bf33-d5c2b392d235",
+          "inputFingerprint": "658aad237303d33301fcd61dcda88406eee6d7629b7f7cc54d4d94c68e45c0b3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "ca9ea370-e10b-4309-9577-cfee8664b72e"
+        }
+      ],
+      "e7d9311d-063d-414f-b322-8ab10ae7ae1f": [
+        {
+          "id": "01c50643-a901-4730-bc3d-52436224e9f8",
+          "scope": "project",
+          "report": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\01c50643-a901-4730-bc3d-52436224e9f8.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794682749910,
+          "contentHash": "ab934055106c71d07e6301dbb6850229bc90f0224709fa6cc7522c0411313eb4",
+          "revision": "e7d9311d-063d-414f-b322-8ab10ae7ae1f",
+          "inputFingerprint": "47f1a63e296ae7568d9f515a150fc1f20bee335dc0007d0d883787a568ebab0b",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "f8723c95-e739-456d-9b86-12b9ee686cc6": [
+        {
+          "id": "97320555-9f05-485e-9f8d-bb19b3a88b1c",
+          "scope": "project",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794683222933,
+          "contentHash": "1d26d2b362e2cf7b1d0edbfd2adec927d3cc2384f96ea9ddcab5c7a40e9cd1e5",
+          "revision": "f8723c95-e739-456d-9b86-12b9ee686cc6",
+          "inputFingerprint": "72311387175ad5339a78e4e6b5a347fbcafe31cc30986d3bc52227200bab7f52",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "c531feef-db37-41e8-a52b-dc916ae7ac4b"
+        }
+      ],
+      "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb": [
+        {
+          "id": "2294b850-f30c-4c53-947c-c68be29e5e9a",
+          "scope": "project",
+          "report": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\2294b850-f30c-4c53-947c-c68be29e5e9a.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794683337927,
+          "contentHash": "8ae14914439ae2b344c270ad7f3ff03436b180bced4986e1a604a41d4c019d28",
+          "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
+          "inputFingerprint": "cc6e10d1e062bff76e9ad1ff9dda820a5db04eaae24e6a5b3111324f977a63c6",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "3a561a6c-10ec-42e7-990e-6cdc74fe0b41",
+        "scope": "project",
+        "report": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\3a561a6c-10ec-42e7-990e-6cdc74fe0b41.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": true,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1794682523540,
+        "contentHash": "ac3ffc89a18c148102a624dfc0aa957e5bfa69c408110f8ae6ccc047e63aeff0",
+        "revision": null,
+        "inputFingerprint": "02a6c051169bf4e32ae3528480166fded79651992b68058e74e07fb8fdeaff35",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "c531feef-db37-41e8-a52b-dc916ae7ac4b",
+      "completedAt": 1794683454771,
+      "output": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\brag.mp4",
+      "status": "completed",
+      "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb"
+    },
+    "retainedRevisions": [
+      "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
+      "e7d9311d-063d-414f-b322-8ab10ae7ae1f"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}
