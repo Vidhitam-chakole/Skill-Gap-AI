@@ -1,5 +1,6 @@
 # Career Roadmap Module
 
+This folder isolates the complete Roadmap generation component and service.
 This folder isolates the complete Career Roadmap frontend and backend services.
 
 ## Structure
@@ -7,11 +8,16 @@ This folder isolates the complete Career Roadmap frontend and backend services.
 ```
 roadmap/
 ├── backend/
+│   ├── schemas.py      # Pydantic request & response models (dynamic milestones & durations)
+│   ├── service.py      # Gap merging, priority scoring, GitHub strong languages adaptation, dynamic milestones planner
+│   ├── router.py       # FastAPI APIRouter (/roadmap/build, /roadmap/{id})
 │   ├── schemas.py           # Pydantic request & response models (dynamic milestones & durations)
 │   ├── service.py           # Gap merging, priority scoring, GitHub strong languages adaptation
 │   ├── router.py            # FastAPI APIRouter (/roadmap/build, /roadmap/{id})
 │   └── __init__.py
 └── frontend/
+    ├── Roadmap.jsx     # React UI component for the dynamic adaptive roadmap
+    ├── Roadmap.css     # Component styling with brutalist cards and metrics strip
     ├── components/
     │   ├── Roadmap.jsx      # React UI component for the dynamic adaptive roadmap
     │   └── Roadmap.css      # Component styling with brutalist cards and metrics strip
