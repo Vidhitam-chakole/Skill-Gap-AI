@@ -18,7 +18,7 @@ export default function VerifierPage() {
           AI Code &amp; <span className="page-hero__title-accent">Skill Verifier</span>
         </h1>
         <p className="page-hero__desc">
-          Validate your programming proficiency through interactive, timed technical coding challenges. Automated test execution, algorithmic accuracy scoring, and language mastery certification.
+          Interactive coding challenges to test programming proficiency, algorithmic accuracy, and verified technical skills.
         </p>
       </header>
 

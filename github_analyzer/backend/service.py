@@ -84,12 +84,19 @@ def _get_headers() -> dict[str, str]:
 
 
 async def _github_get(client: httpx.AsyncClient, path: str) -> dict | list:
-    response = await client.get(f"https://api.github.com{path}", headers=_get_headers())
+    headers = _get_headers()
+    response = await client.get(f"https://api.github.com{path}", headers=headers)
+    if response.status_code == 401 and "Authorization" in headers:
+        clean_headers = {k: v for k, v in headers.items() if k != "Authorization"}
+        response = await client.get(f"https://api.github.com{path}", headers=clean_headers)
+
     if response.status_code == 404:
         target = path.split("?")[0].strip("/").split("/")[-1]
         raise ValueError(f"GitHub profile or target '{target}' not found. Please verify the username or link.")
     if response.status_code == 403:
         raise ValueError("GitHub API rate limit reached. Add a valid GITHUB_TOKEN to .env or wait for reset.")
+    if response.status_code == 401:
+        raise ValueError("GitHub authentication failed (401 Unauthorized). Please provide a valid GITHUB_TOKEN in .env or leave it blank.")
     response.raise_for_status()
     return response.json()
 
@@ -134,11 +141,19 @@ async def _inspect_repo(client: httpx.AsyncClient, username: str, repo: dict) ->
     }
 
     try:
+        headers = _get_headers()
         resp = await client.get(
             f"https://api.github.com/repos/{owner}/{name}/contents",
-            headers=_get_headers(),
+            headers=headers,
             timeout=8.0,
         )
+        if resp.status_code == 401 and "Authorization" in headers:
+            clean_headers = {k: v for k, v in headers.items() if k != "Authorization"}
+            resp = await client.get(
+                f"https://api.github.com/repos/{owner}/{name}/contents",
+                headers=clean_headers,
+                timeout=8.0,
+            )
         if resp.status_code == 200 and isinstance(resp.json(), list):
             files = [f.get("name", "").lower() for f in resp.json()]
             result["has_readme"] = any("readme" in f for f in files)
@@ -323,6 +338,9 @@ async def search_github_users(query: str, limit: int = 6) -> list[dict]:
         # First try exact/prefix search using `in:login`
         url = f"https://api.github.com/search/users?q={clean}+in:login&type=Users&per_page={limit}"
         resp = await client.get(url, headers=headers)
+        if resp.status_code == 401 and "Authorization" in headers:
+            headers = {k: v for k, v in headers.items() if k != "Authorization"}
+            resp = await client.get(url, headers=headers)
 
         if resp.status_code == 403:
             raise ValueError("GitHub API rate limit reached. Please wait a moment.")

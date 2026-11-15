@@ -30,8 +30,63 @@ TECH_KEYWORDS = [
     "PyTorch", "TensorFlow", "Scikit-Learn", "Pandas", "NumPy", "OpenCV", "NLP",
     "Computer Vision", "Automated Testing", "Unit Testing", "Jest", "Vitest", "Pytest",
     "Cypress", "Playwright", "Selenium", "Kafka", "RabbitMQ", "Celery", "WebSockets",
-    "OAuth", "JWT", "Elasticsearch", "Figma", "UI/UX Design", "Agile", "Scrum"
+    "OAuth", "JWT", "Elasticsearch", "Figma", "UI/UX Design", "Agile", "Scrum",
+    "Wireshark", "Network Security", "Firewalls"
 ]
+
+KNOWN_ISSUERS = [
+    "Red Hat", "Microsoft", "Google", "AWS", "Amazon Web Services", "Coursera", "Udemy",
+    "edX", "Cisco", "Oracle", "IBM", "Meta", "HackerRank", "LinkedIn", "FreeCodeCamp",
+    "CompTIA", "Docker", "Kubernetes", "Linux Foundation", "Stanford", "Harvard",
+    "DeepLearning.AI", "Kaggle", "Salesforce", "Postman", "Alibaba Cloud", "Databricks"
+]
+
+SECTION_HEADERS = {
+    "contact", "contact info", "top skills", "skills", "technical skills", "certifications",
+    "licenses & certifications", "summary", "about", "professional summary", "profile",
+    "experience", "work experience", "professional experience", "education", "academic background",
+    "projects", "personal projects", "academic projects", "key projects",
+    "languages", "honors", "awards", "publications", "patents", "organizations", "volunteering", "volunteer"
+}
+
+CONTINUATION_SUFFIXES = ("-", "–", ":", "in", "for", "of", "to", "with", "and", "&", "on", "at")
+
+
+def _is_valid_location(line: str) -> bool:
+    cleaned = line.strip()
+    if not cleaned or len(cleaned) > 60:
+        return False
+    lower = cleaned.lower()
+    if any(char in cleaned for char in "@:0123456789") or "linkedin.com" in lower or "page " in lower:
+        return False
+    if any(w in lower for w in ("area", "city", "state", "india", "united states", "usa", "uk", "canada", "germany", "france", "australia")):
+        return True
+    if "," in cleaned and len(cleaned.split(",")) in (2, 3, 4):
+        return True
+    return False
+
+
+def _is_continuation(line: str) -> bool:
+    r = line.rstrip()
+    return any(r.endswith(s) for s in CONTINUATION_SUFFIXES) or any(r.lower().endswith(" " + s) for s in CONTINUATION_SUFFIXES)
+
+
+def _is_likely_issuer(text: str) -> bool:
+    cleaned = text.strip()
+    if not cleaned or len(cleaned) > 50 or _is_continuation(cleaned):
+        return False
+    lower = cleaned.lower()
+    words = set(re.findall(r"[a-zA-Z]+", lower))
+    if words & {"certified", "specialist", "fundamentals", "training", "engineer", "development", "associate"}:
+        return False
+    for iss in KNOWN_ISSUERS:
+        if iss.lower() == lower:
+            return True
+        if lower.startswith(iss.lower()) and len(lower) <= len(iss) + 12:
+            return True
+    if any(k in lower for k in ("university", "institute", "college", "academy", "school", "foundation")):
+        return True
+    return False
 
 
 def extract_text_from_pdf(file_bytes: bytes) -> str:
@@ -171,15 +226,27 @@ def _extract_contact(text: str, context_url: str | None = None) -> ContactInfo:
                 if is_valid_phone(cand):
                     phone = cand
 
-    # Location heuristic (looks in top 20 lines)
+    # Location heuristic (searches near Summary/Experience first, then top lines)
     location = None
     lines = [l.strip() for l in text.splitlines() if l.strip()]
-    for line in lines[:20]:
-        if any(char in line for char in "@:0123456789") or "linkedin.com" in line.lower() or "page " in line.lower():
-            continue
-        if any(w in line.lower() for w in ("area", "city", "state", "india", "united states", "usa", "uk", "canada", "germany", "france", "australia")) or ("," in line and len(line.split(",")) in (2, 3) and len(line) < 50):
-            location = line
+
+    summary_idx = -1
+    for i, line in enumerate(lines):
+        if line.lower() in ("summary", "about", "professional summary", "profile", "experience", "work experience"):
+            summary_idx = i
             break
+
+    if summary_idx > 0:
+        for line in reversed(lines[max(0, summary_idx - 6) : summary_idx]):
+            if _is_valid_location(line):
+                location = line
+                break
+
+    if not location:
+        for line in lines[:40]:
+            if _is_valid_location(line):
+                location = line
+                break
 
     return ContactInfo(
         email=email,
@@ -189,37 +256,113 @@ def _extract_contact(text: str, context_url: str | None = None) -> ContactInfo:
     )
 
 
-def _extract_name_and_headline(text: str, context_name: str | None = None) -> tuple[str, str]:
+def _extract_name_and_headline(
+    text: str,
+    context_name: str | None = None,
+    slug: str | None = None,
+    email: str | None = None,
+) -> tuple[str, str]:
     """Extract candidate full name and professional headline from PDF text."""
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    raw_lines = [l.strip() for l in text.splitlines() if l.strip()]
     name = (context_name or "").strip()
+    headline = ""
 
-    # If context name wasn't manually passed, find it from top lines
-    if not name and lines:
-        for line in lines[:10]:
-            lower = line.lower()
-            if any(w in lower for w in ("contact", "page", "linkedin", "www.", "email", "phone", "summary", "top skills", "experience", "education")):
+    # 1. LinkedIn Multi-page Running Header e.g. "Name - page 2"
+    if not name:
+        for line in raw_lines:
+            m = re.search(r"^([A-Za-z\s.'-]{2,40}?)\s*[-–]\s*page\s*\d+", line, re.IGNORECASE)
+            if m:
+                cand = m.group(1).strip()
+                if 2 <= len(cand.split()) <= 4 and cand.lower() not in SECTION_HEADERS:
+                    name = cand
+                    break
+
+    # 2. Extract tokens from email / slug to help match candidate name
+    slug_tokens = set(re.findall(r"[a-zA-Z]{3,}", (slug or "").lower()))
+    email_tokens = set(re.findall(r"[a-zA-Z]{3,}", (email or "").split("@")[0].lower()))
+    id_tokens = slug_tokens | email_tokens
+
+    # 3. Locate Summary or Experience section
+    summary_idx = -1
+    for i, line in enumerate(raw_lines):
+        if line.lower() in ("summary", "about", "professional summary", "profile"):
+            summary_idx = i
+            break
+    if summary_idx == -1:
+        for i, line in enumerate(raw_lines):
+            if line.lower() in ("experience", "work experience", "professional experience"):
+                summary_idx = i
+                break
+
+    header_block: list[str] = []
+    if summary_idx > 0:
+        for j in range(max(0, summary_idx - 6), summary_idx):
+            l = raw_lines[j]
+            lower = l.lower()
+            if lower in SECTION_HEADERS or any(lower.startswith(w) for w in ("page ", "contact", "http", "www.")):
                 continue
-            if any(char in line for char in "@/:0123456789"):
+            if any(c in l for c in "@/:0123456789"):
+                continue
+            header_block.append(l)
+
+        # Identify candidate name from header block
+        if not name and header_block:
+            for cand in header_block:
+                if _is_valid_location(cand):
+                    continue
+                cand_lower = cand.lower()
+                is_tech = any(cand_lower == tk.lower() for tk in TECH_KEYWORDS)
+                parts = cand.split()
+                if not is_tech and 2 <= len(parts) <= 4:
+                    cand_words = set(re.findall(r"[a-zA-Z]{3,}", cand_lower))
+                    if id_tokens and (cand_words & id_tokens):
+                        name = cand
+                        break
+                    elif not name:
+                        name = cand
+
+        # Identify headline from line directly following candidate name in header block
+        if name and name in header_block:
+            name_idx = header_block.index(name)
+            subsequent = header_block[name_idx + 1 :]
+            for cand in subsequent:
+                if not _is_valid_location(cand) and len(cand) < 90:
+                    headline = cand
+                    break
+
+    # 4. Fallback for Traditional Resumes (Name in top lines)
+    if not name and raw_lines:
+        for line in raw_lines[:8]:
+            lower = line.lower()
+            if lower in SECTION_HEADERS or any(w in lower for w in ("contact", "page", "linkedin", "www.", "email", "phone", "curriculum", "resume")):
+                continue
+            if any(char in line for char in "@/:0123456789") or _is_valid_location(line):
+                continue
+            is_tech = any(lower == tk.lower() for tk in TECH_KEYWORDS)
+            if is_tech:
                 continue
             parts = line.split()
             if 2 <= len(parts) <= 4 and len(line) < 40:
                 name = line
+                idx = raw_lines.index(line)
+                if idx + 1 < len(raw_lines) and not _is_valid_location(raw_lines[idx + 1]) and len(raw_lines[idx + 1]) < 80:
+                    headline = raw_lines[idx + 1]
                 break
 
     name = name or "Candidate Profile"
 
-    # Headline / Title
-    headline = "Software Engineer & Developer"
-    for line in lines[:15]:
-        if line == name or any(char in line for char in "@/:0123456789"):
-            continue
-        lower = line.lower()
-        if any(w in lower for w in ("contact", "page", "linkedin", "email", "phone", "summary", "top skills")):
-            continue
-        if any(k in lower for k in ("engineer", "developer", "student", "architect", "lead", "specialist", "scientist", "manager", "designer", "intern", "consultant", "analyst")):
-            headline = line
-            break
+    # Default headline fallback
+    if not headline:
+        headline = "Software Engineer & Developer"
+        for line in raw_lines[:25]:
+            if line == name or any(char in line for char in "@/:0123456789") or _is_valid_location(line):
+                continue
+            lower = line.lower()
+            if lower in SECTION_HEADERS or any(w in lower for w in ("contact", "page", "linkedin", "email", "phone", "summary", "top skills", "certifications", "licenses & certifications")):
+                continue
+            if any(k in lower for k in ("engineer", "developer", "student", "architect", "lead", "scientist", "manager", "designer", "intern", "consultant", "analyst")):
+                headline = line
+                break
 
     return name, headline
 
@@ -367,7 +510,7 @@ def _extract_experience(text: str) -> list[ExperienceItem]:
 def _extract_education(text: str) -> list[EducationItem]:
     """Parse educational institutions, degrees, fields, and graduation years."""
     edu_match = re.search(
-        r"(?:Education|Academic Background)\s*\n([\s\S]*?)(?=\n\s*(?:Certifications|Licenses & Certifications|Languages|Skills|Projects|Honors|$))",
+        r"(?:^|\n)\s*(?:Education|Academic Background)\s*\n([\s\S]*?)(?=(?:\n\s*(?:Experience|Work Experience|Certifications|Licenses & Certifications|Languages|Skills|Top Skills|Projects|Honors|Volunteer|Courses|Organizations|Patents|Publications))|\Z)",
         text,
         re.IGNORECASE,
     )
@@ -375,36 +518,74 @@ def _extract_education(text: str) -> list[EducationItem]:
         return []
 
     edu_text = edu_match.group(1).strip()
-    lines = [l.strip() for l in edu_text.splitlines() if l.strip() and not l.lower().startswith("page ")]
+    raw_lines = [l.strip() for l in edu_text.splitlines() if l.strip()]
+    lines = [
+        l for l in raw_lines
+        if not re.search(r"Page\s+\d+\s+of\s+\d+", l, re.IGNORECASE)
+        and not re.search(r"^page\s+\d+", l, re.IGNORECASE)
+    ]
 
     items: list[EducationItem] = []
     degree_keywords = ("bachelor", "master", "btech", "b.tech", "b.e.", "b.s.", "m.s.", "degree", "diploma", "doctor", "phd", "associate", "higher secondary", "hsc", "ssc")
-    institution_keywords = ("university", "college", "institute", "school", "academy", "iit", "nit", "bits", "vidyaniketan")
+    institution_keywords = ("university", "college", "institute", "school", "academy", "polytechnic", "iit", "nit", "bits", "vidyaniketan")
 
-    for i, line in enumerate(lines):
-        lower = line.lower()
-        if any(k in lower for k in institution_keywords) or (i + 1 < len(lines) and any(k in lines[i + 1].lower() for k in degree_keywords)):
-            inst = line
-            degree = lines[i + 1] if i + 1 < len(lines) else "Degree"
-            
-            # Find year in subsequent lines
-            year = ""
-            field = ""
-            for next_line in lines[i + 1 : i + 4]:
-                yr_match = re.search(r"\b(20\d\d|19\d\d)(?:\s*[-–]\s*(?:20\d\d|Present))?\b", next_line)
-                if yr_match and not year:
-                    year = yr_match.group(0)
-                if any(w in next_line.lower() for w in ("computer science", "engineering", "information technology", "science", "arts", "commerce", "data")):
-                    field = next_line
+    i = 0
+    while i < len(lines):
+        line = lines[i].replace('\xa0', ' ').strip()
+        if not line:
+            i += 1
+            continue
 
-            items.append(EducationItem(
-                degree=degree,
-                institution=inst,
-                year=year,
-                fieldOfStudy=field,
-            ))
+        inst = line
+        degree = "Degree / Studies"
+        field = ""
+        year = ""
 
-    # Fallback deduplication
+        if i + 1 < len(lines):
+            next_l = lines[i + 1].replace('\xa0', ' ').strip()
+            # Extract parenthesized or middle-dot dates from line
+            m_date = re.search(r"[·•]?\s*\(([^)]+)\)", next_l)
+            if m_date:
+                year = m_date.group(1).strip()
+                next_l = next_l[:m_date.start()].strip()
+            m_dot = re.search(r"[·•]\s*(.*)$", next_l)
+            if m_dot:
+                if not year:
+                    year = m_dot.group(1).strip()
+                next_l = next_l[:m_dot.start()].strip()
+
+            parts = [p.strip() for p in next_l.split(",") if p.strip()]
+            if parts:
+                degree = parts[0]
+                if len(parts) > 1:
+                    field = ", ".join(parts[1:])
+            elif next_l:
+                degree = next_l
+
+            # Check if line i+2 contains graduation year
+            if not year and i + 2 < len(lines):
+                l3 = lines[i + 2].replace('\xa0', ' ').strip()
+                if re.search(r"\b(20\d\d|19\d\d)\b", l3) and len(l3) < 45:
+                    year = l3.strip("() ·•")
+                    i += 1
+            i += 2
+        else:
+            i += 1
+
+        # Check if degree was on first line and institution on second
+        i_low = inst.lower()
+        d_low = degree.lower()
+        if any(k in i_low for k in degree_keywords) and any(k in d_low for k in institution_keywords):
+            inst, degree = degree, inst
+
+        items.append(EducationItem(
+            degree=degree,
+            institution=inst,
+            year=year,
+            fieldOfStudy=field,
+        ))
+
+    # Deduplication
     deduped = []
     seen = set()
     for item in items:
@@ -413,13 +594,42 @@ def _extract_education(text: str) -> list[EducationItem]:
             seen.add(key)
             deduped.append(item)
 
-    return deduped[:4]
+    return deduped[:6]
 
 
-def _extract_certifications(text: str) -> list[CertificationItem]:
-    """Parse licenses and certifications from PDF text."""
+def _extract_certifications(text: str, candidate_name: str | None = None) -> list[CertificationItem]:
+    """Parse licenses and certifications from PDF text cleanly without swallowing other sections or candidate name."""
+    lookahead_patterns = [
+        r"Languages",
+        r"Top Skills",
+        r"Skills",
+        r"Education",
+        r"Academic Background",
+        r"Experience",
+        r"Work Experience",
+        r"Professional Experience",
+        r"Honors(?:-Awards|\s*&\s*Awards)?",
+        r"Awards",
+        r"Publications",
+        r"Patents",
+        r"Organizations",
+        r"Volunteer(?:\s*Experience)?",
+        r"Volunteering",
+        r"Summary",
+        r"About",
+        r"Profile",
+        r"Professional Summary",
+        r"Overview",
+        r"Contact(?:\s*Info)?",
+        r"(?:Real\s+|Personal\s+|Academic\s+|Key\s+)?Projects",
+    ]
+    if candidate_name and candidate_name != "Candidate Profile":
+        lookahead_patterns.append(rf"{re.escape(candidate_name)}")
+        lookahead_patterns.append(rf"{re.escape(candidate_name.upper())}")
+
+    boundary_regex = "|".join(lookahead_patterns)
     cert_match = re.search(
-        r"(?:Licenses & Certifications|Certifications|Certificates)\s*\n([\s\S]*?)(?=\n\s*(?:Languages|Skills|Education|Experience|Honors|Projects|$))",
+        rf"(?:Licenses & Certifications|Certifications|Certificates)\s*\n([\s\S]*?)(?=\n\s*(?:{boundary_regex}|\Z))",
         text,
         re.IGNORECASE,
     )
@@ -427,29 +637,78 @@ def _extract_certifications(text: str) -> list[CertificationItem]:
         return []
 
     cert_text = cert_match.group(1).strip()
-    lines = [l.strip() for l in cert_text.splitlines() if l.strip() and not l.lower().startswith("page ")]
+    raw_lines = [l.strip() for l in cert_text.splitlines() if l.strip()]
+
+    name_tokens = (
+        set(re.findall(r"[a-zA-Z]{3,}", candidate_name.lower()))
+        if candidate_name and candidate_name != "Candidate Profile"
+        else set()
+    )
+
+    clean_lines: list[str] = []
+    for line in raw_lines:
+        lower = line.lower()
+        if lower in SECTION_HEADERS:
+            break
+        if name_tokens and any(tok in lower for tok in name_tokens) and len(lower.split()) <= 4:
+            break
+        if _is_valid_location(line):
+            break
+        if any(lower.startswith(w) for w in ("page ", "contact", "http://", "https://", "www.")):
+            continue
+        clean_lines.append(line)
 
     items: list[CertificationItem] = []
     i = 0
-    while i < len(lines):
-        line = lines[i]
-        if len(line) > 3 and not any(w in line.lower() for w in ("page", "linkedin")):
-            cert_name = line
-            issuer = lines[i + 1] if i + 1 < len(lines) and len(lines[i + 1]) < 60 else ""
-            date = ""
-            if i + 2 < len(lines):
-                date_match = re.search(r"\b(?:Issued|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|\d{4})\b.*", lines[i + 2], re.IGNORECASE)
-                if date_match:
-                    date = date_match.group(0)
+    date_regex = re.compile(r"\b(?:Issued|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|\d{4})\b.*", re.IGNORECASE)
+    cred_regex = re.compile(r"Credential ID\s*.*", re.IGNORECASE)
 
+    while i < len(clean_lines):
+        line = clean_lines[i]
+
+        if _is_continuation(line) and i + 1 < len(clean_lines):
+            if line.rstrip().endswith(("-", "–")):
+                cert_name = f"{line.rstrip(' -–:')} - {clean_lines[i + 1].strip()}"
+            else:
+                cert_name = f"{line.strip()} {clean_lines[i + 1].strip()}"
+            i += 2
+        else:
+            cert_name = line.strip()
+            i += 1
+
+        issuer = ""
+        issue_date = ""
+
+        while i < len(clean_lines):
+            nxt = clean_lines[i]
+            if date_regex.search(nxt):
+                issue_date = date_regex.search(nxt).group(0)
+                i += 1
+            elif cred_regex.search(nxt):
+                i += 1
+            elif _is_likely_issuer(nxt) and not issuer:
+                issuer = nxt
+                i += 1
+            else:
+                break
+
+        if not issuer:
+            for iss in KNOWN_ISSUERS:
+                if iss.lower() in cert_name.lower():
+                    issuer = iss
+                    break
+
+        if not issuer:
+            issuer = "Verified Credential"
+
+        # Final sanity check: never add section headers or candidate name as certification
+        c_low = cert_name.lower()
+        if c_low not in SECTION_HEADERS and not (name_tokens and any(tok in c_low for tok in name_tokens) and len(c_low.split()) <= 4):
             items.append(CertificationItem(
                 name=cert_name,
                 issuer=issuer,
-                issueDate=date,
+                issueDate=issue_date,
             ))
-            i += 2
-        else:
-            i += 1
 
     return items[:6]
 
@@ -478,8 +737,15 @@ def analyze_linkedin_pdf(
     if context_url and context_url.strip():
         contact.linkedinUrl = context_url.strip()
 
+    # Extract LinkedIn slug from URL
+    slug = None
+    if contact.linkedinUrl:
+        sm = re.search(r"linkedin\.com/in/([a-zA-Z0-9_\-]+)", contact.linkedinUrl, re.IGNORECASE)
+        if sm:
+            slug = sm.group(1).rstrip("/")
+
     # 2. Name & Headline
-    name, headline = _extract_name_and_headline(text, context_name)
+    name, headline = _extract_name_and_headline(text, context_name, slug=slug, email=contact.email)
 
     # 3. Skills
     skills = _extract_skills(text)
@@ -487,7 +753,7 @@ def analyze_linkedin_pdf(
     # 4. Experience & Education & Certifications
     experience = _extract_experience(text)
     education = _extract_education(text)
-    certifications = _extract_certifications(text)
+    certifications = _extract_certifications(text, candidate_name=name)
 
     # 5. Concise 2-3 line Summary
     summary = _extract_summary(text, name, headline, skills)

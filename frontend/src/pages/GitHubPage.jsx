@@ -16,7 +16,7 @@ export default function GitHubPage() {
           GitHub Profile <span className="page-hero__title-accent">Analyzer</span>
         </h1>
         <p className="page-hero__desc">
-          Measure byte-weighted language proficiency, evaluate repository code quality, commit consistency, and test automation signals to identify gaps for software developer jobs and internships.
+          Inspect repository code quality, language breakdown, and commit patterns to identify developer skill gaps.
         </p>
       </header>
 

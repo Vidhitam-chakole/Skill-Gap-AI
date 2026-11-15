@@ -69,15 +69,6 @@
   transform: rotate(-8deg);
 }
 
-.hero__sticker--ai {
-  background: var(--purple);
-  color: var(--white);
-  bottom: 12%;
-  right: 8%;
-  transform: rotate(5deg);
-  animation-delay: 1s;
-}
-
 @keyframes wiggle {
   0%, 100% { transform: rotate(-8deg); }
   50% { transform: rotate(-4deg) scale(1.05); }
@@ -228,10 +219,6 @@
     left: auto;
     right: 5%;
     top: 4%;
-  }
-
-  .hero__sticker--ai {
-    display: none;
   }
 }
 

@@ -168,9 +168,14 @@ export default function GitHubAnalyzer() {
                     width: '100%',
                     textAlign: 'center',
                     marginTop: '0.75rem',
-                    padding: '0.6rem 1rem',
-                    fontSize: '0.85rem',
+                    padding: '0.65rem 1rem',
+                    fontSize: '0.88rem',
+                    fontWeight: 800,
                     cursor: 'pointer',
+                    background: 'var(--cyan, #00e5ff)',
+                    color: 'var(--black, #0a0a0a)',
+                    border: '2px solid var(--black, #0a0a0a)',
+                    boxShadow: '4px 4px 0 var(--black, #0a0a0a)',
                   }}
                 >
                   Start Test for {results.topLanguages[0]?.name || 'Primary Language'} &rarr;

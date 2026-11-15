@@ -74,22 +74,14 @@ export default function LinkedInAnalyzer() {
 
   return (
     <section id="linkedin" className="analyzer">
-
-
-      <SectionHeader
-        title="LinkedIn Profile Analyzer &amp; Resume Review"
-        subtitle="Analyze LinkedIn profile online with free PDF export parsing. Extract verified skills, career trajectory, and identify critical skill gaps for software developer jobs."
-        rotate={1}
-      />
-
       {/* ─── How to Download LinkedIn Profile PDF Guide (Hidden when results shown) ─── */}
       {!results && (
         <div className="analyzer__steps-card brutal-card reveal">
           <h3 className="analyzer__steps-title">
-            <span>[GUIDE]</span> How to Analyze Your LinkedIn Profile Online (Free &amp; Instant):
+            How to Analyze Your LinkedIn Profile Online
           </h3>
           <p className="analyzer__steps-sub">
-            LinkedIn has a built-in feature to download your official profile as a PDF in 3 seconds:
+            LinkedIn has a built-in feature to download your official profile as a PDF
           </p>
           <ol className="analyzer__steps-list">
             <li className="analyzer__step-item">
@@ -113,7 +105,7 @@ export default function LinkedInAnalyzer() {
             <li className="analyzer__step-item">
               <span className="analyzer__step-num">Step 04</span>
               <span className="analyzer__step-text">
-                Upload the downloaded <strong>.pdf</strong> file below for free AI LinkedIn profile analysis &amp; skill-gap insights!
+                Upload the downloaded <strong>.pdf</strong>
               </span>
             </li>
           </ol>
@@ -140,8 +132,8 @@ export default function LinkedInAnalyzer() {
                 onChange={handleFileSelect}
               />
               <span className="analyzer__dropzone-icon">↓</span>
-              <p className="analyzer__dropzone-title">Click to browse or drop your LinkedIn profile PDF here</p>
-              <p className="analyzer__dropzone-hint">Accepts official LinkedIn resume .pdf export or CV (Max 15MB)</p>
+              <p className="analyzer__dropzone-title">Click or drop your LinkedIn profile PDF here</p>
+              <p className="analyzer__dropzone-hint">(Max 15MB)</p>
             </div>
           ) : (
             <div className="analyzer__file-selected">
@@ -163,7 +155,7 @@ export default function LinkedInAnalyzer() {
             style={{ width: '100%', marginTop: '1.25rem' }}
             disabled={loading || !pdfFile}
           >
-            {loading ? 'Analyzing Profile Online...' : 'Analyze LinkedIn Profile Online (Free)'}
+            {loading ? 'Analyzing Profile Online...' : 'Analyze '}
           </button>
         </form>
       )}
@@ -176,7 +168,7 @@ export default function LinkedInAnalyzer() {
           {/* Header Profile Dossier Card */}
           <div className="analyzer__dossier-card brutal-card">
             <div className="analyzer__dossier-header-row">
-              <span className="analyzer__dossier-badge">[VERIFIED] Candidate Profile</span>
+
               <button
                 type="button"
                 className="analyzer__reupload-btn"
@@ -197,7 +189,7 @@ export default function LinkedInAnalyzer() {
             {/* Concise 2 to 3 line summary */}
             {results.summary && (
               <div className="analyzer__summary-box">
-                <span className="analyzer__summary-label">Executive Professional Summary</span>
+                <span className="analyzer__summary-label">Professional Summary</span>
                 <p className="analyzer__summary-text">{results.summary}</p>
               </div>
             )}
@@ -206,19 +198,19 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__contact-strip">
               {results.contact?.email && (
                 <a href={`mailto:${results.contact.email}`} className="analyzer__contact-pill">
-                  <span className="analyzer__contact-icon">EMAIL</span>
+                  <span className="analyzer__contact-icon"></span>
                   <span>{results.contact.email}</span>
                 </a>
               )}
               {results.contact?.phone && (
                 <div className="analyzer__contact-pill">
-                  <span className="analyzer__contact-icon">TEL</span>
+                  <span className="analyzer__contact-icon"></span>
                   <span>{results.contact.phone}</span>
                 </div>
               )}
               {results.contact?.location && (
                 <div className="analyzer__contact-pill">
-                  <span className="analyzer__contact-icon">LOC</span>
+                  <span className="analyzer__contact-icon"></span>
                   <span>{results.contact.location}</span>
                 </div>
               )}
@@ -229,8 +221,8 @@ export default function LinkedInAnalyzer() {
                   rel="noreferrer"
                   className="analyzer__contact-pill analyzer__contact-pill--link"
                 >
-                  <span className="analyzer__contact-icon">URL</span>
-                  <span>View LinkedIn Profile &rarr;</span>
+                  <span className="analyzer__contact-icon">url</span>
+                  <span>LinkedIn Profile &rarr;</span>
                 </a>
               )}
             </div>
@@ -242,7 +234,7 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__col">
               {/* Experience Section */}
               <div className="analyzer__panel brutal-card reveal">
-                <h3>Professional Experience</h3>
+                <h3> Experience</h3>
                 <p className="analyzer__panel-subtitle">Career history extracted from your profile:</p>
 
                 {results.experience && results.experience.length > 0 ? (
@@ -290,7 +282,7 @@ export default function LinkedInAnalyzer() {
                     ))}
                   </div>
                 ) : (
-                  <p className="analyzer__empty-note">Academic background extracted from your PDF.</p>
+                  <p className="analyzer__empty-note">No education records detected in uploaded profile.</p>
                 )}
               </div>
             </div>
@@ -299,8 +291,8 @@ export default function LinkedInAnalyzer() {
             <div className="analyzer__col">
               {/* Skills Section */}
               <div className="analyzer__panel brutal-card reveal-right">
-                <h3>Verified Skills &amp; Proficiencies</h3>
-                <p className="analyzer__panel-subtitle">Technical skills and domain competencies identified:</p>
+                <h3> Skills  </h3>
+                <p className="analyzer__panel-subtitle">Technical skills and domain identified:</p>
 
                 {results.skills && results.skills.length > 0 ? (
                   <div className="analyzer__tags">
@@ -316,23 +308,34 @@ export default function LinkedInAnalyzer() {
               {/* Certifications Section */}
               <div className="analyzer__panel brutal-card reveal-right" style={{ marginTop: '2rem' }}>
                 <h3>Licenses &amp; Certifications</h3>
-                <p className="analyzer__panel-subtitle">Professional accreditations and verified credentials:</p>
+                <p className="analyzer__panel-subtitle"> accreditations with verified credentials:</p>
 
-                {results.certifications && results.certifications.length > 0 ? (
-                  <div className="analyzer__cert-list">
-                    {results.certifications.map((cert, i) => (
-                      <div key={i} className="analyzer__cert-item">
-                        <h4 className="analyzer__cert-name">{cert.name}</h4>
-                        {cert.issuer && <span className="analyzer__cert-issuer">{cert.issuer}</span>}
-                        {cert.issueDate && <span className="analyzer__cert-date">{cert.issueDate}</span>}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="analyzer__empty-note">
-                    Certifications, course credentials, and professional licenses will appear here.
-                  </p>
-                )}
+                {(() => {
+                  const filteredCerts = (results.certifications || []).filter((cert) => {
+                    if (!cert || !cert.name) return false;
+                    const cName = cert.name.trim().toLowerCase();
+                    const uName = (results.name || '').trim().toLowerCase();
+                    if (uName && (cName === uName || cName.includes(uName) || uName.includes(cName))) return false;
+                    if (['summary', 'experience', 'education', 'projects', 'real projects', 'contact'].includes(cName)) return false;
+                    return true;
+                  });
+
+                  return filteredCerts.length > 0 ? (
+                    <div className="analyzer__cert-list">
+                      {filteredCerts.map((cert, i) => (
+                        <div key={i} className="analyzer__cert-item">
+                          <h4 className="analyzer__cert-name">{cert.name}</h4>
+                          {cert.issuer && <span className="analyzer__cert-issuer">{cert.issuer}</span>}
+                          {cert.issueDate && <span className="analyzer__cert-date">{cert.issueDate}</span>}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="analyzer__empty-note">
+                      Certifications, course credentials, and professional licenses will appear here.
+                    </p>
+                  );
+                })()}
               </div>
             </div>
           </div>

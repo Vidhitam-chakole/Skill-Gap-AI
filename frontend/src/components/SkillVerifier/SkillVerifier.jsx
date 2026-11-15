@@ -189,11 +189,11 @@ export default function SkillVerifier({ initialLanguage = null }) {
   const allLanguages = (githubResult?.topLanguages && githubResult.topLanguages.length > 0)
     ? githubResult.topLanguages
     : [
-        { name: 'HTML' },
-        { name: 'JavaScript' },
-        { name: 'C' },
-        { name: 'Python' },
-      ];
+      { name: 'HTML' },
+      { name: 'JavaScript' },
+      { name: 'C' },
+      { name: 'Python' },
+    ];
 
   // Start Assessment
   const handleStartQuiz = async (langToUse = selectedLanguage) => {
@@ -284,14 +284,6 @@ export default function SkillVerifier({ initialLanguage = null }) {
 
   return (
     <section id="verifier" className="verifier">
-
-
-      <SectionHeader
-        title="AI Skill Verifier &amp; Technical Coding Assessment"
-        subtitle="Interactive coding challenges to verify technical skills, benchmark programming proficiency, and validate competencies for software developer jobs."
-        rotate={1}
-      />
-
       {error && <div className="analyzer__error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
 
       {/* 1. SETUP / LANGUAGE SELECTOR VIEW */}
@@ -325,7 +317,7 @@ export default function SkillVerifier({ initialLanguage = null }) {
             </button>
 
             <div className="verifier__lang-selector">
-              <span className="verifier__lang-label">Languages:</span>
+              <span className="verifier__lang-label">Top Languages:</span>
               <div className="verifier__lang-pills">
                 {allLanguages.map((lang, idx) => {
                   const currentSelected = selectedLanguage || allLanguages[0]?.name;

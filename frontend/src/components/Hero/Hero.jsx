@@ -10,7 +10,6 @@ export default function Hero({ onNavigate }) {
       </div>
 
       <div className="hero__sticker hero__sticker--new">NEW!</div>
-      <div className="hero__sticker hero__sticker--ai">AI POWERED</div>
 
       <div className="hero__content">
         <h1 className="hero__title reveal">

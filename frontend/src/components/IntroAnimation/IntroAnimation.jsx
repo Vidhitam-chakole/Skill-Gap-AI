@@ -36,10 +36,6 @@ export default function IntroAnimation({ onComplete }) {
         <source src="/intro.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-
-      <button type="button" className="intro__skip" onClick={onComplete} aria-label="Skip Intro Video">
-        Skip
-      </button>
     </div>
   );
 }

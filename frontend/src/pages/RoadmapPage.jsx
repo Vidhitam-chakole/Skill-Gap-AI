@@ -19,7 +19,7 @@ export default function RoadmapPage() {
           AI Career <span className="page-hero__title-accent">Roadmap</span>
         </h1>
         <p className="page-hero__desc">
-          Synthesize findings from your LinkedIn profile and GitHub repositories into an adaptive, milestone-driven sprint roadmap designed to help you land software developer jobs and internships.
+          Adaptive step-by-step career roadmap synthesized from your LinkedIn and GitHub profiles to close skill gaps.
         </p>
       </header>
 

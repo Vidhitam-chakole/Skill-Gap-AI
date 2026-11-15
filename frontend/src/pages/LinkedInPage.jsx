@@ -16,7 +16,7 @@ export default function LinkedInPage() {
           LinkedIn Profile <span className="page-hero__title-accent">Analyzer</span>
         </h1>
         <p className="page-hero__desc">
-          Upload your official LinkedIn PDF dossier to parse career history, extract verified skills, benchmark against tech industry hiring standards, and detect critical software engineering gaps.
+          Upload your LinkedIn PDF to extract verified skills, review career history, and detect critical engineering gaps.
         </p>
       </header>
 

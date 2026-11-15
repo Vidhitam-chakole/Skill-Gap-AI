@@ -6,11 +6,13 @@ from dotenv import dotenv_values, load_dotenv
 
 ROOT_ENV = Path(__file__).resolve().parents[2] / ".env"
 
-# Load non-empty variables strictly from root .env
+# Load variables strictly from root .env
 if ROOT_ENV.exists():
     for k, v in dotenv_values(ROOT_ENV).items():
         if v and v.strip():
             os.environ[k] = v.strip()
+        else:
+            os.environ.pop(k, None)
 
 
 def _clean_supabase_url(url: str | None) -> str | None:

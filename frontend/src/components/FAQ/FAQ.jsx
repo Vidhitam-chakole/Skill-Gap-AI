@@ -3,16 +3,8 @@ import { SectionHeader } from '../Decorative/Decorative';
 import './FAQ.css';
 
 export const FAQ_DATA = [
-  {
-    q: 'What is Skill Plus AI and how does the AI skill gap analyzer work?',
-    a: 'Skill Plus AI is an AI-powered career intelligence platform designed for software engineers, students, and tech professionals. It cross-examines your LinkedIn profile or resume PDF against your public GitHub code repositories to detect missing technical skills, benchmark engineering practices, and generate an adaptive learning roadmap to close critical career gaps.',
-    tag: 'Platform Overview',
-  },
-  {
-    q: 'How do I get a free LinkedIn profile analysis online?',
-    a: 'You can analyze your LinkedIn profile online in seconds with Skill Plus AI completely free. In your LinkedIn account, navigate to your profile, click "More" in the header card, and select "Save to PDF". Upload the downloaded PDF to Skill Plus AI to parse your work history, verified skills, and identify missing competencies for developer roles.',
-    tag: 'LinkedIn Analysis',
-  },
+
+
   {
     q: 'How does the GitHub profile analyzer review developer repositories?',
     a: 'Enter your GitHub username or profile link into our GitHub profile review tool. Skill Plus AI fetches your public repositories via the GitHub REST API to measure byte-weighted language percentages, repository star metrics, commit velocity, and key engineering signals such as unit test coverage, CI/CD pipelines, and open-source contributions.',

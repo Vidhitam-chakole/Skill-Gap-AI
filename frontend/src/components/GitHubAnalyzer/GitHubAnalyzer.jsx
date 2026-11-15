@@ -33,14 +33,6 @@ export default function GitHubAnalyzer() {
 
   return (
     <section id="github" className="analyzer analyzer--github">
-
-
-      <SectionHeader
-        title="GitHub Profile Analyzer &amp; Developer Review Tool"
-        subtitle="Analyze GitHub profile for developers directly via GitHub API. Inspect repository code quality, commit velocity, test automation, and engineering gaps for internships and software roles."
-        rotate={-2}
-      />
-
       <form className="analyzer__form brutal-card reveal" onSubmit={(e) => handleAnalyze(e)} style={{ position: 'relative', zIndex: 30 }}>
         <label className="analyzer__label" htmlFor="github-username">
           GitHub Profile Link or Username
@@ -58,13 +50,13 @@ export default function GitHubAnalyzer() {
             }}
             onSubmit={(e) => handleAnalyze(e)}
             disabled={loading}
-            placeholder="e.g. torvalds, vid, or https://github.com/torvalds"
+            placeholder="e.g vidhitam, or https://github.com/vidhitam-chakole"
           />
           <button
             type="submit"
             className="brutal-btn brutal-btn--primary"
             disabled={loading}
-            aria-label="Analyze GitHub profile for developers"
+            aria-label="Analyze profile "
           >
             {loading ? 'Analyzing GitHub Repos...' : 'Analyze GitHub Profile for Developers'}
           </button>
@@ -78,11 +70,11 @@ export default function GitHubAnalyzer() {
       {results && (
         <div className="analyzer__results">
           <div className="analyzer__score-card analyzer__score-card--gh brutal-card reveal-left">
-            <span className="analyzer__score-label">GitHub Review Score</span>
+            <span className="analyzer__score-label"> Review Score</span>
             <span className="analyzer__score-value">{results.overallScore}</span>
             <div className="analyzer__profile-info">
               <strong>{results.name} (@{results.username})</strong>
-              <span>Public Developer Profile</span>
+              <span>Public  Profile</span>
               <a
                 href={`https://github.com/${results.username}`}
                 target="_blank"
@@ -168,9 +160,14 @@ export default function GitHubAnalyzer() {
                     width: '100%',
                     textAlign: 'center',
                     marginTop: '0.75rem',
-                    padding: '0.6rem 1rem',
-                    fontSize: '0.85rem',
+                    padding: '0.65rem 1rem',
+                    fontSize: '0.88rem',
+                    fontWeight: 800,
                     cursor: 'pointer',
+                    background: 'var(--cyan, #00e5ff)',
+                    color: 'var(--black, #0a0a0a)',
+                    border: '2px solid var(--black, #0a0a0a)',
+                    boxShadow: '4px 4px 0 var(--black, #0a0a0a)',
                   }}
                 >
                   Start Test for {results.topLanguages[0]?.name || 'Primary Language'} &rarr;
