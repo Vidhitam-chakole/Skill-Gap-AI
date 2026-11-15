@@ -74,40 +74,28 @@ class LinkedInResult(BaseModel):
 
 
 
-class LanguageStat(BaseModel):
-    name: str
-    percentage: int
-
-
-class PinnedRepo(BaseModel):
-    name: str
-    stars: int
-    language: str
-
-
-class GitHubResult(BaseModel):
-    analysisId: str
-    username: str
-    name: str
-    overallScore: int
-    stats: dict[str, int]
-    topLanguages: list[LanguageStat]
-    strongLanguages: list[str] = []
-    primaryLanguage: str | None = None
-    skillGaps: list[SkillGap]
-    pinnedRepos: list[PinnedRepo]
-
-
-class GitHubUserSuggestion(BaseModel):
-    username: str
-    name: str | None = None
-    avatar_url: str
-    bio: str | None = None
-    html_url: str = ""
-
-
-class GitHubSearchUsersResponse(BaseModel):
-    users: list[GitHubUserSuggestion]
+from github_analyzer.backend.schemas import (
+    ActivityAnalytics,
+    CollaborationSummary,
+    CommunityUser,
+    ContributionDay,
+    ContributionSummary,
+    DataProvenance,
+    DependencyItem,
+    EngineeringAudit,
+    GistItem,
+    GitHubResult,
+    GitHubSearchUsersResponse,
+    GitHubUserSuggestion,
+    LanguageStat,
+    OrganizationItem,
+    PinnedRepo,
+    RepoItem,
+    SecurityAudit,
+    SkillEvidenceItem,
+    TechStackSummary,
+    UserProfileMeta,
+)
 
 
 

@@ -10,7 +10,7 @@ from github_analyzer.backend.schemas import GitHubAnalyzeRequest, GitHubResult, 
 from github_analyzer.backend.service import analyze_github_user, search_github_users
 from app.services.store import get_github_result, save_github_result
 
-# Router connects real repository tree analyzer
+# Router connects real repository tree analyzer and full GitHub intelligence
 router = APIRouter(prefix="/github", tags=["github"])
 
 
