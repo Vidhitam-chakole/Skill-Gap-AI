@@ -23,7 +23,6 @@ import {
   IconShield,
   IconShieldCheck,
   IconShieldAlert,
-  IconLock,
   IconFileText,
   IconFolder,
   IconTerminal,
@@ -47,7 +46,6 @@ import {
   IconAudit,
   IconTrendingUp,
   IconBolt,
-  IconBranch,
 } from './GitHubIcons';
 import './GitHubDashboard.css';
 import '../LinkedInAnalyzer/Analyzer.css';
@@ -729,74 +727,7 @@ export default function GitHubAnalyzer() {
                 </div>
               </div>
 
-              {/* Engineering Highlights Quick Banner */}
-              <div className="gh-habits-grid">
-                <div className="gh-card" style={{ background: '#f0fdf4', border: '3px solid #16a34a' }}>
-                  <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <IconShieldCheck size={18} />
-                    <span>Engineering Hygiene Quick Audit</span>
-                  </h4>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem', fontSize: '0.85rem', fontWeight: 700 }}>
-                    <li style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <IconTestTube size={15} />
-                      <span>Automated Tests Detected: </span>
-                      <strong style={{ color: engineeringAudit.testAdoptionRate > 0 ? '#16a34a' : '#dc2626' }}>
-                        {engineeringAudit.testAdoptionRate}% of inspected codebases
-                      </strong>
-                    </li>
-                    <li style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <IconBranch size={15} />
-                      <span>CI/CD Pipelines Active: </span>
-                      <strong style={{ color: engineeringAudit.ciCdAdoptionRate > 0 ? '#16a34a' : '#6b7280' }}>
-                        {engineeringAudit.ciCdAdoptionRate}% of inspected codebases
-                      </strong>
-                    </li>
-                    <li style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <IconFileText size={15} />
-                      <span>Open Source Documentation: </span>
-                      <strong style={{ color: '#16a34a' }}>
-                        {engineeringAudit.documentationHealthRate}% with README documentation
-                      </strong>
-                    </li>
-                    <li style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <IconLock size={15} />
-                      <span>Exposed Secrets Status: </span>
-                      <strong style={{ color: securityAudit.riskLevel === 'High' ? '#dc2626' : '#16a34a' }}>
-                        {securityAudit.statusMessage}
-                      </strong>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="gh-card" style={{ background: '#eff6ff', border: '3px solid #2563eb' }}>
-                  <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <IconActivity size={18} />
-                    <span>Contribution Velocity &amp; Habit Rhythm</span>
-                  </h4>
-                  <p style={{ fontSize: '0.88rem', fontWeight: 700, color: '#1e3a8a', marginBottom: '0.5rem' }}>
-                    Pattern Verdict: {activity.codingHabitVerdict}
-                  </p>
-                  <p style={{ fontSize: '0.82rem', color: '#334155', lineHeight: 1.4 }}>
-                    Recorded <strong>{contributions.totalLastYear || stats.contributions || 0} contributions</strong> in the last 365 days, maintaining an active streak peak of <strong>{contributions.longestStreak || 0} consecutive days</strong>.
-                  </p>
-                  <div style={{ marginTop: '0.75rem' }}>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('heatmap')}
-                      className="brutal-btn"
-                      style={{
-                        padding: '0.35rem 0.75rem',
-                        fontSize: '0.75rem',
-                        fontWeight: 800,
-                        background: 'var(--white)',
-                        border: '2px solid var(--black)',
-                      }}
-                    >
-                      Inspect 365-Day Calendar &rarr;
-                    </button>
-                  </div>
-                </div>
-              </div>
+              {/* Top Repositories Grid ends above */}
             </div>
           )}
 
