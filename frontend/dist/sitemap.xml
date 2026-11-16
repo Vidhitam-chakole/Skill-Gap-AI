@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+        http://www.google.com/schemas/sitemap-image/1.1
+        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+  <!-- Homepage -->
+  <url>
+    <loc>https://skillplusai.vercel.app/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
+      <image:title>Skill Plus AI — Homepage Preview and Career Intelligence Dashboard</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://skillplusai.vercel.app/logo.png</image:loc>
+      <image:title>Skill Plus AI Official Logo</image:title>
+    </image:image>
+  </url>
+
+  <!-- LinkedIn Profile Analyzer -->
+  <url>
+    <loc>https://skillplusai.vercel.app/linkedin</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
+      <image:title>Skill Plus AI — LinkedIn Profile Analyzer &amp; Resume Review</image:title>
+    </image:image>
+  </url>
+
+  <!-- GitHub Profile Analyzer -->
+  <url>
+    <loc>https://skillplusai.vercel.app/github</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
+      <image:title>Skill Plus AI — GitHub Profile Analyzer &amp; Code Review</image:title>
+    </image:image>
+  </url>
+
+  <!-- AI Career Roadmap -->
+  <url>
+    <loc>https://skillplusai.vercel.app/roadmap</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
+      <image:title>Skill Plus AI — AI Career Roadmap &amp; Sprint Planner</image:title>
+    </image:image>
+  </url>
+
+  <!-- AI Code & Skill Verifier -->
+  <url>
+    <loc>https://skillplusai.vercel.app/verifier</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://skillplusai.vercel.app/og-image.png</image:loc>
+      <image:title>Skill Plus AI — Interactive Coding Challenges &amp; Skill Verifier</image:title>
+    </image:image>
+  </url>
+</urlset>
