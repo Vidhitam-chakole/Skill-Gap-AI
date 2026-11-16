@@ -1,5 +1,6 @@
 {
-  "version": 2,
+  "framework": null,
+  "buildCommand": "npm --prefix frontend install && npm --prefix frontend run build",
   "rewrites": [
     {
       "source": "/(.*)",
