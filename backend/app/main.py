@@ -24,6 +24,7 @@ app = FastAPI(
     title="SkillGap AI - Modular Career Intelligence API",
     version="2.0.0",
     description="Backend API powering LinkedIn Review, GitHub Review, Personalized Roadmap, Local AI Career Agent, and Skill Verifier.",
+    redirect_slashes=False,
 )
 
 cors_origins = settings.cors_origin_list
@@ -53,7 +54,11 @@ async def normalize_vercel_path(request: Request, call_next):
     elif path.startswith("/api/index/"):
         request.scope["path"] = path[len("/api/index"):]
     elif path in ("/api/index.py", "/api/index"):
-        request.scope["path"] = "/api"
+        orig = request.headers.get("x-vercel-original-path") or request.headers.get("x-matched-path")
+        if orig and orig not in ("/api/index.py", "/api/index", "/"):
+            request.scope["path"] = orig
+        else:
+            request.scope["path"] = "/api"
     return await call_next(request)
 
 
