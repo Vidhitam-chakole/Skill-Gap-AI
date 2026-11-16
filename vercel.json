@@ -3,12 +3,32 @@
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
+      "source": "/api/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/api/github/analyze",
+      "destination": "/api/github/analyze"
+    },
+    {
+      "source": "/api/github/search-users",
+      "destination": "/api/github/search-users"
+    },
+    {
+      "source": "/api/linkedin/analyze-pdf",
+      "destination": "/api/linkedin/analyze-pdf"
+    },
+    {
+      "source": "/api/linkedin/analyze",
+      "destination": "/api/linkedin/analyze"
+    },
+    {
       "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "destination": "/api"
     },
     {
       "source": "/api",
-      "destination": "/api/index.py"
+      "destination": "/api"
     },
     {
       "source": "/((?!api).*)",

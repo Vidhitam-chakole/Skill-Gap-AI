@@ -53,9 +53,9 @@ async def normalize_vercel_path(request: Request, call_next):
         request.scope["path"] = path[len("/api/index.py"):]
     elif path.startswith("/api/index/"):
         request.scope["path"] = path[len("/api/index"):]
-    elif path in ("/api/index.py", "/api/index"):
+    elif path in ("/api/index.py", "/api/index", "/api"):
         orig = request.headers.get("x-vercel-original-path") or request.headers.get("x-matched-path")
-        if orig and orig not in ("/api/index.py", "/api/index", "/"):
+        if orig and orig not in ("/api/index.py", "/api/index", "/", "/api"):
             request.scope["path"] = orig
         else:
             request.scope["path"] = "/api"
