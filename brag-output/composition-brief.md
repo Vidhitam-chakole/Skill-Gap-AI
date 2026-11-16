@@ -1,28 +1,39 @@
-# Composition Brief: Skill Plus AI (60-Second Extended Edition)
+# Composition Brief: Skill Plus AI (34s Fast-Paced Turbo Edition)
 
-## Project Overview
-Skill Plus AI is a developer career intelligence platform that audits CV/LinkedIn PDFs against public GitHub repositories to uncover skill gaps, calculate a Developer Intelligence Score, audit security hygiene (.env leak check), and provide an AI mentor.
-
-## Target Video Specs
+## Video Specs
 - Resolution: 1920x1080 (Landscape)
 - Frame Rate: 30 fps
-- Duration: 60.0 seconds (1800 frames)
-- Style: Neo-brutalist SaaS product walkthrough with 2.5D camera tracking and simulated mouse cursor interactions.
+- Duration: 34.0 seconds (1,020 frames)
+- Style: Fast-paced neo-brutalist SaaS product walkthrough with 2.5D camera tracking, dynamic pop animations on all cards/metrics, and exact virtual mouse cursor navigation.
 
-## Storyboard Timeline
-- **0.0s – 6.5s (Hook & Mascot Intro)**: Hero typography "SKILL PLUS AI" slams down with neon stickers. PulseBot flies in with rotating bamboo copter.
-- **6.5s – 15.0s (Live Action CV/Resume Upload)**: Mouse cursor drags `Vidhitam_Chakole_Resume.pdf` into upload dropzone. Drop ripple effect, click on "Analyze Profile", ATS score 87 dial animation, extracted claimed skills cloud.
-- **15.0s – 23.5s (Live Action Typing & GitHub Scan)**: Mouse clicks GitHub input. Keystrokes type `vidhitam-chakole`. Autocomplete dropdown pops with real avatar. Click Analyze button. Real scan finishes: score dial sweeps to 66 ("Emerging Core Developer · Tier 2"), 8-metric grid lands.
-- **23.5s – 44.5s (All 6 GitHub Dashboard Tabs Explored)**:
-  - 23.5s – 27.0s: Tab 1 (Executive Overview) — Polyglot spectrum bar, languages, featured repos, verify CTA.
-  - 27.0s – 30.5s: Tab 2 (Heatmap & Activity) — Tab click lights cyan. 365-day calendar grid, cell hover tooltip, 12-month trajectory bar chart.
-  - 30.5s – 34.0s: Tab 3 (Tech Stack & Evidence) — Tab click. Filter pills, categorized tech stack, Skill-to-Project Evidence Map.
-  - 34.0s – 37.5s: Tab 4 (Repository Explorer 18) — Tab click. Search & filter bar, repo card list. Click "Inspect File Tree & Details ▼" expanding root file tree drawer.
-  - 37.5s – 41.0s: Tab 5 (.ENV & Secret Security) — Tab click. High-visibility green security shield card: "NO .ENV EXPOSED · SECURE", 18 repos inspected.
-  - 41.0s – 44.5s: Tab 6 (Community & Collaboration) — Tab click. Collaboration index badge, PR/review metrics, discussion comments.
-- **44.5s – 54.0s (PulseBot AI Career Assistant Chat)**: Cursor clicks PulseBot. Chat drawer opens. Multi-turn personalized Q&A diagnosing Vidhitam's skill gaps and generating an adaptive 4-week roadmap.
-- **54.0s – 60.0s (3D Workstation Outro & CTA)**: Camera pulls back to angled workstation view. Punchline headline, CTA button, URL pill, confetti burst.
+## Key Implementation Updates
+- **Duration**: Paced tightly at 34.0s (1,020 frames) to cover all details rapidly with maximum viewer retention.
+- **Cursor Navigation**: Pre-computed pixel coordinates mapping pointer tip `(4, 3)` directly to target button centers, with ripple effects and tactile button depression on click.
+- **2-Row Tab Layout**: Row 1 contains 4 tabs (`EXECUTIVE OVERVIEW`, `HEATMAP & ACTIVITY`, `TECH STACK & EVIDENCE`, `REPOSITORY EXPLORER (18)`), Row 2 contains 2 tabs (`.ENV & SECRET SECURITY`, `COMMUNITY & COLLABORATION`) with a horizontal rule line, matching the real screenshot 1:1.
+- **Pop Animations**: Bouncy elastic easings (`back.out(2.5)` to `back.out(3.0)`), snappy scale entries, counter numerals rolling up, and active cyan tab pops.
+- **Audio Synchronization**: 22 SFX cues precisely mapped to the 34.0s timeline.
 
-## Audio Assets
-- Music: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3`
-- SFX: `assets/sfx/impact/impactSoft_medium_001.ogg`, `assets/sfx/impact/impactBell_heavy_000.ogg`, `assets/sfx/interface/drop_001.ogg`, `assets/sfx/interface/click_001.ogg`, `assets/sfx/interface/switch_001.ogg`, `assets/sfx/casino/card-slide-1.ogg`, `assets/sfx/casino/chips-collide-1.ogg`, `assets/sfx/keyboard/keypress-001.wav` through `keypress-016.wav`.
+## Audio Mapping (34.0s)
+- Music: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3` (0.0s – 34.0s)
+- SFX:
+  - 0.3s: Hero slam (`impactSoft_medium_001.ogg`)
+  - 0.6s: Stickers pop (`drop_001.ogg`)
+  - 3.4s: File drop (`card-slide-1.ogg`)
+  - 4.1s: Button click PDF (`click_001.ogg`)
+  - 4.6s: ATS score ticker (`switch_001.ogg`)
+  - 7.3s: Keystroke typing (`switch_001.ogg`)
+  - 9.0s: Button click GitHub (`click_001.ogg`)
+  - 9.6s: Score dial sweep (`chips-collide-1.ogg`)
+  - 12.6s: Tab 1 click (`click_001.ogg`)
+  - 14.6s: Tab 2 click (`click_001.ogg`)
+  - 16.6s: Tab 3 click (`click_001.ogg`)
+  - 18.6s: Tab 4 click (`click_001.ogg`)
+  - 19.3s: File tree drawer expand (`card-slide-1.ogg`)
+  - 20.6s: Tab 5 click (`click_001.ogg`)
+  - 22.6s: Tab 6 click (`click_001.ogg`)
+  - 24.8s: Chat drawer open (`click_001.ogg`)
+  - 25.5s: Chat Q1 pop (`switch_001.ogg`)
+  - 26.5s: Chat A1 pop (`chips-collide-1.ogg`)
+  - 28.0s: Chat Q2 pop (`switch_001.ogg`)
+  - 29.0s: Chat A2 pop (`chips-collide-1.ogg`)
+  - 31.2s: Outro bell impact (`impactBell_heavy_000.ogg`)

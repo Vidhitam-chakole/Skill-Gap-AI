@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
-    <title>Skill Plus AI — 60s Live Product Walkthrough</title>
+    <title>Skill Plus AI — Fast-Paced Live Walkthrough</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,13 +21,11 @@
         --lime: #b8ff00;
         --purple: #9b5de5;
         --white: #ffffff;
-        --card-bg: #ffffff;
         --border: 4px solid #0a0a0a;
         --border-sm: 3px solid #0a0a0a;
         --border-xs: 2px solid #0a0a0a;
         --shadow: 8px 8px 0 #0a0a0a;
         --shadow-sm: 4px 4px 0 #0a0a0a;
-        --shadow-lg: 14px 14px 0 #0a0a0a;
         --font-display: 'Archivo Black', sans-serif;
         --font-body: 'Space Grotesk', sans-serif;
         --font-mono: 'JetBrains Mono', monospace;
@@ -84,9 +82,7 @@
         box-shadow: var(--shadow);
         pointer-events: none;
       }
-      .deco-circle {
-        border-radius: 50%;
-      }
+      .deco-circle { border-radius: 50%; }
 
       .scene {
         position: absolute;
@@ -103,6 +99,7 @@
         box-shadow: var(--shadow);
         background: var(--white);
         border-radius: 4px;
+        transform-origin: center center;
       }
 
       .step-badge {
@@ -130,14 +127,14 @@
         border: var(--border);
         box-shadow: 5px 5px 0 var(--ink);
         color: var(--ink);
-        transform: rotate(-3deg);
+        transform-origin: center center;
       }
       .sticker--yellow { background: var(--yellow); }
-      .sticker--lime { background: var(--lime); transform: rotate(4deg); }
+      .sticker--lime { background: var(--lime); }
       .sticker--orange { background: var(--orange); }
       .sticker--cyan { background: var(--cyan); }
 
-      /* SIMULATED VIRTUAL MOUSE CURSOR */
+      /* VIRTUAL MOUSE CURSOR */
       #virtual-cursor {
         position: absolute;
         top: 0;
@@ -146,21 +143,34 @@
         height: 32px;
         z-index: 9999;
         pointer-events: none;
-        transform-origin: 0 0;
-        filter: drop-shadow(4px 4px 0 rgba(10, 10, 10, 0.4));
+        transform-origin: 4px 3px;
+        filter: drop-shadow(4px 4px 0 rgba(10, 10, 10, 0.45));
       }
       .cursor-ripple {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 48px;
-        height: 48px;
-        margin-top: -8px;
-        margin-left: -8px;
+        top: -15px;
+        left: -14px;
+        width: 36px;
+        height: 36px;
         border: 4px solid var(--orange);
         border-radius: 50%;
         opacity: 0;
         transform: scale(0.2);
+        pointer-events: none;
+      }
+      .drag-file-ghost {
+        position: absolute;
+        top: 24px;
+        left: 20px;
+        background: var(--lime);
+        border: var(--border-xs);
+        box-shadow: var(--shadow-sm);
+        padding: 6px 12px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 800;
+        display: none;
+        white-space: nowrap;
         pointer-events: none;
       }
 
@@ -242,9 +252,9 @@
         margin: 20px 0;
       }
       .upload-dropzone--active {
-        background: #e6fffa;
-        border-color: #0d9488;
-        border-style: solid;
+        background: #e6fffa !important;
+        border-color: #0d9488 !important;
+        border-style: solid !important;
       }
       .file-pill-card {
         display: none;
@@ -267,7 +277,6 @@
         border: var(--border);
         box-shadow: 6px 6px 0 var(--ink);
         padding: 18px 36px;
-        cursor: pointer;
         text-align: center;
       }
       .results-extracted-card {
@@ -277,7 +286,7 @@
         gap: 20px;
       }
 
-      /* SCENE 3: LIVE USERNAME & RESULTS REVEAL */
+      /* SCENE 3: LIVE TYPING & GITHUB SCAN */
       #scene-3 { z-index: 30; opacity: 0; pointer-events: none; }
       .search-form-card {
         width: 1440px;
@@ -436,15 +445,26 @@
         color: #4b5563;
       }
 
-      /* SCENE 4: GITHUB 6-TAB DASHBOARD EXPLORATION */
+      /* SCENE 4: GITHUB 6-TAB DASHBOARD */
       #scene-4 { z-index: 40; opacity: 0; pointer-events: none; }
       .tabs-nav-bar {
-        width: 1500px;
+        width: 1540px;
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 12px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .tabs-nav-row {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .tabs-nav-divider {
+        width: 100%;
+        height: 3px;
+        background: var(--ink);
+        margin-top: 4px;
       }
       .nav-tab-btn {
         background: var(--white);
@@ -458,27 +478,29 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        cursor: pointer;
       }
       .nav-tab-btn--active {
         background: var(--cyan) !important;
         transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 var(--ink);
+        box-shadow: 2px 2px 0 var(--ink) !important;
       }
       .tab-display-area {
-        width: 1500px;
-        height: 620px;
+        width: 1540px;
+        height: 600px;
         position: relative;
       }
       .tab-panel-view {
         position: absolute;
         inset: 0;
-        display: none;
+        display: flex;
         flex-direction: column;
         gap: 18px;
+        opacity: 0;
+        pointer-events: none;
       }
       .tab-panel-view--active {
-        display: flex;
+        opacity: 1;
+        pointer-events: auto;
       }
 
       /* TAB 1: EXECUTIVE OVERVIEW */
@@ -654,7 +676,7 @@
         gap: 6px;
       }
 
-      /* SCENE 5: PULSEBOT AI CAREER ASSISTANT CHAT */
+      /* SCENE 5: PULSEBOT CHAT */
       #scene-5 { z-index: 50; opacity: 0; pointer-events: none; }
       .chat-dialog-window {
         width: 1400px;
@@ -869,60 +891,61 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="60"
+      data-duration="34"
       data-width="1920"
       data-height="1080"
     >
-      <!-- BACKGROUND MUSIC (Full 60s length) -->
-      <audio id="bg-music" data-start="0" data-duration="60" data-track-index="10" data-volume="0.32" src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3"></audio>
+      <!-- BACKGROUND MUSIC (34.0s duration) -->
+      <audio id="bg-music" data-start="0" data-duration="34" data-track-index="10" data-volume="0.32" src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3"></audio>
 
-      <!-- SFX CUES -->
-      <audio id="sfx-hero-slam" data-start="0.4" data-duration="0.19" data-track-index="11" data-volume="0.6" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
-      <audio id="sfx-stickers" data-start="1.0" data-duration="0.11" data-track-index="12" data-volume="0.55" src="assets/sfx/interface/drop_001.ogg"></audio>
-      <audio id="sfx-file-drop" data-start="8.2" data-duration="0.25" data-track-index="13" data-volume="0.65" src="assets/sfx/casino/card-slide-1.ogg"></audio>
-      <audio id="sfx-btn-analyze-pdf" data-start="10.8" data-duration="0.15" data-track-index="14" data-volume="0.6" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-pdf-score" data-start="12.2" data-duration="0.20" data-track-index="15" data-volume="0.6" src="assets/sfx/interface/switch_001.ogg"></audio>
-      <audio id="sfx-type-username" data-start="16.5" data-duration="0.62" data-track-index="16" data-volume="0.5" src="assets/sfx/interface/switch_001.ogg"></audio>
-      <audio id="sfx-btn-analyze-gh" data-start="19.4" data-duration="0.15" data-track-index="17" data-volume="0.65" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-dial-sweep" data-start="20.6" data-duration="0.26" data-track-index="18" data-volume="0.7" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
+      <!-- PRECISELY TIMED SFX CUES (34s fast-paced timeline) -->
+      <audio id="sfx-hero-slam" data-start="0.3" data-duration="0.19" data-track-index="11" data-volume="0.6" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="sfx-stickers" data-start="0.6" data-duration="0.11" data-track-index="12" data-volume="0.55" src="assets/sfx/interface/drop_001.ogg"></audio>
+      <audio id="sfx-file-drop" data-start="3.4" data-duration="0.25" data-track-index="13" data-volume="0.65" src="assets/sfx/casino/card-slide-1.ogg"></audio>
+      <audio id="sfx-btn-analyze-pdf" data-start="4.1" data-duration="0.15" data-track-index="14" data-volume="0.6" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-pdf-score" data-start="4.6" data-duration="0.20" data-track-index="15" data-volume="0.6" src="assets/sfx/interface/switch_001.ogg"></audio>
+      <audio id="sfx-type-username" data-start="7.3" data-duration="0.62" data-track-index="16" data-volume="0.5" src="assets/sfx/interface/switch_001.ogg"></audio>
+      <audio id="sfx-btn-analyze-gh" data-start="9.0" data-duration="0.15" data-track-index="17" data-volume="0.65" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-dial-sweep" data-start="9.6" data-duration="0.26" data-track-index="18" data-volume="0.7" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
       
       <!-- TAB CLICKS -->
-      <audio id="sfx-tab-1" data-start="23.8" data-duration="0.12" data-track-index="19" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-tab-2" data-start="27.4" data-duration="0.12" data-track-index="20" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-tab-3" data-start="31.0" data-duration="0.12" data-track-index="21" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-tab-4" data-start="34.6" data-duration="0.12" data-track-index="22" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-drawer-expand" data-start="36.2" data-duration="0.25" data-track-index="23" data-volume="0.55" src="assets/sfx/casino/card-slide-1.ogg"></audio>
-      <audio id="sfx-tab-5" data-start="38.2" data-duration="0.12" data-track-index="24" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-tab-6" data-start="41.8" data-duration="0.12" data-track-index="25" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-tab-1" data-start="12.6" data-duration="0.12" data-track-index="19" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-tab-2" data-start="14.6" data-duration="0.12" data-track-index="20" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-tab-3" data-start="16.6" data-duration="0.12" data-track-index="21" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-tab-4" data-start="18.6" data-duration="0.12" data-track-index="22" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-drawer-expand" data-start="19.3" data-duration="0.25" data-track-index="23" data-volume="0.55" src="assets/sfx/casino/card-slide-1.ogg"></audio>
+      <audio id="sfx-tab-5" data-start="20.6" data-duration="0.12" data-track-index="24" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-tab-6" data-start="22.6" data-duration="0.12" data-track-index="25" data-volume="0.5" src="assets/sfx/interface/click_001.ogg"></audio>
       
       <!-- CHAT CUES -->
-      <audio id="sfx-chat-open" data-start="45.0" data-duration="0.15" data-track-index="26" data-volume="0.55" src="assets/sfx/interface/click_001.ogg"></audio>
-      <audio id="sfx-chat-msg-1" data-start="46.0" data-duration="0.15" data-track-index="27" data-volume="0.5" src="assets/sfx/interface/switch_001.ogg"></audio>
-      <audio id="sfx-chat-bot-1" data-start="48.0" data-duration="0.20" data-track-index="28" data-volume="0.55" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
-      <audio id="sfx-chat-msg-2" data-start="50.2" data-duration="0.15" data-track-index="29" data-volume="0.5" src="assets/sfx/interface/switch_001.ogg"></audio>
-      <audio id="sfx-chat-bot-2" data-start="52.2" data-duration="0.20" data-track-index="30" data-volume="0.55" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
+      <audio id="sfx-chat-open" data-start="24.8" data-duration="0.15" data-track-index="26" data-volume="0.55" src="assets/sfx/interface/click_001.ogg"></audio>
+      <audio id="sfx-chat-msg-1" data-start="25.5" data-duration="0.15" data-track-index="27" data-volume="0.5" src="assets/sfx/interface/switch_001.ogg"></audio>
+      <audio id="sfx-chat-bot-1" data-start="26.5" data-duration="0.20" data-track-index="28" data-volume="0.55" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
+      <audio id="sfx-chat-msg-2" data-start="28.0" data-duration="0.15" data-track-index="29" data-volume="0.5" src="assets/sfx/interface/switch_001.ogg"></audio>
+      <audio id="sfx-chat-bot-2" data-start="29.0" data-duration="0.20" data-track-index="30" data-volume="0.55" src="assets/sfx/casino/chips-collide-1.ogg"></audio>
       
       <!-- OUTRO IMPACT -->
-      <audio id="sfx-outro-bell" data-start="55.8" data-duration="1.48" data-track-index="31" data-volume="0.7" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+      <audio id="sfx-outro-bell" data-start="31.2" data-duration="1.48" data-track-index="31" data-volume="0.7" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
 
       <div class="grid-bg"></div>
 
-      <!-- VIRTUAL MOUSE CURSOR -->
-      <div id="virtual-cursor">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <path d="M4 3L11.5 21L14.5 13.5L22 10.5L4 3Z" fill="#ffffff" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round"/>
-        </svg>
-        <div class="cursor-ripple" id="cursor-ripple"></div>
-      </div>
-
       <!-- CAMERA 2.5D CANVAS -->
       <div id="camera">
+        <!-- VIRTUAL MOUSE CURSOR (Placed inside camera coordinate space for 100% precision) -->
+        <div id="virtual-cursor">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M4 3L11.5 21L14.5 13.5L22 10.5L4 3Z" fill="#ffffff" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+          <div class="cursor-ripple" id="cursor-ripple"></div>
+          <div class="drag-file-ghost" id="drag-file-ghost">📄 Vidhitam_Resume.pdf</div>
+        </div>
+
         <!-- Geometric Neo-brutalist Background Accents -->
         <div class="deco-shape deco-circle" style="width: 140px; height: 140px; background: var(--yellow); top: 60px; left: 80px;" data-layout-ignore="true"></div>
         <div class="deco-shape" style="width: 90px; height: 90px; background: var(--pink); bottom: 80px; right: 90px; transform: rotate(18deg);" data-layout-ignore="true"></div>
         <div class="deco-shape deco-circle" style="width: 80px; height: 80px; background: var(--cyan); bottom: 70px; left: 100px;" data-layout-ignore="true"></div>
 
-        <!-- ==================== SCENE 1: HOOK & WELCOME (0s - 6.5s) ==================== -->
+        <!-- ==================== SCENE 1: HOOK & WELCOME (0s - 3.5s) ==================== -->
         <section id="scene-1" class="scene">
           <div class="hero-center">
             <div class="hero-title-group" id="hero-title-el">
@@ -938,12 +961,12 @@
             <div class="hero-badges-row">
               <div class="sticker sticker--lime" id="sticker-1">100% FREE FOREVER</div>
               <div class="sticker sticker--yellow" id="sticker-2">ZERO SIGN-IN REQUIRED</div>
-              <div class="sticker sticker--orange" id="sticker-3">LIVE REPOSITORY AUDIT</div>
+              <div class="sticker sticker--orange" id="sticker-3">LIVE REPO AUDIT</div>
             </div>
           </div>
         </section>
 
-        <!-- ==================== SCENE 2: LIVE UPLOAD CV/RESUME (6.5s - 15.0s) ==================== -->
+        <!-- ==================== SCENE 2: LIVE UPLOAD CV/RESUME (3.5s - 9.0s) ==================== -->
         <section id="scene-2" class="scene">
           <div class="step-badge" id="badge-step-1">STEP 01 • LIVE CANDIDATE CV / RESUME UPLOAD</div>
           <div class="upload-container">
@@ -958,7 +981,6 @@
                 </p>
 
                 <div class="upload-dropzone" id="upload-dropzone">
-                  <!-- Initial dropzone state -->
                   <div id="dropzone-empty">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.5">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -1009,7 +1031,7 @@
                 <div style="font-family: var(--font-display); font-size: 16px; text-transform: uppercase; margin-bottom: 8px;">
                   Extracted Claimed Skills:
                 </div>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px;" data-layout-ignore="true">
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="extracted-skills-cloud" data-layout-ignore="true">
                   <span class="sticker sticker--yellow" style="font-size: 15px; padding: 5px 12px; transform: none;">React.js</span>
                   <span class="sticker sticker--cyan" style="font-size: 15px; padding: 5px 12px; transform: none;">JavaScript</span>
                   <span class="sticker sticker--lime" style="font-size: 15px; padding: 5px 12px; transform: none;">Python & FastAPI</span>
@@ -1021,7 +1043,7 @@
           </div>
         </section>
 
-        <!-- ==================== SCENE 3: LIVE TYPING & GITHUB SCAN (15.0s - 23.5s) ==================== -->
+        <!-- ==================== SCENE 3: LIVE TYPING & GITHUB SCAN (9.0s - 15.5s) ==================== -->
         <section id="scene-3" class="scene">
           <div class="step-badge" id="badge-step-2">STEP 02 • LIVE GITHUB PROFILE ANALYSIS</div>
 
@@ -1067,7 +1089,7 @@
                 </div>
               </div>
 
-              <div class="score-tier-badge">Emerging Core Developer</div>
+              <div class="score-tier-badge" id="score-tier-badge">Emerging Core Developer</div>
               <span style="font-size: 14px; font-weight: 800; color: #4b5563;" data-layout-ignore="true">Tier 2 · Competent Polyglot</span>
             </div>
 
@@ -1101,18 +1123,23 @@
           </div>
         </section>
 
-        <!-- ==================== SCENE 4: EXPLORE ALL 6 GITHUB FEATURES (23.5s - 44.5s) ==================== -->
+        <!-- ==================== SCENE 4: EXPLORE ALL 6 GITHUB FEATURES (15.5s - 27.5s) ==================== -->
         <section id="scene-4" class="scene">
           <div class="step-badge" id="badge-step-3">STEP 03 • EXPLORE ALL GITHUB ANALYTICS FEATURES</div>
 
           <!-- The Exact 6 Tabs from User's Screenshot -->
           <nav class="tabs-nav-bar" id="gh-feature-tabs">
-            <button class="nav-tab-btn nav-tab-btn--active" id="tab-btn-1">📊 EXECUTIVE OVERVIEW</button>
-            <button class="nav-tab-btn" id="tab-btn-2">📅 HEATMAP & ACTIVITY</button>
-            <button class="nav-tab-btn" id="tab-btn-3">🥞 TECH STACK & EVIDENCE</button>
-            <button class="nav-tab-btn" id="tab-btn-4">📁 REPOSITORY EXPLORER (18)</button>
-            <button class="nav-tab-btn" id="tab-btn-5">🛡️ .ENV & SECRET SECURITY</button>
-            <button class="nav-tab-btn" id="tab-btn-6">👥 COMMUNITY & COLLABORATION</button>
+            <div class="tabs-nav-row">
+              <button class="nav-tab-btn nav-tab-btn--active" id="tab-btn-1">📊 EXECUTIVE OVERVIEW</button>
+              <button class="nav-tab-btn" id="tab-btn-2">📅 HEATMAP &amp; ACTIVITY</button>
+              <button class="nav-tab-btn" id="tab-btn-3">🥞 TECH STACK &amp; EVIDENCE</button>
+              <button class="nav-tab-btn" id="tab-btn-4">📁 REPOSITORY EXPLORER (18)</button>
+            </div>
+            <div class="tabs-nav-row">
+              <button class="nav-tab-btn" id="tab-btn-5">🛡️ .ENV &amp; SECRET SECURITY</button>
+              <button class="nav-tab-btn" id="tab-btn-6">👥 COMMUNITY &amp; COLLABORATION</button>
+            </div>
+            <div class="tabs-nav-divider"></div>
           </nav>
 
           <!-- Tab Content Display Area -->
@@ -1130,10 +1157,10 @@
 
                   <!-- Spectrum Bar -->
                   <div class="spectrum-bar-wrap">
-                    <div style="width: 41%; background: #f1e05a;"></div>
-                    <div style="width: 35%; background: #e34c26;"></div>
-                    <div style="width: 19%; background: #555555;"></div>
-                    <div style="width: 5%; background: #3572A5;"></div>
+                    <div id="spec-bar-js" style="width: 41%; background: #f1e05a;"></div>
+                    <div id="spec-bar-html" style="width: 35%; background: #e34c26;"></div>
+                    <div id="spec-bar-c" style="width: 19%; background: #555555;"></div>
+                    <div id="spec-bar-py" style="width: 5%; background: #3572A5;"></div>
                   </div>
 
                   <!-- Chips -->
@@ -1190,7 +1217,7 @@
 
                   <!-- 52-Week Grid -->
                   <div class="heatmap-calendar-grid" id="heatmap-grid" style="margin-top: 14px;">
-                    <!-- JS will fill 52 columns with 7 cells each -->
+                    <!-- JS fills 52 columns with 7 cells each -->
                   </div>
                 </div>
 
@@ -1199,18 +1226,18 @@
                   <div>
                     <div style="font-family: var(--font-display); font-size: 18px; text-transform: uppercase;">12-Month Momentum</div>
                     <div class="chart-columns-grid">
-                      <div class="chart-bar-pillar" style="height: 35%;">12</div>
-                      <div class="chart-bar-pillar" style="height: 45%;">18</div>
-                      <div class="chart-bar-pillar" style="height: 30%;">10</div>
-                      <div class="chart-bar-pillar" style="height: 55%;">24</div>
-                      <div class="chart-bar-pillar" style="height: 70%;">38</div>
-                      <div class="chart-bar-pillar" style="height: 60%;">32</div>
-                      <div class="chart-bar-pillar" style="height: 80%;">48</div>
-                      <div class="chart-bar-pillar" style="height: 95%;">64</div>
-                      <div class="chart-bar-pillar" style="height: 75%;">42</div>
-                      <div class="chart-bar-pillar" style="height: 85%;">52</div>
-                      <div class="chart-bar-pillar" style="height: 100%;">78</div>
-                      <div class="chart-bar-pillar" style="height: 65%;">36</div>
+                      <div class="chart-bar-pillar" style="height: 35%;" data-layout-ignore="true">12</div>
+                      <div class="chart-bar-pillar" style="height: 45%;" data-layout-ignore="true">18</div>
+                      <div class="chart-bar-pillar" style="height: 30%;" data-layout-ignore="true">10</div>
+                      <div class="chart-bar-pillar" style="height: 55%;" data-layout-ignore="true">24</div>
+                      <div class="chart-bar-pillar" style="height: 70%;" data-layout-ignore="true">38</div>
+                      <div class="chart-bar-pillar" style="height: 60%;" data-layout-ignore="true">32</div>
+                      <div class="chart-bar-pillar" style="height: 80%;" data-layout-ignore="true">48</div>
+                      <div class="chart-bar-pillar" style="height: 95%;" data-layout-ignore="true">64</div>
+                      <div class="chart-bar-pillar" style="height: 75%;" data-layout-ignore="true">42</div>
+                      <div class="chart-bar-pillar" style="height: 85%;" data-layout-ignore="true">52</div>
+                      <div class="chart-bar-pillar" style="height: 100%;" data-layout-ignore="true">78</div>
+                      <div class="chart-bar-pillar" style="height: 65%;" data-layout-ignore="true">36</div>
                     </div>
                   </div>
 
@@ -1441,7 +1468,7 @@
           </div>
         </section>
 
-        <!-- ==================== SCENE 5: PULSEBOT AI CAREER ASSISTANT CHAT (44.5s - 54.0s) ==================== -->
+        <!-- ==================== SCENE 5: PULSEBOT AI CAREER ASSISTANT CHAT (27.5s - 33.5s) ==================== -->
         <section id="scene-5" class="scene">
           <div class="step-badge" id="badge-step-4">STEP 04 • PULSEBOT AI CAREER ASSISTANT CHAT</div>
 
@@ -1484,7 +1511,7 @@
           </div>
         </section>
 
-        <!-- ==================== SCENE 6: CINEMATIC WORKSTATION OUTRO (54.0s - 60.0s) ==================== -->
+        <!-- ==================== SCENE 6: CINEMATIC WORKSTATION OUTRO (33.5s - 37.0s) ==================== -->
         <section id="scene-6" class="scene">
           <h2 class="outro-headline">AUDIT YOUR REAL TECH STACK.</h2>
           
@@ -1560,6 +1587,22 @@
         }
       })();
 
+      // Pre-calculated target coordinates (1920x1080 canvas pixel space)
+      const targets = {
+        uploadZone: { x: 592, y: 572 },
+        btnAnalyzePdf: { x: 592, y: 703 },
+        ghInput: { x: 520, y: 415 },
+        btnAnalyzeGh: { x: 1469, y: 415 },
+        tab1: { x: 385, y: 233 },
+        tab2: { x: 626, y: 231 },
+        tab3: { x: 879, y: 231 },
+        tab4: { x: 1158, y: 231 },
+        btnToggleTree: { x: 1498, y: 489 },
+        tab5: { x: 397, y: 284 },
+        tab6: { x: 692, y: 284 },
+        pulsebot: { x: 1640, y: 287 }
+      };
+
       window.__timelines = window.__timelines || {};
 
       const tl = gsap.timeline({ paused: true });
@@ -1569,6 +1612,7 @@
       const camera = "#camera";
       const cursor = "#virtual-cursor";
       const ripple = "#cursor-ripple";
+      const dragGhost = "#drag-file-ghost";
       const mascot = "#mascot-container";
       const mascotFigure = "#pulsebot-figure";
       const bubble = "#mascot-bubble";
@@ -1583,135 +1627,153 @@
       const scene5 = "#scene-5";
       const scene6 = "#scene-6";
 
-      // Bamboo copter rotation (Continuous across 60 seconds)
-      tl.to(copter, { rotation: 360 * 120, duration: 60, ease: "none" }, 0);
+      // Bamboo copter rotation (Continuous across 34 seconds)
+      tl.to(copter, { rotation: 360 * 68, duration: 34, ease: "none" }, 0);
 
       // Pulse Core Glow Breathing
       tl.to(core, {
-        scale: 1.2,
-        filter: "brightness(1.35)",
-        duration: 0.3,
-        repeat: 99,
+        scale: 1.25,
+        filter: "brightness(1.4)",
+        duration: 0.25,
+        repeat: 67,
         yoyo: true,
         ease: "power1.inOut"
       }, 0);
 
       // Mascot Idle Hover Floating
       tl.to(mascotFigure, {
-        y: -16,
-        duration: 0.85,
-        repeat: 70,
+        y: -14,
+        duration: 0.7,
+        repeat: 48,
         yoyo: true,
         ease: "sine.inOut"
       }, 0);
 
-      // Helper function for simulated cursor click
-      function triggerClick(time) {
-        tl.to(cursor, { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.inOut" }, time);
-        tl.fromTo(ripple, { opacity: 0.8, scale: 0.2 }, { opacity: 0, scale: 1.4, duration: 0.35, ease: "power2.out", immediateRender: false }, time);
+      // Deterministic cursor navigation & click animation registered at build time
+      function moveCursor(targetX, targetY, startTime, duration = 0.35) {
+        // SVG pointer tip is at (4, 3)
+        tl.to(cursor, { x: targetX - 4, y: targetY - 3, duration: duration, ease: "power2.inOut" }, startTime);
+      }
+
+      function scheduleClick(targetSelector, atTime) {
+        tl.to(cursor, { scale: 0.78, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.inOut" }, atTime);
+        tl.fromTo(ripple, { opacity: 0.9, scale: 0.2 }, { opacity: 0, scale: 1.6, duration: 0.35, ease: "power2.out", immediateRender: false }, atTime);
+        if (targetSelector) {
+          tl.to(targetSelector, { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.inOut" }, atTime);
+        }
+      }
+
+      function scheduleTabSwitch(tabIndex, atTime) {
+        // Toggle tab panel visibility deterministically
+        for (let i = 1; i <= 6; i++) {
+          tl.set("#panel-tab-" + i, { opacity: i === tabIndex ? 1 : 0, pointerEvents: i === tabIndex ? "auto" : "none" }, atTime);
+          tl.set("#tab-btn-" + i, {
+            backgroundColor: i === tabIndex ? "var(--cyan)" : "var(--white)",
+            boxShadow: i === tabIndex ? "2px 2px 0 var(--ink)" : "4px 4px 0 var(--ink)",
+            x: i === tabIndex ? 2 : 0,
+            y: i === tabIndex ? 2 : 0
+          }, atTime);
+        }
       }
 
       // =========================================================================
-      // SCENE 1: HOOK & HERO REVEAL (0.0s – 6.5s)
+      // SCENE 1: HOOK & HERO REVEAL (0.0s – 2.8s)
       // =========================================================================
-      tl.set(camera, { rotateX: 2, rotateY: -3, scale: 1.02 }, 0);
+      tl.set(camera, { rotateX: 0, rotateY: 0, scale: 1.0 }, 0);
       tl.set(scene1, { opacity: 1 }, 0);
       tl.set(mascot, { x: 0, y: 0, opacity: 1 }, 0);
       tl.set(bubble, { scale: 1, opacity: 1 }, 0);
       tl.set(cursor, { x: 960, y: 800, opacity: 0 }, 0);
 
-      tl.from("#sticker-1", { scale: 0, rotation: -20, duration: 0.25, ease: "back.out(2)" }, 0.9);
-      tl.from("#sticker-2", { scale: 0, rotation: 20, duration: 0.25, ease: "back.out(2)" }, 1.1);
-      tl.from("#sticker-3", { scale: 0, rotation: -15, duration: 0.25, ease: "back.out(2)" }, 1.3);
+      tl.from("#sticker-1", { scale: 0, rotation: -25, duration: 0.3, ease: "back.out(2.8)" }, 0.5);
+      tl.from("#sticker-2", { scale: 0, rotation: 25, duration: 0.3, ease: "back.out(2.8)" }, 0.7);
+      tl.from("#sticker-3", { scale: 0, rotation: -20, duration: 0.3, ease: "back.out(2.8)" }, 0.9);
 
-      tl.to(camera, { rotateX: 0, rotateY: 0, scale: 1.0, duration: 1.8, ease: "power2.inOut" }, 1.5);
-
-      // =========================================================================
-      // SCENE 1 -> SCENE 2 TRANSITION (6.5s)
-      // =========================================================================
-      tl.to(scene1, { opacity: 0, duration: 0.4, ease: "power2.in" }, 6.0);
-      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 6.0);
-      tl.to(camera, { rotateX: 2, rotateY: -2, duration: 0.5, ease: "power2.inOut" }, 6.1);
+      // SCENE 1 -> SCENE 2 TRANSITION (2.8s)
+      tl.to(scene1, { opacity: 0, duration: 0.25, ease: "power2.in" }, 2.55);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 2.55);
 
       // =========================================================================
-      // SCENE 2: LIVE ACTION UPLOADING CV / RESUME (6.5s – 15.0s)
+      // SCENE 2: LIVE UPLOAD CV / RESUME (2.8s – 6.8s)
       // =========================================================================
-      tl.set(scene2, { opacity: 1 }, 6.5);
-      tl.from("#badge-step-1", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 6.5);
-      tl.from("#upload-box-card", { x: -40, opacity: 0, duration: 0.45, ease: "power3.out" }, 6.8);
-      tl.from("#card-extracted-claims", { x: 40, opacity: 0, duration: 0.45, ease: "power3.out" }, 7.0);
+      tl.set(scene2, { opacity: 1 }, 2.8);
+      tl.from("#badge-step-1", { y: -30, opacity: 0, duration: 0.25, ease: "power2.out" }, 2.8);
+      tl.from("#upload-box-card", { scale: 0.85, opacity: 0, duration: 0.35, ease: "back.out(2.5)" }, 2.85);
+      tl.from("#card-extracted-claims", { scale: 0.85, opacity: 0, duration: 0.35, ease: "back.out(2.5)" }, 2.95);
 
-      tl.to(mascot, { x: 120, y: 380, scale: 0.88, duration: 0.6, ease: "power2.out" }, 6.5);
+      tl.to(mascot, { x: 120, y: 380, scale: 0.88, duration: 0.45, ease: "power2.out" }, 2.8);
       tl.call(() => {
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "• •";
         if (b) b.innerText = "Step 1: Uploading candidate CV dossier...";
-      }, null, 6.6);
-      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 6.8);
+      }, null, 2.9);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 3.0);
 
-      // Cursor enters and simulates drag-and-drop of CV
-      tl.set(cursor, { opacity: 1, x: 200, y: 300 }, 7.2);
-      tl.to(cursor, { x: 550, y: 530, duration: 0.8, ease: "power2.inOut" }, 7.4);
+      // Cursor enters dragging file ghost
+      tl.set(cursor, { opacity: 1, x: 260, y: 380 }, 3.0);
+      tl.set(dragGhost, { display: "block" }, 3.0);
 
-      // File lands in dropzone at 8.2s
+      // Move cursor to upload dropzone center
+      moveCursor(targets.uploadZone.x, targets.uploadZone.y, 3.0, 0.4);
+
+      // File lands in dropzone at 3.4s
       tl.call(() => {
         const dropzone = document.getElementById("upload-dropzone");
         const empty = document.getElementById("dropzone-empty");
         const accepted = document.getElementById("file-accepted-pill");
+        const ghost = document.getElementById("drag-file-ghost");
         if (dropzone) dropzone.classList.add("upload-dropzone--active");
         if (empty) empty.style.display = "none";
         if (accepted) accepted.style.display = "inline-flex";
-      }, null, 8.2);
-      tl.fromTo("#file-accepted-pill", { scale: 0.8 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 8.2);
+        if (ghost) ghost.style.display = "none";
+      }, null, 3.4);
+      tl.fromTo("#file-accepted-pill", { scale: 0.5 }, { scale: 1, duration: 0.25, ease: "back.out(3.0)" }, 3.4);
 
-      // Cursor moves to "ANALYZE PROFILE DOSSIER" button and clicks at 10.8s
-      tl.to(cursor, { x: 480, y: 730, duration: 0.7, ease: "power2.inOut" }, 9.8);
-      triggerClick(10.8);
+      // Cursor moves to "ANALYZE PROFILE DOSSIER →" button center and clicks at 4.1s
+      moveCursor(targets.btnAnalyzePdf.x, targets.btnAnalyzePdf.y, 3.6, 0.45);
+      scheduleClick("#btn-analyze-pdf", 4.1);
 
       // Results populate on right card
-      tl.fromTo("#score-ats-num", { innerText: 0 }, { innerText: 87, duration: 0.8, snap: { innerText: 1 }, ease: "power2.out" }, 11.2);
-      tl.from("#card-extracted-claims .sticker", { scale: 0.7, opacity: 0, stagger: 0.1, duration: 0.25, ease: "back.out(2)" }, 12.0);
+      tl.fromTo("#score-ats-num", { innerText: 0, scale: 0.4 }, { innerText: 87, scale: 1, duration: 0.6, snap: { innerText: 1 }, ease: "back.out(2.5)" }, 4.4);
+      tl.from("#card-extracted-claims .sticker", { scale: 0.3, opacity: 0, stagger: 0.06, duration: 0.2, ease: "back.out(2.8)" }, 4.9);
 
       tl.call(() => {
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "^ ^";
         if (b) b.innerText = "ATS Score 87! Claimed System Design.";
-      }, null, 12.8);
+      }, null, 5.2);
+
+      // SCENE 2 -> SCENE 3 TRANSITION (6.8s)
+      tl.to(scene2, { opacity: 0, duration: 0.3, ease: "power2.in" }, 6.5);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 6.5);
 
       // =========================================================================
-      // SCENE 2 -> SCENE 3 TRANSITION (15.0s)
+      // SCENE 3: LIVE TYPING 'vidhitam-chakole' & RESULTS REVEAL (6.8s – 12.3s)
       // =========================================================================
-      tl.to(scene2, { opacity: 0, duration: 0.4, ease: "power2.in" }, 14.6);
-      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 14.6);
-      tl.to(camera, { rotateX: -1, rotateY: 2, duration: 0.5, ease: "power2.inOut" }, 14.7);
+      tl.set(scene3, { opacity: 1 }, 6.8);
+      tl.set("#gh-results-split", { opacity: 0, y: 30 }, 6.8);
+      tl.from("#badge-step-2", { y: -30, opacity: 0, duration: 0.25, ease: "power2.out" }, 6.8);
+      tl.from("#gh-search-card", { scale: 0.9, opacity: 0, duration: 0.35, ease: "back.out(2.5)" }, 6.85);
 
-      // =========================================================================
-      // SCENE 3: LIVE TYPING 'vidhitam-chakole' & RESULTS REVEAL (15.0s – 23.5s)
-      // =========================================================================
-      tl.set(scene3, { opacity: 1 }, 15.0);
-      tl.set("#gh-results-split", { opacity: 0, y: 40 }, 15.0);
-      tl.from("#badge-step-2", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 15.0);
-      tl.from("#gh-search-card", { y: 30, opacity: 0, duration: 0.45, ease: "power3.out" }, 15.3);
-
-      tl.to(mascot, { x: 120, y: 380, scale: 0.88, duration: 0.5, ease: "power2.out" }, 15.0);
+      tl.to(mascot, { x: 120, y: 380, scale: 0.88, duration: 0.45, ease: "power2.out" }, 6.8);
       tl.call(() => {
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "• •";
-        if (b) b.innerText = "Now checking live GitHub for @Vidhitam-chakole...";
-      }, null, 15.1);
-      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 15.3);
+        if (b) b.innerText = "Step 2: Live GitHub audit for @Vidhitam-chakole...";
+      }, null, 6.9);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 7.0);
 
-      // Move cursor to input box and click
-      tl.to(cursor, { x: 500, y: 360, duration: 0.6, ease: "power2.inOut" }, 15.5);
-      triggerClick(16.1);
+      // Move cursor to input box and click at 7.3s
+      moveCursor(targets.ghInput.x, targets.ghInput.y, 6.9, 0.38);
+      scheduleClick("#gh-input-box", 7.3);
 
-      // Keystroke by keystroke typing of "vidhitam-chakole"
+      // Fast typing of "vidhitam-chakole"
       const usernameText = "vidhitam-chakole";
       usernameText.split("").forEach((char, idx) => {
-        const time = 16.4 + idx * 0.08;
+        const time = 7.4 + idx * 0.06;
         tl.call(() => {
           const el = document.getElementById("typed-text");
           if (el) el.innerText = usernameText.slice(0, idx + 1);
@@ -1722,202 +1784,195 @@
       tl.call(() => {
         const pop = document.getElementById("autocomplete-popup");
         if (pop) pop.style.display = "flex";
-      }, null, 17.8);
-      tl.from("#autocomplete-popup", { y: -10, opacity: 0, duration: 0.25, ease: "power2.out" }, 17.8);
+      }, null, 8.4);
+      tl.from("#autocomplete-popup", { scale: 0.8, opacity: 0, duration: 0.2, ease: "back.out(2.8)" }, 8.4);
 
-      // Cursor moves to "ANALYZE →" button and clicks at 19.4s
-      tl.to(cursor, { x: 1420, y: 360, duration: 0.6, ease: "power2.inOut" }, 18.5);
-      triggerClick(19.4);
+      // Cursor moves to "ANALYZE →" button center and clicks at 9.0s
+      moveCursor(targets.btnAnalyzeGh.x, targets.btnAnalyzeGh.y, 8.55, 0.4);
+      scheduleClick("#btn-analyze-gh", 9.0);
 
-      // Scan completes! Reveal Results Card at 19.8s
-      tl.to("#gh-results-split", { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 19.8);
+      // Scan completes! Reveal Results Card with BOUNCY POP at 9.4s
+      tl.to("#gh-results-split", { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.5)" }, 9.4);
 
-      // Score dial sweep to 66 (dashoffset from 389.55 to 132.4)
-      tl.fromTo("#score-circle-bar", { strokeDashoffset: 389.55 }, { strokeDashoffset: 132.4, duration: 0.8, ease: "power2.out" }, 20.2);
-      tl.fromTo("#score-val-text", { innerText: 0 }, { innerText: 66, duration: 0.8, snap: { innerText: 1 }, ease: "power2.out" }, 20.2);
+      // Score dial sweep to 66
+      tl.fromTo("#score-circle-bar", { strokeDashoffset: 389.55 }, { strokeDashoffset: 132.4, duration: 0.65, ease: "power3.out" }, 9.6);
+      tl.fromTo("#score-val-text", { innerText: 0, scale: 0.3 }, { innerText: 66, scale: 1, duration: 0.65, snap: { innerText: 1 }, ease: "back.out(2.8)" }, 9.6);
+      tl.from("#score-tier-badge", { scale: 0, duration: 0.3, ease: "back.out(2.8)" }, 10.0);
 
-      // 8 metric tiles stagger in
-      tl.from(".metric-tile", { scale: 0.85, opacity: 0, stagger: 0.04, duration: 0.2, ease: "back.out(1.8)" }, 20.6);
+      // 8 metric tiles stagger in with rapid pops
+      tl.from(".metric-tile", { scale: 0.4, opacity: 0, stagger: 0.03, duration: 0.2, ease: "back.out(2.5)" }, 10.1);
 
       tl.call(() => {
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "★ ★";
         if (b) b.innerText = "Score 66 · 18 Public Repos · 82 Stars!";
-      }, null, 21.2);
+      }, null, 10.8);
+
+      // SCENE 3 -> SCENE 4 TRANSITION (12.3s)
+      tl.to(scene3, { opacity: 0, duration: 0.3, ease: "power2.in" }, 12.0);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 12.0);
 
       // =========================================================================
-      // SCENE 3 -> SCENE 4 TRANSITION (23.5s)
+      // SCENE 4: CLICKING & EXPLORING ALL 6 GITHUB FEATURES (12.3s – 24.3s)
       // =========================================================================
-      tl.to(scene3, { opacity: 0, duration: 0.4, ease: "power2.in" }, 23.0);
-      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 23.0);
+      tl.set(scene4, { opacity: 1 }, 12.3);
+      tl.from("#badge-step-3", { y: -30, opacity: 0, duration: 0.25, ease: "power2.out" }, 12.3);
+      tl.from("#gh-feature-tabs", { scale: 0.9, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 12.35);
 
-      // =========================================================================
-      // SCENE 4: CLICKING & EXPLORING ALL 6 GITHUB FEATURES (23.5s – 44.5s)
-      // =========================================================================
-      tl.set(scene4, { opacity: 1 }, 23.5);
-      tl.from("#badge-step-3", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 23.5);
-      tl.from("#gh-feature-tabs", { y: 20, opacity: 0, duration: 0.4, ease: "power2.out" }, 23.6);
-
-      // Helper function to activate a tab
-      function switchTab(tabIndex) {
-        for (let i = 1; i <= 6; i++) {
-          const btn = document.getElementById(`tab-btn-${i}`);
-          const panel = document.getElementById(`panel-tab-${i}`);
-          if (btn) {
-            if (i === tabIndex) btn.classList.add("nav-tab-btn--active");
-            else btn.classList.remove("nav-tab-btn--active");
-          }
-          if (panel) {
-            if (i === tabIndex) panel.classList.add("tab-panel-view--active");
-            else panel.classList.remove("tab-panel-view--active");
-          }
-        }
-      }
-
-      // --- TAB 1: EXECUTIVE OVERVIEW (23.5s – 27.0s) ---
-      tl.to(cursor, { x: 300, y: 190, duration: 0.4 }, 23.6);
-      triggerClick(23.8);
+      // --- TAB 1: EXECUTIVE OVERVIEW (12.3s – 14.3s) ---
+      moveCursor(targets.tab1.x, targets.tab1.y, 12.3, 0.3);
+      scheduleClick("#tab-btn-1", 12.6);
+      scheduleTabSwitch(1, 12.6);
       tl.call(() => {
-        switchTab(1);
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "^ ^";
         if (b) b.innerText = "Tab 1: Polyglot language breakdown!";
-      }, null, 23.8);
-      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3 }, 24.0);
+      }, null, 12.6);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 12.7);
+      tl.from("#panel-tab-1 .brutal-card", { scale: 0.92, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 12.7);
 
-      // --- TAB 2: HEATMAP & ACTIVITY (27.0s – 30.5s) ---
-      tl.to(cursor, { x: 500, y: 190, duration: 0.5, ease: "power2.inOut" }, 26.8);
-      triggerClick(27.4);
+      // --- TAB 2: HEATMAP & ACTIVITY (14.3s – 16.3s) ---
+      moveCursor(targets.tab2.x, targets.tab2.y, 14.2, 0.35);
+      scheduleClick("#tab-btn-2", 14.6);
+      scheduleTabSwitch(2, 14.6);
       tl.call(() => {
-        switchTab(2);
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "• •";
         if (b) b.innerText = "Tab 2: 365-Day commit calendar & habits!";
-      }, null, 27.4);
-      // Cursor hovers over heatmap cell showing tooltip
-      tl.to(cursor, { x: 740, y: 350, duration: 0.4 }, 28.0);
-      tl.fromTo("#heatmap-tooltip", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 28.2);
+      }, null, 14.6);
+      tl.from("#panel-tab-2 .brutal-card", { scale: 0.92, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 14.65);
+      
+      // Cursor hovers over active heatmap cell
+      moveCursor(780, 380, 15.0, 0.3);
+      tl.fromTo("#heatmap-tooltip", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.8)" }, 15.1);
 
-      // --- TAB 3: TECH STACK & EVIDENCE (30.5s – 34.0s) ---
-      tl.to(cursor, { x: 740, y: 190, duration: 0.5, ease: "power2.inOut" }, 30.4);
-      triggerClick(31.0);
+      // --- TAB 3: TECH STACK & EVIDENCE (16.3s – 18.3s) ---
+      moveCursor(targets.tab3.x, targets.tab3.y, 16.2, 0.35);
+      scheduleClick("#tab-btn-3", 16.6);
+      scheduleTabSwitch(3, 16.6);
       tl.call(() => {
-        switchTab(3);
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "^ ^";
         if (b) b.innerText = "Tab 3: Verified tech stacks & project proofs!";
-      }, null, 31.0);
+      }, null, 16.6);
+      tl.from("#panel-tab-3 .brutal-card", { scale: 0.92, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 16.65);
+      tl.from("#panel-tab-3 .tech-pill-badge", { scale: 0.4, opacity: 0, stagger: 0.02, duration: 0.2, ease: "back.out(2.8)" }, 16.8);
 
-      // --- TAB 4: REPOSITORY EXPLORER (18) & EXPAND TREE (34.0s – 37.5s) ---
-      tl.to(cursor, { x: 990, y: 190, duration: 0.5, ease: "power2.inOut" }, 34.0);
-      triggerClick(34.6);
+      // --- TAB 4: REPOSITORY EXPLORER (18) & EXPAND TREE (18.3s – 20.3s) ---
+      moveCursor(targets.tab4.x, targets.tab4.y, 18.2, 0.35);
+      scheduleClick("#tab-btn-4", 18.6);
+      scheduleTabSwitch(4, 18.6);
       tl.call(() => {
-        switchTab(4);
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "• •";
         if (b) b.innerText = "Tab 4: 18 Repositories! Let's inspect file tree.";
-      }, null, 34.6);
+      }, null, 18.6);
+      tl.from("#panel-tab-4 .brutal-card", { scale: 0.92, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 18.65);
 
-      // Cursor moves to "INSPECT FILE TREE & DETAILS ▼" button and clicks at 36.2s
-      tl.to(cursor, { x: 1350, y: 350, duration: 0.5, ease: "power2.inOut" }, 35.6);
-      triggerClick(36.2);
+      // Move cursor to "INSPECT FILE TREE & DETAILS ▼" button center and click at 19.3s
+      moveCursor(targets.btnToggleTree.x, targets.btnToggleTree.y, 18.9, 0.35);
+      scheduleClick("#btn-toggle-tree", 19.3);
       tl.call(() => {
         const drawer = document.getElementById("repo-filetree-drawer");
         if (drawer) drawer.style.display = "block";
-      }, null, 36.2);
-      tl.from("#repo-filetree-drawer", { height: 0, opacity: 0, duration: 0.35, ease: "power2.out" }, 36.2);
+      }, null, 19.3);
+      tl.from("#repo-filetree-drawer", { height: 0, opacity: 0, duration: 0.3, ease: "power2.out" }, 19.3);
 
-      // --- TAB 5: .ENV & SECRET SECURITY (37.5s – 41.0s) ---
-      tl.to(cursor, { x: 1220, y: 190, duration: 0.5, ease: "power2.inOut" }, 37.6);
-      triggerClick(38.2);
+      // --- TAB 5: .ENV & SECRET SECURITY (20.3s – 22.3s) ---
+      // Move to Row 2 Tab 5
+      moveCursor(targets.tab5.x, targets.tab5.y, 20.2, 0.35);
+      scheduleClick("#tab-btn-5", 20.6);
+      scheduleTabSwitch(5, 20.6);
       tl.call(() => {
-        switchTab(5);
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "★ ★";
         if (b) b.innerText = "Tab 5: 100% Clean! Zero .env files leaked.";
-      }, null, 38.2);
+      }, null, 20.6);
+      tl.from("#panel-tab-5 .sec-full-card", { scale: 0.92, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 20.65);
 
-      // --- TAB 6: COMMUNITY & COLLABORATION (41.0s – 44.5s) ---
-      tl.to(cursor, { x: 1460, y: 190, duration: 0.5, ease: "power2.inOut" }, 41.2);
-      triggerClick(41.8);
+      // --- TAB 6: COMMUNITY & COLLABORATION (22.3s – 24.3s) ---
+      // Move along Row 2 to Tab 6
+      moveCursor(targets.tab6.x, targets.tab6.y, 22.2, 0.35);
+      scheduleClick("#tab-btn-6", 22.6);
+      scheduleTabSwitch(6, 22.6);
       tl.call(() => {
-        switchTab(6);
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "^ ^";
         if (b) b.innerText = "Tab 6: Open Source Collaboration index!";
-      }, null, 41.8);
+      }, null, 22.6);
+      tl.from("#panel-tab-6 .brutal-card", { scale: 0.92, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 22.65);
+      tl.from(".collab-card", { scale: 0.5, opacity: 0, stagger: 0.04, duration: 0.25, ease: "back.out(2.8)" }, 22.8);
+
+      // SCENE 4 -> SCENE 5 TRANSITION (24.3s)
+      tl.to(scene4, { opacity: 0, duration: 0.3, ease: "power2.in" }, 24.0);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 24.0);
 
       // =========================================================================
-      // SCENE 4 -> SCENE 5 TRANSITION (44.5s)
+      // SCENE 5: PULSEBOT AI CAREER ASSISTANT IN-DEPTH CHAT (24.3s – 30.3s)
       // =========================================================================
-      tl.to(scene4, { opacity: 0, duration: 0.4, ease: "power2.in" }, 44.0);
-      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 44.0);
+      tl.set(scene5, { opacity: 1 }, 24.3);
+      tl.set(["#chat-q1", "#chat-a1", "#chat-q2", "#chat-a2"], { opacity: 0, y: 25 }, 24.3);
+      tl.from("#badge-step-4", { y: -30, opacity: 0, duration: 0.25, ease: "power2.out" }, 24.3);
+      tl.from(".chat-dialog-window", { scale: 0.88, opacity: 0, duration: 0.35, ease: "back.out(2.5)" }, 24.4);
 
-      // =========================================================================
-      // SCENE 5: PULSEBOT AI CAREER ASSISTANT IN-DEPTH CHAT (44.5s – 54.0s)
-      // =========================================================================
-      tl.set(scene5, { opacity: 1 }, 44.5);
-      tl.set(["#chat-q1", "#chat-a1", "#chat-q2", "#chat-a2"], { opacity: 0, y: 30 }, 44.5);
-      tl.from("#badge-step-4", { y: -30, opacity: 0, duration: 0.35, ease: "power2.out" }, 44.5);
-      tl.from(".chat-dialog-window", { scale: 0.95, opacity: 0, duration: 0.45, ease: "power3.out" }, 44.8);
-
-      tl.to(mascot, { x: 160, y: 400, scale: 0.9, duration: 0.6, ease: "power2.out" }, 44.5);
+      // Move cursor to mascot button to click and open chat
+      moveCursor(targets.pulsebot.x, targets.pulsebot.y, 24.4, 0.35);
+      scheduleClick("#pulsebot-figure", 24.8);
       tl.call(() => {
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "~ ^";
         if (b) b.innerText = "Chatting live with PulseBot Career Coach!";
-      }, null, 44.8);
-      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3 }, 45.0);
+      }, null, 24.8);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 24.9);
 
-      // Question 1 pops
-      tl.to("#chat-q1", { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 46.0);
+      // Question 1 pops with bounce
+      tl.to("#chat-q1", { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2.5)" }, 25.5);
 
       // Answer 1 pops
-      tl.to("#chat-a1", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 48.0);
-      tl.to(armR, { rotation: -50, duration: 0.2, yoyo: true, repeat: 3 }, 48.2);
+      tl.to("#chat-a1", { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2.2)" }, 26.5);
+      tl.to(armR, { rotation: -60, duration: 0.15, yoyo: true, repeat: 4 }, 26.7);
 
       // Question 2 pops
-      tl.to("#chat-q2", { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 50.2);
+      tl.to("#chat-q2", { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2.5)" }, 28.0);
 
       // Answer 2 pops
-      tl.to("#chat-a2", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 52.2);
+      tl.to("#chat-a2", { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2.2)" }, 29.0);
+
+      // SCENE 5 -> SCENE 6 TRANSITION (30.3s)
+      tl.to(scene5, { opacity: 0, duration: 0.3, ease: "power2.in" }, 30.0);
+      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 30.0);
+      tl.to(cursor, { opacity: 0, duration: 0.2 }, 30.0);
 
       // =========================================================================
-      // SCENE 5 -> SCENE 6 TRANSITION (54.0s)
+      // SCENE 6: CINEMATIC WORKSTATION OUTRO & CTA (30.3s – 34.0s)
       // =========================================================================
-      tl.to(scene5, { opacity: 0, duration: 0.4, ease: "power2.in" }, 53.6);
-      tl.to(bubble, { opacity: 0, scale: 0.5, duration: 0.2 }, 53.6);
+      tl.set(scene6, { opacity: 1 }, 30.3);
+      tl.to(camera, { x: 0, y: 0, scale: 0.94, rotateX: 12, rotateY: -16, duration: 0.7, ease: "power2.inOut" }, 30.3);
 
-      // =========================================================================
-      // SCENE 6: CINEMATIC WORKSTATION OUTRO & CTA (54.0s – 60.0s)
-      // =========================================================================
-      tl.set(scene6, { opacity: 1 }, 54.0);
-      tl.to(camera, { x: 0, y: 0, scale: 1.0, rotateX: 0, rotateY: 0, duration: 0.8, ease: "power2.inOut" }, 54.0);
+      tl.from(".outro-headline", { y: -40, opacity: 0, duration: 0.35, ease: "back.out(2.5)" }, 30.5);
+      tl.from("#scene-6 .hero-badges-row", { scale: 0.6, opacity: 0, duration: 0.3, ease: "back.out(2.8)" }, 30.9);
+      tl.from("#outro-cta-btn", { scale: 0.6, opacity: 0, duration: 0.35, ease: "back.out(3.0)" }, 31.2);
+      tl.from("#scene-6 .url-pill", { scale: 0.6, opacity: 0, duration: 0.3, ease: "back.out(2.5)" }, 31.6);
 
-      tl.from(".outro-headline", { y: -30, opacity: 0, duration: 0.45, ease: "power3.out" }, 54.4);
-      tl.from("#scene-6 .hero-badges-row", { scale: 0.85, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 55.0);
-      tl.from("#outro-cta-btn", { y: 30, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 55.6);
-      tl.from("#scene-6 .url-pill", { scale: 0.8, opacity: 0, duration: 0.3, ease: "back.out(2)" }, 56.2);
-
-      tl.to(mascot, { x: 620, y: 400, scale: 0.95, duration: 0.6, ease: "power2.out" }, 54.2);
+      tl.to(mascot, { x: 620, y: 400, scale: 0.95, duration: 0.5, ease: "power2.out" }, 30.6);
       tl.call(() => {
         const e = document.getElementById("mascot-eyes");
         const b = document.getElementById("mascot-bubble");
         if (e) e.innerText = "^ ^";
         if (b) b.innerText = "Audit your profile today at skillplusai.vercel.app!";
-      }, null, 55.2);
-      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.3 }, 55.4);
+      }, null, 31.2);
+      tl.to(bubble, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 31.4);
 
-      // Final CTA Pulse
-      tl.to("#outro-cta-btn", { scale: 1.04, boxShadow: "16px 16px 0 #0a0a0a", duration: 0.35, yoyo: true, repeat: 3, ease: "power1.inOut" }, 56.8);
+      // Final CTA Button Breathing
+      tl.to("#outro-cta-btn", { scale: 1.06, boxShadow: "16px 16px 0 #0a0a0a", duration: 0.25, yoyo: true, repeat: 3, ease: "power1.inOut" }, 32.2);
 
       tl.seek(0);
     </script>
