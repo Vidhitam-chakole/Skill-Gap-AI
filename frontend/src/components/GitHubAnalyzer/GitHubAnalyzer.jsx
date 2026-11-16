@@ -500,54 +500,82 @@ export default function GitHubAnalyzer() {
           {/* ─────────────────────────────────────────────────────────────
               3. DASHBOARD NAVIGATION TABS
              ───────────────────────────────────────────────────────────── */}
-          <nav className="gh-nav-tabs" aria-label="GitHub Analytics Sections">
+          <nav
+            className="gh-nav-tabs"
+            aria-label="GitHub Analytics Sections"
+            style={{ overflow: 'visible', overflowX: 'visible', flexWrap: 'wrap' }}
+          >
             <button
               type="button"
               className={`gh-nav-btn ${activeTab === 'overview' ? 'gh-nav-btn--active' : ''}`}
               onClick={() => setActiveTab('overview')}
+              style={{
+                color: '#000000',
+                background: activeTab === 'overview' ? 'var(--cyan, #00e5ff)' : '#ffffff',
+              }}
             >
-              <IconChart size={15} />
-              <span>Executive Overview</span>
+              <IconChart size={15} style={{ stroke: '#000000', color: '#000000' }} />
+              <span style={{ color: '#000000', fontWeight: 900 }}>Executive Overview</span>
             </button>
             <button
               type="button"
               className={`gh-nav-btn ${activeTab === 'heatmap' ? 'gh-nav-btn--active' : ''}`}
               onClick={() => setActiveTab('heatmap')}
+              style={{
+                color: '#000000',
+                background: activeTab === 'heatmap' ? 'var(--cyan, #00e5ff)' : '#ffffff',
+              }}
             >
-              <IconCalendar size={15} />
-              <span>Heatmap &amp; Activity</span>
+              <IconCalendar size={15} style={{ stroke: '#000000', color: '#000000' }} />
+              <span style={{ color: '#000000', fontWeight: 900 }}>Heatmap &amp; Activity</span>
             </button>
             <button
               type="button"
               className={`gh-nav-btn ${activeTab === 'tech' ? 'gh-nav-btn--active' : ''}`}
               onClick={() => setActiveTab('tech')}
+              style={{
+                color: '#000000',
+                background: activeTab === 'tech' ? 'var(--cyan, #00e5ff)' : '#ffffff',
+              }}
             >
-              <IconLayers size={15} />
-              <span>Tech Stack &amp; Evidence</span>
+              <IconLayers size={15} style={{ stroke: '#000000', color: '#000000' }} />
+              <span style={{ color: '#000000', fontWeight: 900 }}>Tech Stack &amp; Evidence</span>
             </button>
             <button
               type="button"
               className={`gh-nav-btn ${activeTab === 'repos' ? 'gh-nav-btn--active' : ''}`}
               onClick={() => setActiveTab('repos')}
+              style={{
+                color: '#000000',
+                background: activeTab === 'repos' ? 'var(--cyan, #00e5ff)' : '#ffffff',
+              }}
             >
-              <IconRepo size={15} />
-              <span>Repository Explorer ({allRepositories.length})</span>
+              <IconRepo size={15} style={{ stroke: '#000000', color: '#000000' }} />
+              <span style={{ color: '#000000', fontWeight: 900 }}>Repository Explorer ({allRepositories.length})</span>
             </button>
             <button
               type="button"
               className={`gh-nav-btn ${activeTab === 'audit' ? 'gh-nav-btn--active' : ''}`}
               onClick={() => setActiveTab('audit')}
+              style={{
+                color: '#000000',
+                background: activeTab === 'audit' ? 'var(--cyan, #00e5ff)' : '#ffffff',
+              }}
             >
-              <IconShield size={15} />
-              <span>.ENV &amp; Secret Security</span>
+              <IconShield size={15} style={{ stroke: '#000000', color: '#000000' }} />
+              <span style={{ color: '#000000', fontWeight: 900 }}>.ENV &amp; Secret Security</span>
             </button>
             <button
               type="button"
               className={`gh-nav-btn ${activeTab === 'community' ? 'gh-nav-btn--active' : ''}`}
               onClick={() => setActiveTab('community')}
+              style={{
+                color: '#000000',
+                background: activeTab === 'community' ? 'var(--cyan, #00e5ff)' : '#ffffff',
+              }}
             >
-              <IconUsers size={15} />
-              <span>Community &amp; Collaboration</span>
+              <IconUsers size={15} style={{ stroke: '#000000', color: '#000000' }} />
+              <span style={{ color: '#000000', fontWeight: 900 }}>Community &amp; Collaboration</span>
             </button>
           </nav>
 
@@ -1181,16 +1209,18 @@ export default function GitHubAnalyzer() {
                     value={repoSearch}
                     onChange={(e) => setRepoSearch(e.target.value)}
                     className="gh-search-input"
+                    style={{ color: '#000000', backgroundColor: '#ffffff', colorScheme: 'light' }}
                   />
 
                   <select
                     value={repoLangFilter}
                     onChange={(e) => setRepoLangFilter(e.target.value)}
                     className="gh-select"
+                    style={{ color: '#000000', backgroundColor: '#ffffff', colorScheme: 'light' }}
                   >
-                    <option value="all">All Languages</option>
+                    <option value="all" style={{ color: '#000000', backgroundColor: '#ffffff' }}>All Languages</option>
                     {repoLanguages.map((l) => (
-                      <option key={l} value={l}>
+                      <option key={l} value={l} style={{ color: '#000000', backgroundColor: '#ffffff' }}>
                         {l}
                       </option>
                     ))}
@@ -1200,21 +1230,23 @@ export default function GitHubAnalyzer() {
                     value={repoTypeFilter}
                     onChange={(e) => setRepoTypeFilter(e.target.value)}
                     className="gh-select"
+                    style={{ color: '#000000', backgroundColor: '#ffffff', colorScheme: 'light' }}
                   >
-                    <option value="all">All Repositories</option>
-                    <option value="original">Original Sources Only</option>
-                    <option value="forks">Forks Only</option>
+                    <option value="all" style={{ color: '#000000', backgroundColor: '#ffffff' }}>All Repositories</option>
+                    <option value="original" style={{ color: '#000000', backgroundColor: '#ffffff' }}>Original Sources Only</option>
+                    <option value="forks" style={{ color: '#000000', backgroundColor: '#ffffff' }}>Forks Only</option>
                   </select>
 
                   <select
                     value={repoSort}
                     onChange={(e) => setRepoSort(e.target.value)}
                     className="gh-select"
+                    style={{ color: '#000000', backgroundColor: '#ffffff', colorScheme: 'light' }}
                   >
-                    <option value="stars">Most Stars</option>
-                    <option value="forks">Most Forks</option>
-                    <option value="updated">Recently Pushed</option>
-                    <option value="size">Largest Codebase</option>
+                    <option value="stars" style={{ color: '#000000', backgroundColor: '#ffffff' }}>Most Stars</option>
+                    <option value="forks" style={{ color: '#000000', backgroundColor: '#ffffff' }}>Most Forks</option>
+                    <option value="updated" style={{ color: '#000000', backgroundColor: '#ffffff' }}>Recently Pushed</option>
+                    <option value="size" style={{ color: '#000000', backgroundColor: '#ffffff' }}>Largest Codebase</option>
                   </select>
                 </div>
 

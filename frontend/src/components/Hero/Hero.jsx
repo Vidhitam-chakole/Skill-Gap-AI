@@ -50,10 +50,7 @@ export default function Hero({ onNavigate }) {
           <span className="hero__card-value">4</span>
         </div>
         <div className="hero__card hero__card--3">
-          <picture>
-            <source srcSet="/logo.webp" type="image/webp" />
-            <img src="/logo.png" alt="Skill Plus AI Logo" className="hero__card-logo" width="160" height="106" fetchPriority="high" />
-          </picture>
+          <img src="/logo.png" alt="Skill Plus AI Logo" className="hero__card-logo" width="160" height="106" fetchPriority="high" />
         </div>
         <div className="hero__arrow-deco" aria-hidden="true">→</div>
       </div>

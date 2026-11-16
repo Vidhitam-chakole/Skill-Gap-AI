@@ -9,6 +9,12 @@
   width: 100%;
   margin-top: 1.5rem;
   color: var(--black, #0a0a0a);
+  color-scheme: light !important;
+}
+
+.gh-dashboard,
+.gh-dashboard * {
+  color-scheme: light !important;
 }
 
 .gh-dashboard button,
@@ -16,6 +22,7 @@
 .gh-dashboard select,
 .gh-dashboard select option {
   color: #000000 !important;
+  color-scheme: light !important;
 }
 
 /* ─── Hero / Executive Identity Header ─── */
@@ -441,18 +448,20 @@
 .gh-nav-tabs {
   display: flex;
   gap: 0.65rem;
-  flex-wrap: wrap;
+  flex-wrap: wrap !important;
   padding-bottom: 0.85rem;
   border-bottom: 3px solid var(--black, #0a0a0a);
-  overflow: visible;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow: visible !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
 .gh-nav-tabs::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .gh-nav-btn {
@@ -460,18 +469,19 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: #ffffff;
+  background: #ffffff !important;
   color: #000000 !important;
   border: 3px solid var(--black, #0a0a0a);
   box-shadow: 4px 4px 0 var(--black, #0a0a0a);
   font-family: var(--font-display, sans-serif);
   font-size: 0.85rem;
   text-transform: uppercase;
-  font-weight: 900;
+  font-weight: 900 !important;
   letter-spacing: 0.03em;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.15s ease;
+  color-scheme: light !important;
 }
 
 .gh-nav-btn,
@@ -481,13 +491,13 @@
 .gh-nav-btn path {
   color: #000000 !important;
   stroke: #000000 !important;
-  font-weight: 900;
+  font-weight: 900 !important;
 }
 
 .gh-nav-btn:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--black, #0a0a0a);
-  background: var(--cream, #f5f0e8);
+  background: var(--cream, #f5f0e8) !important;
   color: #000000 !important;
 }
 
@@ -505,7 +515,7 @@
 .gh-nav-btn--active path {
   color: #000000 !important;
   stroke: #000000 !important;
-  font-weight: 900;
+  font-weight: 900 !important;
 }
 
 /* ─── Tab Content Panels ─── */
@@ -1008,15 +1018,19 @@
   font-size: 0.85rem;
   font-weight: 800;
   background: #ffffff !important;
+  background-color: #ffffff !important;
   color: #000000 !important;
   box-shadow: 3px 3px 0 var(--black, #0a0a0a);
   cursor: pointer;
+  color-scheme: light !important;
 }
 
 .gh-select option {
   background: #ffffff !important;
+  background-color: #ffffff !important;
   color: #000000 !important;
   font-weight: 700;
+  color-scheme: light !important;
 }
 
 .gh-repos-list {
@@ -1216,18 +1230,24 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 .gh-prov-title {
   font-family: var(--font-display, sans-serif);
   font-size: 0.85rem;
   text-transform: uppercase;
+  color: #000000 !important;
 }
 
 .gh-prov-list {
   list-style: none;
   font-size: 0.78rem;
   line-height: 1.4;
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-width: none !important;
 }
 
 .gh-prov-list li {

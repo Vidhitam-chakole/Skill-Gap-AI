@@ -1,53 +1,28 @@
-# Hyperframes Composition Brief: Skill Plus AI (30-Second Edition)
+# Composition Brief: Skill Plus AI (60-Second Extended Edition)
 
-## Objective
-Create a 30-second Screen Studio style product walkthrough video for Skill Plus AI highlighting all four core product capabilities in sequence:
-1. LinkedIn PDF dossier extraction and ATS scoring
-2. GitHub repository and code review
-3. Synthesized Adaptive Career Roadmap & sprints
-4. Interactive PulseBot Assistant chat for personalized career prep
+## Project Overview
+Skill Plus AI is a developer career intelligence platform that audits CV/LinkedIn PDFs against public GitHub repositories to uncover skill gaps, calculate a Developer Intelligence Score, audit security hygiene (.env leak check), and provide an AI mentor.
 
-## Output
-- Composition directory: `brag-output/composition/`
-- Rendered video: `brag-output/brag.mp4`
-- Format: landscape — 1920x1080
-- Duration: 30 seconds (900 frames @ 30fps)
+## Target Video Specs
+- Resolution: 1920x1080 (Landscape)
+- Frame Rate: 30 fps
+- Duration: 60.0 seconds (1800 frames)
+- Style: Neo-brutalist SaaS product walkthrough with 2.5D camera tracking and simulated mouse cursor interactions.
 
-## Source Material
-- Project root: `c:/Users/Dell/OneDrive/Desktop/Skill-Gap-AI`
-- Primary files: `README.md`, `frontend/src/index.css`, `frontend/src/components/Mascot/MascotCoach.jsx`
-- Product name: Skill Plus AI
-- Four core features:
-  - 1. LinkedIn PDF dossier extraction & ATS readiness score
-  - 2. GitHub profile analyzer & code quality distribution
-  - 3. Adaptive career roadmap & hands-on skill verification
-  - 4. PulseBot roving AI career mentor chat
-- Verbatim copy:
-  - "SKILL PLUS AI"
-  - "1. LINKEDIN PROFILE PDF EXTRACTION"
-  - "2. DEEP GITHUB CODE & REPO REVIEW"
-  - "3. ADAPTIVE CAREER ROADMAP & SPRINTS"
-  - "4. PULSEBOT AI CAREER ASSISTANT"
-  - "100% FREE FOREVER • ZERO SIGN-IN"
-  - "skillplusai.vercel.app"
+## Storyboard Timeline
+- **0.0s – 6.5s (Hook & Mascot Intro)**: Hero typography "SKILL PLUS AI" slams down with neon stickers. PulseBot flies in with rotating bamboo copter.
+- **6.5s – 15.0s (Live Action CV/Resume Upload)**: Mouse cursor drags `Vidhitam_Chakole_Resume.pdf` into upload dropzone. Drop ripple effect, click on "Analyze Profile", ATS score 87 dial animation, extracted claimed skills cloud.
+- **15.0s – 23.5s (Live Action Typing & GitHub Scan)**: Mouse clicks GitHub input. Keystrokes type `vidhitam-chakole`. Autocomplete dropdown pops with real avatar. Click Analyze button. Real scan finishes: score dial sweeps to 66 ("Emerging Core Developer · Tier 2"), 8-metric grid lands.
+- **23.5s – 44.5s (All 6 GitHub Dashboard Tabs Explored)**:
+  - 23.5s – 27.0s: Tab 1 (Executive Overview) — Polyglot spectrum bar, languages, featured repos, verify CTA.
+  - 27.0s – 30.5s: Tab 2 (Heatmap & Activity) — Tab click lights cyan. 365-day calendar grid, cell hover tooltip, 12-month trajectory bar chart.
+  - 30.5s – 34.0s: Tab 3 (Tech Stack & Evidence) — Tab click. Filter pills, categorized tech stack, Skill-to-Project Evidence Map.
+  - 34.0s – 37.5s: Tab 4 (Repository Explorer 18) — Tab click. Search & filter bar, repo card list. Click "Inspect File Tree & Details ▼" expanding root file tree drawer.
+  - 37.5s – 41.0s: Tab 5 (.ENV & Secret Security) — Tab click. High-visibility green security shield card: "NO .ENV EXPOSED · SECURE", 18 repos inspected.
+  - 41.0s – 44.5s: Tab 6 (Community & Collaboration) — Tab click. Collaboration index badge, PR/review metrics, discussion comments.
+- **44.5s – 54.0s (PulseBot AI Career Assistant Chat)**: Cursor clicks PulseBot. Chat drawer opens. Multi-turn personalized Q&A diagnosing Vidhitam's skill gaps and generating an adaptive 4-week roadmap.
+- **54.0s – 60.0s (3D Workstation Outro & CTA)**: Camera pulls back to angled workstation view. Punchline headline, CTA button, URL pill, confetti burst.
 
-## Visual Identity
-- Background: `#f5f0e8` (Cream)
-- Text & Borders: `#0a0a0a` (Solid Jet Black)
-- Primary Accent: `#ff6b1a` (Vibrant Orange)
-- Supporting Accents: `#00e5ff` (Cyan), `#ffe600` (Yellow), `#b8ff00` (Lime), `#ff3d9a` (Pink), `#9b5de5` (Purple)
-- Border: `4px solid #0a0a0a`
-- Drop Shadow: `8px 8px 0px #0a0a0a`
-- Display font: `'Archivo Black', sans-serif`
-- Body font: `'Space Grotesk', sans-serif`
-
-## Storyboard (30.0s)
-1. Scene 1 — Hook & Hero Reveal — 5.0s (0.0s - 5.0s)
-2. Scene 2 — Feature 1: LinkedIn PDF Dossier Extractor — 6.0s (5.0s - 11.0s)
-3. Scene 3 — Feature 2: GitHub Code & Repo Audit — 6.0s (11.0s - 17.0s)
-4. Scene 4 — Feature 3: Adaptive Career Roadmap & Code Verifier — 6.0s (17.0s - 23.0s)
-5. Scene 5 — Feature 4: PulseBot AI Assistant & Workstation Outro — 7.0s (23.0s - 30.0s)
-
-## Audio
-- Audio track: `happy-beats-business-moves-vol-1-by-ende-dot-app.mp3` (duration: 30s)
-- SFX: Tactile clicks, card slides, switches, and impact bell on outro.
+## Audio Assets
+- Music: `assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3`
+- SFX: `assets/sfx/impact/impactSoft_medium_001.ogg`, `assets/sfx/impact/impactBell_heavy_000.ogg`, `assets/sfx/interface/drop_001.ogg`, `assets/sfx/interface/click_001.ogg`, `assets/sfx/interface/switch_001.ogg`, `assets/sfx/casino/card-slide-1.ogg`, `assets/sfx/casino/chips-collide-1.ogg`, `assets/sfx/keyboard/keypress-001.wav` through `keypress-016.wav`.

@@ -36,6 +36,7 @@ export default function MascotCoach() {
 
   const messagesEndRef = useRef(null);
   const speechTimerRef = useRef(null);
+  const userDismissedBubbleRef = useRef(false);
   const drawerRef = useRef(null);
   const mascotBtnRef = useRef(null);
   const lastOpenedAtRef = useRef(0);
@@ -71,15 +72,19 @@ export default function MascotCoach() {
     };
   }, [route]);
 
-  // Cycle idle speech bubble tips every 11 seconds
+  // Cycle idle speech bubble tips every 11 seconds unless user explicitly dismissed it
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen || userDismissedBubbleRef.current) {
       setShowSpeechBubble(false);
       return;
     }
 
     let tipIndex = 0;
     speechTimerRef.current = setInterval(() => {
+      if (userDismissedBubbleRef.current) {
+        setShowSpeechBubble(false);
+        return;
+      }
       tipIndex = (tipIndex + 1) % IDLE_TIPS.length;
       setSpeechBubbleText(IDLE_TIPS[tipIndex]);
       setShowSpeechBubble(true);
@@ -269,6 +274,7 @@ export default function MascotCoach() {
               className="mascot-bubble__close"
               onClick={(e) => {
                 e.stopPropagation();
+                userDismissedBubbleRef.current = true;
                 setShowSpeechBubble(false);
               }}
               aria-label="Dismiss message"

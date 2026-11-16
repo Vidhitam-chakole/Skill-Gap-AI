@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --orange: #ff6b1a;
   --orange-light: #ff8c42;
   --yellow: #ffe600;
@@ -29,6 +30,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  color-scheme: light;
 }
 
 body {
@@ -37,6 +39,7 @@ body {
   color: var(--black);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  color-scheme: light;
 }
 
 #root {
@@ -59,10 +62,14 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  color-scheme: light;
+  color: inherit;
 }
 
-input, textarea {
+input, textarea, select {
   font-family: var(--font-body);
+  color-scheme: light;
+  color: var(--black, #0a0a0a);
 }
 
 img {

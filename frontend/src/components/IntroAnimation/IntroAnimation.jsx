@@ -32,7 +32,6 @@ export default function IntroAnimation({ onComplete }) {
         preload="auto"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <source src="/intro.webm" type="video/webm" />
         <source src="/intro.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>

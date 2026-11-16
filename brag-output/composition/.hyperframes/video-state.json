@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "230b9d64-78cb-4910-b085-4b7510fb5ed3",
-  "currentRevision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
+  "currentRevision": "fcbc858a-c38a-4a20-bb67-739e3325dc47",
   "pendingChanges": false,
   "files": {
     "assets/sfx/casino/card-slide-1.ogg": {
@@ -37,8 +37,8 @@
       "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\53\\53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
     },
     "index.html": {
-      "hash": "756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014",
-      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014"
+      "hash": "57ab88a4ff5f24e1deab3443e1ff5a72daafe497c9d181bc91254231bee23b6b",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\57\\57ab88a4ff5f24e1deab3443e1ff5a72daafe497c9d181bc91254231bee23b6b"
     },
     "package.json": {
       "hash": "a1cc8889be74c9bd616032cf9a376eacb597a837f8d59793b3ede7aec39c75cd",
@@ -47,6 +47,326 @@
     "assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3": {
       "hash": "aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f",
       "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\aa\\aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f"
+    },
+    "assets/sfx/keyboard/keypress-001.wav": {
+      "hash": "7b873548c399b9aa0efbe63052fe1344c5317a9b23455b8be3523f47d434daf1",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\7b\\7b873548c399b9aa0efbe63052fe1344c5317a9b23455b8be3523f47d434daf1"
+    },
+    "assets/sfx/keyboard/keypress-002.wav": {
+      "hash": "f58f93430c1ad434feb341a89b89740ccad75e7a775d778d91b7f206e0acbe8e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\f5\\f58f93430c1ad434feb341a89b89740ccad75e7a775d778d91b7f206e0acbe8e"
+    },
+    "assets/sfx/keyboard/keypress-003.wav": {
+      "hash": "d67cf9547d99fc65c815c4c68fa9181e0af71419761cbb1d1f0a10eb8491a8d2",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d6\\d67cf9547d99fc65c815c4c68fa9181e0af71419761cbb1d1f0a10eb8491a8d2"
+    },
+    "assets/sfx/keyboard/keypress-004.wav": {
+      "hash": "29e1aea1fb841a0663ce75e9d83e675ddc7ae5cef00c623bdda65a72604fde7e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\29\\29e1aea1fb841a0663ce75e9d83e675ddc7ae5cef00c623bdda65a72604fde7e"
+    },
+    "assets/sfx/keyboard/keypress-005.wav": {
+      "hash": "619eb7e26571657b76fc9e1e3d99e85c3fc2259fa91c4c45f57384a85774ac24",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\61\\619eb7e26571657b76fc9e1e3d99e85c3fc2259fa91c4c45f57384a85774ac24"
+    },
+    "assets/sfx/keyboard/keypress-006.wav": {
+      "hash": "419bde001e7ed1cae63b84f60c803fb024a0254e1afe65e59d8c6d8ad4196eb7",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\41\\419bde001e7ed1cae63b84f60c803fb024a0254e1afe65e59d8c6d8ad4196eb7"
+    },
+    "assets/sfx/keyboard/keypress-007.wav": {
+      "hash": "522834f471e6c2935fd1e6a28042c0864925556efbec32c36d7c7a98026d4bfc",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\52\\522834f471e6c2935fd1e6a28042c0864925556efbec32c36d7c7a98026d4bfc"
+    },
+    "assets/sfx/keyboard/keypress-008.wav": {
+      "hash": "c2ab8722a81a2f1cab66cd863a09a9ec00392e2ede61362b3707a7bcc0eee506",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c2\\c2ab8722a81a2f1cab66cd863a09a9ec00392e2ede61362b3707a7bcc0eee506"
+    },
+    "assets/sfx/keyboard/keypress-009.wav": {
+      "hash": "25595c1d1e0e18aada04dce3a651dc2c499f1fbc2647c1ab0b3c4e718275b16b",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\25\\25595c1d1e0e18aada04dce3a651dc2c499f1fbc2647c1ab0b3c4e718275b16b"
+    },
+    "assets/sfx/keyboard/keypress-010.wav": {
+      "hash": "3a65bf93ec554b068b0a64d11d2bb521cd54e7a9e7ef3362a670efb1e410f0dc",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\3a\\3a65bf93ec554b068b0a64d11d2bb521cd54e7a9e7ef3362a670efb1e410f0dc"
+    },
+    "assets/sfx/keyboard/keypress-011.wav": {
+      "hash": "72e79b249040bff166be863dd75f5c50d6e22bf904bd7e0adab1b30941e19968",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\72\\72e79b249040bff166be863dd75f5c50d6e22bf904bd7e0adab1b30941e19968"
+    },
+    "assets/sfx/keyboard/keypress-012.wav": {
+      "hash": "79de7a9cc035ca4204600a52281129be9f258b1d903c88279b1e7128e57ba86c",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\79\\79de7a9cc035ca4204600a52281129be9f258b1d903c88279b1e7128e57ba86c"
+    },
+    "assets/sfx/keyboard/keypress-013.wav": {
+      "hash": "a73d12a22403fe7b63a3da41ff07f13f956e3a30b397196288262d467f1e28c3",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a7\\a73d12a22403fe7b63a3da41ff07f13f956e3a30b397196288262d467f1e28c3"
+    },
+    "assets/sfx/keyboard/keypress-014.wav": {
+      "hash": "b2069e29be488a7e55b151ef458e3314ec8f138f6d5a34fe19189f4810cba098",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b2\\b2069e29be488a7e55b151ef458e3314ec8f138f6d5a34fe19189f4810cba098"
+    },
+    "assets/sfx/keyboard/keypress-015.wav": {
+      "hash": "39df76e16d6daa76619f17b724ed4fdcfacc3d0c311103f6d45dc23ec3634678",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\39\\39df76e16d6daa76619f17b724ed4fdcfacc3d0c311103f6d45dc23ec3634678"
+    },
+    "assets/sfx/keyboard/keypress-016.wav": {
+      "hash": "181e3c5d28d2a1ed0e953f5668391ef1f9b7cd577d33058fb62bd18473b45791",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\18\\181e3c5d28d2a1ed0e953f5668391ef1f9b7cd577d33058fb62bd18473b45791"
+    },
+    "assets/sfx/keyboard/keypress-017.wav": {
+      "hash": "0f8d80d3f64328936bb699eade15cc89de12b7464833459e539bcf001101e431",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\0f\\0f8d80d3f64328936bb699eade15cc89de12b7464833459e539bcf001101e431"
+    },
+    "assets/sfx/keyboard/keypress-018.wav": {
+      "hash": "784622e91e8797605fa76c43c0e4745663688c9faf455ff2a951d79f5f4dac65",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\78\\784622e91e8797605fa76c43c0e4745663688c9faf455ff2a951d79f5f4dac65"
+    },
+    "assets/sfx/keyboard/keypress-019.wav": {
+      "hash": "9cdb32c0074eaa114f8740e80bdfc28b1b44b4c6789371e1ec872e185e92d49e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\9c\\9cdb32c0074eaa114f8740e80bdfc28b1b44b4c6789371e1ec872e185e92d49e"
+    },
+    "assets/sfx/keyboard/keypress-020.wav": {
+      "hash": "056b14dea2cc590e817851d93f910b0ba918cd9179bbb4d2b39b4db92c0d505f",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\05\\056b14dea2cc590e817851d93f910b0ba918cd9179bbb4d2b39b4db92c0d505f"
+    },
+    "assets/sfx/keyboard/keypress-021.wav": {
+      "hash": "209c16dabc4f687a210db16db590a9e1ac40bfc2740ce569d2a9382d1e79acc7",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\20\\209c16dabc4f687a210db16db590a9e1ac40bfc2740ce569d2a9382d1e79acc7"
+    },
+    "assets/sfx/keyboard/keypress-022.wav": {
+      "hash": "8cf602c150e338a94e9c19dcf68b1d80af5adb311c84ec20590a6ab0359b91c5",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8c\\8cf602c150e338a94e9c19dcf68b1d80af5adb311c84ec20590a6ab0359b91c5"
+    },
+    "assets/sfx/keyboard/keypress-023.wav": {
+      "hash": "b7395018288bc4842af0983a97d790e9db84ab65dc8ae57629dc6a9ba31ff62c",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b7\\b7395018288bc4842af0983a97d790e9db84ab65dc8ae57629dc6a9ba31ff62c"
+    },
+    "assets/sfx/keyboard/keypress-024.wav": {
+      "hash": "39f3a508a9be3bbf31f630ccf9a9413f02068965babd3885771d6060f58b388e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\39\\39f3a508a9be3bbf31f630ccf9a9413f02068965babd3885771d6060f58b388e"
+    },
+    "assets/sfx/keyboard/keypress-025.wav": {
+      "hash": "bd3f9c7f28df223592fd6b3ae3c8c6f6f0fa5d899e66492825ee7b5dd4a3a9dc",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bd\\bd3f9c7f28df223592fd6b3ae3c8c6f6f0fa5d899e66492825ee7b5dd4a3a9dc"
+    },
+    "assets/sfx/keyboard/keypress-026.wav": {
+      "hash": "a7016b0c501bcc73a190bb3783626ecc6c3086e9a935e13c3828d70854e4774e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a7\\a7016b0c501bcc73a190bb3783626ecc6c3086e9a935e13c3828d70854e4774e"
+    },
+    "assets/sfx/keyboard/keypress-027.wav": {
+      "hash": "c0376d2249a2c6d4e79d166445bb83ca6efbdcc09518b8323499644e393dd5ab",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c0\\c0376d2249a2c6d4e79d166445bb83ca6efbdcc09518b8323499644e393dd5ab"
+    },
+    "assets/sfx/keyboard/keypress-028.wav": {
+      "hash": "a324dd279d5422bc2328e49122cdd39d071faccaf109332602f6ede13686ada7",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a3\\a324dd279d5422bc2328e49122cdd39d071faccaf109332602f6ede13686ada7"
+    },
+    "assets/sfx/keyboard/keypress-029.wav": {
+      "hash": "248b459e92dce812858aab2498546887957828007978fa29f481ac16d799a14b",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\24\\248b459e92dce812858aab2498546887957828007978fa29f481ac16d799a14b"
+    },
+    "assets/sfx/keyboard/keypress-030.wav": {
+      "hash": "355fb80cc1a40165de17c7653eed643da30afbb87f444d74c2eb0119adeec4f5",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\35\\355fb80cc1a40165de17c7653eed643da30afbb87f444d74c2eb0119adeec4f5"
+    },
+    "assets/sfx/keyboard/keypress-031.wav": {
+      "hash": "df5718d60529e81769597226c5bce593b3a6fd6ae7aeb9b7249754059d0c464a",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\df\\df5718d60529e81769597226c5bce593b3a6fd6ae7aeb9b7249754059d0c464a"
+    },
+    "assets/sfx/keyboard/keypress-032.wav": {
+      "hash": "569648b47017747070b6d2a6d640449030b1b70da717c1f774c76a32dd75fb6c",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\56\\569648b47017747070b6d2a6d640449030b1b70da717c1f774c76a32dd75fb6c"
+    },
+    "assets/sfx/ui/click1.ogg": {
+      "hash": "59175ac17cd49a68dd736285738441287636112a84a6f7ce0d89921bda5a5360",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\59\\59175ac17cd49a68dd736285738441287636112a84a6f7ce0d89921bda5a5360"
+    },
+    "assets/sfx/ui/click2.ogg": {
+      "hash": "c394b46bc6737f7f7edfbfa3031ce621b7a43d498d456d6198364eee9cd3e306",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c3\\c394b46bc6737f7f7edfbfa3031ce621b7a43d498d456d6198364eee9cd3e306"
+    },
+    "assets/sfx/ui/click3.ogg": {
+      "hash": "e3e7fc7ccd9c5cfdf77bffa05aee10d4973812076c76dc889ba2b16ea434127f",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\e3\\e3e7fc7ccd9c5cfdf77bffa05aee10d4973812076c76dc889ba2b16ea434127f"
+    },
+    "assets/sfx/ui/click4.ogg": {
+      "hash": "9c02bbfc872b50eb8750adf4b7c343120f19f5d2f04ab06a7a8948368a77b872",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\9c\\9c02bbfc872b50eb8750adf4b7c343120f19f5d2f04ab06a7a8948368a77b872"
+    },
+    "assets/sfx/ui/click5.ogg": {
+      "hash": "52d41e0bb012731bf2a391d53ffb52265ef21589c7701e66b391d5e36a65b293",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\52\\52d41e0bb012731bf2a391d53ffb52265ef21589c7701e66b391d5e36a65b293"
+    },
+    "assets/sfx/ui/mouseclick1.ogg": {
+      "hash": "ece1210c62ccae6c9ea4f4c59466d9d453d6b357c7d4b1a6c31196e5e6fea1bf",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ec\\ece1210c62ccae6c9ea4f4c59466d9d453d6b357c7d4b1a6c31196e5e6fea1bf"
+    },
+    "assets/sfx/ui/rollover1.ogg": {
+      "hash": "4eb47e2e1540c44847b47a89825e21335c820a4e54cacf8c4c1eb5100e36af42",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\4e\\4eb47e2e1540c44847b47a89825e21335c820a4e54cacf8c4c1eb5100e36af42"
+    },
+    "assets/sfx/ui/rollover2.ogg": {
+      "hash": "d0bc0fcba496d73df1da8c145e5330df75f87ab5a4f33a9b71461b006b5c338e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d0\\d0bc0fcba496d73df1da8c145e5330df75f87ab5a4f33a9b71461b006b5c338e"
+    },
+    "assets/sfx/ui/rollover4.ogg": {
+      "hash": "8b70e47aa1d51d220a3609a02cc50ceed6e05a20f51c6f8daaf5fd83eae42cf3",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8b\\8b70e47aa1d51d220a3609a02cc50ceed6e05a20f51c6f8daaf5fd83eae42cf3"
+    },
+    "assets/sfx/ui/rollover5.ogg": {
+      "hash": "3e1805b914a66e63695913d19ba98c5ec584cc69d29c7167d83c460ab752a5d3",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\3e\\3e1805b914a66e63695913d19ba98c5ec584cc69d29c7167d83c460ab752a5d3"
+    },
+    "assets/sfx/ui/switch1.ogg": {
+      "hash": "efdd1d1e2904fb2d81259cd96bb80101caceae94be02baa4b5310714a6708b19",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ef\\efdd1d1e2904fb2d81259cd96bb80101caceae94be02baa4b5310714a6708b19"
+    },
+    "assets/sfx/ui/switch10.ogg": {
+      "hash": "bf61b3f3af39b2c680e70ee2f791786edd2bca2016ea683947059f079849bbf3",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bf\\bf61b3f3af39b2c680e70ee2f791786edd2bca2016ea683947059f079849bbf3"
+    },
+    "assets/sfx/ui/switch11.ogg": {
+      "hash": "a8d445bd96fe3842ff2dcdd42ae728330baa8928032ca5f3d5cd4b926929550a",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a8\\a8d445bd96fe3842ff2dcdd42ae728330baa8928032ca5f3d5cd4b926929550a"
+    },
+    "assets/sfx/ui/switch12.ogg": {
+      "hash": "dab0c21eacb6536724d139c27c0d60c932c87171752dc8d24d7a826694377f94",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\da\\dab0c21eacb6536724d139c27c0d60c932c87171752dc8d24d7a826694377f94"
+    },
+    "assets/sfx/ui/switch13.ogg": {
+      "hash": "54d1e63b907274bb415a8de7f652194756a8eeab4079a7cf769ec153b93a436a",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\54\\54d1e63b907274bb415a8de7f652194756a8eeab4079a7cf769ec153b93a436a"
+    },
+    "assets/sfx/ui/switch14.ogg": {
+      "hash": "c640b370738c816eda3d1196d8a8dda7130825b4094f3bb3cbba22a9f6f9b7c9",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c6\\c640b370738c816eda3d1196d8a8dda7130825b4094f3bb3cbba22a9f6f9b7c9"
+    },
+    "assets/sfx/ui/switch15.ogg": {
+      "hash": "5a20a9d5365dec8fec1311731540f56429cab38822326133c7ce60fbcf9fd275",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\5a\\5a20a9d5365dec8fec1311731540f56429cab38822326133c7ce60fbcf9fd275"
+    },
+    "assets/sfx/ui/switch16.ogg": {
+      "hash": "d2e9dd4fd2918132f8400e270701384e93139f2207ac115705a2c183cf3d2098",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d2\\d2e9dd4fd2918132f8400e270701384e93139f2207ac115705a2c183cf3d2098"
+    },
+    "assets/sfx/ui/switch17.ogg": {
+      "hash": "d09974d4cf5ccb2d75647e2464cd424e7e3c7a0374e73e8a22577662031a3677",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d0\\d09974d4cf5ccb2d75647e2464cd424e7e3c7a0374e73e8a22577662031a3677"
+    },
+    "assets/sfx/ui/switch18.ogg": {
+      "hash": "ba759707fc2e55f4e7d1edd1dd78a4110267f4dc564edfb989c00f062ef69d8c",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ba\\ba759707fc2e55f4e7d1edd1dd78a4110267f4dc564edfb989c00f062ef69d8c"
+    },
+    "assets/sfx/ui/switch19.ogg": {
+      "hash": "63753f884e4e0d44b0939bee9f048b32e658d996958930363c0579ffa0f810c1",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\63\\63753f884e4e0d44b0939bee9f048b32e658d996958930363c0579ffa0f810c1"
+    },
+    "assets/sfx/ui/switch2.ogg": {
+      "hash": "aa8ad6e4745e87c84c24a0335e0e0f8629ccbbc474ccfd544fe07d7f3a1b2280",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\aa\\aa8ad6e4745e87c84c24a0335e0e0f8629ccbbc474ccfd544fe07d7f3a1b2280"
+    },
+    "assets/sfx/ui/switch20.ogg": {
+      "hash": "276b402ee4840f88a8df4eca6ece029b61c5840fa9149b0c5008fe4bda89cc21",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\27\\276b402ee4840f88a8df4eca6ece029b61c5840fa9149b0c5008fe4bda89cc21"
+    },
+    "assets/sfx/ui/switch21.ogg": {
+      "hash": "8a3fdc5d35c74ae4ce4ec75c1f85c7f5fac1a2a6ac838353b09c48c5d7888fc9",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8a\\8a3fdc5d35c74ae4ce4ec75c1f85c7f5fac1a2a6ac838353b09c48c5d7888fc9"
+    },
+    "assets/sfx/ui/switch22.ogg": {
+      "hash": "913261ad55fa0692902e4027a7a139844e7589d30c4286ab10e6d637f28b1d9f",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\91\\913261ad55fa0692902e4027a7a139844e7589d30c4286ab10e6d637f28b1d9f"
+    },
+    "assets/sfx/ui/switch23.ogg": {
+      "hash": "148d91722dd819b450d8b50e65686d9b1d39d38ca05b361caa387bcbd2a90d81",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\14\\148d91722dd819b450d8b50e65686d9b1d39d38ca05b361caa387bcbd2a90d81"
+    },
+    "assets/sfx/ui/switch24.ogg": {
+      "hash": "aec5e91eef35c4a64d3bec7a25e54a68fa0448f4cf3179455e18c72c3dda60e9",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ae\\aec5e91eef35c4a64d3bec7a25e54a68fa0448f4cf3179455e18c72c3dda60e9"
+    },
+    "assets/sfx/ui/switch25.ogg": {
+      "hash": "ba31fc9a780a6908809154e0108e8d2728b5b9a6e769c8f56d61d920fba100ae",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ba\\ba31fc9a780a6908809154e0108e8d2728b5b9a6e769c8f56d61d920fba100ae"
+    },
+    "assets/sfx/ui/switch26.ogg": {
+      "hash": "1a628e2fbede99afdb57533fa367f352fede596df18c91deb841a21f8171654a",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\1a\\1a628e2fbede99afdb57533fa367f352fede596df18c91deb841a21f8171654a"
+    },
+    "assets/sfx/ui/switch27.ogg": {
+      "hash": "a6a3a5fa54037e3b69c0fe7f2d9b50422cb23dd616bb7f72ac0a2a028a810028",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a6\\a6a3a5fa54037e3b69c0fe7f2d9b50422cb23dd616bb7f72ac0a2a028a810028"
+    },
+    "assets/sfx/ui/switch28.ogg": {
+      "hash": "2f7b627d85ce1530faef5374d3826bfca1ff2823b1b41d5f908448976061e2d4",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\2f\\2f7b627d85ce1530faef5374d3826bfca1ff2823b1b41d5f908448976061e2d4"
+    },
+    "assets/sfx/ui/switch29.ogg": {
+      "hash": "b2923ed170e963b5e211bf73e75f8eeb41f6b49a46eb52f3b3fc43234c713a16",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b2\\b2923ed170e963b5e211bf73e75f8eeb41f6b49a46eb52f3b3fc43234c713a16"
+    },
+    "assets/sfx/ui/switch3.ogg": {
+      "hash": "75d87dc60b7d29df838530af8c9e28205102234e07b5f1e849aa3d95c3922bd0",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\75d87dc60b7d29df838530af8c9e28205102234e07b5f1e849aa3d95c3922bd0"
+    },
+    "assets/sfx/ui/switch30.ogg": {
+      "hash": "d220abb5218fccc6d37649e17e7cce2a4e253f474332d9ea2b0f0518264aff5a",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d2\\d220abb5218fccc6d37649e17e7cce2a4e253f474332d9ea2b0f0518264aff5a"
+    },
+    "assets/sfx/ui/switch31.ogg": {
+      "hash": "bca5f3047e73d28f6619d49a45dee1984340c165da5fa49b239068c2cb9b4be1",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bc\\bca5f3047e73d28f6619d49a45dee1984340c165da5fa49b239068c2cb9b4be1"
+    },
+    "assets/sfx/ui/switch32.ogg": {
+      "hash": "b740f507ad386a1d09bb5ca69a75231656a71375df11348fcd2d5e323b8d6727",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b7\\b740f507ad386a1d09bb5ca69a75231656a71375df11348fcd2d5e323b8d6727"
+    },
+    "assets/sfx/ui/switch33.ogg": {
+      "hash": "977ecead4b27cf9801aed433bfa4bdfcf49444c15990d27d2e472401a1fb2742",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\97\\977ecead4b27cf9801aed433bfa4bdfcf49444c15990d27d2e472401a1fb2742"
+    },
+    "assets/sfx/ui/switch34.ogg": {
+      "hash": "6e7943ed133c1b559d009da5028da0a318fee0b1bcfe6e4fa49744ba2cd3975b",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\6e\\6e7943ed133c1b559d009da5028da0a318fee0b1bcfe6e4fa49744ba2cd3975b"
+    },
+    "assets/sfx/ui/switch35.ogg": {
+      "hash": "1ec7f5a76318f88c499d37567167f565cb564266d52b37112aac6467fe4126cb",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\1e\\1ec7f5a76318f88c499d37567167f565cb564266d52b37112aac6467fe4126cb"
+    },
+    "assets/sfx/ui/switch36.ogg": {
+      "hash": "1dd3cf29291219ab2eed0292d5c3b06b1e102ea70821099e741fc127734ffa04",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\1d\\1dd3cf29291219ab2eed0292d5c3b06b1e102ea70821099e741fc127734ffa04"
+    },
+    "assets/sfx/ui/switch37.ogg": {
+      "hash": "25faa57a3e819a3e3a2191934226e540467fcd11680131a7a77b47271048327e",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\25\\25faa57a3e819a3e3a2191934226e540467fcd11680131a7a77b47271048327e"
+    },
+    "assets/sfx/ui/switch38.ogg": {
+      "hash": "d5c164ba622e3c7904eb0f442a81cff9985bebbd8951202348d2a7c8a449309b",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d5\\d5c164ba622e3c7904eb0f442a81cff9985bebbd8951202348d2a7c8a449309b"
+    },
+    "assets/sfx/ui/switch4.ogg": {
+      "hash": "687a42c24e5d25be1a256f35a439fe858548fe76d43ccfb17db546618b0d36db",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\68\\687a42c24e5d25be1a256f35a439fe858548fe76d43ccfb17db546618b0d36db"
+    },
+    "assets/sfx/ui/switch5.ogg": {
+      "hash": "8a5c85c0009cfd985634e8fdb4e0350690be5d85fd49f43a90b35c7de0bef7c0",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8a\\8a5c85c0009cfd985634e8fdb4e0350690be5d85fd49f43a90b35c7de0bef7c0"
+    },
+    "assets/sfx/ui/switch6.ogg": {
+      "hash": "34d37cbfe6785cab2f3217b613fc976ba05b869c0ce61381eafa67ee257ecc9d",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\34\\34d37cbfe6785cab2f3217b613fc976ba05b869c0ce61381eafa67ee257ecc9d"
+    },
+    "assets/sfx/ui/switch7.ogg": {
+      "hash": "7a3032d1dae63d1096cf2f1e59cb43e598d5229dcb9617e9d3fb13e96c78d5f2",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\7a\\7a3032d1dae63d1096cf2f1e59cb43e598d5229dcb9617e9d3fb13e96c78d5f2"
+    },
+    "assets/sfx/ui/switch8.ogg": {
+      "hash": "c7bf07f8d58ac62faac2427868619631b1a89b0ab08e87c7c01621a086fa1873",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c7\\c7bf07f8d58ac62faac2427868619631b1a89b0ab08e87c7c01621a086fa1873"
+    },
+    "assets/sfx/ui/switch9.ogg": {
+      "hash": "069861740681c528866483e3d528d79034f24d744c4fc79f7045b7d9ed999e26",
+      "content": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\06\\069861740681c528866483e3d528d79034f24d744c4fc79f7045b7d9ed999e26"
     }
   },
   "revisions": {
@@ -109,12 +429,403 @@
           "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014"
         }
       }
+    },
+    "112db0fb-e8d3-4707-b5e7-01152797fb8d": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794765071077,
+      "endedAt": 1794765071082,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\756345522a4575ce4be660016f1af3c879b17c39f15a979e5468d8a8238d6014",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\34\\341d7f7577800d6d4939a22981821db9e201f6267655feb0dd67e65c8412d1c2"
+        }
+      }
+    },
+    "96b305b0-3e8a-491f-9ccf-f687b5e474f6": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794818443304,
+      "endedAt": 1794818444469,
+      "files": {
+        "assets/sfx/keyboard/keypress-001.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\7b\\7b873548c399b9aa0efbe63052fe1344c5317a9b23455b8be3523f47d434daf1"
+        },
+        "assets/sfx/keyboard/keypress-002.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\f5\\f58f93430c1ad434feb341a89b89740ccad75e7a775d778d91b7f206e0acbe8e"
+        },
+        "assets/sfx/keyboard/keypress-003.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d6\\d67cf9547d99fc65c815c4c68fa9181e0af71419761cbb1d1f0a10eb8491a8d2"
+        },
+        "assets/sfx/keyboard/keypress-004.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\29\\29e1aea1fb841a0663ce75e9d83e675ddc7ae5cef00c623bdda65a72604fde7e"
+        },
+        "assets/sfx/keyboard/keypress-005.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\61\\619eb7e26571657b76fc9e1e3d99e85c3fc2259fa91c4c45f57384a85774ac24"
+        },
+        "assets/sfx/keyboard/keypress-006.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\41\\419bde001e7ed1cae63b84f60c803fb024a0254e1afe65e59d8c6d8ad4196eb7"
+        },
+        "assets/sfx/keyboard/keypress-007.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\52\\522834f471e6c2935fd1e6a28042c0864925556efbec32c36d7c7a98026d4bfc"
+        },
+        "assets/sfx/keyboard/keypress-008.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c2\\c2ab8722a81a2f1cab66cd863a09a9ec00392e2ede61362b3707a7bcc0eee506"
+        },
+        "assets/sfx/keyboard/keypress-009.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\25\\25595c1d1e0e18aada04dce3a651dc2c499f1fbc2647c1ab0b3c4e718275b16b"
+        },
+        "assets/sfx/keyboard/keypress-010.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\3a\\3a65bf93ec554b068b0a64d11d2bb521cd54e7a9e7ef3362a670efb1e410f0dc"
+        },
+        "assets/sfx/keyboard/keypress-011.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\72\\72e79b249040bff166be863dd75f5c50d6e22bf904bd7e0adab1b30941e19968"
+        },
+        "assets/sfx/keyboard/keypress-012.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\79\\79de7a9cc035ca4204600a52281129be9f258b1d903c88279b1e7128e57ba86c"
+        },
+        "assets/sfx/keyboard/keypress-013.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a7\\a73d12a22403fe7b63a3da41ff07f13f956e3a30b397196288262d467f1e28c3"
+        },
+        "assets/sfx/keyboard/keypress-014.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b2\\b2069e29be488a7e55b151ef458e3314ec8f138f6d5a34fe19189f4810cba098"
+        },
+        "assets/sfx/keyboard/keypress-015.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\39\\39df76e16d6daa76619f17b724ed4fdcfacc3d0c311103f6d45dc23ec3634678"
+        },
+        "assets/sfx/keyboard/keypress-016.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\18\\181e3c5d28d2a1ed0e953f5668391ef1f9b7cd577d33058fb62bd18473b45791"
+        },
+        "assets/sfx/keyboard/keypress-017.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\0f\\0f8d80d3f64328936bb699eade15cc89de12b7464833459e539bcf001101e431"
+        },
+        "assets/sfx/keyboard/keypress-018.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\78\\784622e91e8797605fa76c43c0e4745663688c9faf455ff2a951d79f5f4dac65"
+        },
+        "assets/sfx/keyboard/keypress-019.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\9c\\9cdb32c0074eaa114f8740e80bdfc28b1b44b4c6789371e1ec872e185e92d49e"
+        },
+        "assets/sfx/keyboard/keypress-020.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\05\\056b14dea2cc590e817851d93f910b0ba918cd9179bbb4d2b39b4db92c0d505f"
+        },
+        "assets/sfx/keyboard/keypress-021.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\20\\209c16dabc4f687a210db16db590a9e1ac40bfc2740ce569d2a9382d1e79acc7"
+        },
+        "assets/sfx/keyboard/keypress-022.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8c\\8cf602c150e338a94e9c19dcf68b1d80af5adb311c84ec20590a6ab0359b91c5"
+        },
+        "assets/sfx/keyboard/keypress-023.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b7\\b7395018288bc4842af0983a97d790e9db84ab65dc8ae57629dc6a9ba31ff62c"
+        },
+        "assets/sfx/keyboard/keypress-024.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\39\\39f3a508a9be3bbf31f630ccf9a9413f02068965babd3885771d6060f58b388e"
+        },
+        "assets/sfx/keyboard/keypress-025.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bd\\bd3f9c7f28df223592fd6b3ae3c8c6f6f0fa5d899e66492825ee7b5dd4a3a9dc"
+        },
+        "assets/sfx/keyboard/keypress-026.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a7\\a7016b0c501bcc73a190bb3783626ecc6c3086e9a935e13c3828d70854e4774e"
+        },
+        "assets/sfx/keyboard/keypress-027.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c0\\c0376d2249a2c6d4e79d166445bb83ca6efbdcc09518b8323499644e393dd5ab"
+        },
+        "assets/sfx/keyboard/keypress-028.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a3\\a324dd279d5422bc2328e49122cdd39d071faccaf109332602f6ede13686ada7"
+        },
+        "assets/sfx/keyboard/keypress-029.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\24\\248b459e92dce812858aab2498546887957828007978fa29f481ac16d799a14b"
+        },
+        "assets/sfx/keyboard/keypress-030.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\35\\355fb80cc1a40165de17c7653eed643da30afbb87f444d74c2eb0119adeec4f5"
+        },
+        "assets/sfx/keyboard/keypress-031.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\df\\df5718d60529e81769597226c5bce593b3a6fd6ae7aeb9b7249754059d0c464a"
+        },
+        "assets/sfx/keyboard/keypress-032.wav": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\56\\569648b47017747070b6d2a6d640449030b1b70da717c1f774c76a32dd75fb6c"
+        },
+        "assets/sfx/ui/click1.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\59\\59175ac17cd49a68dd736285738441287636112a84a6f7ce0d89921bda5a5360"
+        },
+        "assets/sfx/ui/click2.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c3\\c394b46bc6737f7f7edfbfa3031ce621b7a43d498d456d6198364eee9cd3e306"
+        },
+        "assets/sfx/ui/click3.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\e3\\e3e7fc7ccd9c5cfdf77bffa05aee10d4973812076c76dc889ba2b16ea434127f"
+        },
+        "assets/sfx/ui/click4.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\9c\\9c02bbfc872b50eb8750adf4b7c343120f19f5d2f04ab06a7a8948368a77b872"
+        },
+        "assets/sfx/ui/click5.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\52\\52d41e0bb012731bf2a391d53ffb52265ef21589c7701e66b391d5e36a65b293"
+        },
+        "assets/sfx/ui/mouseclick1.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ec\\ece1210c62ccae6c9ea4f4c59466d9d453d6b357c7d4b1a6c31196e5e6fea1bf"
+        },
+        "assets/sfx/ui/rollover1.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\4e\\4eb47e2e1540c44847b47a89825e21335c820a4e54cacf8c4c1eb5100e36af42"
+        },
+        "assets/sfx/ui/rollover2.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d0\\d0bc0fcba496d73df1da8c145e5330df75f87ab5a4f33a9b71461b006b5c338e"
+        },
+        "assets/sfx/ui/rollover4.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8b\\8b70e47aa1d51d220a3609a02cc50ceed6e05a20f51c6f8daaf5fd83eae42cf3"
+        },
+        "assets/sfx/ui/rollover5.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\3e\\3e1805b914a66e63695913d19ba98c5ec584cc69d29c7167d83c460ab752a5d3"
+        },
+        "assets/sfx/ui/switch1.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ef\\efdd1d1e2904fb2d81259cd96bb80101caceae94be02baa4b5310714a6708b19"
+        },
+        "assets/sfx/ui/switch10.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bf\\bf61b3f3af39b2c680e70ee2f791786edd2bca2016ea683947059f079849bbf3"
+        },
+        "assets/sfx/ui/switch11.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a8\\a8d445bd96fe3842ff2dcdd42ae728330baa8928032ca5f3d5cd4b926929550a"
+        },
+        "assets/sfx/ui/switch12.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\da\\dab0c21eacb6536724d139c27c0d60c932c87171752dc8d24d7a826694377f94"
+        },
+        "assets/sfx/ui/switch13.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\54\\54d1e63b907274bb415a8de7f652194756a8eeab4079a7cf769ec153b93a436a"
+        },
+        "assets/sfx/ui/switch14.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c6\\c640b370738c816eda3d1196d8a8dda7130825b4094f3bb3cbba22a9f6f9b7c9"
+        },
+        "assets/sfx/ui/switch15.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\5a\\5a20a9d5365dec8fec1311731540f56429cab38822326133c7ce60fbcf9fd275"
+        },
+        "assets/sfx/ui/switch16.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d2\\d2e9dd4fd2918132f8400e270701384e93139f2207ac115705a2c183cf3d2098"
+        },
+        "assets/sfx/ui/switch17.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d0\\d09974d4cf5ccb2d75647e2464cd424e7e3c7a0374e73e8a22577662031a3677"
+        },
+        "assets/sfx/ui/switch18.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ba\\ba759707fc2e55f4e7d1edd1dd78a4110267f4dc564edfb989c00f062ef69d8c"
+        },
+        "assets/sfx/ui/switch19.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\63\\63753f884e4e0d44b0939bee9f048b32e658d996958930363c0579ffa0f810c1"
+        },
+        "assets/sfx/ui/switch2.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\aa\\aa8ad6e4745e87c84c24a0335e0e0f8629ccbbc474ccfd544fe07d7f3a1b2280"
+        },
+        "assets/sfx/ui/switch20.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\27\\276b402ee4840f88a8df4eca6ece029b61c5840fa9149b0c5008fe4bda89cc21"
+        },
+        "assets/sfx/ui/switch21.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8a\\8a3fdc5d35c74ae4ce4ec75c1f85c7f5fac1a2a6ac838353b09c48c5d7888fc9"
+        },
+        "assets/sfx/ui/switch22.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\91\\913261ad55fa0692902e4027a7a139844e7589d30c4286ab10e6d637f28b1d9f"
+        },
+        "assets/sfx/ui/switch23.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\14\\148d91722dd819b450d8b50e65686d9b1d39d38ca05b361caa387bcbd2a90d81"
+        },
+        "assets/sfx/ui/switch24.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ae\\aec5e91eef35c4a64d3bec7a25e54a68fa0448f4cf3179455e18c72c3dda60e9"
+        },
+        "assets/sfx/ui/switch25.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\ba\\ba31fc9a780a6908809154e0108e8d2728b5b9a6e769c8f56d61d920fba100ae"
+        },
+        "assets/sfx/ui/switch26.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\1a\\1a628e2fbede99afdb57533fa367f352fede596df18c91deb841a21f8171654a"
+        },
+        "assets/sfx/ui/switch27.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\a6\\a6a3a5fa54037e3b69c0fe7f2d9b50422cb23dd616bb7f72ac0a2a028a810028"
+        },
+        "assets/sfx/ui/switch28.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\2f\\2f7b627d85ce1530faef5374d3826bfca1ff2823b1b41d5f908448976061e2d4"
+        },
+        "assets/sfx/ui/switch29.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b2\\b2923ed170e963b5e211bf73e75f8eeb41f6b49a46eb52f3b3fc43234c713a16"
+        },
+        "assets/sfx/ui/switch3.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\75\\75d87dc60b7d29df838530af8c9e28205102234e07b5f1e849aa3d95c3922bd0"
+        },
+        "assets/sfx/ui/switch30.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d2\\d220abb5218fccc6d37649e17e7cce2a4e253f474332d9ea2b0f0518264aff5a"
+        },
+        "assets/sfx/ui/switch31.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\bc\\bca5f3047e73d28f6619d49a45dee1984340c165da5fa49b239068c2cb9b4be1"
+        },
+        "assets/sfx/ui/switch32.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\b7\\b740f507ad386a1d09bb5ca69a75231656a71375df11348fcd2d5e323b8d6727"
+        },
+        "assets/sfx/ui/switch33.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\97\\977ecead4b27cf9801aed433bfa4bdfcf49444c15990d27d2e472401a1fb2742"
+        },
+        "assets/sfx/ui/switch34.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\6e\\6e7943ed133c1b559d009da5028da0a318fee0b1bcfe6e4fa49744ba2cd3975b"
+        },
+        "assets/sfx/ui/switch35.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\1e\\1ec7f5a76318f88c499d37567167f565cb564266d52b37112aac6467fe4126cb"
+        },
+        "assets/sfx/ui/switch36.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\1d\\1dd3cf29291219ab2eed0292d5c3b06b1e102ea70821099e741fc127734ffa04"
+        },
+        "assets/sfx/ui/switch37.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\25\\25faa57a3e819a3e3a2191934226e540467fcd11680131a7a77b47271048327e"
+        },
+        "assets/sfx/ui/switch38.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\d5\\d5c164ba622e3c7904eb0f442a81cff9985bebbd8951202348d2a7c8a449309b"
+        },
+        "assets/sfx/ui/switch4.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\68\\687a42c24e5d25be1a256f35a439fe858548fe76d43ccfb17db546618b0d36db"
+        },
+        "assets/sfx/ui/switch5.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\8a\\8a5c85c0009cfd985634e8fdb4e0350690be5d85fd49f43a90b35c7de0bef7c0"
+        },
+        "assets/sfx/ui/switch6.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\34\\34d37cbfe6785cab2f3217b613fc976ba05b869c0ce61381eafa67ee257ecc9d"
+        },
+        "assets/sfx/ui/switch7.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\7a\\7a3032d1dae63d1096cf2f1e59cb43e598d5229dcb9617e9d3fb13e96c78d5f2"
+        },
+        "assets/sfx/ui/switch8.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c7\\c7bf07f8d58ac62faac2427868619631b1a89b0ab08e87c7c01621a086fa1873"
+        },
+        "assets/sfx/ui/switch9.ogg": {
+          "before": null,
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\06\\069861740681c528866483e3d528d79034f24d744c4fc79f7045b7d9ed999e26"
+        }
+      }
+    },
+    "ba91e90b-4870-4102-8208-d6059a0250ab": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794818707343,
+      "endedAt": 1794818707348,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\34\\341d7f7577800d6d4939a22981821db9e201f6267655feb0dd67e65c8412d1c2",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c7\\c79dd76ece6718c7f8580bd6b4a5e40ccdea691cb9d4cb38631b807a5d4dadb6"
+        }
+      }
+    },
+    "65de69ee-d170-4de4-bf12-d74feb2a7de4": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794818870706,
+      "endedAt": 1794818870711,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\c7\\c79dd76ece6718c7f8580bd6b4a5e40ccdea691cb9d4cb38631b807a5d4dadb6",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\55\\5553273f6507e1437e67c8df201d575ef28b9ab1ea360d5d11e21ba8edf773b5"
+        }
+      }
+    },
+    "fcbc858a-c38a-4a20-bb67-739e3325dc47": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794818941589,
+      "endedAt": 1794818941591,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\55\\5553273f6507e1437e67c8df201d575ef28b9ab1ea360d5d11e21ba8edf773b5",
+          "after": "C:\\Users\\Dell\\.cache\\hyperframes\\history\\230b9d64-78cb-4910-b085-4b7510fb5ed3\\blobs\\57\\57ab88a4ff5f24e1deab3443e1ff5a72daafe497c9d181bc91254231bee23b6b"
+        }
+      }
     }
   },
   "checks": {
     "latest": {
-      "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
-      "id": "2294b850-f30c-4c53-947c-c68be29e5e9a"
+      "revision": "112db0fb-e8d3-4707-b5e7-01152797fb8d",
+      "id": "748d0ba6-c46a-4ba5-83b6-3e3a5ac0a06b"
     },
     "revisions": {
       "52d6891c-7620-44ce-bf33-d5c2b392d235": [
@@ -159,7 +870,6 @@
         {
           "id": "01c50643-a901-4730-bc3d-52436224e9f8",
           "scope": "project",
-          "report": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\01c50643-a901-4730-bc3d-52436224e9f8.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -189,7 +899,9 @@
           "revision": "e7d9311d-063d-414f-b322-8ab10ae7ae1f",
           "inputFingerprint": "47f1a63e296ae7568d9f515a150fc1f20bee335dc0007d0d883787a568ebab0b",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "5150dbbe-8e83-4565-b6a7-d90e7b848b68"
         }
       ],
       "f8723c95-e739-456d-9b86-12b9ee686cc6": [
@@ -234,7 +946,6 @@
         {
           "id": "2294b850-f30c-4c53-947c-c68be29e5e9a",
           "scope": "project",
-          "report": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\2294b850-f30c-4c53-947c-c68be29e5e9a.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -264,7 +975,196 @@
           "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
           "inputFingerprint": "cc6e10d1e062bff76e9ad1ff9dda820a5db04eaae24e6a5b3111324f977a63c6",
           "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "a7f0b62d-f85e-4cc2-b4c1-7d2e5a7880bc"
+        },
+        {
+          "id": "d0464629-bec9-40cc-a616-db15cc5ade64",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794764892436,
+          "contentHash": "8ae14914439ae2b344c270ad7f3ff03436b180bced4986e1a604a41d4c019d28",
+          "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
+          "inputFingerprint": "cc6e10d1e062bff76e9ad1ff9dda820a5db04eaae24e6a5b3111324f977a63c6",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "a7f0b62d-f85e-4cc2-b4c1-7d2e5a7880bc"
+        }
+      ],
+      "112db0fb-e8d3-4707-b5e7-01152797fb8d": [
+        {
+          "id": "748d0ba6-c46a-4ba5-83b6-3e3a5ac0a06b",
+          "scope": "project",
+          "report": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\748d0ba6-c46a-4ba5-83b6-3e3a5ac0a06b.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794765084038,
+          "contentHash": "e014b19bcf7a8786aff6f1e624e64a6d6766cdcc670887de36f7d95534d2d735",
+          "revision": "112db0fb-e8d3-4707-b5e7-01152797fb8d",
+          "inputFingerprint": "7ac59143f1a2e200a17fe61041f98a234747573ae0d4ef98193abe261882ede4",
+          "inputScope": "local-project-files",
           "attribution": "recorded-revision"
+        }
+      ],
+      "96b305b0-3e8a-491f-9ccf-f687b5e474f6": [
+        {
+          "id": "478488c3-68eb-4682-9026-3a9861d46bf3",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794818456775,
+          "contentHash": "e014b19bcf7a8786aff6f1e624e64a6d6766cdcc670887de36f7d95534d2d735",
+          "revision": "96b305b0-3e8a-491f-9ccf-f687b5e474f6",
+          "inputFingerprint": "b74bff98dee398899d7449681a7340e272f68cf37aee19716b0341e3e74a2493",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "a7f0b62d-f85e-4cc2-b4c1-7d2e5a7880bc"
+        }
+      ],
+      "ba91e90b-4870-4102-8208-d6059a0250ab": [
+        {
+          "id": "d021db38-669b-4982-b244-def9017b303e",
+          "scope": "project",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794818726376,
+          "contentHash": "60a96b414dfcd01835203a3c148e6a34044d1db1d67ce1ed9f9a138e65f6173c",
+          "revision": "ba91e90b-4870-4102-8208-d6059a0250ab",
+          "inputFingerprint": "78b31c59f1e9a2a2299d758928f5aaf6cebfd435af590459c1d48722006d8f20",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "a7f0b62d-f85e-4cc2-b4c1-7d2e5a7880bc"
+        }
+      ],
+      "65de69ee-d170-4de4-bf12-d74feb2a7de4": [
+        {
+          "id": "832e27ad-74d3-4e12-9b61-2a4083e776ad",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794818892438,
+          "contentHash": "5ee946dd1add7a564cb32c8b0614f44e6a98047a9c5a200ad72487d0a6046414",
+          "revision": "65de69ee-d170-4de4-bf12-d74feb2a7de4",
+          "inputFingerprint": "0b2ea220ee1276a7b1af2d332b248b9f516c6704e9e00700e6f117a7dcef6417",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "a7f0b62d-f85e-4cc2-b4c1-7d2e5a7880bc"
         }
       ]
     },
@@ -313,15 +1213,15 @@
   },
   "renders": {
     "latest": {
-      "id": "c531feef-db37-41e8-a52b-dc916ae7ac4b",
-      "completedAt": 1794683454771,
+      "id": "a7f0b62d-f85e-4cc2-b4c1-7d2e5a7880bc",
+      "completedAt": 1794819117168,
       "output": "C:\\Users\\Dell\\OneDrive\\Desktop\\Skill-Gap-AI\\brag-output\\brag.mp4",
       "status": "completed",
-      "revision": "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb"
+      "revision": "fcbc858a-c38a-4a20-bb67-739e3325dc47"
     },
     "retainedRevisions": [
-      "e3c2bb45-4d00-4285-9c8f-ed4daaf09dfb",
-      "e7d9311d-063d-414f-b322-8ab10ae7ae1f"
+      "fcbc858a-c38a-4a20-bb67-739e3325dc47",
+      "112db0fb-e8d3-4707-b5e7-01152797fb8d"
     ]
   },
   "pendingArtifactCleanup": []
