@@ -44,13 +44,31 @@ else:
         allow_headers=["*"],
     )
 
-# Mount modular routers under /api
+# Path normalization middleware for Vercel Serverless Function rewrites
+@app.middleware("http")
+async def normalize_vercel_path(request: Request, call_next):
+    path = request.scope.get("path", "")
+    if path.startswith("/api/index.py"):
+        request.scope["path"] = path[len("/api/index.py"):] or "/"
+    elif path.startswith("/api/index"):
+        request.scope["path"] = path[len("/api/index"):] or "/"
+    return await call_next(request)
+
+
+# Mount modular routers under /api AND root to guarantee routing resilience
 app.include_router(linkedin.router, prefix="/api")
 app.include_router(github.router, prefix="/api")
 app.include_router(roadmap.router, prefix="/api")
 app.include_router(chat.router, prefix="/api")
 app.include_router(skill_verifier.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
+
+app.include_router(linkedin.router)
+app.include_router(github.router)
+app.include_router(roadmap.router)
+app.include_router(chat.router)
+app.include_router(skill_verifier.router)
+app.include_router(users.router)
 
 
 def _error_message(detail: object) -> str:

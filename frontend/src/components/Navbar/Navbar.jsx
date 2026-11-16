@@ -7,7 +7,6 @@ const NAV_ITEMS = [
   { id: 'github', label: 'GitHub', icon: 'gh' },
   { id: 'roadmap', label: 'Roadmap', icon: 'R' },
   { id: 'verifier', label: 'Verifier', icon: 'V' },
-  { id: 'faq', label: 'FAQ', icon: '?' },
 ];
 
 export default function Navbar({ activeSection, onNavigate }) {

@@ -1475,4 +1475,223 @@
   box-shadow: 1px 1px 0 var(--black, #0a0a0a) !important;
 }
 
+/* ==========================================================================
+   Mobile & Responsive Enhancements for GitHub Dashboard
+   ========================================================================== */
+@media (max-width: 768px) {
+  .gh-dashboard {
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .gh-hero {
+    gap: 1rem;
+  }
+
+  .gh-score-card {
+    padding: 1.25rem 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .gh-score-dial {
+    width: 130px;
+    height: 130px;
+  }
+
+  .gh-score-value {
+    font-size: 2.75rem;
+  }
+
+  .gh-profile-card {
+    padding: 1.25rem 0.85rem;
+    box-shadow: var(--shadow);
+    gap: 1rem;
+  }
+
+  .gh-profile-top {
+    gap: 1rem;
+  }
+
+  .gh-avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .gh-profile-name {
+    font-size: 1.35rem;
+  }
+
+  .gh-profile-username {
+    font-size: 0.95rem;
+  }
+
+  .gh-profile-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .gh-profile-stat-box {
+    padding: 0.55rem 0.65rem;
+  }
+
+  .gh-profile-stat-value {
+    font-size: 1.25rem;
+  }
+
+  .gh-profile-stat-label {
+    font-size: 0.65rem;
+  }
+
+  .gh-nav-tabs {
+    gap: 0.35rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .gh-nav-btn {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.74rem;
+    gap: 0.3rem;
+    border-width: 2px;
+    box-shadow: 2px 2px 0 var(--black, #0a0a0a);
+  }
+
+  .gh-tab-panel {
+    gap: 1.25rem;
+  }
+
+  .gh-card {
+    padding: 1.25rem 0.85rem;
+    box-shadow: var(--shadow);
+  }
+
+  .gh-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .gh-card-title {
+    font-size: 1.1rem;
+  }
+
+  .gh-lang-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .gh-verify-banner {
+    padding: 1rem 0.85rem;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    gap: 0.85rem;
+  }
+
+  .gh-verify-banner button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gh-repos-list {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .gh-repo-card {
+    padding: 1rem 0.85rem;
+  }
+
+  .gh-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .gh-input,
+  .gh-search-input,
+  .gh-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .gh-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gh-heatmap-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .gh-streak-badges {
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .gh-streak-item {
+    width: 100%;
+    font-size: 0.78rem;
+  }
+
+  .gh-modal-card {
+    padding: 1.25rem 1rem;
+    width: calc(100vw - 1.5rem);
+    max-height: 85vh;
+  }
+
+  .gh-lang-picker-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gh-profile-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .gh-profile-name-row {
+    justify-content: center;
+  }
+
+  .gh-meta-badges {
+    justify-content: center;
+  }
+
+  .gh-profile-actions {
+    justify-content: stretch;
+  }
+
+  .gh-github-link-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gh-profile-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+
+  .gh-profile-stat-box {
+    padding: 0.45rem 0.55rem;
+  }
+
+  .gh-profile-stat-value {
+    font-size: 1.1rem;
+  }
+
+  .gh-nav-btn {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.7rem;
+  }
+
+  .gh-lang-picker-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
