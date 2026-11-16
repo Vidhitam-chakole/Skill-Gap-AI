@@ -5,12 +5,18 @@ from pathlib import Path
 
 # Add repository root and backend to sys.path so all modular imports resolve cleanly
 ROOT_DIR = Path(__file__).resolve().parent.parent
-if str(ROOT_DIR) not in sys.path:
-    sys.path.insert(0, str(ROOT_DIR))
-
-BACKEND_DIR = ROOT_DIR / "backend"
-if str(BACKEND_DIR) not in sys.path:
-    sys.path.insert(0, str(BACKEND_DIR))
+for p in [
+    ROOT_DIR,
+    ROOT_DIR / "backend",
+    ROOT_DIR / "github_analyzer",
+    ROOT_DIR / "linkedin_analyzer",
+    ROOT_DIR / "roadmap",
+    ROOT_DIR / "ai_agent",
+    ROOT_DIR / "skill_verifier",
+]:
+    p_str = str(p)
+    if p_str not in sys.path and p.exists():
+        sys.path.insert(0, p_str)
 
 # Signal serverless environment for storage fallbacks
 os.environ.setdefault("VERCEL", "1")
