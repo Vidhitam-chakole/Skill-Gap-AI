@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 from pathlib import Path
@@ -14,7 +15,26 @@ if str(BACKEND_DIR) not in sys.path:
 # Signal serverless environment for storage fallbacks
 os.environ.setdefault("VERCEL", "1")
 
-from backend.app.main import app
+try:
+    from backend.app.main import app
+except Exception as e:
+    import traceback
+    err_tb = traceback.format_exc()
 
-# Vercel Python runtime detects ASGI `app`
+    async def app(scope, receive, send):
+        if scope["type"] == "http":
+            body = json.dumps({"error": "Startup failed", "detail": err_tb}).encode("utf-8")
+            await send({
+                "type": "http.response.start",
+                "status": 500,
+                "headers": [
+                    [b"content-type", b"application/json"],
+                    [b"content-length", str(len(body)).encode("utf-8")],
+                ],
+            })
+            await send({
+                "type": "http.response.body",
+                "body": body,
+            })
+
 __all__ = ["app"]

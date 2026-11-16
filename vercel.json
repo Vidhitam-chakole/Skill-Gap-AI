@@ -1,5 +1,11 @@
 {
   "version": 2,
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "{backend,github_analyzer,linkedin_analyzer,roadmap,ai_agent,skill_verifier,frontend/dist}/**",
+      "maxDuration": 60
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
