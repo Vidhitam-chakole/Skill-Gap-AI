@@ -22,7 +22,10 @@ for p in [
 os.environ.setdefault("VERCEL", "1")
 
 try:
-    from backend.app.main import app
+    try:
+        from app.main import app
+    except ImportError:
+        from backend.app.main import app
 except Exception as e:
     import traceback
     err_tb = traceback.format_exc()

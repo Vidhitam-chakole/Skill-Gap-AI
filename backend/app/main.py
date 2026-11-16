@@ -47,16 +47,13 @@ else:
 # Path normalization middleware for Vercel Serverless Function rewrites
 @app.middleware("http")
 async def normalize_vercel_path(request: Request, call_next):
-    # Vercel sends the real client request path in x-vercel-original-path or x-matched-path
-    real_path = request.headers.get("x-vercel-original-path") or request.headers.get("x-matched-path")
-    if real_path:
-        request.scope["path"] = real_path
-
     path = request.scope.get("path", "")
-    if path.startswith("/api/index.py"):
-        request.scope["path"] = path[len("/api/index.py"):] or "/"
-    elif path.startswith("/api/index"):
-        request.scope["path"] = path[len("/api/index"):] or "/"
+    if path.startswith("/api/index.py/"):
+        request.scope["path"] = path[len("/api/index.py"):]
+    elif path.startswith("/api/index/"):
+        request.scope["path"] = path[len("/api/index"):]
+    elif path in ("/api/index.py", "/api/index"):
+        request.scope["path"] = "/api"
     return await call_next(request)
 
 
