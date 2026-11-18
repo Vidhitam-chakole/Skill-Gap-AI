@@ -23,12 +23,36 @@
       "destination": "/api/linkedin/analyze"
     },
     {
+      "source": "/api/chat/message",
+      "destination": "/api/chat/message"
+    },
+    {
+      "source": "/api/chat/config",
+      "destination": "/api/chat/config"
+    },
+    {
+      "source": "/api/roadmap/build",
+      "destination": "/api/roadmap/build"
+    },
+    {
+      "source": "/api/skill-verifier/languages",
+      "destination": "/api/skill-verifier/languages"
+    },
+    {
+      "source": "/api/skill-verifier/generate",
+      "destination": "/api/skill-verifier/generate"
+    },
+    {
+      "source": "/api/skill-verifier/submit",
+      "destination": "/api/skill-verifier/submit"
+    },
+    {
       "source": "/api/(.*)",
-      "destination": "/api"
+      "destination": "/api/index.py?__path=$1"
     },
     {
       "source": "/api",
-      "destination": "/api"
+      "destination": "/api/index.py"
     },
     {
       "source": "/((?!api).*)",

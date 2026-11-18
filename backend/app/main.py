@@ -49,16 +49,31 @@ else:
 @app.middleware("http")
 async def normalize_vercel_path(request: Request, call_next):
     path = request.scope.get("path", "")
-    if path.startswith("/api/index.py/"):
-        request.scope["path"] = path[len("/api/index.py"):]
-    elif path.startswith("/api/index/"):
-        request.scope["path"] = path[len("/api/index"):]
-    elif path in ("/api/index.py", "/api/index", "/api"):
-        orig = request.headers.get("x-vercel-original-path") or request.headers.get("x-matched-path")
-        if orig and orig not in ("/api/index.py", "/api/index", "/", "/api"):
-            request.scope["path"] = orig
-        else:
-            request.scope["path"] = "/api"
+    if path.startswith("/api/index.py"):
+        sub = path[len("/api/index.py"):]
+        path = sub if sub else "/"
+        request.scope["path"] = path
+    elif path.startswith("/api/index"):
+        sub = path[len("/api/index"):]
+        path = sub if sub else "/"
+        request.scope["path"] = path
+
+    if path in ("/", "/api", "/api/"):
+        q_path = request.query_params.get("__path")
+        orig = (
+            q_path
+            or request.headers.get("x-vercel-original-path")
+            or request.headers.get("x-forwarded-uri")
+            or request.headers.get("x-matched-path")
+        )
+        if orig:
+            clean = orig.split("?")[0].strip()
+            if clean and clean not in ("/api/index.py", "/api/index", "/api", "/api/", "/"):
+                if not clean.startswith("/"):
+                    clean = "/" + clean
+                if not clean.startswith("/api"):
+                    clean = "/api" + clean
+                request.scope["path"] = clean
     return await call_next(request)
 
 
